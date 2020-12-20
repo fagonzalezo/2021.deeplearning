@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LAB 01 - Submission example &#8212; Fundamentos de Deep Learning</title>
+    <title>01.01 - DL Overview &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,7 +56,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="01 - General Instructions" href="NOTES%2001.01%20-%20GENERAL%20INSTRUCTIONS.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -93,19 +92,19 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active collapsible-parent">
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M01_intro.html">
    Module 01 - PRACTICE
   </a>
-  <ul class="current collapse-ul">
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="NOTES%2001.01%20-%20GENERAL%20INSTRUCTIONS.html">
      01 - General Instructions
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
      LAB 01 - Submission example
     </a>
    </li>
@@ -153,7 +152,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/LAB 01 - SUBMISSION EXAMPLE.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U1.01 - DL Overview.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -180,7 +179,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/LAB 01 - SUBMISSION EXAMPLE.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U1.01 - DL Overview.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -200,13 +199,23 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ejercicio-1-obten-el-maximo-y-el-minimo-de-una-lista">
-   Ejercicio 1: Obtén el máximo y el mínimo de una lista
+  <a class="reference internal nav-link" href="#some-types-of-neural-networks">
+   Some types of Neural Networks
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ejercicio-2-crea-dos-funciones-que-encuentren-la-media-y-desviacion-estandar">
-   Ejercicio 2: Crea dos funciones que encuentren la media y desviación estándar
+  <a class="reference internal nav-link" href="#why-dl-now">
+   Why DL now?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-learning">
+   Feature learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dl-is-suited-for-large-datasets-with-highly-dimensional-input-variables">
+   DL is suited for large datasets with highly dimensional input variables
   </a>
  </li>
 </ul>
@@ -220,118 +229,81 @@
         
               <div>
                 
-  <div class="section" id="lab-01-submission-example">
-<h1>LAB 01 - Submission example<a class="headerlink" href="#lab-01-submission-example" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dl-overview">
+<h1>01.01 - DL Overview<a class="headerlink" href="#dl-overview" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
-<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="n">init</span><span class="o">.</span><span class="n">get_weblink</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> 
-                                                <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L01.01&quot;</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/ai_ml_dl.jpeg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U1.01 - DL Overview_2_0.jpg" src="../_images/U1.01 - DL Overview_2_0.jpg" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/DL_timeline.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/U1.01 - DL Overview_3_0.png" src="../_images/U1.01 - DL Overview_3_0.png" />
 </div>
-<div class="section" id="ejercicio-1-obten-el-maximo-y-el-minimo-de-una-lista">
-<h2>Ejercicio 1: Obtén el máximo y el mínimo de una lista<a class="headerlink" href="#ejercicio-1-obten-el-maximo-y-el-minimo-de-una-lista" title="Permalink to this headline">¶</a></h2>
-<p>Una de las estructuras de datos en python son las listas, y aprender a obtener datos de ellas es importante para el manejo del lenguaje, por esto vamos a hallar el <strong>max</strong> y el <strong>min</strong> de una de ellas</p>
-<p>Ejemplo:
-[1, 7, 11, 3, 5, 2]</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>el minimo valor es 1
-el valor maximo es 11
-</pre></div>
 </div>
-<p>Deberás de calcular el máximo y mínimo de la siguiente lista. Puedes obtenerlos como quieras (a mano, programando en python, con excel, etc.).</p>
+<div class="section" id="some-types-of-neural-networks">
+<h2>Some types of Neural Networks<a class="headerlink" href="#some-types-of-neural-networks" title="Permalink to this headline">¶</a></h2>
+<p>http://www.asimovinstitute.org/neural-network-zoo/</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">lst</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/nntypes.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/U1.01 - DL Overview_5_0.png" src="../_images/U1.01 - DL Overview_5_0.png" />
 </div>
-<p><strong>Tu solución</strong></p>
-<p>Debes de asignar a las variables max y min el valor del maximo y minimo valor en la lista list</p>
+</div>
+</div>
+<div class="section" id="why-dl-now">
+<h2>Why DL now?<a class="headerlink" href="#why-dl-now" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://towardsdatascience.com/a-weird-introduction-to-deep-learning-7828803693b0">A “weird” introduction to Deep Learning</a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>As I said before, until the late 2000s, we were still missing a reliable way to train very deep neural networks. Nowadays, with the development of several simple but important theoretical and algorithmic improvements, the advances in hardware (mostly GPUs, now TPUs), and the exponential generation and accumulation of data, DL came naturally to fit this missing spot to transform the way we do machine learning.
+</pre></div>
+</div>
+</div>
+<div class="section" id="feature-learning">
+<h2>Feature learning<a class="headerlink" href="#feature-learning" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">maximum</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">minimum</span> <span class="o">=</span> <span class="o">...</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/feature_learning_ml_dl.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/U1.01 - DL Overview_9_0.png" src="../_images/U1.01 - DL Overview_9_0.png" />
 </div>
-<p><strong>Registra tu solución en linea</strong></p>
+</div>
+</div>
+<div class="section" id="dl-is-suited-for-large-datasets-with-highly-dimensional-input-variables">
+<h2>DL is suited for large datasets with highly dimensional input variables<a class="headerlink" href="#dl-is-suited-for-large-datasets-with-highly-dimensional-input-variables" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s1">&#39;L01.01&#39;</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;task_01&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/cnn_feature_hierarchy.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="ejercicio-2-crea-dos-funciones-que-encuentren-la-media-y-desviacion-estandar">
-<h2>Ejercicio 2: Crea dos funciones que encuentren la media y desviación estándar<a class="headerlink" href="#ejercicio-2-crea-dos-funciones-que-encuentren-la-media-y-desviacion-estandar" title="Permalink to this headline">¶</a></h2>
-<p>Completa las dos funciones <code class="docutils literal notranslate"><span class="pre">list_mean</span></code> y <code class="docutils literal notranslate"><span class="pre">list_std</span></code> para que al recibir una lista o un vector <code class="docutils literal notranslate"><span class="pre">numpy</span></code> como argumento calculen la media y desviación estándar, respectivamente.</p>
-<p>Ejemplo:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; lst_1 = np.random.randint(10, size=5)
-&gt; print(lst_1)
-&gt; print(list_mean(lst_1))
-&gt; print(list_stdev(lst_1))
-
-[6 4 1 7 2]
-4.0
-2.280350850198276
-</pre></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="k">def</span> <span class="nf">list_mean</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
-    <span class="c1">## your code here ##</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="o">...</span>
-    <span class="k">return</span> <span class="n">mean</span>
-
-<span class="k">def</span> <span class="nf">list_stdev</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
-    <span class="c1">## your code here ##</span>
-    <span class="n">stdev</span> <span class="o">=</span> <span class="o">...</span>
-    <span class="k">return</span> <span class="n">stdev</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Prueba tus funciones</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lst_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">lst_1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_mean</span><span class="p">(</span><span class="n">lst_1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_stdev</span><span class="p">(</span><span class="n">lst_1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Registra tu solución en linea</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;task_01&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U1.01 - DL Overview_11_0.png" src="../_images/U1.01 - DL Overview_11_0.png" />
 </div>
 </div>
 </div>
@@ -346,16 +318,16 @@ el valor maximo es 11
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "p38"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "p38",
+            kernelName: "python3",
             path: "./content"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'p38'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -365,7 +337,6 @@ el valor maximo es 11
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="NOTES%2001.01%20-%20GENERAL%20INSTRUCTIONS.html" title="previous page">01 - General Instructions</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

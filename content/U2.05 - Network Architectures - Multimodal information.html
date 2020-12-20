@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>02.08 - Network architectures - Multimodal information &#8212; Fundamentos de Deep Learning</title>
+    <title>5 - Network architectures - Multimodal information &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LAB - Multimodal architectures" href="U2.09%20-%20%5BTALLER%5D%20-%20Multimodal%20architectures.html" />
-    <link rel="prev" title="LAB - Autoencoders" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html" />
+    <link rel="next" title="LAB - Autoencoders" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html" />
+    <link rel="prev" title="4 - Network architectures - Autoencoders" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -96,28 +96,23 @@
 </ul>
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="M01_intro.html">
-   Module 01 - PRACTICE
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
-     01.01 - DL Overview
+     1 - DL Overview
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
-     01.02 - Models derived from data
+     2 - Models derived from data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
-     01.03 - ML algorithm desigmn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
-     LAB 01 - Submission example
+     3 - ML algorithm design
     </a>
    </li>
   </ul>
@@ -131,27 +126,32 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U2.01%20-%20Introduction%20to%20Artificial%20Neural%20Networks.html">
-     02.01 Intro to ANN
+     1 Intro to ANN
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.02%20-%20MLP%20with%20Keras.html">
-     02.02 MLP with Keras
+     2 MLP with Keras
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
-     02.05 - Network architectures - Autoencoders
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     4 - Network architectures - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5 - Network architectures - Multimodal information
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html">
      LAB - Autoencoders
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     02.08 - Network architectures - Multimodal information
     </a>
    </li>
    <li class="toctree-l2">
@@ -203,7 +203,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U2.08 - Network Architectures - Multimodal information.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U2.05 - Network Architectures - Multimodal information.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -230,7 +230,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.08 - Network Architectures - Multimodal information.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.05 - Network Architectures - Multimodal information.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -288,7 +288,7 @@
               <div>
                 
   <div class="section" id="network-architectures-multimodal-information">
-<h1>02.08 - Network architectures - Multimodal information<a class="headerlink" href="#network-architectures-multimodal-information" title="Permalink to this headline">¶</a></h1>
+<h1>5 - Network architectures - Multimodal information<a class="headerlink" href="#network-architectures-multimodal-information" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -356,7 +356,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.08 - Network Architectures - Multimodal information_5_0.png" src="../_images/U2.08 - Network Architectures - Multimodal information_5_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Multimodal information_5_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_5_0.png" />
 </div>
 </div>
 <div class="section" id="a-regular-neural-network-for-classification">
@@ -368,7 +368,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.08 - Network Architectures - Multimodal information_7_0.png" src="../_images/U2.08 - Network Architectures - Multimodal information_7_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Multimodal information_7_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_7_0.png" />
 </div>
 </div>
 <p>Number of connections:</p>
@@ -912,7 +912,7 @@ Epoch 200/200
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.08 - Network Architectures - Multimodal information_20_0.png" src="../_images/U2.08 - Network Architectures - Multimodal information_20_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Multimodal information_20_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_20_0.png" />
 </div>
 </div>
 </div>
@@ -953,7 +953,7 @@ accuracy test  0.772
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.08 - Network Architectures - Multimodal information_24_0.png" src="../_images/U2.08 - Network Architectures - Multimodal information_24_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Multimodal information_24_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_24_0.png" />
 </div>
 </div>
 <p>Number of connections:</p>
@@ -1496,7 +1496,7 @@ Epoch 200/200
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.08 - Network Architectures - Multimodal information_31_0.png" src="../_images/U2.08 - Network Architectures - Multimodal information_31_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Multimodal information_31_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_31_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1547,8 +1547,8 @@ accuracy test  0.828
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html" title="previous page">LAB - Autoencoders</a>
-    <a class='right-next' id="next-link" href="U2.09%20-%20%5BTALLER%5D%20-%20Multimodal%20architectures.html" title="next page">LAB - Multimodal architectures</a>
+    <a class='left-prev' id="prev-link" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html" title="previous page">4 - Network architectures - Autoencoders</a>
+    <a class='right-next' id="next-link" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html" title="next page">LAB - Autoencoders</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

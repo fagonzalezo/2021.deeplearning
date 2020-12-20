@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB - Autoencoders &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/rlxmooc_logo-black.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01_intro.html">
+   Module 01 - PRACTICE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     01.01 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     01.02 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     01.03 - ML algorithm desigmn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
+     LAB 01 - Submission example
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U2.06 - [TALLER] - Autoencoders.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.06 - [TALLER] - Autoencoders.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#autoencoder-with-small-sparse-activations">
+   Autoencoder with small (sparse) activations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implement-the-following-loss-function">
+   Implement the following loss function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#test-the-reconstruction">
+     test the reconstruction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-the-weights">
+     show the weights
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-activations-in-latent-space">
+     show activations in latent space
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-the-distribution-of-activations-in-latent-space">
+     show the distribution of activations in latent space
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-most-representative-neuron-in-latent-space-for-each-class">
+     show most representative neuron in latent space for each class
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="lab-autoencoders">
+<h1>LAB - Autoencoders<a class="headerlink" href="#lab-autoencoders" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;setting tensorflow version in colab&quot;</span><span class="p">)</span>
+    <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.0.0&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;local/data/mnist1.5k.csv.gz&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">785</span><span class="p">]</span><span class="o">/</span><span class="mf">255.</span>
+<span class="n">y</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dimension de las imagenes y las clases&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dimension de las imagenes y las clases (1500, 784) (1500,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">random_imgs</span>   <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
+<span class="n">random_labels</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span> 
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">random_imgs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">random_imgs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">random_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.06 - [TALLER] - Autoencoders_5_0.png" src="../_images/U2.06 - [TALLER] - Autoencoders_5_0.png" />
+</div>
+</div>
+<div class="section" id="autoencoder-with-small-sparse-activations">
+<h2>Autoencoder with small (sparse) activations<a class="headerlink" href="#autoencoder-with-small-sparse-activations" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.backend</span> <span class="kn">import</span> <span class="n">clear_session</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.regularizers</span> <span class="kn">import</span> <span class="n">l1</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="implement-the-following-loss-function">
+<h2>Implement the following loss function<a class="headerlink" href="#implement-the-following-loss-function" title="Permalink to this headline">¶</a></h2>
+<p>given:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k=50\)</span>, latent dimension</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x}^{(i)} \in \mathbb{R}^{784}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(e(\mathbf{x}^{(i)}) \in \mathbb{R}^{k}\)</span>, the encoder</p></li>
+<li><p><span class="math notranslate nohighlight">\(d(e(\mathbf{x}^{(i)})) \in \mathbb{R}^{784}\)</span>, the decoder</p></li>
+</ul>
+<p>implement the following cost function</p>
+<div class="math notranslate nohighlight">
+\[\text{loss}(\mathbf{x}^{(i)}) = \frac{1}{m}\sum_m \big(\mathbf{x}^{(i)} - d(e(\mathbf{x}^{(i)}))\big)^2 + \beta \frac{1}{k}\sum_{k,i} e(\mathbf{x}^{(i)})\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">mse</span>
+
+
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">code_size</span><span class="p">,</span> <span class="n">beta</span><span class="o">=.</span><span class="mi">01</span><span class="p">):</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_dim</span><span class="p">)</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">code_size</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">encoder</span><span class="p">)</span>
+
+    <span class="n">avg_latent_activations</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="n">inputs</span><span class="p">],</span> <span class="p">[</span><span class="n">outputs</span><span class="p">])</span>    
+    <span class="n">model</span><span class="o">.</span><span class="n">add_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">avg_latent_activations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">avg_latent_activations</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">code_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>W0220 14:44:45.825977 4384662976 training_utils.py:1444] Output dense_27 missing from loss dictionary. We assume this was done on purpose. The fit and evaluate APIs will not be expecting any data to be passed to dense_27.
+</pre></div>
+</div>
+</div>
+</div>
+<p>try with larger layer, try with more layers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 1200 samples
+Epoch 1/100
+1200/1200 [==============================] - 0s 171us/sample - loss: 0.2083
+Epoch 2/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.1205
+Epoch 3/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.1021
+Epoch 4/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0931
+Epoch 5/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0850
+Epoch 6/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0774
+Epoch 7/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0709
+Epoch 8/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0661
+Epoch 9/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0631
+Epoch 10/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0608
+Epoch 11/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0588
+Epoch 12/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0571
+Epoch 13/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0557
+Epoch 14/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0545
+Epoch 15/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0535
+Epoch 16/100
+1200/1200 [==============================] - 0s 51us/sample - loss: 0.0526
+Epoch 17/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0517
+Epoch 18/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0510
+Epoch 19/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0503
+Epoch 20/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0497
+Epoch 21/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0492
+Epoch 22/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0487
+Epoch 23/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0482
+Epoch 24/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0477
+Epoch 25/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0473
+Epoch 26/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0469
+Epoch 27/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0465
+Epoch 28/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0462
+Epoch 29/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0458
+Epoch 30/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0455
+Epoch 31/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0452
+Epoch 32/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0449
+Epoch 33/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0446
+Epoch 34/100
+1200/1200 [==============================] - 0s 51us/sample - loss: 0.0444
+Epoch 35/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0441
+Epoch 36/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0438
+Epoch 37/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0436
+Epoch 38/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0434
+Epoch 39/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0431
+Epoch 40/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0429
+Epoch 41/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0427
+Epoch 42/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0425
+Epoch 43/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0423
+Epoch 44/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0421
+Epoch 45/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0419
+Epoch 46/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0417
+Epoch 47/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0415
+Epoch 48/100
+1200/1200 [==============================] - 0s 54us/sample - loss: 0.0413
+Epoch 49/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0411
+Epoch 50/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0409
+Epoch 51/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0408
+Epoch 52/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0406
+Epoch 53/100
+1200/1200 [==============================] - 0s 57us/sample - loss: 0.0404
+Epoch 54/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0403
+Epoch 55/100
+1200/1200 [==============================] - 0s 57us/sample - loss: 0.0401
+Epoch 56/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0399
+Epoch 57/100
+1200/1200 [==============================] - 0s 56us/sample - loss: 0.0398
+Epoch 58/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0396
+Epoch 59/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0395
+Epoch 60/100
+1200/1200 [==============================] - 0s 56us/sample - loss: 0.0393
+Epoch 61/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0392
+Epoch 62/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0390
+Epoch 63/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0389
+Epoch 64/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0387
+Epoch 65/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0386
+Epoch 66/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0385
+Epoch 67/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0383
+Epoch 68/100
+1200/1200 [==============================] - 0s 51us/sample - loss: 0.0382
+Epoch 69/100
+1200/1200 [==============================] - 0s 56us/sample - loss: 0.0380
+Epoch 70/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0379
+Epoch 71/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0378
+Epoch 72/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0377
+Epoch 73/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0375
+Epoch 74/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0374
+Epoch 75/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0373
+Epoch 76/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0372
+Epoch 77/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0370
+Epoch 78/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0369
+Epoch 79/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0368
+Epoch 80/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0367
+Epoch 81/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0366
+Epoch 82/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0365
+Epoch 83/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0363
+Epoch 84/100
+1200/1200 [==============================] - 0s 44us/sample - loss: 0.0362
+Epoch 85/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0361
+Epoch 86/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0360
+Epoch 87/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0359
+Epoch 88/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0358
+Epoch 89/100
+1200/1200 [==============================] - 0s 44us/sample - loss: 0.0357
+Epoch 90/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0356
+Epoch 91/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0355
+Epoch 92/100
+1200/1200 [==============================] - 0s 50us/sample - loss: 0.0354
+Epoch 93/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0353
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 94/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0352
+Epoch 95/100
+1200/1200 [==============================] - 0s 55us/sample - loss: 0.0351
+Epoch 96/100
+1200/1200 [==============================] - 0s 53us/sample - loss: 0.0350
+Epoch 97/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0349
+Epoch 98/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0348
+Epoch 99/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0348
+Epoch 100/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0347
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x14999f198&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fl</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">function</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">input</span><span class="p">],</span> <span class="p">[</span><span class="n">avg_latent_activations</span><span class="p">])</span>
+<span class="n">fl</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([4.4608349e-01, 0.0000000e+00, 0.0000000e+00, 0.0000000e+00,
+        0.0000000e+00, 2.8072491e-01, 3.8508105e-01, 4.1526198e-01,
+        1.7899944e-03, 0.0000000e+00, 0.0000000e+00, 4.2354482e-01,
+        0.0000000e+00, 0.0000000e+00, 3.9055079e-01, 0.0000000e+00,
+        3.2591656e-01, 6.4026034e-01, 0.0000000e+00, 4.1022152e-01,
+        5.5418462e-01, 6.2894529e-01, 0.0000000e+00, 0.0000000e+00,
+        0.0000000e+00, 0.0000000e+00, 0.0000000e+00, 2.8380924e-01,
+        0.0000000e+00, 0.0000000e+00, 3.5680971e-01, 0.0000000e+00,
+        0.0000000e+00, 5.9563463e-04, 0.0000000e+00, 4.6177214e-01,
+        0.0000000e+00, 5.4042482e-01, 0.0000000e+00, 0.0000000e+00,
+        5.9360516e-01, 0.0000000e+00, 4.7642380e-01, 0.0000000e+00,
+        5.6514001e-01, 0.0000000e+00, 3.5979575e-01, 0.0000000e+00,
+        0.0000000e+00, 0.0000000e+00], dtype=float32)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="test-the-reconstruction">
+<h3>test the reconstruction<a class="headerlink" href="#test-the-reconstruction" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ellipsis
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="show-the-weights">
+<h3>show the weights<a class="headerlink" href="#show-the-weights" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ellipsis
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="show-activations-in-latent-space">
+<h3>show activations in latent space<a class="headerlink" href="#show-activations-in-latent-space" title="Permalink to this headline">¶</a></h3>
+<p>you should get something similar to this, indicating a much more sparse representation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/ae_sparse_activations.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.06 - [TALLER] - Autoencoders_21_0.png" src="../_images/U2.06 - [TALLER] - Autoencoders_21_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="show-the-distribution-of-activations-in-latent-space">
+<h3>show the distribution of activations in latent space<a class="headerlink" href="#show-the-distribution-of-activations-in-latent-space" title="Permalink to this headline">¶</a></h3>
+<p>should be quite concentrated at 0</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="show-most-representative-neuron-in-latent-space-for-each-class">
+<h3>show most representative neuron in latent space for each class<a class="headerlink" href="#show-most-representative-neuron-in-latent-space-for-each-class" title="Permalink to this headline">¶</a></h3>
+<p>now, representative neurons must show somewhat distinctive shapes for each number</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By YOUR NAME / YOUR INSTITUTION<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

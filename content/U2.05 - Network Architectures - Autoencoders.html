@@ -1,0 +1,1480 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02.05 - Network architectures - Autoencoders &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/rlxmooc_logo-black.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01_intro.html">
+   Module 01 - PRACTICE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     01.01 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     01.02 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     01.03 - ML algorithm desigmn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
+     LAB 01 - Submission example
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U2.05 - Network Architectures - Autoencoders.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.05 - Network Architectures - Autoencoders.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#autoencoders">
+   1. Autoencoders
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-reconstruction-on-sampled-test-images">
+     show reconstruction on sampled test images
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#show-weights">
+     show weights
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#see-data-in-latent-space">
+     see data in latent space
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#observe-distribution-of-activations">
+     observe distribution of activations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#avg-representative-of-each-class-in-latent-space-reconstructed">
+     avg representative of each class in latent space, reconstructed
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#most-representative-neuron-in-latent-space-for-each-class">
+     most representative neuron in latent space for each class
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#custom-loss-unsupervised-fit-x-call">
+   2. Custom loss, unsupervised
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .fit(X)
+    </span>
+   </code>
+   call
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#autoencoder-for-image-denoising">
+   3. Autoencoder for image denoising
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model">
+     in a more real scenario we only have noisy data to train the model
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="network-architectures-autoencoders">
+<h1>02.05 - Network architectures - Autoencoders<a class="headerlink" href="#network-architectures-autoencoders" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;setting tensorflow version in colab&quot;</span><span class="p">)</span>
+    <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.0.0&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;local/data/mnist1.5k.csv.gz&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">785</span><span class="p">]</span><span class="o">/</span><span class="mf">255.</span>
+<span class="n">y</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dimension de las imagenes y las clases&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dimension de las imagenes y las clases (1500, 784) (1500,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">random_imgs</span>   <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
+<span class="n">random_labels</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span> 
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">random_imgs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">random_imgs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">random_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_5_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_5_0.png" />
+</div>
+</div>
+<div class="section" id="autoencoders">
+<h2>1. Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.backend</span> <span class="kn">import</span> <span class="n">clear_session</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">code_size</span><span class="p">):</span>
+
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_dim</span><span class="p">)</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">code_size</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">avg_latent_activations</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">encoder</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="n">inputs</span><span class="p">],</span> <span class="p">[</span><span class="n">outputs</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">avg_latent_activations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>porqué sigmoide en la última capa. qué pasaría si ponemos tanh o linear</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">avg_latent_activations</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">code_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 784)]             0         
+_________________________________________________________________
+dense (Dense)                (None, 50)                39250     
+_________________________________________________________________
+dense_1 (Dense)              (None, 784)               39984     
+=================================================================
+Total params: 79,234
+Trainable params: 79,234
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>try with larger layer, try with more layers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 1200 samples
+Epoch 1/100
+1200/1200 [==============================] - 0s 220us/sample - loss: 0.1031
+Epoch 2/100
+1200/1200 [==============================] - 0s 96us/sample - loss: 0.0602
+Epoch 3/100
+1200/1200 [==============================] - 0s 96us/sample - loss: 0.0492
+Epoch 4/100
+1200/1200 [==============================] - 0s 66us/sample - loss: 0.0431
+Epoch 5/100
+1200/1200 [==============================] - 0s 65us/sample - loss: 0.0386
+Epoch 6/100
+1200/1200 [==============================] - 0s 68us/sample - loss: 0.0349
+Epoch 7/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0317
+Epoch 8/100
+1200/1200 [==============================] - 0s 67us/sample - loss: 0.0291
+Epoch 9/100
+1200/1200 [==============================] - 0s 70us/sample - loss: 0.0269
+Epoch 10/100
+1200/1200 [==============================] - 0s 74us/sample - loss: 0.0250
+Epoch 11/100
+1200/1200 [==============================] - 0s 73us/sample - loss: 0.0234
+Epoch 12/100
+1200/1200 [==============================] - 0s 75us/sample - loss: 0.0220
+Epoch 13/100
+1200/1200 [==============================] - 0s 68us/sample - loss: 0.0208
+Epoch 14/100
+1200/1200 [==============================] - 0s 77us/sample - loss: 0.0196
+Epoch 15/100
+1200/1200 [==============================] - 0s 67us/sample - loss: 0.0186
+Epoch 16/100
+1200/1200 [==============================] - 0s 71us/sample - loss: 0.0176
+Epoch 17/100
+1200/1200 [==============================] - 0s 69us/sample - loss: 0.0167
+Epoch 18/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0160
+Epoch 19/100
+1200/1200 [==============================] - 0s 76us/sample - loss: 0.0153
+Epoch 20/100
+1200/1200 [==============================] - 0s 67us/sample - loss: 0.0146
+Epoch 21/100
+1200/1200 [==============================] - 0s 82us/sample - loss: 0.0140
+Epoch 22/100
+1200/1200 [==============================] - 0s 65us/sample - loss: 0.0135
+Epoch 23/100
+1200/1200 [==============================] - 0s 64us/sample - loss: 0.0130
+Epoch 24/100
+1200/1200 [==============================] - 0s 65us/sample - loss: 0.0124
+Epoch 25/100
+1200/1200 [==============================] - 0s 62us/sample - loss: 0.0120
+Epoch 26/100
+1200/1200 [==============================] - 0s 71us/sample - loss: 0.0116
+Epoch 27/100
+1200/1200 [==============================] - 0s 66us/sample - loss: 0.0112
+Epoch 28/100
+1200/1200 [==============================] - 0s 85us/sample - loss: 0.0109
+Epoch 29/100
+1200/1200 [==============================] - 0s 64us/sample - loss: 0.0105
+Epoch 30/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0102
+Epoch 31/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0099
+Epoch 32/100
+1200/1200 [==============================] - 0s 57us/sample - loss: 0.0096
+Epoch 33/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0094
+Epoch 34/100
+1200/1200 [==============================] - 0s 67us/sample - loss: 0.0091
+Epoch 35/100
+1200/1200 [==============================] - 0s 76us/sample - loss: 0.0089
+Epoch 36/100
+1200/1200 [==============================] - 0s 74us/sample - loss: 0.0087
+Epoch 37/100
+1200/1200 [==============================] - 0s 74us/sample - loss: 0.0085
+Epoch 38/100
+1200/1200 [==============================] - 0s 69us/sample - loss: 0.0083
+Epoch 39/100
+1200/1200 [==============================] - 0s 77us/sample - loss: 0.0081
+Epoch 40/100
+1200/1200 [==============================] - 0s 78us/sample - loss: 0.0079
+Epoch 41/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0078
+Epoch 42/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0076
+Epoch 43/100
+1200/1200 [==============================] - 0s 62us/sample - loss: 0.0075
+Epoch 44/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0073
+Epoch 45/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0072
+Epoch 46/100
+1200/1200 [==============================] - 0s 68us/sample - loss: 0.0070
+Epoch 47/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0069
+Epoch 48/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0068
+Epoch 49/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0067
+Epoch 50/100
+1200/1200 [==============================] - 0s 62us/sample - loss: 0.0066
+Epoch 51/100
+1200/1200 [==============================] - 0s 77us/sample - loss: 0.0065
+Epoch 52/100
+1200/1200 [==============================] - 0s 77us/sample - loss: 0.0064
+Epoch 53/100
+1200/1200 [==============================] - 0s 75us/sample - loss: 0.0063
+Epoch 54/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0062
+Epoch 55/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0061
+Epoch 56/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0060
+Epoch 57/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0060
+Epoch 58/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0059
+Epoch 59/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0058
+Epoch 60/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0057
+Epoch 61/100
+1200/1200 [==============================] - 0s 78us/sample - loss: 0.0057
+Epoch 62/100
+1200/1200 [==============================] - 0s 75us/sample - loss: 0.0056
+Epoch 63/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0056
+Epoch 64/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0055
+Epoch 65/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0054
+Epoch 66/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0054
+Epoch 67/100
+1200/1200 [==============================] - 0s 69us/sample - loss: 0.0053
+Epoch 68/100
+1200/1200 [==============================] - 0s 69us/sample - loss: 0.0053
+Epoch 69/100
+1200/1200 [==============================] - 0s 76us/sample - loss: 0.0052
+Epoch 70/100
+1200/1200 [==============================] - 0s 80us/sample - loss: 0.0052
+Epoch 71/100
+1200/1200 [==============================] - 0s 71us/sample - loss: 0.0052
+Epoch 72/100
+1200/1200 [==============================] - 0s 58us/sample - loss: 0.0051
+Epoch 73/100
+1200/1200 [==============================] - 0s 64us/sample - loss: 0.0051
+Epoch 74/100
+1200/1200 [==============================] - 0s 67us/sample - loss: 0.0050
+Epoch 75/100
+1200/1200 [==============================] - 0s 64us/sample - loss: 0.0050
+Epoch 76/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0049
+Epoch 77/100
+1200/1200 [==============================] - 0s 71us/sample - loss: 0.0049
+Epoch 78/100
+1200/1200 [==============================] - 0s 64us/sample - loss: 0.0049
+Epoch 79/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0049
+Epoch 80/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0048
+Epoch 81/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0048
+Epoch 82/100
+1200/1200 [==============================] - 0s 68us/sample - loss: 0.0047
+Epoch 83/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0047
+Epoch 84/100
+1200/1200 [==============================] - 0s 65us/sample - loss: 0.0047
+Epoch 85/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0047
+Epoch 86/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0046
+Epoch 87/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0046
+Epoch 88/100
+1200/1200 [==============================] - 0s 65us/sample - loss: 0.0046
+Epoch 89/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0046
+Epoch 90/100
+1200/1200 [==============================] - 0s 72us/sample - loss: 0.0045
+Epoch 91/100
+1200/1200 [==============================] - 0s 79us/sample - loss: 0.0045
+Epoch 92/100
+1200/1200 [==============================] - 0s 75us/sample - loss: 0.0045
+Epoch 93/100
+1200/1200 [==============================] - 0s 66us/sample - loss: 0.0045
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 94/100
+1200/1200 [==============================] - 0s 62us/sample - loss: 0.0045
+Epoch 95/100
+1200/1200 [==============================] - 0s 74us/sample - loss: 0.0044
+Epoch 96/100
+1200/1200 [==============================] - 0s 63us/sample - loss: 0.0044
+Epoch 97/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0044
+Epoch 98/100
+1200/1200 [==============================] - 0s 61us/sample - loss: 0.0044
+Epoch 99/100
+1200/1200 [==============================] - 0s 60us/sample - loss: 0.0043
+Epoch 100/100
+1200/1200 [==============================] - 0s 59us/sample - loss: 0.0043
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x1516b8780&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>observe the average activation of each latent neuron for all train data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+<span class="n">fl</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">function</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">input</span><span class="p">],</span> <span class="p">[</span><span class="n">avg_latent_activations</span><span class="p">])</span>
+<span class="n">fl</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([ 7.821822 ,  7.236865 ,  6.947421 ,  5.5829062,  9.733132 ,
+         5.3420925,  5.6889577,  4.6146173,  5.6246243,  2.756387 ,
+         5.263189 ,  5.7526317,  3.3460698,  6.508909 ,  5.6402445,
+         5.226904 ,  5.562851 ,  5.232005 ,  6.6963797,  5.827833 ,
+         5.4785905,  5.1644454,  3.891168 ,  5.441585 ,  4.9872856,
+         5.5402126,  6.745936 ,  4.788079 ,  3.8945162,  5.1530633,
+         7.1550336,  6.552982 ,  7.3555093,  6.0033793,  6.0774965,
+         6.000663 ,  6.185482 ,  5.227069 ,  6.505696 ,  6.821496 ,
+         5.205787 ,  5.802242 ,  5.285625 , 11.446103 ,  8.927542 ,
+         8.3400545,  5.401397 ,  5.1066194,  7.4206576,  4.431855 ],
+       dtype=float32)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="show-reconstruction-on-sampled-test-images">
+<h3>show reconstruction on sampled test images<a class="headerlink" href="#show-reconstruction-on-sampled-test-images" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">X_pred</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">),</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_18_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_18_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="show-weights">
+<h3>show weights<a class="headerlink" href="#show-weights" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(784, 50)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">100</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_21_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_21_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="see-data-in-latent-space">
+<h3>see data in latent space<a class="headerlink" href="#see-data-in-latent-space" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))[:</span><span class="mi">200</span><span class="p">]</span>
+<span class="n">idxs</span> <span class="o">=</span> <span class="n">idxs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">idxs</span><span class="p">])]</span>
+<span class="n">y_sample</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">[</span><span class="n">idxs</span><span class="p">]</span>
+<span class="n">X_sample</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="n">idxs</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow.keras.backend</span> <span class="k">as</span> <span class="nn">K</span>
+<span class="n">l0_output</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">function</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">input</span><span class="p">],</span> <span class="p">[</span><span class="n">encoder</span><span class="p">])</span>
+<span class="n">X_sample_encoded</span> <span class="o">=</span> <span class="n">l0_output</span><span class="p">([</span><span class="n">X_sample</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;encoded data size&quot;</span><span class="p">,</span> <span class="n">X_sample_encoded</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_sample_encoded</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;component&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;sample class number&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_sample</span><span class="p">))[::</span><span class="mi">5</span><span class="p">],</span> <span class="n">y_sample</span><span class="p">[::</span><span class="mi">5</span><span class="p">]);</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;mean activation at encoder </span><span class="si">%.3f</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">np</span>.mean(X_sample_encoded))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>encoded data size (200, 50)
+mean activation at encoder 6.047
+</pre></div>
+</div>
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_23_1.png" src="../_images/U2.05 - Network Architectures - Autoencoders_23_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="observe-distribution-of-activations">
+<h3>observe distribution of activations<a class="headerlink" href="#observe-distribution-of-activations" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X_sample_encoded</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_25_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="avg-representative-of-each-class-in-latent-space-reconstructed">
+<h3>avg representative of each class in latent space, reconstructed<a class="headerlink" href="#avg-representative-of-each-class-in-latent-space-reconstructed" title="Permalink to this headline">¶</a></h3>
+<p>for each class:</p>
+<ul class="simple">
+<li><p>take all train samples</p></li>
+<li><p>obtain their representation in latent space</p></li>
+<li><p>average all latent space representations</p></li>
+<li><p>propage the averaged vector through the decoder</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_encoded</span> <span class="o">=</span> <span class="n">l0_output</span><span class="p">([</span><span class="n">X_train</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">fdecode</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">function</span><span class="p">([</span><span class="n">encoder</span><span class="p">],</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">outputs</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fdecode</span><span class="p">(</span><span class="n">X_train_encoded</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>);
+        
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_27_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="most-representative-neuron-in-latent-space-for-each-class">
+<h3>most representative neuron in latent space for each class<a class="headerlink" href="#most-representative-neuron-in-latent-space-for-each-class" title="Permalink to this headline">¶</a></h3>
+<p>for each class:</p>
+<ul class="simple">
+<li><p>take all train samples</p></li>
+<li><p>obtain their representation in latent space</p></li>
+<li><p>average all latent space representations</p></li>
+<li><p>build a one hot vector in latent space with the activated neuron in average</p></li>
+<li><p>propage the averaged vector through the decoder</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_encoded</span> <span class="o">=</span> <span class="n">l0_output</span><span class="p">([</span><span class="n">X_train</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">most_activated_neuron</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">X_train_encoded</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">X_train_encoded</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;class </span><span class="si">%d</span><span class="s2">, most avg activated neuron is </span><span class="si">%d</span><span class="s2">, with value </span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">most_activated_neuron</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X_train_encoded</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">fdecode</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class 0, most avg activated neuron is 44, with value 16.96
+class 1, most avg activated neuron is 43, with value 9.20
+class 2, most avg activated neuron is 44, with value 11.49
+class 3, most avg activated neuron is 43, with value 14.78
+class 4, most avg activated neuron is 43, with value 12.14
+class 5, most avg activated neuron is 43, with value 11.80
+class 6, most avg activated neuron is 0, with value 16.54
+class 7, most avg activated neuron is 43, with value 13.64
+class 8, most avg activated neuron is 43, with value 15.46
+class 9, most avg activated neuron is 43, with value 15.58
+</pre></div>
+</div>
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_29_1.png" src="../_images/U2.05 - Network Architectures - Autoencoders_29_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="custom-loss-unsupervised-fit-x-call">
+<h2>2. Custom loss, unsupervised <code class="docutils literal notranslate"><span class="pre">.fit(X)</span></code> call<a class="headerlink" href="#custom-loss-unsupervised-fit-x-call" title="Permalink to this headline">¶</a></h2>
+<p>given:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x}^{(i)} \in \mathbb{R}^{784}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(e(\mathbf{x}^{(i)}) \in \mathbb{R}^{50}\)</span>, the encoder</p></li>
+<li><p><span class="math notranslate nohighlight">\(d(e(\mathbf{x}^{(i)})) \in \mathbb{R}^{784}\)</span>, the decoder</p></li>
+</ul>
+<p>we define the loss function as (MSE):</p>
+<div class="math notranslate nohighlight">
+\[\text{loss}(\mathbf{x}^{(i)}) = \frac{1}{m}\sum_m \big(\mathbf{x}^{(i)} - d(e(\mathbf{x}^{(i)}))\big)^2\]</div>
+<p>and implement it by hand</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">mse</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">get_model_U</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">code_size</span><span class="p">):</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_dim</span><span class="p">)</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">code_size</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">encoder</span><span class="p">)</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span> <span class="p">(</span><span class="n">inputs</span><span class="o">-</span><span class="n">outputs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="n">inputs</span><span class="p">],</span> <span class="p">[</span><span class="n">outputs</span><span class="p">])</span>    
+    <span class="n">model</span><span class="o">.</span><span class="n">add_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">encoder</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">encoder</span> <span class="o">=</span> <span class="n">get_model_U</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">code_size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Logging before flag parsing goes to stderr.
+W0220 14:29:26.162351 4663383488 training_utils.py:1444] Output dense_3 missing from loss dictionary. We assume this was done on purpose. The fit and evaluate APIs will not be expecting any data to be passed to dense_3.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_1&quot;
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_2 (InputLayer)            [(None, 784)]        0                                            
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 40)           31400       input_2[0][0]                    
+__________________________________________________________________________________________________
+dense_3 (Dense)                 (None, 784)          32144       dense_2[0][0]                    
+__________________________________________________________________________________________________
+tf_op_layer_sub (TensorFlowOpLa [(None, 784)]        0           input_2[0][0]                    
+                                                                 dense_3[0][0]                    
+__________________________________________________________________________________________________
+tf_op_layer_pow (TensorFlowOpLa [(None, 784)]        0           tf_op_layer_sub[0][0]            
+__________________________________________________________________________________________________
+tf_op_layer_Mean_1 (TensorFlowO [()]                 0           tf_op_layer_pow[0][0]            
+__________________________________________________________________________________________________
+add_loss (AddLoss)              ()                   0           tf_op_layer_Mean_1[0][0]         
+==================================================================================================
+Total params: 63,544
+Trainable params: 63,544
+Non-trainable params: 0
+__________________________________________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>observe <code class="docutils literal notranslate"><span class="pre">.fit</span></code> call is unsupervised</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 1200 samples
+Epoch 1/100
+1200/1200 [==============================] - 0s 167us/sample - loss: 0.1481
+Epoch 2/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0705
+Epoch 3/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0632
+Epoch 4/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0562
+Epoch 5/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0507
+Epoch 6/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0467
+Epoch 7/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0434
+Epoch 8/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0406
+Epoch 9/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0381
+Epoch 10/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0361
+Epoch 11/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0344
+Epoch 12/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0328
+Epoch 13/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0314
+Epoch 14/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0301
+Epoch 15/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0289
+Epoch 16/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0278
+Epoch 17/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0268
+Epoch 18/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0259
+Epoch 19/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0250
+Epoch 20/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0242
+Epoch 21/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0235
+Epoch 22/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0227
+Epoch 23/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0220
+Epoch 24/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0213
+Epoch 25/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0207
+Epoch 26/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0202
+Epoch 27/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0195
+Epoch 28/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0191
+Epoch 29/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0185
+Epoch 30/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0180
+Epoch 31/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0175
+Epoch 32/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0172
+Epoch 33/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0167
+Epoch 34/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0163
+Epoch 35/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0160
+Epoch 36/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0157
+Epoch 37/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0153
+Epoch 38/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0149
+Epoch 39/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0146
+Epoch 40/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0143
+Epoch 41/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0141
+Epoch 42/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0138
+Epoch 43/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0135
+Epoch 44/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0132
+Epoch 45/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0130
+Epoch 46/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0128
+Epoch 47/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0126
+Epoch 48/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0124
+Epoch 49/100
+1200/1200 [==============================] - 0s 36us/sample - loss: 0.0121
+Epoch 50/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0119
+Epoch 51/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0117
+Epoch 52/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0115
+Epoch 53/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0113
+Epoch 54/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0111
+Epoch 55/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0110
+Epoch 56/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0109
+Epoch 57/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0107
+Epoch 58/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0105
+Epoch 59/100
+1200/1200 [==============================] - 0s 52us/sample - loss: 0.0103
+Epoch 60/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0102
+Epoch 61/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0101
+Epoch 62/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0100
+Epoch 63/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0099
+Epoch 64/100
+1200/1200 [==============================] - 0s 36us/sample - loss: 0.0097
+Epoch 65/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0096
+Epoch 66/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0095
+Epoch 67/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0094
+Epoch 68/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0093
+Epoch 69/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0092
+Epoch 70/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0091
+Epoch 71/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0090
+Epoch 72/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0089
+Epoch 73/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0088
+Epoch 74/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0088
+Epoch 75/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0087
+Epoch 76/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0086
+Epoch 77/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0085
+Epoch 78/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0084
+Epoch 79/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0084
+Epoch 80/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0083
+Epoch 81/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0082
+Epoch 82/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0082
+Epoch 83/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0081
+Epoch 84/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0080
+Epoch 85/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0080
+Epoch 86/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0079
+Epoch 87/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0079
+Epoch 88/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0078
+Epoch 89/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0078
+Epoch 90/100
+1200/1200 [==============================] - 0s 36us/sample - loss: 0.0077
+Epoch 91/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0077
+Epoch 92/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0076
+Epoch 93/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0076
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 94/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0075
+Epoch 95/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0075
+Epoch 96/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0074
+Epoch 97/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0074
+Epoch 98/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0073
+Epoch 99/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0073
+Epoch 100/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0073
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x152df55f8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">X_pred</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">),</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_36_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_36_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="autoencoder-for-image-denoising">
+<h2>3. Autoencoder for image denoising<a class="headerlink" href="#autoencoder-for-image-denoising" title="Permalink to this headline">¶</a></h2>
+<p>observe reconstruction when fed with noisy data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise_level</span><span class="o">=.</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">*</span><span class="n">noise_level</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">X_pred</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span>
+<span class="n">X_sample_noisy</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span>
+<span class="n">X_pred_noisy</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">),</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_pred_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_42_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_42_0.png" />
+</div>
+</div>
+<div class="section" id="in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model">
+<h3>in a more real scenario we only have noisy data to train the model<a class="headerlink" href="#in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_model</span><span class="p">,</span> <span class="n">n_encoder</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">code_size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">X_train_noisy</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="n">n_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_noisy</span><span class="p">,</span> <span class="n">X_train_noisy</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 1200 samples
+Epoch 1/100
+1200/1200 [==============================] - 0s 170us/sample - loss: 0.1832
+Epoch 2/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.1103
+Epoch 3/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.1040
+Epoch 4/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0974
+Epoch 5/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0918
+Epoch 6/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0872
+Epoch 7/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0835
+Epoch 8/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0807
+Epoch 9/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0785
+Epoch 10/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0766
+Epoch 11/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0748
+Epoch 12/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0731
+Epoch 13/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0715
+Epoch 14/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0700
+Epoch 15/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0686
+Epoch 16/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0673
+Epoch 17/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0661
+Epoch 18/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0649
+Epoch 19/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0639
+Epoch 20/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0630
+Epoch 21/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0621
+Epoch 22/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0613
+Epoch 23/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0605
+Epoch 24/100
+1200/1200 [==============================] - 0s 45us/sample - loss: 0.0597
+Epoch 25/100
+1200/1200 [==============================] - 0s 51us/sample - loss: 0.0590
+Epoch 26/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0584
+Epoch 27/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0577
+Epoch 28/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0571
+Epoch 29/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0565
+Epoch 30/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0560
+Epoch 31/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0555
+Epoch 32/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0550
+Epoch 33/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0545
+Epoch 34/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0541
+Epoch 35/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0536
+Epoch 36/100
+1200/1200 [==============================] - 0s 49us/sample - loss: 0.0533
+Epoch 37/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0528
+Epoch 38/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0525
+Epoch 39/100
+1200/1200 [==============================] - 0s 46us/sample - loss: 0.0522
+Epoch 40/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0519
+Epoch 41/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0515
+Epoch 42/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0513
+Epoch 43/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0510
+Epoch 44/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0507
+Epoch 45/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0505
+Epoch 46/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0503
+Epoch 47/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0500
+Epoch 48/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0498
+Epoch 49/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0496
+Epoch 50/100
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0494
+Epoch 51/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0492
+Epoch 52/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0490
+Epoch 53/100
+1200/1200 [==============================] - 0s 48us/sample - loss: 0.0489
+Epoch 54/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0487
+Epoch 55/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0485
+Epoch 56/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0484
+Epoch 57/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0483
+Epoch 58/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0481
+Epoch 59/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0480
+Epoch 60/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0479
+Epoch 61/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0477
+Epoch 62/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0476
+Epoch 63/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0475
+Epoch 64/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0474
+Epoch 65/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0473
+Epoch 66/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0471
+Epoch 67/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0470
+Epoch 68/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0469
+Epoch 69/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0468
+Epoch 70/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0467
+Epoch 71/100
+1200/1200 [==============================] - 0s 44us/sample - loss: 0.0466
+Epoch 72/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0466
+Epoch 73/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0464
+Epoch 74/100
+1200/1200 [==============================] - 0s 43us/sample - loss: 0.0464
+Epoch 75/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0463
+Epoch 76/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0462
+Epoch 77/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0462
+Epoch 78/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0461
+Epoch 79/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0460
+Epoch 80/100
+1200/1200 [==============================] - 0s 42us/sample - loss: 0.0459
+Epoch 81/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0458
+Epoch 82/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0458
+Epoch 83/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0457
+Epoch 84/100
+1200/1200 [==============================] - 0s 37us/sample - loss: 0.0457
+Epoch 85/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0456
+Epoch 86/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0455
+Epoch 87/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0454
+Epoch 88/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0454
+Epoch 89/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0453
+Epoch 90/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0453
+Epoch 91/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0452
+Epoch 92/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0452
+Epoch 93/100
+1200/1200 [==============================] - 0s 38us/sample - loss: 0.0451
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 94/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0451
+Epoch 95/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0450
+Epoch 96/100
+1200/1200 [==============================] - 0s 36us/sample - loss: 0.0449
+Epoch 97/100
+1200/1200 [==============================] - 0s 41us/sample - loss: 0.0449
+Epoch 98/100
+1200/1200 [==============================] - 0s 39us/sample - loss: 0.0449
+Epoch 99/100
+1200/1200 [==============================] - 0s 36us/sample - loss: 0.0448
+Epoch 100/100
+1200/1200 [==============================] - 0s 40us/sample - loss: 0.0448
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x1531e03c8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sample_noisy</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">X_sample</span><span class="p">)</span>
+<span class="n">X_pred_noisy</span>   <span class="o">=</span> <span class="n">n_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">),</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">X_sample_noisy</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_pred_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_45_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_45_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By YOUR NAME / YOUR INSTITUTION<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

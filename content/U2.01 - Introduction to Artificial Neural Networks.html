@@ -1,0 +1,2417 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02.01 Intro to ANN &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/rlxmooc_logo-black.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01_intro.html">
+   Module 01 - PRACTICE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     01.01 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     01.02 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     01.03 - ML algorithm desigmn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
+     LAB 01 - Submission example
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U2.01 - Introduction to Artificial Neural Networks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.01 - Introduction to Artificial Neural Networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#artificial-neural-networks">
+   Artificial Neural Networks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-perceptron">
+   The perceptron
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loss-function-and-perceptron-training">
+   Loss function and perceptron training
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#now-let-s-thing-about-the-following-problem">
+     Now let’s thing about the following problem:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#one-single-perceptron-is-not-able-to-solve-the-problem">
+     One single perceptron is not able to solve the problem!
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#span-style-color-blue-this-is-a-neural-network-span">
+     <span style="color:blue">
+      This is a neural network!
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-layer-perceptron-mlp">
+   Multi-layer perceptron (MLP)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backpropagation-algorithm">
+     Backpropagation algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classical-activation-functions">
+   Classical activation functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic">
+     Logistic
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hyperbolic-tangent">
+     Hyperbolic tangent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#softmax">
+     Softmax
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#batch-minibatch-and-online-learning">
+   Batch, Minibatch and online learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-using-a-toy-dataset">
+     Example using a toy dataset:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#drawbacks-of-the-classical-approaches">
+   Drawbacks of the classical approaches
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="intro-to-ann">
+<h1>02.01 Intro to ANN<a class="headerlink" href="#intro-to-ann" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="artificial-neural-networks">
+<h2>Artificial Neural Networks<a class="headerlink" href="#artificial-neural-networks" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<p>Artificial Neural Networks (ANNs) are a kind of bioinspired algorithms able to deal with many different problems in the field of Machine Learning. ANNs  try to emulate the behavior and learning capabilities of biological neural networks, thus they are built following a structure based on the combination of many basic units (neurons) called <strong>perceptrons</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/BNN.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_5_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_5_0.png" />
+</div>
+</div>
+<p>Similar to the biological neurons, perceptrons are designed to have two different outputs 1 or 0 (exited/no exited).</p>
+</div>
+<div class="section" id="the-perceptron">
+<h2>The perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/perceptron.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_8_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_8_0.png" />
+</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(x_i\)</span> corresponds to an input variable. The set of input variables is typically expressed as a vector <span class="math notranslate nohighlight">\({\bf{x}}=\{x_1,x_2,\cdots,x_n\}\)</span>.</p>
+<p>Each <span class="math notranslate nohighlight">\(w_i\)</span> is a real constants or weight which determines the contribution of the input <span class="math notranslate nohighlight">\(x_i\)</span> to the perceptron’s output. The output of the perceptron can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}O(x_1,x_2,...,x_n) = \left\{
+                \begin{array}{ll}
+                  1\;\;\;{\rm{if}}\;\;\;w_0  + w_1 x_1  + w_2 x_2  +  \cdots  + w_n x_n  &gt; 0\\
+                  0\;\;{\rm{\text{other wise}}}
+                \end{array}
+              \right. \end{split}\]</div>
+<p><b>Note</b> that <span class="math notranslate nohighlight">\(−w_ 0\)</span> is the threshold that the combination <span class="math notranslate nohighlight">\(w_1x_1 + w_2x_2 + \cdots + w_n x_n \;\)</span> must overpass in order to get an output equal to 1.</p>
+<p>By assuming an additional input <span class="math notranslate nohighlight">\(x_0 = 1\)</span>, an using the sign function (<span class="math notranslate nohighlight">\(sgn\)</span>), the perceptron can alternatively be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[O({\bf{x}}) = sgn\left(\sum_{i=0}^{d} w_ix_i \right) = sgn({\bf{w}}^T{\bf{x}})\]</div>
+<p>where the vector <span class="math notranslate nohighlight">\({\bf{w}}=\{w_0,w_1,w_2,\cdots,w_n\}\)</span>.</p>
+</div>
+<div class="section" id="loss-function-and-perceptron-training">
+<h2>Loss function and perceptron training<a class="headerlink" href="#loss-function-and-perceptron-training" title="Permalink to this headline">¶</a></h2>
+<p>In a typicall ML problem you are given a dataset <span class="math notranslate nohighlight">\(\mathcal{D}=\{({\bf{x}}_j,t_j)\}_{j=1}^{N_s}\)</span>, where <span class="math notranslate nohighlight">\(N_s\)</span> stands for Number of Samples. <span class="math notranslate nohighlight">\({\bf{x}}_j\)</span> is a vector of inputs and <span class="math notranslate nohighlight">\(t_j\)</span> is its corresponding output target.</p>
+<p>The training of the perceptron can be carried out using the <strong>Gradient Descent</strong> algorithm, but the sign function must be replaced because it is non differentiable. One option is to use the sigmoid or logistic function:</p>
+<div class="math notranslate nohighlight">
+\[
+g(u) = \frac{\exp(u)}{1 + \exp(u)}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">u</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f6d2946d190&gt;]
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_17_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_17_1.png" />
+</div>
+</div>
+<p>In order to train the perceptron you must define a loss function, typically an error function that can be used to “penalize” the model when it makes wrong predictions. When the target variables <span class="math notranslate nohighlight">\(y_j \in \{0,1\}\)</span> (the prediction corresponds to a classification problem), the most common loss function is the <strong>crossentropy</strong> given by:</p>
+<div class="math notranslate nohighlight">
+\[J({\bf{w}})=-\frac{1}{N_s}\sum_{j=1}^{N_s} t_j\log(g({\bf{w}}^T{\bf{x}}_j)) + (1-t_j)\log(1-g({\bf{w}}^T{\bf{x}}_j))\]</div>
+<p>Therefore, the rule for iteratively update the weitghs of the perceptron using <span class="math notranslate nohighlight">\(J\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[{\bf{w}}(\tau) = {\bf{w}}(\tau-1) - \frac{\eta}{N_s}\nabla J({\bf{w}})\]</div>
+<div class="math notranslate nohighlight">
+\[w_i(\tau) = w_i(\tau-1) - \frac{\eta}{N_s}\sum_{j=1}^{N_s} (g({\bf{w}}^T{\bf{x}}_j) - t_j)x_{ji}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\eta\)</span> is the learning rate and <span class="math notranslate nohighlight">\(x_{ji}\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th input variable of the <span class="math notranslate nohighlight">\(j\)</span>-th training sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoide</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">g</span>
+<span class="c1">#Aprendizaje</span>
+<span class="k">def</span> <span class="nf">Gradiente</span><span class="p">(</span><span class="n">MaxIter</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">Error</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">MaxIter</span><span class="p">)</span>
+    <span class="n">Xent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MaxIter</span><span class="p">):</span>
+        <span class="n">tem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Xent</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">tem2</span> <span class="o">=</span> <span class="n">sigmoide</span><span class="p">(</span><span class="n">tem</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+        <span class="n">Error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">tem2</span><span class="p">))</span><span class="o">/</span><span class="n">N</span>
+        <span class="n">tem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Xent</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">tem2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">wsig</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">eta</span><span class="o">*</span><span class="n">tem</span><span class="o">/</span><span class="n">N</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">wsig</span>
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">Error</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">100</span><span class="p">][:,:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Accent&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_21_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_21_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> notebook
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">100</span><span class="p">][:,:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y2</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Accent&quot;</span><span class="p">);</span>
+<span class="n">w</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">Gradiente</span><span class="p">(</span><span class="n">MaxIter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">x1</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">line1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">w</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">Gradiente</span><span class="p">(</span><span class="n">MaxIter</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">x1</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">line1</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">1.8</span><span class="p">,</span><span class="mf">4.8</span><span class="p">])</span>
+    
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">flush_events</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/javascript">/* Put everything inside the global mpl namespace */
+window.mpl = {};
+
+
+mpl.get_websocket_type = function() {
+    if (typeof(WebSocket) !== 'undefined') {
+        return WebSocket;
+    } else if (typeof(MozWebSocket) !== 'undefined') {
+        return MozWebSocket;
+    } else {
+        alert('Your browser does not have WebSocket support. ' +
+              'Please try Chrome, Safari or Firefox ≥ 6. ' +
+              'Firefox 4 and 5 are also supported but you ' +
+              'have to enable WebSockets in about:config.');
+    };
+}
+
+mpl.figure = function(figure_id, websocket, ondownload, parent_element) {
+    this.id = figure_id;
+
+    this.ws = websocket;
+
+    this.supports_binary = (this.ws.binaryType != undefined);
+
+    if (!this.supports_binary) {
+        var warnings = document.getElementById("mpl-warnings");
+        if (warnings) {
+            warnings.style.display = 'block';
+            warnings.textContent = (
+                "This browser does not support binary websocket messages. " +
+                    "Performance may be slow.");
+        }
+    }
+
+    this.imageObj = new Image();
+
+    this.context = undefined;
+    this.message = undefined;
+    this.canvas = undefined;
+    this.rubberband_canvas = undefined;
+    this.rubberband_context = undefined;
+    this.format_dropdown = undefined;
+
+    this.image_mode = 'full';
+
+    this.root = $('<div/>');
+    this._root_extra_style(this.root)
+    this.root.attr('style', 'display: inline-block');
+
+    $(parent_element).append(this.root);
+
+    this._init_header(this);
+    this._init_canvas(this);
+    this._init_toolbar(this);
+
+    var fig = this;
+
+    this.waiting = false;
+
+    this.ws.onopen =  function () {
+            fig.send_message("supports_binary", {value: fig.supports_binary});
+            fig.send_message("send_image_mode", {});
+            if (mpl.ratio != 1) {
+                fig.send_message("set_dpi_ratio", {'dpi_ratio': mpl.ratio});
+            }
+            fig.send_message("refresh", {});
+        }
+
+    this.imageObj.onload = function() {
+            if (fig.image_mode == 'full') {
+                // Full images could contain transparency (where diff images
+                // almost always do), so we need to clear the canvas so that
+                // there is no ghosting.
+                fig.context.clearRect(0, 0, fig.canvas.width, fig.canvas.height);
+            }
+            fig.context.drawImage(fig.imageObj, 0, 0);
+        };
+
+    this.imageObj.onunload = function() {
+        fig.ws.close();
+    }
+
+    this.ws.onmessage = this._make_on_message_function(this);
+
+    this.ondownload = ondownload;
+}
+
+mpl.figure.prototype._init_header = function() {
+    var titlebar = $(
+        '<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ' +
+        'ui-helper-clearfix"/>');
+    var titletext = $(
+        '<div class="ui-dialog-title" style="width: 100%; ' +
+        'text-align: center; padding: 3px;"/>');
+    titlebar.append(titletext)
+    this.root.append(titlebar);
+    this.header = titletext[0];
+}
+
+
+
+mpl.figure.prototype._canvas_extra_style = function(canvas_div) {
+
+}
+
+
+mpl.figure.prototype._root_extra_style = function(canvas_div) {
+
+}
+
+mpl.figure.prototype._init_canvas = function() {
+    var fig = this;
+
+    var canvas_div = $('<div/>');
+
+    canvas_div.attr('style', 'position: relative; clear: both; outline: 0');
+
+    function canvas_keyboard_event(event) {
+        return fig.key_event(event, event['data']);
+    }
+
+    canvas_div.keydown('key_press', canvas_keyboard_event);
+    canvas_div.keyup('key_release', canvas_keyboard_event);
+    this.canvas_div = canvas_div
+    this._canvas_extra_style(canvas_div)
+    this.root.append(canvas_div);
+
+    var canvas = $('<canvas/>');
+    canvas.addClass('mpl-canvas');
+    canvas.attr('style', "left: 0; top: 0; z-index: 0; outline: 0")
+
+    this.canvas = canvas[0];
+    this.context = canvas[0].getContext("2d");
+
+    var backingStore = this.context.backingStorePixelRatio ||
+	this.context.webkitBackingStorePixelRatio ||
+	this.context.mozBackingStorePixelRatio ||
+	this.context.msBackingStorePixelRatio ||
+	this.context.oBackingStorePixelRatio ||
+	this.context.backingStorePixelRatio || 1;
+
+    mpl.ratio = (window.devicePixelRatio || 1) / backingStore;
+
+    var rubberband = $('<canvas/>');
+    rubberband.attr('style', "position: absolute; left: 0; top: 0; z-index: 1;")
+
+    var pass_mouse_events = true;
+
+    canvas_div.resizable({
+        start: function(event, ui) {
+            pass_mouse_events = false;
+        },
+        resize: function(event, ui) {
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+        stop: function(event, ui) {
+            pass_mouse_events = true;
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+    });
+
+    function mouse_event_fn(event) {
+        if (pass_mouse_events)
+            return fig.mouse_event(event, event['data']);
+    }
+
+    rubberband.mousedown('button_press', mouse_event_fn);
+    rubberband.mouseup('button_release', mouse_event_fn);
+    // Throttle sequential mouse events to 1 every 20ms.
+    rubberband.mousemove('motion_notify', mouse_event_fn);
+
+    rubberband.mouseenter('figure_enter', mouse_event_fn);
+    rubberband.mouseleave('figure_leave', mouse_event_fn);
+
+    canvas_div.on("wheel", function (event) {
+        event = event.originalEvent;
+        event['data'] = 'scroll'
+        if (event.deltaY < 0) {
+            event.step = 1;
+        } else {
+            event.step = -1;
+        }
+        mouse_event_fn(event);
+    });
+
+    canvas_div.append(canvas);
+    canvas_div.append(rubberband);
+
+    this.rubberband = rubberband;
+    this.rubberband_canvas = rubberband[0];
+    this.rubberband_context = rubberband[0].getContext("2d");
+    this.rubberband_context.strokeStyle = "#000000";
+
+    this._resize_canvas = function(width, height) {
+        // Keep the size of the canvas, canvas container, and rubber band
+        // canvas in synch.
+        canvas_div.css('width', width)
+        canvas_div.css('height', height)
+
+        canvas.attr('width', width * mpl.ratio);
+        canvas.attr('height', height * mpl.ratio);
+        canvas.attr('style', 'width: ' + width + 'px; height: ' + height + 'px;');
+
+        rubberband.attr('width', width);
+        rubberband.attr('height', height);
+    }
+
+    // Set the figure to an initial 600x600px, this will subsequently be updated
+    // upon first draw.
+    this._resize_canvas(600, 600);
+
+    // Disable right mouse context menu.
+    $(this.rubberband_canvas).bind("contextmenu",function(e){
+        return false;
+    });
+
+    function set_focus () {
+        canvas.focus();
+        canvas_div.focus();
+    }
+
+    window.setTimeout(set_focus, 100);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            // put a spacer in here.
+            continue;
+        }
+        var button = $('<button/>');
+        button.addClass('ui-button ui-widget ui-state-default ui-corner-all ' +
+                        'ui-button-icon-only');
+        button.attr('role', 'button');
+        button.attr('aria-disabled', 'false');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+
+        var icon_img = $('<span/>');
+        icon_img.addClass('ui-button-icon-primary ui-icon');
+        icon_img.addClass(image);
+        icon_img.addClass('ui-corner-all');
+
+        var tooltip_span = $('<span/>');
+        tooltip_span.addClass('ui-button-text');
+        tooltip_span.html(tooltip);
+
+        button.append(icon_img);
+        button.append(tooltip_span);
+
+        nav_element.append(button);
+    }
+
+    var fmt_picker_span = $('<span/>');
+
+    var fmt_picker = $('<select/>');
+    fmt_picker.addClass('mpl-toolbar-option ui-widget ui-widget-content');
+    fmt_picker_span.append(fmt_picker);
+    nav_element.append(fmt_picker_span);
+    this.format_dropdown = fmt_picker[0];
+
+    for (var ind in mpl.extensions) {
+        var fmt = mpl.extensions[ind];
+        var option = $(
+            '<option/>', {selected: fmt === mpl.default_extension}).html(fmt);
+        fmt_picker.append(option);
+    }
+
+    // Add hover states to the ui-buttons
+    $( ".ui-button" ).hover(
+        function() { $(this).addClass("ui-state-hover");},
+        function() { $(this).removeClass("ui-state-hover");}
+    );
+
+    var status_bar = $('<span class="mpl-message"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+}
+
+mpl.figure.prototype.request_resize = function(x_pixels, y_pixels) {
+    // Request matplotlib to resize the figure. Matplotlib will then trigger a resize in the client,
+    // which will in turn request a refresh of the image.
+    this.send_message('resize', {'width': x_pixels, 'height': y_pixels});
+}
+
+mpl.figure.prototype.send_message = function(type, properties) {
+    properties['type'] = type;
+    properties['figure_id'] = this.id;
+    this.ws.send(JSON.stringify(properties));
+}
+
+mpl.figure.prototype.send_draw_message = function() {
+    if (!this.waiting) {
+        this.waiting = true;
+        this.ws.send(JSON.stringify({type: "draw", figure_id: this.id}));
+    }
+}
+
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    var format_dropdown = fig.format_dropdown;
+    var format = format_dropdown.options[format_dropdown.selectedIndex].value;
+    fig.ondownload(fig, format);
+}
+
+
+mpl.figure.prototype.handle_resize = function(fig, msg) {
+    var size = msg['size'];
+    if (size[0] != fig.canvas.width || size[1] != fig.canvas.height) {
+        fig._resize_canvas(size[0], size[1]);
+        fig.send_message("refresh", {});
+    };
+}
+
+mpl.figure.prototype.handle_rubberband = function(fig, msg) {
+    var x0 = msg['x0'] / mpl.ratio;
+    var y0 = (fig.canvas.height - msg['y0']) / mpl.ratio;
+    var x1 = msg['x1'] / mpl.ratio;
+    var y1 = (fig.canvas.height - msg['y1']) / mpl.ratio;
+    x0 = Math.floor(x0) + 0.5;
+    y0 = Math.floor(y0) + 0.5;
+    x1 = Math.floor(x1) + 0.5;
+    y1 = Math.floor(y1) + 0.5;
+    var min_x = Math.min(x0, x1);
+    var min_y = Math.min(y0, y1);
+    var width = Math.abs(x1 - x0);
+    var height = Math.abs(y1 - y0);
+
+    fig.rubberband_context.clearRect(
+        0, 0, fig.canvas.width / mpl.ratio, fig.canvas.height / mpl.ratio);
+
+    fig.rubberband_context.strokeRect(min_x, min_y, width, height);
+}
+
+mpl.figure.prototype.handle_figure_label = function(fig, msg) {
+    // Updates the figure title.
+    fig.header.textContent = msg['label'];
+}
+
+mpl.figure.prototype.handle_cursor = function(fig, msg) {
+    var cursor = msg['cursor'];
+    switch(cursor)
+    {
+    case 0:
+        cursor = 'pointer';
+        break;
+    case 1:
+        cursor = 'default';
+        break;
+    case 2:
+        cursor = 'crosshair';
+        break;
+    case 3:
+        cursor = 'move';
+        break;
+    }
+    fig.rubberband_canvas.style.cursor = cursor;
+}
+
+mpl.figure.prototype.handle_message = function(fig, msg) {
+    fig.message.textContent = msg['message'];
+}
+
+mpl.figure.prototype.handle_draw = function(fig, msg) {
+    // Request the server to send over a new figure.
+    fig.send_draw_message();
+}
+
+mpl.figure.prototype.handle_image_mode = function(fig, msg) {
+    fig.image_mode = msg['mode'];
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Called whenever the canvas gets updated.
+    this.send_message("ack", {});
+}
+
+// A function to construct a web socket function for onmessage handling.
+// Called in the figure constructor.
+mpl.figure.prototype._make_on_message_function = function(fig) {
+    return function socket_on_message(evt) {
+        if (evt.data instanceof Blob) {
+            /* FIXME: We get "Resource interpreted as Image but
+             * transferred with MIME type text/plain:" errors on
+             * Chrome.  But how to set the MIME type?  It doesn't seem
+             * to be part of the websocket stream */
+            evt.data.type = "image/png";
+
+            /* Free the memory for the previous frames */
+            if (fig.imageObj.src) {
+                (window.URL || window.webkitURL).revokeObjectURL(
+                    fig.imageObj.src);
+            }
+
+            fig.imageObj.src = (window.URL || window.webkitURL).createObjectURL(
+                evt.data);
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+        else if (typeof evt.data === 'string' && evt.data.slice(0, 21) == "data:image/png;base64") {
+            fig.imageObj.src = evt.data;
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+
+        var msg = JSON.parse(evt.data);
+        var msg_type = msg['type'];
+
+        // Call the  "handle_{type}" callback, which takes
+        // the figure and JSON message as its only arguments.
+        try {
+            var callback = fig["handle_" + msg_type];
+        } catch (e) {
+            console.log("No handler for the '" + msg_type + "' message type: ", msg);
+            return;
+        }
+
+        if (callback) {
+            try {
+                // console.log("Handling '" + msg_type + "' message: ", msg);
+                callback(fig, msg);
+            } catch (e) {
+                console.log("Exception inside the 'handler_" + msg_type + "' callback:", e, e.stack, msg);
+            }
+        }
+    };
+}
+
+// from http://stackoverflow.com/questions/1114465/getting-mouse-location-in-canvas
+mpl.findpos = function(e) {
+    //this section is from http://www.quirksmode.org/js/events_properties.html
+    var targ;
+    if (!e)
+        e = window.event;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+
+    // jQuery normalizes the pageX and pageY
+    // pageX,Y are the mouse positions relative to the document
+    // offset() returns the position of the element relative to the document
+    var x = e.pageX - $(targ).offset().left;
+    var y = e.pageY - $(targ).offset().top;
+
+    return {"x": x, "y": y};
+};
+
+/*
+ * return a copy of an object with only non-object keys
+ * we need this to avoid circular references
+ * http://stackoverflow.com/a/24161582/3208463
+ */
+function simpleKeys (original) {
+  return Object.keys(original).reduce(function (obj, key) {
+    if (typeof original[key] !== 'object')
+        obj[key] = original[key]
+    return obj;
+  }, {});
+}
+
+mpl.figure.prototype.mouse_event = function(event, name) {
+    var canvas_pos = mpl.findpos(event)
+
+    if (name === 'button_press')
+    {
+        this.canvas.focus();
+        this.canvas_div.focus();
+    }
+
+    var x = canvas_pos.x * mpl.ratio;
+    var y = canvas_pos.y * mpl.ratio;
+
+    this.send_message(name, {x: x, y: y, button: event.button,
+                             step: event.step,
+                             guiEvent: simpleKeys(event)});
+
+    /* This prevents the web browser from automatically changing to
+     * the text insertion cursor when the button is pressed.  We want
+     * to control all of the cursor setting manually through the
+     * 'cursor' event from matplotlib */
+    event.preventDefault();
+    return false;
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    // Handle any extra behaviour associated with a key event
+}
+
+mpl.figure.prototype.key_event = function(event, name) {
+
+    // Prevent repeat events
+    if (name == 'key_press')
+    {
+        if (event.which === this._key)
+            return;
+        else
+            this._key = event.which;
+    }
+    if (name == 'key_release')
+        this._key = null;
+
+    var value = '';
+    if (event.ctrlKey && event.which != 17)
+        value += "ctrl+";
+    if (event.altKey && event.which != 18)
+        value += "alt+";
+    if (event.shiftKey && event.which != 16)
+        value += "shift+";
+
+    value += 'k';
+    value += event.which.toString();
+
+    this._key_event_extra(event, name);
+
+    this.send_message(name, {key: value,
+                             guiEvent: simpleKeys(event)});
+    return false;
+}
+
+mpl.figure.prototype.toolbar_button_onclick = function(name) {
+    if (name == 'download') {
+        this.handle_save(this, null);
+    } else {
+        this.send_message("toolbar_button", {name: name});
+    }
+};
+
+mpl.figure.prototype.toolbar_button_onmouseover = function(tooltip) {
+    this.message.textContent = tooltip;
+};
+mpl.toolbar_items = [["Home", "Reset original view", "fa fa-home icon-home", "home"], ["Back", "Back to previous view", "fa fa-arrow-left icon-arrow-left", "back"], ["Forward", "Forward to next view", "fa fa-arrow-right icon-arrow-right", "forward"], ["", "", "", ""], ["Pan", "Pan axes with left mouse, zoom with right", "fa fa-arrows icon-move", "pan"], ["Zoom", "Zoom to rectangle", "fa fa-square-o icon-check-empty", "zoom"], ["", "", "", ""], ["Download", "Download plot", "fa fa-floppy-o icon-save", "download"]];
+
+mpl.extensions = ["eps", "jpeg", "pdf", "png", "ps", "raw", "svg", "tif"];
+
+mpl.default_extension = "png";var comm_websocket_adapter = function(comm) {
+    // Create a "websocket"-like object which calls the given IPython comm
+    // object with the appropriate methods. Currently this is a non binary
+    // socket, so there is still some room for performance tuning.
+    var ws = {};
+
+    ws.close = function() {
+        comm.close()
+    };
+    ws.send = function(m) {
+        //console.log('sending', m);
+        comm.send(m);
+    };
+    // Register the callback with on_msg.
+    comm.on_msg(function(msg) {
+        //console.log('receiving', msg['content']['data'], msg);
+        // Pass the mpl event to the overridden (by mpl) onmessage function.
+        ws.onmessage(msg['content']['data'])
+    });
+    return ws;
+}
+
+mpl.mpl_figure_comm = function(comm, msg) {
+    // This is the function which gets called when the mpl process
+    // starts-up an IPython Comm through the "matplotlib" channel.
+
+    var id = msg.content.data.id;
+    // Get hold of the div created by the display call when the Comm
+    // socket was opened in Python.
+    var element = $("#" + id);
+    var ws_proxy = comm_websocket_adapter(comm)
+
+    function ondownload(figure, format) {
+        window.open(figure.imageObj.src);
+    }
+
+    var fig = new mpl.figure(id, ws_proxy,
+                           ondownload,
+                           element.get(0));
+
+    // Call onopen now - mpl needs it, as it is assuming we've passed it a real
+    // web socket which is closed, not our websocket->open comm proxy.
+    ws_proxy.onopen();
+
+    fig.parent_element = element.get(0);
+    fig.cell_info = mpl.find_output_cell("<div id='" + id + "'></div>");
+    if (!fig.cell_info) {
+        console.error("Failed to find cell for figure", id, fig);
+        return;
+    }
+
+    var output_index = fig.cell_info[2]
+    var cell = fig.cell_info[0];
+
+};
+
+mpl.figure.prototype.handle_close = function(fig, msg) {
+    var width = fig.canvas.width/mpl.ratio
+    fig.root.unbind('remove')
+
+    // Update the output cell to use the data from the current canvas.
+    fig.push_to_output();
+    var dataURL = fig.canvas.toDataURL();
+    // Re-enable the keyboard manager in IPython - without this line, in FF,
+    // the notebook keyboard shortcuts fail.
+    IPython.keyboard_manager.enable()
+    $(fig.parent_element).html('<img src="' + dataURL + '" width="' + width + '">');
+    fig.close_ws(fig, msg);
+}
+
+mpl.figure.prototype.close_ws = function(fig, msg){
+    fig.send_message('closing', msg);
+    // fig.ws.close()
+}
+
+mpl.figure.prototype.push_to_output = function(remove_interactive) {
+    // Turn the data on the canvas into data in the output cell.
+    var width = this.canvas.width/mpl.ratio
+    var dataURL = this.canvas.toDataURL();
+    this.cell_info[1]['text/html'] = '<img src="' + dataURL + '" width="' + width + '">';
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Tell IPython that the notebook contents must change.
+    IPython.notebook.set_dirty(true);
+    this.send_message("ack", {});
+    var fig = this;
+    // Wait a second, then push the new image to the DOM so
+    // that it is saved nicely (might be nice to debounce this).
+    setTimeout(function () { fig.push_to_output() }, 1000);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items){
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) { continue; };
+
+        var button = $('<button class="btn btn-default" href="#" title="' + name + '"><i class="fa ' + image + ' fa-lg"></i></button>');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+        nav_element.append(button);
+    }
+
+    // Add the status bar.
+    var status_bar = $('<span class="mpl-message" style="text-align:right; float: right;"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+
+    // Add the close button to the window.
+    var buttongrp = $('<div class="btn-group inline pull-right"></div>');
+    var button = $('<button class="btn btn-mini btn-primary" href="#" title="Stop Interaction"><i class="fa fa-power-off icon-remove icon-large"></i></button>');
+    button.click(function (evt) { fig.handle_close(fig, {}); } );
+    button.mouseover('Stop Interaction', toolbar_mouse_event);
+    buttongrp.append(button);
+    var titlebar = this.root.find($('.ui-dialog-titlebar'));
+    titlebar.prepend(buttongrp);
+}
+
+mpl.figure.prototype._root_extra_style = function(el){
+    var fig = this
+    el.on("remove", function(){
+	fig.close_ws(fig, {});
+    });
+}
+
+mpl.figure.prototype._canvas_extra_style = function(el){
+    // this is important to make the div 'focusable
+    el.attr('tabindex', 0)
+    // reach out to IPython and tell the keyboard manager to turn it's self
+    // off when our div gets focus
+
+    // location in version 3
+    if (IPython.notebook.keyboard_manager) {
+        IPython.notebook.keyboard_manager.register_events(el);
+    }
+    else {
+        // location in version 2
+        IPython.keyboard_manager.register_events(el);
+    }
+
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    var manager = IPython.notebook.keyboard_manager;
+    if (!manager)
+        manager = IPython.keyboard_manager;
+
+    // Check for shift+enter
+    if (event.shiftKey && event.which == 13) {
+        this.canvas_div.blur();
+        // select the cell after this one
+        var index = IPython.notebook.find_cell_index(this.cell_info[0]);
+        IPython.notebook.select(index + 1);
+    }
+}
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    fig.ondownload(fig, null);
+}
+
+
+mpl.find_output_cell = function(html_output) {
+    // Return the cell and output element which can be found *uniquely* in the notebook.
+    // Note - this is a bit hacky, but it is done because the "notebook_saving.Notebook"
+    // IPython event is triggered only after the cells have been serialised, which for
+    // our purposes (turning an active figure into a static one), is too late.
+    var cells = IPython.notebook.get_cells();
+    var ncells = cells.length;
+    for (var i=0; i<ncells; i++) {
+        var cell = cells[i];
+        if (cell.cell_type === 'code'){
+            for (var j=0; j<cell.output_area.outputs.length; j++) {
+                var data = cell.output_area.outputs[j];
+                if (data.data) {
+                    // IPython >= 3 moved mimebundle to data attribute of output
+                    data = data.data;
+                }
+                if (data['text/html'] == html_output) {
+                    return [cell, data, j];
+                }
+            }
+        }
+    }
+}
+
+// Register the function which deals with the matplotlib target/channel.
+// The kernel may be null if the page has been refreshed.
+if (IPython.notebook.kernel != null) {
+    IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
+}
+</script><div class="output text_html"><img src="data:image/png;base64,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" width="432"></div><script type="application/javascript">/* Put everything inside the global mpl namespace */
+window.mpl = {};
+
+
+mpl.get_websocket_type = function() {
+    if (typeof(WebSocket) !== 'undefined') {
+        return WebSocket;
+    } else if (typeof(MozWebSocket) !== 'undefined') {
+        return MozWebSocket;
+    } else {
+        alert('Your browser does not have WebSocket support. ' +
+              'Please try Chrome, Safari or Firefox ≥ 6. ' +
+              'Firefox 4 and 5 are also supported but you ' +
+              'have to enable WebSockets in about:config.');
+    };
+}
+
+mpl.figure = function(figure_id, websocket, ondownload, parent_element) {
+    this.id = figure_id;
+
+    this.ws = websocket;
+
+    this.supports_binary = (this.ws.binaryType != undefined);
+
+    if (!this.supports_binary) {
+        var warnings = document.getElementById("mpl-warnings");
+        if (warnings) {
+            warnings.style.display = 'block';
+            warnings.textContent = (
+                "This browser does not support binary websocket messages. " +
+                    "Performance may be slow.");
+        }
+    }
+
+    this.imageObj = new Image();
+
+    this.context = undefined;
+    this.message = undefined;
+    this.canvas = undefined;
+    this.rubberband_canvas = undefined;
+    this.rubberband_context = undefined;
+    this.format_dropdown = undefined;
+
+    this.image_mode = 'full';
+
+    this.root = $('<div/>');
+    this._root_extra_style(this.root)
+    this.root.attr('style', 'display: inline-block');
+
+    $(parent_element).append(this.root);
+
+    this._init_header(this);
+    this._init_canvas(this);
+    this._init_toolbar(this);
+
+    var fig = this;
+
+    this.waiting = false;
+
+    this.ws.onopen =  function () {
+            fig.send_message("supports_binary", {value: fig.supports_binary});
+            fig.send_message("send_image_mode", {});
+            if (mpl.ratio != 1) {
+                fig.send_message("set_dpi_ratio", {'dpi_ratio': mpl.ratio});
+            }
+            fig.send_message("refresh", {});
+        }
+
+    this.imageObj.onload = function() {
+            if (fig.image_mode == 'full') {
+                // Full images could contain transparency (where diff images
+                // almost always do), so we need to clear the canvas so that
+                // there is no ghosting.
+                fig.context.clearRect(0, 0, fig.canvas.width, fig.canvas.height);
+            }
+            fig.context.drawImage(fig.imageObj, 0, 0);
+        };
+
+    this.imageObj.onunload = function() {
+        fig.ws.close();
+    }
+
+    this.ws.onmessage = this._make_on_message_function(this);
+
+    this.ondownload = ondownload;
+}
+
+mpl.figure.prototype._init_header = function() {
+    var titlebar = $(
+        '<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ' +
+        'ui-helper-clearfix"/>');
+    var titletext = $(
+        '<div class="ui-dialog-title" style="width: 100%; ' +
+        'text-align: center; padding: 3px;"/>');
+    titlebar.append(titletext)
+    this.root.append(titlebar);
+    this.header = titletext[0];
+}
+
+
+
+mpl.figure.prototype._canvas_extra_style = function(canvas_div) {
+
+}
+
+
+mpl.figure.prototype._root_extra_style = function(canvas_div) {
+
+}
+
+mpl.figure.prototype._init_canvas = function() {
+    var fig = this;
+
+    var canvas_div = $('<div/>');
+
+    canvas_div.attr('style', 'position: relative; clear: both; outline: 0');
+
+    function canvas_keyboard_event(event) {
+        return fig.key_event(event, event['data']);
+    }
+
+    canvas_div.keydown('key_press', canvas_keyboard_event);
+    canvas_div.keyup('key_release', canvas_keyboard_event);
+    this.canvas_div = canvas_div
+    this._canvas_extra_style(canvas_div)
+    this.root.append(canvas_div);
+
+    var canvas = $('<canvas/>');
+    canvas.addClass('mpl-canvas');
+    canvas.attr('style', "left: 0; top: 0; z-index: 0; outline: 0")
+
+    this.canvas = canvas[0];
+    this.context = canvas[0].getContext("2d");
+
+    var backingStore = this.context.backingStorePixelRatio ||
+	this.context.webkitBackingStorePixelRatio ||
+	this.context.mozBackingStorePixelRatio ||
+	this.context.msBackingStorePixelRatio ||
+	this.context.oBackingStorePixelRatio ||
+	this.context.backingStorePixelRatio || 1;
+
+    mpl.ratio = (window.devicePixelRatio || 1) / backingStore;
+
+    var rubberband = $('<canvas/>');
+    rubberband.attr('style', "position: absolute; left: 0; top: 0; z-index: 1;")
+
+    var pass_mouse_events = true;
+
+    canvas_div.resizable({
+        start: function(event, ui) {
+            pass_mouse_events = false;
+        },
+        resize: function(event, ui) {
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+        stop: function(event, ui) {
+            pass_mouse_events = true;
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+    });
+
+    function mouse_event_fn(event) {
+        if (pass_mouse_events)
+            return fig.mouse_event(event, event['data']);
+    }
+
+    rubberband.mousedown('button_press', mouse_event_fn);
+    rubberband.mouseup('button_release', mouse_event_fn);
+    // Throttle sequential mouse events to 1 every 20ms.
+    rubberband.mousemove('motion_notify', mouse_event_fn);
+
+    rubberband.mouseenter('figure_enter', mouse_event_fn);
+    rubberband.mouseleave('figure_leave', mouse_event_fn);
+
+    canvas_div.on("wheel", function (event) {
+        event = event.originalEvent;
+        event['data'] = 'scroll'
+        if (event.deltaY < 0) {
+            event.step = 1;
+        } else {
+            event.step = -1;
+        }
+        mouse_event_fn(event);
+    });
+
+    canvas_div.append(canvas);
+    canvas_div.append(rubberband);
+
+    this.rubberband = rubberband;
+    this.rubberband_canvas = rubberband[0];
+    this.rubberband_context = rubberband[0].getContext("2d");
+    this.rubberband_context.strokeStyle = "#000000";
+
+    this._resize_canvas = function(width, height) {
+        // Keep the size of the canvas, canvas container, and rubber band
+        // canvas in synch.
+        canvas_div.css('width', width)
+        canvas_div.css('height', height)
+
+        canvas.attr('width', width * mpl.ratio);
+        canvas.attr('height', height * mpl.ratio);
+        canvas.attr('style', 'width: ' + width + 'px; height: ' + height + 'px;');
+
+        rubberband.attr('width', width);
+        rubberband.attr('height', height);
+    }
+
+    // Set the figure to an initial 600x600px, this will subsequently be updated
+    // upon first draw.
+    this._resize_canvas(600, 600);
+
+    // Disable right mouse context menu.
+    $(this.rubberband_canvas).bind("contextmenu",function(e){
+        return false;
+    });
+
+    function set_focus () {
+        canvas.focus();
+        canvas_div.focus();
+    }
+
+    window.setTimeout(set_focus, 100);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            // put a spacer in here.
+            continue;
+        }
+        var button = $('<button/>');
+        button.addClass('ui-button ui-widget ui-state-default ui-corner-all ' +
+                        'ui-button-icon-only');
+        button.attr('role', 'button');
+        button.attr('aria-disabled', 'false');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+
+        var icon_img = $('<span/>');
+        icon_img.addClass('ui-button-icon-primary ui-icon');
+        icon_img.addClass(image);
+        icon_img.addClass('ui-corner-all');
+
+        var tooltip_span = $('<span/>');
+        tooltip_span.addClass('ui-button-text');
+        tooltip_span.html(tooltip);
+
+        button.append(icon_img);
+        button.append(tooltip_span);
+
+        nav_element.append(button);
+    }
+
+    var fmt_picker_span = $('<span/>');
+
+    var fmt_picker = $('<select/>');
+    fmt_picker.addClass('mpl-toolbar-option ui-widget ui-widget-content');
+    fmt_picker_span.append(fmt_picker);
+    nav_element.append(fmt_picker_span);
+    this.format_dropdown = fmt_picker[0];
+
+    for (var ind in mpl.extensions) {
+        var fmt = mpl.extensions[ind];
+        var option = $(
+            '<option/>', {selected: fmt === mpl.default_extension}).html(fmt);
+        fmt_picker.append(option);
+    }
+
+    // Add hover states to the ui-buttons
+    $( ".ui-button" ).hover(
+        function() { $(this).addClass("ui-state-hover");},
+        function() { $(this).removeClass("ui-state-hover");}
+    );
+
+    var status_bar = $('<span class="mpl-message"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+}
+
+mpl.figure.prototype.request_resize = function(x_pixels, y_pixels) {
+    // Request matplotlib to resize the figure. Matplotlib will then trigger a resize in the client,
+    // which will in turn request a refresh of the image.
+    this.send_message('resize', {'width': x_pixels, 'height': y_pixels});
+}
+
+mpl.figure.prototype.send_message = function(type, properties) {
+    properties['type'] = type;
+    properties['figure_id'] = this.id;
+    this.ws.send(JSON.stringify(properties));
+}
+
+mpl.figure.prototype.send_draw_message = function() {
+    if (!this.waiting) {
+        this.waiting = true;
+        this.ws.send(JSON.stringify({type: "draw", figure_id: this.id}));
+    }
+}
+
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    var format_dropdown = fig.format_dropdown;
+    var format = format_dropdown.options[format_dropdown.selectedIndex].value;
+    fig.ondownload(fig, format);
+}
+
+
+mpl.figure.prototype.handle_resize = function(fig, msg) {
+    var size = msg['size'];
+    if (size[0] != fig.canvas.width || size[1] != fig.canvas.height) {
+        fig._resize_canvas(size[0], size[1]);
+        fig.send_message("refresh", {});
+    };
+}
+
+mpl.figure.prototype.handle_rubberband = function(fig, msg) {
+    var x0 = msg['x0'] / mpl.ratio;
+    var y0 = (fig.canvas.height - msg['y0']) / mpl.ratio;
+    var x1 = msg['x1'] / mpl.ratio;
+    var y1 = (fig.canvas.height - msg['y1']) / mpl.ratio;
+    x0 = Math.floor(x0) + 0.5;
+    y0 = Math.floor(y0) + 0.5;
+    x1 = Math.floor(x1) + 0.5;
+    y1 = Math.floor(y1) + 0.5;
+    var min_x = Math.min(x0, x1);
+    var min_y = Math.min(y0, y1);
+    var width = Math.abs(x1 - x0);
+    var height = Math.abs(y1 - y0);
+
+    fig.rubberband_context.clearRect(
+        0, 0, fig.canvas.width / mpl.ratio, fig.canvas.height / mpl.ratio);
+
+    fig.rubberband_context.strokeRect(min_x, min_y, width, height);
+}
+
+mpl.figure.prototype.handle_figure_label = function(fig, msg) {
+    // Updates the figure title.
+    fig.header.textContent = msg['label'];
+}
+
+mpl.figure.prototype.handle_cursor = function(fig, msg) {
+    var cursor = msg['cursor'];
+    switch(cursor)
+    {
+    case 0:
+        cursor = 'pointer';
+        break;
+    case 1:
+        cursor = 'default';
+        break;
+    case 2:
+        cursor = 'crosshair';
+        break;
+    case 3:
+        cursor = 'move';
+        break;
+    }
+    fig.rubberband_canvas.style.cursor = cursor;
+}
+
+mpl.figure.prototype.handle_message = function(fig, msg) {
+    fig.message.textContent = msg['message'];
+}
+
+mpl.figure.prototype.handle_draw = function(fig, msg) {
+    // Request the server to send over a new figure.
+    fig.send_draw_message();
+}
+
+mpl.figure.prototype.handle_image_mode = function(fig, msg) {
+    fig.image_mode = msg['mode'];
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Called whenever the canvas gets updated.
+    this.send_message("ack", {});
+}
+
+// A function to construct a web socket function for onmessage handling.
+// Called in the figure constructor.
+mpl.figure.prototype._make_on_message_function = function(fig) {
+    return function socket_on_message(evt) {
+        if (evt.data instanceof Blob) {
+            /* FIXME: We get "Resource interpreted as Image but
+             * transferred with MIME type text/plain:" errors on
+             * Chrome.  But how to set the MIME type?  It doesn't seem
+             * to be part of the websocket stream */
+            evt.data.type = "image/png";
+
+            /* Free the memory for the previous frames */
+            if (fig.imageObj.src) {
+                (window.URL || window.webkitURL).revokeObjectURL(
+                    fig.imageObj.src);
+            }
+
+            fig.imageObj.src = (window.URL || window.webkitURL).createObjectURL(
+                evt.data);
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+        else if (typeof evt.data === 'string' && evt.data.slice(0, 21) == "data:image/png;base64") {
+            fig.imageObj.src = evt.data;
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+
+        var msg = JSON.parse(evt.data);
+        var msg_type = msg['type'];
+
+        // Call the  "handle_{type}" callback, which takes
+        // the figure and JSON message as its only arguments.
+        try {
+            var callback = fig["handle_" + msg_type];
+        } catch (e) {
+            console.log("No handler for the '" + msg_type + "' message type: ", msg);
+            return;
+        }
+
+        if (callback) {
+            try {
+                // console.log("Handling '" + msg_type + "' message: ", msg);
+                callback(fig, msg);
+            } catch (e) {
+                console.log("Exception inside the 'handler_" + msg_type + "' callback:", e, e.stack, msg);
+            }
+        }
+    };
+}
+
+// from http://stackoverflow.com/questions/1114465/getting-mouse-location-in-canvas
+mpl.findpos = function(e) {
+    //this section is from http://www.quirksmode.org/js/events_properties.html
+    var targ;
+    if (!e)
+        e = window.event;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+
+    // jQuery normalizes the pageX and pageY
+    // pageX,Y are the mouse positions relative to the document
+    // offset() returns the position of the element relative to the document
+    var x = e.pageX - $(targ).offset().left;
+    var y = e.pageY - $(targ).offset().top;
+
+    return {"x": x, "y": y};
+};
+
+/*
+ * return a copy of an object with only non-object keys
+ * we need this to avoid circular references
+ * http://stackoverflow.com/a/24161582/3208463
+ */
+function simpleKeys (original) {
+  return Object.keys(original).reduce(function (obj, key) {
+    if (typeof original[key] !== 'object')
+        obj[key] = original[key]
+    return obj;
+  }, {});
+}
+
+mpl.figure.prototype.mouse_event = function(event, name) {
+    var canvas_pos = mpl.findpos(event)
+
+    if (name === 'button_press')
+    {
+        this.canvas.focus();
+        this.canvas_div.focus();
+    }
+
+    var x = canvas_pos.x * mpl.ratio;
+    var y = canvas_pos.y * mpl.ratio;
+
+    this.send_message(name, {x: x, y: y, button: event.button,
+                             step: event.step,
+                             guiEvent: simpleKeys(event)});
+
+    /* This prevents the web browser from automatically changing to
+     * the text insertion cursor when the button is pressed.  We want
+     * to control all of the cursor setting manually through the
+     * 'cursor' event from matplotlib */
+    event.preventDefault();
+    return false;
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    // Handle any extra behaviour associated with a key event
+}
+
+mpl.figure.prototype.key_event = function(event, name) {
+
+    // Prevent repeat events
+    if (name == 'key_press')
+    {
+        if (event.which === this._key)
+            return;
+        else
+            this._key = event.which;
+    }
+    if (name == 'key_release')
+        this._key = null;
+
+    var value = '';
+    if (event.ctrlKey && event.which != 17)
+        value += "ctrl+";
+    if (event.altKey && event.which != 18)
+        value += "alt+";
+    if (event.shiftKey && event.which != 16)
+        value += "shift+";
+
+    value += 'k';
+    value += event.which.toString();
+
+    this._key_event_extra(event, name);
+
+    this.send_message(name, {key: value,
+                             guiEvent: simpleKeys(event)});
+    return false;
+}
+
+mpl.figure.prototype.toolbar_button_onclick = function(name) {
+    if (name == 'download') {
+        this.handle_save(this, null);
+    } else {
+        this.send_message("toolbar_button", {name: name});
+    }
+};
+
+mpl.figure.prototype.toolbar_button_onmouseover = function(tooltip) {
+    this.message.textContent = tooltip;
+};
+mpl.toolbar_items = [["Home", "Reset original view", "fa fa-home icon-home", "home"], ["Back", "Back to previous view", "fa fa-arrow-left icon-arrow-left", "back"], ["Forward", "Forward to next view", "fa fa-arrow-right icon-arrow-right", "forward"], ["", "", "", ""], ["Pan", "Pan axes with left mouse, zoom with right", "fa fa-arrows icon-move", "pan"], ["Zoom", "Zoom to rectangle", "fa fa-square-o icon-check-empty", "zoom"], ["", "", "", ""], ["Download", "Download plot", "fa fa-floppy-o icon-save", "download"]];
+
+mpl.extensions = ["eps", "jpeg", "pdf", "png", "ps", "raw", "svg", "tif"];
+
+mpl.default_extension = "png";var comm_websocket_adapter = function(comm) {
+    // Create a "websocket"-like object which calls the given IPython comm
+    // object with the appropriate methods. Currently this is a non binary
+    // socket, so there is still some room for performance tuning.
+    var ws = {};
+
+    ws.close = function() {
+        comm.close()
+    };
+    ws.send = function(m) {
+        //console.log('sending', m);
+        comm.send(m);
+    };
+    // Register the callback with on_msg.
+    comm.on_msg(function(msg) {
+        //console.log('receiving', msg['content']['data'], msg);
+        // Pass the mpl event to the overridden (by mpl) onmessage function.
+        ws.onmessage(msg['content']['data'])
+    });
+    return ws;
+}
+
+mpl.mpl_figure_comm = function(comm, msg) {
+    // This is the function which gets called when the mpl process
+    // starts-up an IPython Comm through the "matplotlib" channel.
+
+    var id = msg.content.data.id;
+    // Get hold of the div created by the display call when the Comm
+    // socket was opened in Python.
+    var element = $("#" + id);
+    var ws_proxy = comm_websocket_adapter(comm)
+
+    function ondownload(figure, format) {
+        window.open(figure.imageObj.src);
+    }
+
+    var fig = new mpl.figure(id, ws_proxy,
+                           ondownload,
+                           element.get(0));
+
+    // Call onopen now - mpl needs it, as it is assuming we've passed it a real
+    // web socket which is closed, not our websocket->open comm proxy.
+    ws_proxy.onopen();
+
+    fig.parent_element = element.get(0);
+    fig.cell_info = mpl.find_output_cell("<div id='" + id + "'></div>");
+    if (!fig.cell_info) {
+        console.error("Failed to find cell for figure", id, fig);
+        return;
+    }
+
+    var output_index = fig.cell_info[2]
+    var cell = fig.cell_info[0];
+
+};
+
+mpl.figure.prototype.handle_close = function(fig, msg) {
+    var width = fig.canvas.width/mpl.ratio
+    fig.root.unbind('remove')
+
+    // Update the output cell to use the data from the current canvas.
+    fig.push_to_output();
+    var dataURL = fig.canvas.toDataURL();
+    // Re-enable the keyboard manager in IPython - without this line, in FF,
+    // the notebook keyboard shortcuts fail.
+    IPython.keyboard_manager.enable()
+    $(fig.parent_element).html('<img src="' + dataURL + '" width="' + width + '">');
+    fig.close_ws(fig, msg);
+}
+
+mpl.figure.prototype.close_ws = function(fig, msg){
+    fig.send_message('closing', msg);
+    // fig.ws.close()
+}
+
+mpl.figure.prototype.push_to_output = function(remove_interactive) {
+    // Turn the data on the canvas into data in the output cell.
+    var width = this.canvas.width/mpl.ratio
+    var dataURL = this.canvas.toDataURL();
+    this.cell_info[1]['text/html'] = '<img src="' + dataURL + '" width="' + width + '">';
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Tell IPython that the notebook contents must change.
+    IPython.notebook.set_dirty(true);
+    this.send_message("ack", {});
+    var fig = this;
+    // Wait a second, then push the new image to the DOM so
+    // that it is saved nicely (might be nice to debounce this).
+    setTimeout(function () { fig.push_to_output() }, 1000);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items){
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) { continue; };
+
+        var button = $('<button class="btn btn-default" href="#" title="' + name + '"><i class="fa ' + image + ' fa-lg"></i></button>');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+        nav_element.append(button);
+    }
+
+    // Add the status bar.
+    var status_bar = $('<span class="mpl-message" style="text-align:right; float: right;"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+
+    // Add the close button to the window.
+    var buttongrp = $('<div class="btn-group inline pull-right"></div>');
+    var button = $('<button class="btn btn-mini btn-primary" href="#" title="Stop Interaction"><i class="fa fa-power-off icon-remove icon-large"></i></button>');
+    button.click(function (evt) { fig.handle_close(fig, {}); } );
+    button.mouseover('Stop Interaction', toolbar_mouse_event);
+    buttongrp.append(button);
+    var titlebar = this.root.find($('.ui-dialog-titlebar'));
+    titlebar.prepend(buttongrp);
+}
+
+mpl.figure.prototype._root_extra_style = function(el){
+    var fig = this
+    el.on("remove", function(){
+	fig.close_ws(fig, {});
+    });
+}
+
+mpl.figure.prototype._canvas_extra_style = function(el){
+    // this is important to make the div 'focusable
+    el.attr('tabindex', 0)
+    // reach out to IPython and tell the keyboard manager to turn it's self
+    // off when our div gets focus
+
+    // location in version 3
+    if (IPython.notebook.keyboard_manager) {
+        IPython.notebook.keyboard_manager.register_events(el);
+    }
+    else {
+        // location in version 2
+        IPython.keyboard_manager.register_events(el);
+    }
+
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    var manager = IPython.notebook.keyboard_manager;
+    if (!manager)
+        manager = IPython.keyboard_manager;
+
+    // Check for shift+enter
+    if (event.shiftKey && event.which == 13) {
+        this.canvas_div.blur();
+        // select the cell after this one
+        var index = IPython.notebook.find_cell_index(this.cell_info[0]);
+        IPython.notebook.select(index + 1);
+    }
+}
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    fig.ondownload(fig, null);
+}
+
+
+mpl.find_output_cell = function(html_output) {
+    // Return the cell and output element which can be found *uniquely* in the notebook.
+    // Note - this is a bit hacky, but it is done because the "notebook_saving.Notebook"
+    // IPython event is triggered only after the cells have been serialised, which for
+    // our purposes (turning an active figure into a static one), is too late.
+    var cells = IPython.notebook.get_cells();
+    var ncells = cells.length;
+    for (var i=0; i<ncells; i++) {
+        var cell = cells[i];
+        if (cell.cell_type === 'code'){
+            for (var j=0; j<cell.output_area.outputs.length; j++) {
+                var data = cell.output_area.outputs[j];
+                if (data.data) {
+                    // IPython >= 3 moved mimebundle to data attribute of output
+                    data = data.data;
+                }
+                if (data['text/html'] == html_output) {
+                    return [cell, data, j];
+                }
+            }
+        }
+    }
+}
+
+// Register the function which deals with the matplotlib target/channel.
+// The kernel may be null if the page has been refreshed.
+if (IPython.notebook.kernel != null) {
+    IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
+}
+</script><div class="output text_html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAB+UlEQVR4nO3BMQEAAADCoPVP7WkJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AaZiQAB1KMUfAAAAABJRU5ErkJggg==" width="432"></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="n">maxiter</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">_</span><span class="p">,</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Gradiente</span><span class="p">(</span><span class="n">MaxIter</span> <span class="o">=</span> <span class="n">maxiter</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">maxiter</span><span class="p">),</span><span class="n">Error</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iterations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Loss&#39;)
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_23_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_23_1.png" />
+</div>
+</div>
+<div class="section" id="now-let-s-thing-about-the-following-problem">
+<h3>Now let’s thing about the following problem:<a class="headerlink" href="#now-let-s-thing-about-the-following-problem" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/ORANDXOR.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_25_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="one-single-perceptron-is-not-able-to-solve-the-problem">
+<h3>One single perceptron is not able to solve the problem!<a class="headerlink" href="#one-single-perceptron-is-not-able-to-solve-the-problem" title="Permalink to this headline">¶</a></h3>
+<p>But we know that XOR can be reconstructed by using two AND and one OR functions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/XOR.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_27_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="span-style-color-blue-this-is-a-neural-network-span">
+<h3><span style="color:blue">This is a neural network!</span><a class="headerlink" href="#span-style-color-blue-this-is-a-neural-network-span" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="multi-layer-perceptron-mlp">
+<h2>Multi-layer perceptron (MLP)<a class="headerlink" href="#multi-layer-perceptron-mlp" title="Permalink to this headline">¶</a></h2>
+<p>In order to solve more complex problems, several perceptrons can be used together forming what is call a multi-layer perceptron.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/MLP_.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_32_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_32_0.png" />
+</div>
+</div>
+<p>The output <span class="math notranslate nohighlight">\(k\)</span> of a MLP with one input layer and one hidden layer can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+y_k({\bf{x}},{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \sum_{i=1}^{n} w_{li}^{(1)} x_i + w_{l0}^{(1)} \right) + w_{k0}^{(2)}\right) 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(h\)</span> are the activation functions for the output and hidden layers respectively. Taking into acount that the net could have more than one output <span class="math notranslate nohighlight">\(k\)</span>, the cost function in this case must account for the mistakes in each output. For instance, using a least square error function, the cost function can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[J({\bf{w}}) = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K} (y_{jk} - t_{jk})^2\]</div>
+<div class="section" id="backpropagation-algorithm">
+<h3>Backpropagation algorithm<a class="headerlink" href="#backpropagation-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The Backpropagation algorithm is the application of the Gradient Descent algorithm to the neural network. The main difference with respect to the former case, is the fact that for the training of the most inner weights (all the weights in the hidden layers), the derivatives require the application of the <strong>chain rule</strong>.</p>
+<p>Lets define some intermediate variables during the forward running of the network:</p>
+<div class="math notranslate nohighlight">
+\[
+ a_l = \sum_{i=0}^{n} w_{li}^{(1)} x_i, \;\; z_l = h(a_l)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+ a_k = \sum_{l=0}^{M_1} w_{kl}^{(2)} z_l, \;\; y_k = \sigma(a_k)
+\]</div>
+<p>The gradients for the gradient descent algorithm in the output layer can be calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{\partial J}{\partial y_k}\frac{d \sigma}{d a_k} \frac{\partial a_k}{\partial w_{kl}^{(2)}}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{1}{N_s}\sum_{j=1}^{Ns} (y_{jk}-t_{jk})\dot{\sigma}(a_k) z_l({\bf{x}}_j)\]</div>
+<p>For the hidden layer the gradient can be calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_k)\frac{\partial a_k}{z_l}\frac{\partial z_l}{w_{li}^{(1)}}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_k)\sum_{l=0}^{M_1}w_{kl}^{(2)} \dot{h}(a_l)x_{ji}\]</div>
+<p>The gradients can be easily extended to more layers because they follow the same formulation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;OwdjRYUPngE&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="classical-activation-functions">
+<h2>Classical activation functions<a class="headerlink" href="#classical-activation-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logistic">
+<h3>Logistic<a class="headerlink" href="#logistic" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[
+g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
+\]</div>
+<p>Derivative: $<span class="math notranslate nohighlight">\(\frac{\partial g(u)}{\partial w_i} = g(u)(1-g(u))\frac{\partial u}{\partial w_i}\)</span>$.</p>
+</div>
+<div class="section" id="hyperbolic-tangent">
+<h3>Hyperbolic tangent<a class="headerlink" href="#hyperbolic-tangent" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[g(u) = \frac{\exp(u) - \exp(-u)}{\exp(u) + \exp(-u)}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3a5007de48&gt;]
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_48_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_48_1.png" />
+</div>
+</div>
+<p>Derivative: $<span class="math notranslate nohighlight">\(\frac{\partial g(u)}{\partial w_i} = (1 - (g(u))^2) \frac{\partial u}{\partial w_i}\)</span>$</p>
+</div>
+<div class="section" id="softmax">
+<h3>Softmax<a class="headerlink" href="#softmax" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[g(u_k) = \frac{\exp(u_k)}{\sum_{l=1}^K \exp(u_l)}\]</div>
+<p>Derivative: $<span class="math notranslate nohighlight">\( \frac{\partial g(u_i)}{\partial u_j} = g(u_i)(\delta_{ij}-g(u_j))\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\delta_{ij} = \left\{
+                \begin{array}{ll}
+                  1\;\;\;{\rm{if}}\;\;\;i=j\\
+                  0\;\;\;{\rm{if}}\;\;\;i \neq j
+                \end{array}
+              \right. \end{split}\]</div>
+</div>
+</div>
+<div class="section" id="batch-minibatch-and-online-learning">
+<h2>Batch, Minibatch and online learning<a class="headerlink" href="#batch-minibatch-and-online-learning" title="Permalink to this headline">¶</a></h2>
+<p>In order to trainig the MLP, the following quantities must be estimated in every iteration:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/ForwardBackward.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_56_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_56_0.png" />
+</div>
+</div>
+<p>The training that acumulates the errors from all the training samples before carrying out the update of the network weights is called <strong>Batch training</strong>. Unfortunately, if the number of training samples is very large, the running of every iteration becomes intratale, because both the amount of calculations (CPU time) and amount of memory (RAM) required to perform matrix multiplications and to save partial results. But the real handicap is the batch gradient trajectory land you in a bad spot (<strong>saddle point</strong>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/Optimi_surface.jpg&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_58_0.jpg" src="../_images/U2.01 - Introduction to Artificial Neural Networks_58_0.jpg" />
+</div>
+</div>
+<p>As an alternative, the training of the MLP can be carried out by propagating a single sample forward throught the net, and then update the weights of the MLP using the estimated error for that single sample according to the Backpropagation algorithm. These two steps are repeated for every sample in the training set. This strategy is called <strong>on-line learning</strong> and the resulting algorithm is called <strong>Stochastic Gradient Descent (SGD)</strong>. Since it’s based on one random data point, it’s very noisy and may go off in a direction far from the batch gradient. However, the noisiness is exactly what you want in non-convex optimization, because it helps you escape from saddle points or local minima.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/SGD_MB.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_60_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_60_0.png" />
+</div>
+</div>
+<p>One of the problems with the SGD algorithm is that since the updates depend on a single sample, instead of the accumulation of the error for the whole training set, the convergence of the algorithm is slower, requiring more epochs to get the optimum. Therefore, an intermediate solution, called <strong>Mini-batch gradient descent</strong>, split the training samples into mini-batchs, and execute and update of the weigths (forward and backward steps) per mini-batch. The mini-batch gradient descent is a trade-off between memory load and rate of convergence.</p>
+<div class="section" id="example-using-a-toy-dataset">
+<h3>Example using a toy dataset:<a class="headerlink" href="#example-using-a-toy-dataset" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">noise</span><span class="o">=.</span><span class="mi">05</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2-class problem&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1500, 2)
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_63_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_63_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install neurolab
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting neurolab
+?25l  Downloading https://files.pythonhosted.org/packages/46/fd/47a9a39158b461b6b862d64c0ad7f679b08ed6d316744299f0db89066342/neurolab-0.3.5.tar.gz (645kB)
+    100% |████████████████████████████████| 655kB 406kB/s ta 0:00:01
+?25hBuilding wheels for collected packages: neurolab
+  Running setup.py bdist_wheel for neurolab ... ?25ldone
+?25h  Stored in directory: /home/rlx/.cache/pip/wheels/c6/8f/37/32ab1cf4d601dc0bc49d7241012a4292db4b343bebff5b68e6
+Successfully built neurolab
+Installing collected packages: neurolab
+Successfully installed neurolab-0.3.5
+<span class=" -Color -Color-Yellow">You are using pip version 10.0.1, however version 19.3.1 is available.</span>
+<span class=" -Color -Color-Yellow">You should consider upgrading via the &#39;pip install --upgrade pip&#39; command.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">neurolab</span> <span class="k">as</span> <span class="nn">nl</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
+<span class="c1"># Create train samples</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># Create network with 2 inputs, 5 neurons in input layer and 1 in output layer</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">nl</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">newff</span><span class="p">([[</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()]],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>  <span class="p">[</span><span class="n">nl</span><span class="o">.</span><span class="n">trans</span><span class="o">.</span><span class="n">LogSig</span><span class="p">(),</span><span class="n">nl</span><span class="o">.</span><span class="n">trans</span><span class="o">.</span><span class="n">LogSig</span><span class="p">()])</span>
+<span class="c1"># Train process</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="c1"># Test</span>
+<span class="n">cmap_light</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="s1">&#39;#AAAAFF&#39;</span><span class="p">,</span><span class="s1">&#39;#AAFFAA&#39;</span><span class="p">,</span><span class="s1">&#39;#FFAAAA&#39;</span><span class="p">,])</span>
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span>
+<span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="c1">#print([xx[1,i],yy[j,1]])</span>
+        <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">sim</span><span class="p">([[</span><span class="n">xx</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">yy</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]]])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2-class problem&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_light</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 15; Error: 46.976806444129835;
+Epoch: 30; Error: 0.060440960445150294;
+The goal of learning is reached
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_65_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_65_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="n">clf1</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;1 ok&quot;</span><span class="p">)</span>
+<span class="n">clf2</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;2 ok&quot;</span><span class="p">)</span>
+<span class="n">clf3</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;3 ok&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf1</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Batch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf2</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mini-Batch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf3</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;On-line&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 ok
+2 ok
+3 ok
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6d1248dbd0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_66_2.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_66_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf1</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;1 ok&quot;</span><span class="p">)</span>
+<span class="n">clf2</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;2 ok&quot;</span><span class="p">)</span>
+<span class="n">clf3</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">learning_rate_init</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_iter_no_change</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">clf3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;3 ok&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf1</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Batch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf2</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mini-Batch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clf3</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;On-line&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 ok
+2 ok
+3 ok
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6d1247fbd0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_67_2.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_67_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MLPClassifier</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sklearn.neural_network._multilayer_perceptron.MLPClassifier
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="drawbacks-of-the-classical-approaches">
+<h2>Drawbacks of the classical approaches<a class="headerlink" href="#drawbacks-of-the-classical-approaches" title="Permalink to this headline">¶</a></h2>
+<p><strong>Inflexibility</strong></p>
+<ul class="simple">
+<li><p>Classifical approaches require an entire formulation if you want to change the loss function or test a slightly different architecture.</p></li>
+<li><p>A new arquitecture require the calculation of all the re-estimation formulas, without taking advantage of symbolic derivative tools.</p></li>
+<li><p>Some classical frameworks support regularization of ANN, but they do not include the most recent advances.</p></li>
+<li><p>There are new activation functions that avoid problems, such as vanishing phenomenon, when the number of layers is large.</p></li>
+<li><p>Classical frameworks do not take advantage on parallelism.</p></li>
+<li><p>Transfer learning</p></li>
+</ul>
+<p>[1] Simon Haykin, Neural Networks and Learning Machines, 3ra Edición, Prentice Hall, USA, 2009.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By YOUR NAME / YOUR INSTITUTION<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

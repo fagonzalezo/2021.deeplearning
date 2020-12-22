@@ -276,11 +276,6 @@
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#task-03-extract-decoder-function">
-   TASK 03: Extract decoder function
-  </a>
- </li>
 </ul>
 
         </nav>
@@ -306,7 +301,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.02&quot;</span> <span class="p">)</span>
+<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> 
+                                                <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.02&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -581,85 +577,24 @@ Note for models you have to use <strong>Tensorflow operations</strong> in specif
 <img alt="../_images/U2 LAB 02 - Autoencoders_33_0.png" src="../_images/U2 LAB 02 - Autoencoders_33_0.png" />
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_img_grid</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">wi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Registra tu solución en linea</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T2&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="task-03-extract-decoder-function">
-<h2>TASK 03: Extract decoder function<a class="headerlink" href="#task-03-extract-decoder-function" title="Permalink to this headline">¶</a></h2>
-<p>Given a trained autoencoder and a matrix of latent representations, complete the following function to obtain the reconstruction. Asume the <code class="docutils literal notranslate"><span class="pre">model</span></code> passed as input has the same architecture and layer names as in the previous task.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">xe</span></code> argument is of shape <code class="docutils literal notranslate"><span class="pre">[n,</span> <span class="pre">code_size]</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of latent representations.</p>
-<p>The function must return an array with shape <code class="docutils literal notranslate"><span class="pre">[n,</span> <span class="pre">784]</span></code></p>
-<p><strong>HINT</strong>: Use <code class="docutils literal notranslate"><span class="pre">tensorflow.keras.backend</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">xe</span><span class="p">):</span>
-    <span class="k">return</span> <span class="o">...</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>you can test your code by feeding any img to the autoencoder, obtain the model output and the encoder activations. If you feed the encoder activations to your decoder function, you should get the same value as the model output.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">code_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-
-<span class="n">layer_input</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)</span>
-<span class="n">layer_encoder</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
-
-<span class="n">me</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="n">layer_input</span><span class="o">.</span><span class="n">input</span><span class="p">],</span> <span class="p">[</span><span class="n">layer_encoder</span><span class="o">.</span><span class="n">output</span><span class="p">])</span>
-
-<span class="n">xo</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-<span class="n">xe</span> <span class="o">=</span> <span class="n">me</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-<span class="n">xd</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">xe</span><span class="p">)</span>
-
-<span class="c1"># this must result True</span>
-<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">xd</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>you can also test your code in the following way. Observe that if we decode a one hot encoding of each latent neuron we should get the same result as applying the sigmoid function to the raw decoder weights.</p>
-<p>in a <strong>one hot encoding</strong> of the latent neurons what we do is:</p>
-<ul class="simple">
-<li><p>for latent neuron <span class="math notranslate nohighlight">\(i\)</span> we create a vector of size <code class="docutils literal notranslate"><span class="pre">code_size</span></code> with all values set to <span class="math notranslate nohighlight">\(0\)</span> except value <span class="math notranslate nohighlight">\(i\)</span> which is set to <span class="math notranslate nohighlight">\(1\)</span></p></li>
-<li><p>we feed the vector through the decoder.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># decoding one-hot encodings of the latent neurons</span>
-
-<span class="n">ohd</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">show_img_grid</span><span class="p">(</span><span class="n">ohd</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># manually</span>
-
-<span class="n">wd0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;decoder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-<span class="n">wd1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;decoder&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-
-<span class="n">sigm</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
-
-<span class="n">show_img_grid</span><span class="p">(</span><span class="n">sigm</span><span class="p">(</span><span class="n">wd0</span><span class="o">+</span><span class="n">wd1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Registra tu solución en linea</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T3&#39;</span><span class="p">);</span>
-</pre></div>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4 - Network architectures - Autoencoders &#8212; Fundamentos de Deep Learning</title>
+    <title>2.4 - Autoencoders &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5 - Network architectures - Multimodal information" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" />
-    <link rel="prev" title="3 - Overfitting and regularization" href="U2.03%20-%20Overfitting%20and%20regularization.html" />
+    <link rel="next" title="2.5 - A Multimodal Architecture" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" />
+    <link rel="prev" title="2.3 - Overfitting and regularization" href="U2.03%20-%20Overfitting%20and%20regularization.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -102,17 +102,22 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
-     1 - DL Overview
+     1.1 - DL Overview
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
-     2 - Models derived from data
+     1.2 - Models derived from data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
-     3 - ML algorithm design
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
+     LAB 1.1 - PRACTICE SUBMISSION
     </a>
    </li>
   </ul>
@@ -125,38 +130,33 @@
   </a>
   <ul class="current collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.01%20-%20Introduction%20to%20Artificial%20Neural%20Networks.html">
-     1 Intro to ANN
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="U2.02%20-%20MLP%20with%20Keras.html">
-     2 MLP with Keras
+     2.2 - Multilayer Perceptron
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
-     3 - Overfitting and regularization
+     2.3 - Overfitting and regularization
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4 - Network architectures - Autoencoders
+     2.4 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-     5 - Network architectures - Multimodal information
+     2.5 - A Multimodal Architecture
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html">
-     LAB - Autoencoders
+    <a class="reference internal" href="U2%20LAB%2002%20-%20%20Autoencoders.html">
+     LAB 2.2 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.09%20-%20%5BTALLER%5D%20-%20Multimodal%20architectures.html">
-     LAB - Multimodal architectures
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Multimodal%20architectures.html">
+     LAB 2.3 - Multimodal architectures
     </a>
    </li>
   </ul>
@@ -250,7 +250,7 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#autoencoders">
+  <a class="reference internal nav-link" href="#id1">
    1. Autoencoders
   </a>
   <ul class="nav section-nav flex-column">
@@ -320,8 +320,8 @@
         
               <div>
                 
-  <div class="section" id="network-architectures-autoencoders">
-<h1>4 - Network architectures - Autoencoders<a class="headerlink" href="#network-architectures-autoencoders" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="autoencoders">
+<h1>2.4 - Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -392,8 +392,8 @@
 <img alt="../_images/U2.04 - Network Architectures - Autoencoders_5_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_5_0.png" />
 </div>
 </div>
-<div class="section" id="autoencoders">
-<h2>1. Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>1. Autoencoders<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -1494,8 +1494,8 @@ Epoch 100/100
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U2.03%20-%20Overfitting%20and%20regularization.html" title="previous page">3 - Overfitting and regularization</a>
-    <a class='right-next' id="next-link" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" title="next page">5 - Network architectures - Multimodal information</a>
+    <a class='left-prev' id="prev-link" href="U2.03%20-%20Overfitting%20and%20regularization.html" title="previous page">2.3 - Overfitting and regularization</a>
+    <a class='right-next' id="next-link" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" title="next page">2.5 - A Multimodal Architecture</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

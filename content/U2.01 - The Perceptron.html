@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1 Intro to ANN &#8212; Fundamentos de Deep Learning</title>
+    <title>2.1 - The Perceptron &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2 MLP with Keras" href="U2.02%20-%20MLP%20with%20Keras.html" />
-    <link rel="prev" title="02 - NEURAL NETWORKS" href="M02.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -94,7 +92,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M01.html">
    01 - INTRODUCTION
@@ -102,61 +100,61 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
-     1 - DL Overview
+     1.1 - DL Overview
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
-     2 - Models derived from data
+     1.2 - Models derived from data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
-     3 - ML algorithm design
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20SUBMISSION%20EXAMPLE.html">
+     LAB 1.1 - PRACTICE SUBMISSION
     </a>
    </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M02.html">
    02 - NEURAL NETWORKS
   </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     1 Intro to ANN
-    </a>
-   </li>
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U2.02%20-%20MLP%20with%20Keras.html">
-     2 MLP with Keras
+     2.2 - Multilayer Perceptron
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
-     3 - Overfitting and regularization
+     2.3 - Overfitting and regularization
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html">
-     4 - Network architectures - Autoencoders
+     2.4 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-     5 - Network architectures - Multimodal information
+     2.5 - A Multimodal Architecture
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.06%20-%20%5BTALLER%5D%20-%20Autoencoders.html">
-     LAB - Autoencoders
+    <a class="reference internal" href="U2%20LAB%2002%20-%20%20Autoencoders.html">
+     LAB 2.2 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.09%20-%20%5BTALLER%5D%20-%20Multimodal%20architectures.html">
-     LAB - Multimodal architectures
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Multimodal%20architectures.html">
+     LAB 2.3 - Multimodal architectures
     </a>
    </li>
   </ul>
@@ -203,7 +201,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U2.01 - Introduction to Artificial Neural Networks.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U2.01 - The Perceptron.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -230,7 +228,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.01 - Introduction to Artificial Neural Networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.01 - The Perceptron.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -255,7 +253,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-perceptron">
+  <a class="reference internal nav-link" href="#id1">
    The perceptron
   </a>
  </li>
@@ -345,8 +343,8 @@
         
               <div>
                 
-  <div class="section" id="intro-to-ann">
-<h1>1 Intro to ANN<a class="headerlink" href="#intro-to-ann" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-perceptron">
+<h1>2.1 - The Perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -373,13 +371,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_5_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_5_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_5_0.png" src="../_images/U2.01 - The Perceptron_5_0.png" />
 </div>
 </div>
 <p>Similar to the biological neurons, perceptrons are designed to have two different outputs 1 or 0 (exited/no exited).</p>
 </div>
-<div class="section" id="the-perceptron">
-<h2>The perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>The perceptron<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/perceptron.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
@@ -387,7 +385,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_8_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_8_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_8_0.png" src="../_images/U2.01 - The Perceptron_8_0.png" />
 </div>
 </div>
 <p>Where <span class="math notranslate nohighlight">\(x_i\)</span> corresponds to an input variable. The set of input variables is typically expressed as a vector <span class="math notranslate nohighlight">\({\bf{x}}=\{x_1,x_2,\cdots,x_n\}\)</span>.</p>
@@ -427,7 +425,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f6d2946d190&gt;]
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_17_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_17_1.png" />
+<img alt="../_images/U2.01 - The Perceptron_17_1.png" src="../_images/U2.01 - The Perceptron_17_1.png" />
 </div>
 </div>
 <p>In order to train the perceptron you must define a loss function, typically an error function that can be used to “penalize” the model when it makes wrong predictions. When the target variables <span class="math notranslate nohighlight">\(y_j \in \{0,1\}\)</span> (the prediction corresponds to a classification problem), the most common loss function is the <strong>crossentropy</strong> given by:</p>
@@ -476,7 +474,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_21_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_21_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_21_0.png" src="../_images/U2.01 - The Perceptron_21_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2057,7 +2055,7 @@ if (IPython.notebook.kernel != null) {
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Loss&#39;)
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_23_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_23_1.png" />
+<img alt="../_images/U2.01 - The Perceptron_23_1.png" src="../_images/U2.01 - The Perceptron_23_1.png" />
 </div>
 </div>
 <div class="section" id="now-let-s-thing-about-the-following-problem">
@@ -2069,7 +2067,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_25_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_25_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_25_0.png" src="../_images/U2.01 - The Perceptron_25_0.png" />
 </div>
 </div>
 </div>
@@ -2083,7 +2081,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_27_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_27_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_27_0.png" src="../_images/U2.01 - The Perceptron_27_0.png" />
 </div>
 </div>
 </div>
@@ -2102,7 +2100,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_32_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_32_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_32_0.png" src="../_images/U2.01 - The Perceptron_32_0.png" />
 </div>
 </div>
 <p>The output <span class="math notranslate nohighlight">\(k\)</span> of a MLP with one input layer and one hidden layer can be expressed as:</p>
@@ -2171,7 +2169,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3a5007de48&gt;]
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_48_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_48_1.png" />
+<img alt="../_images/U2.01 - The Perceptron_48_1.png" src="../_images/U2.01 - The Perceptron_48_1.png" />
 </div>
 </div>
 <p>Derivative: $<span class="math notranslate nohighlight">\(\frac{\partial g(u)}{\partial w_i} = (1 - (g(u))^2) \frac{\partial u}{\partial w_i}\)</span>$</p>
@@ -2200,7 +2198,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_56_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_56_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_56_0.png" src="../_images/U2.01 - The Perceptron_56_0.png" />
 </div>
 </div>
 <p>The training that acumulates the errors from all the training samples before carrying out the update of the network weights is called <strong>Batch training</strong>. Unfortunately, if the number of training samples is very large, the running of every iteration becomes intratale, because both the amount of calculations (CPU time) and amount of memory (RAM) required to perform matrix multiplications and to save partial results. But the real handicap is the batch gradient trajectory land you in a bad spot (<strong>saddle point</strong>).</p>
@@ -2211,7 +2209,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_58_0.jpg" src="../_images/U2.01 - Introduction to Artificial Neural Networks_58_0.jpg" />
+<img alt="../_images/U2.01 - The Perceptron_58_0.jpg" src="../_images/U2.01 - The Perceptron_58_0.jpg" />
 </div>
 </div>
 <p>As an alternative, the training of the MLP can be carried out by propagating a single sample forward throught the net, and then update the weights of the MLP using the estimated error for that single sample according to the Backpropagation algorithm. These two steps are repeated for every sample in the training set. This strategy is called <strong>on-line learning</strong> and the resulting algorithm is called <strong>Stochastic Gradient Descent (SGD)</strong>. Since it’s based on one random data point, it’s very noisy and may go off in a direction far from the batch gradient. However, the noisiness is exactly what you want in non-convex optimization, because it helps you escape from saddle points or local minima.</p>
@@ -2222,7 +2220,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_60_0.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_60_0.png" />
+<img alt="../_images/U2.01 - The Perceptron_60_0.png" src="../_images/U2.01 - The Perceptron_60_0.png" />
 </div>
 </div>
 <p>One of the problems with the SGD algorithm is that since the updates depend on a single sample, instead of the accumulation of the error for the whole training set, the convergence of the algorithm is slower, requiring more epochs to get the optimum. Therefore, an intermediate solution, called <strong>Mini-batch gradient descent</strong>, split the training samples into mini-batchs, and execute and update of the weigths (forward and backward steps) per mini-batch. The mini-batch gradient descent is a trade-off between memory load and rate of convergence.</p>
@@ -2246,7 +2244,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1500, 2)
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_63_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_63_1.png" />
+<img alt="../_images/U2.01 - The Perceptron_63_1.png" src="../_images/U2.01 - The Perceptron_63_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2310,7 +2308,7 @@ Epoch: 30; Error: 0.060440960445150294;
 The goal of learning is reached
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_65_1.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_65_1.png" />
+<img alt="../_images/U2.01 - The Perceptron_65_1.png" src="../_images/U2.01 - The Perceptron_65_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2341,7 +2339,7 @@ The goal of learning is reached
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6d1248dbd0&gt;
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_66_2.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_66_2.png" />
+<img alt="../_images/U2.01 - The Perceptron_66_2.png" src="../_images/U2.01 - The Perceptron_66_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2371,7 +2369,7 @@ The goal of learning is reached
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f6d1247fbd0&gt;
 </pre></div>
 </div>
-<img alt="../_images/U2.01 - Introduction to Artificial Neural Networks_67_2.png" src="../_images/U2.01 - Introduction to Artificial Neural Networks_67_2.png" />
+<img alt="../_images/U2.01 - The Perceptron_67_2.png" src="../_images/U2.01 - The Perceptron_67_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2431,8 +2429,6 @@ The goal of learning is reached
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="M02.html" title="previous page">02 - NEURAL NETWORKS</a>
-    <a class='right-next' id="next-link" href="U2.02%20-%20MLP%20with%20Keras.html" title="next page">2 MLP with Keras</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

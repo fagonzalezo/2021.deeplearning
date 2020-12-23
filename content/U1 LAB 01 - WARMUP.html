@@ -319,6 +319,17 @@
 <li><p><span class="math notranslate nohighlight">\(\text{relu}(z)=\text{max}(0,z)\)</span> is a function <span class="math notranslate nohighlight">\(\mathbb{R}\rightarrow\mathbb{R}\)</span> that when applied to a vector is also <strong>broadcasted</strong> (applied individually to each element of the vector)</p></li>
 </ul>
 <p><strong>CHALLENGE</strong>: Solve it with a single line of Python code (not counting the <code class="docutils literal notranslate"><span class="pre">relu</span></code> function definition).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">operation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">relu</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">...</span> <span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>test your code with the following case, which should result in <code class="docutils literal notranslate"><span class="pre">0.15848</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

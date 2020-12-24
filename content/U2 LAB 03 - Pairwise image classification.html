@@ -163,21 +163,6 @@
      LAB 2.3 - Parwise image classification
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#task-1-multi-input-model">
-     TASK 1: Multi-input model
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#layer-type-output-shape-param-connected-to">
-     Layer (type)                    Output Shape         Param #     Connected to
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#output-dense-none-1-101-layer2-common-0-0">
-     output (Dense)                  (None, 1)            101         layer2_common[0][0]
-    </a>
-   </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
@@ -268,39 +253,20 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   LAB 2.3 - Parwise image classification
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lab-summary">
+   LAB SUMMARY
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#lab-submmary">
-     LAB SUBMMARY
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#task-1-multi-input-model">
    TASK 1: Multi-input model
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#layer-type-output-shape-param-connected-to">
-   Layer (type)                    Output Shape         Param #     Connected to
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-2-measure-per-class-accuracy">
+   TASK 2: Measure per-class accuracy
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#output-dense-none-1-101-layer2-common-0-0">
-   output (Dense)                  (None, 1)            101         layer2_common[0][0]
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#test-your-model">
-     test your model
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -332,8 +298,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="lab-submmary">
-<h2>LAB SUBMMARY<a class="headerlink" href="#lab-submmary" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lab-summary">
+<h2>LAB SUMMARY<a class="headerlink" href="#lab-summary" title="Permalink to this headline">¶</a></h2>
 <p>In this lab we will use define a <strong>slightly different</strong> machine learning task. Given two MNIST images <strong>as input</strong> we want a network with a binary output: <code class="docutils literal notranslate"><span class="pre">1</span></code> if both images belong to the same MNIST class, and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -482,9 +448,8 @@
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="task-1-multi-input-model">
-<h1>TASK 1: Multi-input model<a class="headerlink" href="#task-1-multi-input-model" title="Permalink to this headline">¶</a></h1>
+<h2>TASK 1: Multi-input model<a class="headerlink" href="#task-1-multi-input-model" title="Permalink to this headline">¶</a></h2>
 <p>Create a model with the architecture depicted in the following figure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -503,8 +468,31 @@
 <li><p>there is ony <strong>ONE</strong> output neuron.</p></li>
 <li><p>the model summary should be as follows and <strong>MUST NAME THE LAYERS ACCORDINGLY</strong>:</p></li>
 </ul>
-<hr class="docutils" />
-<div class="cell docutils container">
+<pre>
+
+    __________________________________________________________________________________________________
+    Layer (type)                    Output Shape         Param #     Connected to                     
+    ==================================================================================================
+    input_img0 (InputLayer)         [(None, 784)]        0                                            
+    __________________________________________________________________________________________________
+    input_img1 (InputLayer)         [(None, 784)]        0                                            
+    __________________________________________________________________________________________________
+    layer1_img0 (Dense)             (None, 100)          78500       input_img0[0][0]                 
+    __________________________________________________________________________________________________
+    layer1_img1 (Dense)             (None, 100)          78500       input_img1[0][0]                 
+    __________________________________________________________________________________________________
+    tf_op_layer_concat_39 (TensorFl [(None, 200)]        0           layer1_img0[0][0]                
+                                                                     layer1_img1[0][0]                
+    __________________________________________________________________________________________________
+    layer2_common (Dense)           (None, 100)          20100       tf_op_layer_concat_39[0][0]      
+    __________________________________________________________________________________________________
+    output (Dense)                  (None, 1)            101         layer2_common[0][0]              
+    ==================================================================================================
+    Total params: 177,201
+    Trainable params: 177,201
+    Non-trainable params: 0
+    __________________________________________________________________________________________________
+</pre><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">):</span>
     
@@ -539,36 +527,12 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="layer-type-output-shape-param-connected-to">
-<h1>Layer (type)                    Output Shape         Param #     Connected to<a class="headerlink" href="#layer-type-output-shape-param-connected-to" title="Permalink to this headline">¶</a></h1>
-<p>input_img0 (InputLayer)         [(None, 784)]        0</p>
-<hr class="docutils" />
-<p>input_img1 (InputLayer)         [(None, 784)]        0</p>
-<hr class="docutils" />
-<p>layer1_img0 (Dense)             (None, 100)          78500       input_img0[0][0]</p>
-<hr class="docutils" />
-<p>layer1_img1 (Dense)             (None, 100)          78500       input_img1[0][0]</p>
-<hr class="docutils" />
-<p>tf_op_layer_concat_39 (TensorFl [(None, 200)]        0           layer1_img0[0][0]<br />
-layer1_img1[0][0]</p>
-<hr class="docutils" />
-<p>layer2_common (Dense)           (None, 100)          20100       tf_op_layer_concat_39[0][0]</p>
-</div>
-<hr class="docutils" />
-<div class="section" id="output-dense-none-1-101-layer2-common-0-0">
-<h1>output (Dense)                  (None, 1)            101         layer2_common[0][0]<a class="headerlink" href="#output-dense-none-1-101-layer2-common-0-0" title="Permalink to this headline">¶</a></h1>
-<p>Total params: 177,201
-Trainable params: 177,201
-Non-trainable params: 0</p>
-<hr class="docutils" />
-<div class="section" id="test-your-model">
-<h2>test your model<a class="headerlink" href="#test-your-model" title="Permalink to this headline">¶</a></h2>
+<p><strong>test your model</strong></p>
 <p>now we can test your model</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pXtr</span><span class="p">,</span> <span class="n">eytr</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">[</span><span class="n">pXts</span><span class="p">,</span> <span class="n">eyts</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pXtr</span><span class="p">,</span> <span class="n">eytr</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -604,7 +568,9 @@ Non-trainable params: 0</p>
 </div>
 </div>
 </div>
-<p>## TASK 2: Measure per-class accuracy</p>
+</div>
+<div class="section" id="task-2-measure-per-class-accuracy">
+<h2>TASK 2: Measure per-class accuracy<a class="headerlink" href="#task-2-measure-per-class-accuracy" title="Permalink to this headline">¶</a></h2>
 <p>For each class we want to measure what is the prediction accuracy for the binary task when it participates in a pair. Observe how we gather the labels of each pair together with the binary prediction and the true value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

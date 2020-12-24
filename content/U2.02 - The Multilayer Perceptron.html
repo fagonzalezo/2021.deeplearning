@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.2 - Multilayer Perceptron &#8212; Fundamentos de Deep Learning</title>
+    <title>2.2 - The Multilayer Perceptron &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -136,7 +136,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.2 - Multilayer Perceptron
+     2.2 - The Multilayer Perceptron
     </a>
    </li>
    <li class="toctree-l2">
@@ -156,7 +156,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
-     LAB 2.2 - Autoencoders
+     LAB 2.2 - Sparse Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
@@ -208,7 +208,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U2.02 - MLP with Keras.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U2.02 - The Multilayer Perceptron.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -235,7 +235,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.02 - MLP with Keras.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.02 - The Multilayer Perceptron.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -287,8 +287,8 @@
         
               <div>
                 
-  <div class="section" id="multilayer-perceptron">
-<h1>2.2 - Multilayer Perceptron<a class="headerlink" href="#multilayer-perceptron" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-multilayer-perceptron">
+<h1>2.2 - The Multilayer Perceptron<a class="headerlink" href="#the-multilayer-perceptron" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -308,29 +308,6 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span><span class="p">;</span> <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install keras
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting keras
-?25l  Downloading https://files.pythonhosted.org/packages/5e/10/aa32dad071ce52b5502266b5c659451cfd6ffcbf14e6c8c4f16c0ff5aaab/Keras-2.2.4-py2.py3-none-any.whl (312kB)
-    100% |████████████████████████████████| 317kB 1.6MB/s ta 0:00:01
-?25hRequirement already satisfied: six&gt;=1.9.0 in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (1.12.0)
-Requirement already satisfied: scipy&gt;=0.14 in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (1.2.1)
-Requirement already satisfied: keras-preprocessing&gt;=1.0.5 in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (1.0.9)
-Requirement already satisfied: keras-applications&gt;=1.0.6 in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (1.0.7)
-Requirement already satisfied: pyyaml in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (5.1)
-Requirement already satisfied: numpy&gt;=1.9.1 in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (1.16.3)
-Requirement already satisfied: h5py in /home/user/.conda/envs/p37/lib/python3.7/site-packages (from keras) (2.9.0)
-Installing collected packages: keras
-Successfully installed keras-2.2.4
 </pre></div>
 </div>
 </div>
@@ -372,7 +349,7 @@ Successfully installed keras-2.2.4
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.02 - MLP with Keras_8_0.png" src="../_images/U2.02 - MLP with Keras_8_0.png" />
+<img alt="../_images/U2.02 - The Multilayer Perceptron_7_0.png" src="../_images/U2.02 - The Multilayer Perceptron_7_0.png" />
 </div>
 </div>
 <p>Preparing the data for a training process…</p>
@@ -523,7 +500,7 @@ Generating test predictions...
 9
 </pre></div>
 </div>
-<img alt="../_images/U2.02 - MLP with Keras_23_1.png" src="../_images/U2.02 - MLP with Keras_23_1.png" />
+<img alt="../_images/U2.02 - The Multilayer Perceptron_22_1.png" src="../_images/U2.02 - The Multilayer Perceptron_22_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -537,28 +514,28 @@ Generating test predictions...
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training...
 Train on 54000 samples, validate on 6000 samples
 Epoch 1/10
-54000/54000 - 4s - loss: 0.4596 - val_loss: 0.4096
+54000/54000 - 3s - loss: 0.4610 - val_loss: 0.3979
 Epoch 2/10
-54000/54000 - 3s - loss: 0.3684 - val_loss: 0.3809
+54000/54000 - 3s - loss: 0.3688 - val_loss: 0.3801
 Epoch 3/10
-54000/54000 - 4s - loss: 0.3382 - val_loss: 0.3695
+54000/54000 - 3s - loss: 0.3396 - val_loss: 0.3620
 Epoch 4/10
-54000/54000 - 4s - loss: 0.3167 - val_loss: 0.3740
+54000/54000 - 3s - loss: 0.3186 - val_loss: 0.3637
 Epoch 5/10
-54000/54000 - 3s - loss: 0.2985 - val_loss: 0.3543
+54000/54000 - 3s - loss: 0.3000 - val_loss: 0.3596
 Epoch 6/10
-54000/54000 - 3s - loss: 0.2863 - val_loss: 0.3718
+54000/54000 - 3s - loss: 0.2882 - val_loss: 0.3553
 Epoch 7/10
-54000/54000 - 3s - loss: 0.2741 - val_loss: 0.3539
+54000/54000 - 3s - loss: 0.2791 - val_loss: 0.3418
 Epoch 8/10
-54000/54000 - 3s - loss: 0.2615 - val_loss: 0.3515
+54000/54000 - 3s - loss: 0.2682 - val_loss: 0.3346
 Epoch 9/10
-54000/54000 - 3s - loss: 0.2521 - val_loss: 0.3433
+54000/54000 - 3s - loss: 0.2577 - val_loss: 0.3618
 Epoch 10/10
-54000/54000 - 4s - loss: 0.2459 - val_loss: 0.3571
+54000/54000 - 3s - loss: 0.2533 - val_loss: 0.3547
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7efd0811d890&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7ff31956cda0&gt;
 </pre></div>
 </div>
 </div>
@@ -582,7 +559,7 @@ Epoch 10/10
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generating test predictions...
 </pre></div>
 </div>
-<img alt="../_images/U2.02 - MLP with Keras_25_1.png" src="../_images/U2.02 - MLP with Keras_25_1.png" />
+<img alt="../_images/U2.02 - The Multilayer Perceptron_24_1.png" src="../_images/U2.02 - The Multilayer Perceptron_24_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -594,7 +571,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.71 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.48 %
 </pre></div>
 </div>
 </div>
@@ -620,7 +597,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.02 - MLP with Keras_27_0.png" src="../_images/U2.02 - MLP with Keras_27_0.png" />
+<img alt="../_images/U2.02 - The Multilayer Perceptron_26_0.png" src="../_images/U2.02 - The Multilayer Perceptron_26_0.png" />
 </div>
 </div>
 </div>
@@ -631,8 +608,8 @@ Epoch 10/10
 <p>Models are defined by creating instances of layers and connecting them directly to each other in pairs, then defining a Model that specifies the layers to act as the input and output to the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
 
 
 <span class="c1"># This returns a tensor</span>
@@ -652,11 +629,6 @@ Epoch 10/10
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using TensorFlow backend.
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -665,17 +637,17 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_1&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model&quot;
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-input_1 (InputLayer)         (None, 784)               0         
+input_1 (InputLayer)         [(None, 784)]             0         
 _________________________________________________________________
-dense_1 (Dense)              (None, 64)                50240     
+dense_5 (Dense)              (None, 64)                50240     
 _________________________________________________________________
-dense_2 (Dense)              (None, 32)                2080      
+dense_6 (Dense)              (None, 32)                2080      
 _________________________________________________________________
-dense_3 (Dense)              (None, 10)                330       
+dense_7 (Dense)              (None, 10)                330       
 =================================================================
 Total params: 52,650
 Trainable params: 52,650
@@ -694,28 +666,28 @@ _________________________________________________________________
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 54000 samples, validate on 6000 samples
 Epoch 1/10
- - 7s - loss: 0.5589 - accuracy: 0.8113 - val_loss: 0.4184 - val_accuracy: 0.8508
+54000/54000 - 3s - loss: 0.5584 - accuracy: 0.8156 - val_loss: 0.4238 - val_accuracy: 0.8513
 Epoch 2/10
- - 4s - loss: 0.3899 - accuracy: 0.8626 - val_loss: 0.3775 - val_accuracy: 0.8652
+54000/54000 - 3s - loss: 0.3912 - accuracy: 0.8642 - val_loss: 0.3771 - val_accuracy: 0.8650
 Epoch 3/10
- - 5s - loss: 0.3491 - accuracy: 0.8766 - val_loss: 0.3621 - val_accuracy: 0.8697
+54000/54000 - 3s - loss: 0.3507 - accuracy: 0.8771 - val_loss: 0.3640 - val_accuracy: 0.8692
 Epoch 4/10
- - 6s - loss: 0.3236 - accuracy: 0.8856 - val_loss: 0.3489 - val_accuracy: 0.8722
+54000/54000 - 3s - loss: 0.3245 - accuracy: 0.8856 - val_loss: 0.3506 - val_accuracy: 0.8745
 Epoch 5/10
- - 7s - loss: 0.3035 - accuracy: 0.8934 - val_loss: 0.3472 - val_accuracy: 0.8780
+54000/54000 - 3s - loss: 0.3040 - accuracy: 0.8941 - val_loss: 0.3473 - val_accuracy: 0.8742
 Epoch 6/10
- - 6s - loss: 0.2888 - accuracy: 0.8978 - val_loss: 0.3436 - val_accuracy: 0.8768
+54000/54000 - 3s - loss: 0.2873 - accuracy: 0.8984 - val_loss: 0.3423 - val_accuracy: 0.8760
 Epoch 7/10
- - 7s - loss: 0.2749 - accuracy: 0.9023 - val_loss: 0.3382 - val_accuracy: 0.8800
+54000/54000 - 3s - loss: 0.2729 - accuracy: 0.9036 - val_loss: 0.3391 - val_accuracy: 0.8755
 Epoch 8/10
- - 6s - loss: 0.2615 - accuracy: 0.9073 - val_loss: 0.3341 - val_accuracy: 0.8813
+54000/54000 - 3s - loss: 0.2598 - accuracy: 0.9078 - val_loss: 0.3307 - val_accuracy: 0.8800
 Epoch 9/10
- - 6s - loss: 0.2506 - accuracy: 0.9107 - val_loss: 0.3327 - val_accuracy: 0.8827
+54000/54000 - 3s - loss: 0.2486 - accuracy: 0.9124 - val_loss: 0.3305 - val_accuracy: 0.8835
 Epoch 10/10
- - 6s - loss: 0.2405 - accuracy: 0.9154 - val_loss: 0.3316 - val_accuracy: 0.8830
+54000/54000 - 3s - loss: 0.2373 - accuracy: 0.9163 - val_loss: 0.3372 - val_accuracy: 0.8790
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.callbacks.callbacks.History at 0x7efcd02a6c10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7ff2f0058940&gt;
 </pre></div>
 </div>
 </div>
@@ -730,7 +702,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.13 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.4 %
 </pre></div>
 </div>
 </div>

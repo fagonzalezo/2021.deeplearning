@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="LAB 2.3 - Parwise image classification" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html" />
-    <link rel="prev" title="2.5 - A Multimodal Architecture" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" />
+    <link rel="prev" title="LAB 2.1 - Customized loss function" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -145,13 +145,23 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html">
-     2.4 - Autoencoders
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-     2.5 - A Multimodal Architecture
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -463,8 +473,9 @@
 </div>
 <div class="section" id="task-02-sparse-autoencoder-model">
 <h2>TASK 02: Sparse autoencoder model<a class="headerlink" href="#task-02-sparse-autoencoder-model" title="Permalink to this headline">¶</a></h2>
-<p>Complete the <code class="docutils literal notranslate"><span class="pre">get_model</span></code> function so that the returned model uses the loss function previously defined.
-Note for models you have to use <strong>Tensorflow operations</strong> in specific you have to use <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/math/reduce_mean"><code class="docutils literal notranslate"><span class="pre">tf.reduce_mean</span></code></a></p>
+<p>Complete the <code class="docutils literal notranslate"><span class="pre">get_model</span></code> function so that the returned model uses the loss function previously defined.</p>
+<p>You <strong>MUST USE</strong> the <strong>UNSUPERVISED</strong> method to specify your loss function as described in the notes, so that the <code class="docutils literal notranslate"><span class="pre">.fit</span></code> method only gets one argument.</p>
+<p>Note for models you have to use <strong>Tensorflow operations</strong> in specific you have to use <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/math/reduce_mean"><code class="docutils literal notranslate"><span class="pre">tf.reduce_mean</span></code></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">code_size</span><span class="p">,</span> <span class="n">beta</span><span class="o">=.</span><span class="mi">01</span><span class="p">):</span>
@@ -629,7 +640,7 @@ Note for models you have to use <strong>Tensorflow operations</strong> in specif
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" title="previous page">2.5 - A Multimodal Architecture</a>
+    <a class='left-prev' id="prev-link" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" title="previous page">LAB 2.1 - Customized loss function</a>
     <a class='right-next' id="next-link" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html" title="next page">LAB 2.3 - Parwise image classification</a>
 
     </div>

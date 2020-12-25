@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.4 - Autoencoders &#8212; Fundamentos de Deep Learning</title>
+    <title>2.5 - Autoencoders &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.5 - A Multimodal Architecture" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" />
-    <link rel="prev" title="2.3 - Overfitting and regularization" href="U2.03%20-%20Overfitting%20and%20regularization.html" />
+    <link rel="next" title="2.6 - Multimodal Architectures" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html" />
+    <link rel="prev" title="2.4 - Loss functions" href="U2.04%20-%20Loss%20functions.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -144,14 +144,24 @@
      2.3 - Overfitting and regularization
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions
+    </a>
+   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.4 - Autoencoders
+     2.5 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-     2.5 - A Multimodal Architecture
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
     </a>
    </li>
    <li class="toctree-l2">
@@ -208,7 +218,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U2.04 - Network Architectures - Autoencoders.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U2.05 - Network Architectures - Autoencoders.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -235,7 +245,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.04 - Network Architectures - Autoencoders.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.05 - Network Architectures - Autoencoders.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -342,7 +352,7 @@
               <div>
                 
   <div class="section" id="autoencoders">
-<h1>2.4 - Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h1>
+<h1>2.5 - Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -401,7 +411,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_6_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_6_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_6_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_6_0.png" />
 </div>
 </div>
 <p>and we do the regular train/test split</p>
@@ -789,7 +799,7 @@ array([[3.6984453e-08, 1.9736575e-10, 2.5541331e-09, ..., 3.9784051e-10,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_22_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_22_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_22_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_22_0.png" />
 </div>
 </div>
 </div>
@@ -912,7 +922,7 @@ layer 2 (50, 784) sum -1458.86, (784,) sum -181.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_33_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_33_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_33_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_33_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -922,7 +932,7 @@ layer 2 (50, 784) sum -1458.86, (784,) sum -181.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_34_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_34_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_34_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_34_0.png" />
 </div>
 </div>
 </div>
@@ -1021,7 +1031,7 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_43_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_43_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_43_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_43_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1036,7 +1046,7 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;activation (ReLU)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_44_1.png" src="../_images/U2.04 - Network Architectures - Autoencoders_44_1.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_44_1.png" src="../_images/U2.05 - Network Architectures - Autoencoders_44_1.png" />
 </div>
 </div>
 <div class="section" id="encoder-activations">
@@ -1070,7 +1080,7 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 mean activation at encoder 6.036
 </pre></div>
 </div>
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_46_1.png" src="../_images/U2.04 - Network Architectures - Autoencoders_46_1.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_46_1.png" src="../_images/U2.05 - Network Architectures - Autoencoders_46_1.png" />
 </div>
 </div>
 <p>let’s get the average activation of the neurons in the latent space for each class.</p>
@@ -1089,7 +1099,7 @@ mean activation at encoder 6.036
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_48_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_48_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_48_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_48_0.png" />
 </div>
 </div>
 </div>
@@ -1102,7 +1112,7 @@ mean activation at encoder 6.036
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_50_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_50_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_50_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_50_0.png" />
 </div>
 </div>
 <p><strong>From this we can inspect the neuron activations in our dataset.</strong></p>
@@ -1435,7 +1445,7 @@ Epoch 100/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_58_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_58_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_58_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_58_0.png" />
 </div>
 </div>
 </div>
@@ -1474,7 +1484,7 @@ Epoch 100/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_64_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_64_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_64_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_64_0.png" />
 </div>
 </div>
 <div class="section" id="in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model">
@@ -1716,7 +1726,7 @@ Epoch 100/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.04 - Network Architectures - Autoencoders_67_0.png" src="../_images/U2.04 - Network Architectures - Autoencoders_67_0.png" />
+<img alt="../_images/U2.05 - Network Architectures - Autoencoders_67_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_67_0.png" />
 </div>
 </div>
 </div>
@@ -1751,8 +1761,8 @@ Epoch 100/100
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U2.03%20-%20Overfitting%20and%20regularization.html" title="previous page">2.3 - Overfitting and regularization</a>
-    <a class='right-next' id="next-link" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html" title="next page">2.5 - A Multimodal Architecture</a>
+    <a class='left-prev' id="prev-link" href="U2.04%20-%20Loss%20functions.html" title="previous page">2.4 - Loss functions</a>
+    <a class='right-next' id="next-link" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html" title="next page">2.6 - Multimodal Architectures</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

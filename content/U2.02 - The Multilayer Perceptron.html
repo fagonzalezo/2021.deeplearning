@@ -145,13 +145,23 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html">
-     2.4 - Autoencoders
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-     2.5 - A Multimodal Architecture
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
     </a>
    </li>
    <li class="toctree-l2">
@@ -417,15 +427,15 @@
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-dense_2 (Dense)              (None, 64)                50240     
+dense_4 (Dense)              (None, 64)                50240     
 _________________________________________________________________
 activation_2 (Activation)    (None, 64)                0         
 _________________________________________________________________
-dense_3 (Dense)              (None, 32)                2080      
+dense_5 (Dense)              (None, 32)                2080      
 _________________________________________________________________
 activation_3 (Activation)    (None, 32)                0         
 _________________________________________________________________
-dense_4 (Dense)              (None, 10)                330       
+dense_6 (Dense)              (None, 10)                330       
 =================================================================
 Total params: 52,650
 Trainable params: 52,650
@@ -514,28 +524,28 @@ Generating test predictions...
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training...
 Train on 54000 samples, validate on 6000 samples
 Epoch 1/10
-54000/54000 - 3s - loss: 0.4610 - val_loss: 0.3979
+54000/54000 - 3s - loss: 0.4606 - val_loss: 0.3870
 Epoch 2/10
-54000/54000 - 3s - loss: 0.3688 - val_loss: 0.3801
+54000/54000 - 3s - loss: 0.3675 - val_loss: 0.3827
 Epoch 3/10
-54000/54000 - 3s - loss: 0.3396 - val_loss: 0.3620
+54000/54000 - 3s - loss: 0.3385 - val_loss: 0.3534
 Epoch 4/10
-54000/54000 - 3s - loss: 0.3186 - val_loss: 0.3637
+54000/54000 - 3s - loss: 0.3150 - val_loss: 0.3588
 Epoch 5/10
-54000/54000 - 3s - loss: 0.3000 - val_loss: 0.3596
+54000/54000 - 3s - loss: 0.2973 - val_loss: 0.3544
 Epoch 6/10
-54000/54000 - 3s - loss: 0.2882 - val_loss: 0.3553
+54000/54000 - 3s - loss: 0.2849 - val_loss: 0.3563
 Epoch 7/10
-54000/54000 - 3s - loss: 0.2791 - val_loss: 0.3418
+54000/54000 - 3s - loss: 0.2715 - val_loss: 0.3546
 Epoch 8/10
-54000/54000 - 3s - loss: 0.2682 - val_loss: 0.3346
+54000/54000 - 3s - loss: 0.2646 - val_loss: 0.3455
 Epoch 9/10
-54000/54000 - 3s - loss: 0.2577 - val_loss: 0.3618
+54000/54000 - 3s - loss: 0.2541 - val_loss: 0.3542
 Epoch 10/10
-54000/54000 - 3s - loss: 0.2533 - val_loss: 0.3547
+54000/54000 - 3s - loss: 0.2474 - val_loss: 0.3516
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7ff31956cda0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe878c43860&gt;
 </pre></div>
 </div>
 </div>
@@ -571,7 +581,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.48 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.87 %
 </pre></div>
 </div>
 </div>
@@ -643,11 +653,11 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 input_1 (InputLayer)         [(None, 784)]             0         
 _________________________________________________________________
-dense_5 (Dense)              (None, 64)                50240     
+dense_7 (Dense)              (None, 64)                50240     
 _________________________________________________________________
-dense_6 (Dense)              (None, 32)                2080      
+dense_8 (Dense)              (None, 32)                2080      
 _________________________________________________________________
-dense_7 (Dense)              (None, 10)                330       
+dense_9 (Dense)              (None, 10)                330       
 =================================================================
 Total params: 52,650
 Trainable params: 52,650
@@ -666,28 +676,28 @@ _________________________________________________________________
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 54000 samples, validate on 6000 samples
 Epoch 1/10
-54000/54000 - 3s - loss: 0.5584 - accuracy: 0.8156 - val_loss: 0.4238 - val_accuracy: 0.8513
+54000/54000 - 3s - loss: 0.5541 - accuracy: 0.8147 - val_loss: 0.4216 - val_accuracy: 0.8503
 Epoch 2/10
-54000/54000 - 3s - loss: 0.3912 - accuracy: 0.8642 - val_loss: 0.3771 - val_accuracy: 0.8650
+54000/54000 - 3s - loss: 0.3911 - accuracy: 0.8619 - val_loss: 0.3844 - val_accuracy: 0.8605
 Epoch 3/10
-54000/54000 - 3s - loss: 0.3507 - accuracy: 0.8771 - val_loss: 0.3640 - val_accuracy: 0.8692
+54000/54000 - 3s - loss: 0.3504 - accuracy: 0.8759 - val_loss: 0.3631 - val_accuracy: 0.8678
 Epoch 4/10
-54000/54000 - 3s - loss: 0.3245 - accuracy: 0.8856 - val_loss: 0.3506 - val_accuracy: 0.8745
+54000/54000 - 3s - loss: 0.3252 - accuracy: 0.8840 - val_loss: 0.3520 - val_accuracy: 0.8730
 Epoch 5/10
-54000/54000 - 3s - loss: 0.3040 - accuracy: 0.8941 - val_loss: 0.3473 - val_accuracy: 0.8742
+54000/54000 - 3s - loss: 0.3058 - accuracy: 0.8913 - val_loss: 0.3410 - val_accuracy: 0.8777
 Epoch 6/10
-54000/54000 - 3s - loss: 0.2873 - accuracy: 0.8984 - val_loss: 0.3423 - val_accuracy: 0.8760
+54000/54000 - 3s - loss: 0.2891 - accuracy: 0.8969 - val_loss: 0.3545 - val_accuracy: 0.8713
 Epoch 7/10
-54000/54000 - 3s - loss: 0.2729 - accuracy: 0.9036 - val_loss: 0.3391 - val_accuracy: 0.8755
+54000/54000 - 3s - loss: 0.2763 - accuracy: 0.9011 - val_loss: 0.3370 - val_accuracy: 0.8770
 Epoch 8/10
-54000/54000 - 3s - loss: 0.2598 - accuracy: 0.9078 - val_loss: 0.3307 - val_accuracy: 0.8800
+54000/54000 - 3s - loss: 0.2636 - accuracy: 0.9058 - val_loss: 0.3344 - val_accuracy: 0.8758
 Epoch 9/10
-54000/54000 - 3s - loss: 0.2486 - accuracy: 0.9124 - val_loss: 0.3305 - val_accuracy: 0.8835
+54000/54000 - 3s - loss: 0.2518 - accuracy: 0.9102 - val_loss: 0.3251 - val_accuracy: 0.8798
 Epoch 10/10
-54000/54000 - 3s - loss: 0.2373 - accuracy: 0.9163 - val_loss: 0.3372 - val_accuracy: 0.8790
+54000/54000 - 3s - loss: 0.2418 - accuracy: 0.9131 - val_loss: 0.3303 - val_accuracy: 0.8780
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7ff2f0058940&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe8790f6470&gt;
 </pre></div>
 </div>
 </div>
@@ -702,12 +712,102 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.4 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.27000000000001 %
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Note</strong>. Take a look to the keras functional API available on https://keras.io/getting-started/functional-api-guide/</p>
+<p>### Defining a model by subclassing the Model class
+In this way we use inherintance from class Model to define the nwe model. It requires two methods the constructor init, where you should define your layers, and the forward pass in call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">nb_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">class</span> <span class="nc">MyModel2</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">tanh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">nb_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model2</span> <span class="o">=</span> <span class="n">MyModel2</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">set_floatx</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_trainN</span><span class="p">,</span> <span class="n">y_trainOHE</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 54000 samples, validate on 6000 samples
+Epoch 1/10
+54000/54000 - 3s - loss: 0.2287 - accuracy: 0.9198 - val_loss: 0.3338 - val_accuracy: 0.8860
+Epoch 2/10
+54000/54000 - 3s - loss: 0.2202 - accuracy: 0.9224 - val_loss: 0.3324 - val_accuracy: 0.8840
+Epoch 3/10
+54000/54000 - 3s - loss: 0.2111 - accuracy: 0.9251 - val_loss: 0.3315 - val_accuracy: 0.8852
+Epoch 4/10
+54000/54000 - 3s - loss: 0.2030 - accuracy: 0.9294 - val_loss: 0.3412 - val_accuracy: 0.8863
+Epoch 5/10
+54000/54000 - 3s - loss: 0.1966 - accuracy: 0.9319 - val_loss: 0.3390 - val_accuracy: 0.8850
+Epoch 6/10
+54000/54000 - 3s - loss: 0.1889 - accuracy: 0.9354 - val_loss: 0.3478 - val_accuracy: 0.8803
+Epoch 7/10
+54000/54000 - 3s - loss: 0.1821 - accuracy: 0.9371 - val_loss: 0.3393 - val_accuracy: 0.8855
+Epoch 8/10
+54000/54000 - 3s - loss: 0.1744 - accuracy: 0.9404 - val_loss: 0.3485 - val_accuracy: 0.8840
+Epoch 9/10
+54000/54000 - 3s - loss: 0.1706 - accuracy: 0.9412 - val_loss: 0.3565 - val_accuracy: 0.8813
+Epoch 10/10
+54000/54000 - 4s - loss: 0.1627 - accuracy: 0.9447 - val_loss: 0.3541 - val_accuracy: 0.8813
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe879246278&gt;
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.5 - A Multimodal Architecture &#8212; Fundamentos de Deep Learning</title>
+    <title>2.6 - Multimodal Architectures &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LAB 2.2 - Sparse Autoencoders" href="U2%20LAB%2002%20-%20Autoencoders.html" />
-    <link rel="prev" title="2.4 - Autoencoders" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html" />
+    <link rel="next" title="LAB 2.1 - Customized loss function" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" />
+    <link rel="prev" title="2.5 - Autoencoders" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -145,13 +145,23 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html">
-     2.4 - Autoencoders
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.5 - A Multimodal Architecture
+     2.6 - Multimodal Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
     </a>
    </li>
    <li class="toctree-l2">
@@ -208,7 +218,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U2.05 - Network Architectures - Multimodal information.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U2.06 - Network Architectures - Multimodal information.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -235,7 +245,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.05 - Network Architectures - Multimodal information.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.06 - Network Architectures - Multimodal information.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -292,8 +302,8 @@
         
               <div>
                 
-  <div class="section" id="a-multimodal-architecture">
-<h1>2.5 - A Multimodal Architecture<a class="headerlink" href="#a-multimodal-architecture" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="multimodal-architectures">
+<h1>2.6 - Multimodal Architectures<a class="headerlink" href="#multimodal-architectures" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -351,7 +361,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.05 - Network Architectures - Multimodal information_4_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_4_0.png" />
+<img alt="../_images/U2.06 - Network Architectures - Multimodal information_4_0.png" src="../_images/U2.06 - Network Architectures - Multimodal information_4_0.png" />
 </div>
 </div>
 <div class="section" id="a-regular-neural-network-for-classification">
@@ -363,7 +373,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.05 - Network Architectures - Multimodal information_6_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_6_0.png" />
+<img alt="../_images/U2.06 - Network Architectures - Multimodal information_6_0.png" src="../_images/U2.06 - Network Architectures - Multimodal information_6_0.png" />
 </div>
 </div>
 <p>Number of connections:</p>
@@ -705,7 +715,7 @@ Epoch 100/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.05 - Network Architectures - Multimodal information_19_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_19_0.png" />
+<img alt="../_images/U2.06 - Network Architectures - Multimodal information_19_0.png" src="../_images/U2.06 - Network Architectures - Multimodal information_19_0.png" />
 </div>
 </div>
 </div>
@@ -746,7 +756,7 @@ accuracy test  0.798
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.05 - Network Architectures - Multimodal information_23_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_23_0.png" />
+<img alt="../_images/U2.06 - Network Architectures - Multimodal information_23_0.png" src="../_images/U2.06 - Network Architectures - Multimodal information_23_0.png" />
 </div>
 </div>
 <p>Number of connections:</p>
@@ -1290,7 +1300,7 @@ Epoch 200/200
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2.05 - Network Architectures - Multimodal information_30_0.png" src="../_images/U2.05 - Network Architectures - Multimodal information_30_0.png" />
+<img alt="../_images/U2.06 - Network Architectures - Multimodal information_30_0.png" src="../_images/U2.06 - Network Architectures - Multimodal information_30_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1341,8 +1351,8 @@ accuracy test  0.835
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U2.04%20-%20Network%20Architectures%20-%20Autoencoders.html" title="previous page">2.4 - Autoencoders</a>
-    <a class='right-next' id="next-link" href="U2%20LAB%2002%20-%20Autoencoders.html" title="next page">LAB 2.2 - Sparse Autoencoders</a>
+    <a class='left-prev' id="prev-link" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html" title="previous page">2.5 - Autoencoders</a>
+    <a class='right-next' id="next-link" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" title="next page">LAB 2.1 - Customized loss function</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

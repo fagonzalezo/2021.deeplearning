@@ -1,0 +1,901 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2.8 - Weight initialization &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LAB 2.1 - Customized loss function" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" />
+    <link rel="prev" title="2.7 - Vanishing gradients" href="U2.07%20-%20Vanishing%20gradients.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/rlxmooc_logo-black.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.8 - Weight initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#effects-of-different-initializations">
+     Effects of different initializations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Parwise image classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U2.08 - Weights initialization.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2.08 - Weights initialization.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   2.8 - Weight initialization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#follow-the-explanation-here">
+     follow the explanation here
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-data-and-train-a-simple-model">
+     load data and train a simple model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effects-of-different-initializations">
+   Effects of different initializations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initializing-with-a-standard-normal-mu-0-and-sigma-1">
+     initializing with a standard normal (
+     <span class="math notranslate nohighlight">
+      \(\mu=0\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(\sigma=1\)
+     </span>
+     )
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initializing-with-a-small-sigma">
+     initializing with a small
+     <span class="math notranslate nohighlight">
+      \(\sigma\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initializing-with-a-large-sigma">
+     initializing with a large
+     <span class="math notranslate nohighlight">
+      \(\sigma\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initializing-with-a-small-sigma-but-with-large-values-for-input-data">
+     initializing with a small
+     <span class="math notranslate nohighlight">
+      \(\sigma\)
+     </span>
+     but with large values for input data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="weight-initialization">
+<h1>2.8 - Weight initialization<a class="headerlink" href="#weight-initialization" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="follow-the-explanation-here">
+<h2>follow the explanation here<a class="headerlink" href="#follow-the-explanation-here" title="Permalink to this headline">¶</a></h2>
+<p>https://adventuresinmachinelearning.com/weight-initialization-tutorial-tensorflow/</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.0&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;local/data/mnist1.5k.csv.gz&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">785</span><span class="p">]</span><span class="o">/</span><span class="mf">255.</span>
+<span class="n">y</span><span class="o">=</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dimension de las imagenes y las clases&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+<span class="n">X_test</span>  <span class="o">=</span> <span class="n">X_test</span>
+<span class="n">y_train_oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="n">y_train</span><span class="p">]</span>
+<span class="n">y_test_oh</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="n">y_test</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train_oh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dimension de las imagenes y las clases (1500, 784) (1500,)
+(1200, 784) (1200, 10)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="load-data-and-train-a-simple-model">
+<h2>load data and train a simple model<a class="headerlink" href="#load-data-and-train-a-simple-model" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">concatenate</span><span class="p">,</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.backend</span> <span class="kn">import</span> <span class="n">clear_session</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">tensorflow.keras.backend</span> <span class="k">as</span> <span class="nn">K</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">set_floatx</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">784</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">layer_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">init1k</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span><span class="o">=.</span><span class="mi">0</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">init1b</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span><span class="o">=.</span><span class="mi">0</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="n">activation</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Layer_</span><span class="si">%02d</span><span class="s2">_Input&quot;</span><span class="o">%</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                    <span class="n">kernel_initializer</span><span class="o">=</span><span class="n">init1k</span><span class="p">,</span>
+                    <span class="n">bias_initializer</span><span class="o">=</span><span class="n">init1b</span><span class="p">,</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float64</span>
+                <span class="p">))</span>
+
+   
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">hsize</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">hsize</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">activation</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Layer_</span><span class="si">%02d</span><span class="s2">_Hidden&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+   
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Layer_</span><span class="si">%02d</span><span class="s2">_Output&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+        
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">categorical_crossentropy</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="k">def</span> <span class="nf">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">T_input</span>     <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">input</span>                                        
+    <span class="n">T_outputs</span>   <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">output</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>         
+    <span class="n">T_weights</span>   <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span>
+    <span class="n">T_outputs</span>   <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">output</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
+
+    <span class="n">F_outputs</span>   <span class="o">=</span> <span class="p">[</span><span class="n">K</span><span class="o">.</span><span class="n">function</span><span class="p">([</span><span class="n">T_input</span><span class="p">],</span> <span class="p">[</span><span class="n">out</span><span class="p">])</span> <span class="k">for</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">T_outputs</span><span class="p">]</span>    
+
+    <span class="k">def</span> <span class="nf">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)):</span>
+            <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)):</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">y</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="n">F_gradients</span> <span class="o">=</span> <span class="n">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">T_input</span><span class="p">,</span> <span class="n">T_outputs</span><span class="p">,</span> <span class="n">T_weights</span><span class="p">,</span> <span class="n">F_outputs</span><span class="p">,</span> <span class="n">F_gradients</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">layer_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+Layer_00_Input (Dense)       (None, 20)                15700     
+_________________________________________________________________
+Layer_01_Hidden (Dense)      (None, 15)                315       
+_________________________________________________________________
+Layer_02_Hidden (Dense)      (None, 15)                240       
+_________________________________________________________________
+Layer_03_Output (Dense)      (None, 10)                160       
+=================================================================
+Total params: 16,415
+Trainable params: 16,415
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_input</span><span class="p">,</span> <span class="n">T_outputs</span><span class="p">,</span> <span class="n">T_weights</span><span class="p">,</span> <span class="n">F_outputs</span><span class="p">,</span> <span class="n">F_gradients</span> <span class="o">=</span> <span class="n">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_outputs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;KerasTensor: shape=(None, 20) dtype=float64 (created by layer &#39;Layer_00_Input&#39;)&gt;,
+ &lt;KerasTensor: shape=(None, 15) dtype=float64 (created by layer &#39;Layer_01_Hidden&#39;)&gt;,
+ &lt;KerasTensor: shape=(None, 15) dtype=float64 (created by layer &#39;Layer_02_Hidden&#39;)&gt;,
+ &lt;KerasTensor: shape=(None, 10) dtype=float64 (created by layer &#39;Layer_03_Output&#39;)&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;sequential&#39;,
+ &#39;layers&#39;: [{&#39;class_name&#39;: &#39;InputLayer&#39;,
+   &#39;config&#39;: {&#39;batch_input_shape&#39;: (None, 784),
+    &#39;dtype&#39;: &#39;float64&#39;,
+    &#39;sparse&#39;: False,
+    &#39;ragged&#39;: False,
+    &#39;name&#39;: &#39;Layer_00_Input_input&#39;}},
+  {&#39;class_name&#39;: &#39;Dense&#39;,
+   &#39;config&#39;: {&#39;name&#39;: &#39;Layer_00_Input&#39;,
+    &#39;trainable&#39;: True,
+    &#39;batch_input_shape&#39;: (None, 784),
+    &#39;dtype&#39;: &#39;float64&#39;,
+    &#39;units&#39;: 20,
+    &#39;activation&#39;: &#39;sigmoid&#39;,
+    &#39;use_bias&#39;: True,
+    &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;RandomNormal&#39;,
+     &#39;config&#39;: {&#39;mean&#39;: 0.0, &#39;stddev&#39;: 20, &#39;seed&#39;: None}},
+    &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;RandomNormal&#39;,
+     &#39;config&#39;: {&#39;mean&#39;: 0.0, &#39;stddev&#39;: 20, &#39;seed&#39;: None}},
+    &#39;kernel_regularizer&#39;: None,
+    &#39;bias_regularizer&#39;: None,
+    &#39;activity_regularizer&#39;: None,
+    &#39;kernel_constraint&#39;: None,
+    &#39;bias_constraint&#39;: None}},
+  {&#39;class_name&#39;: &#39;Dense&#39;,
+   &#39;config&#39;: {&#39;name&#39;: &#39;Layer_01_Hidden&#39;,
+    &#39;trainable&#39;: True,
+    &#39;dtype&#39;: &#39;float64&#39;,
+    &#39;units&#39;: 15,
+    &#39;activation&#39;: &#39;sigmoid&#39;,
+    &#39;use_bias&#39;: True,
+    &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;GlorotUniform&#39;,
+     &#39;config&#39;: {&#39;seed&#39;: None}},
+    &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;Zeros&#39;, &#39;config&#39;: {}},
+    &#39;kernel_regularizer&#39;: None,
+    &#39;bias_regularizer&#39;: None,
+    &#39;activity_regularizer&#39;: None,
+    &#39;kernel_constraint&#39;: None,
+    &#39;bias_constraint&#39;: None}},
+  {&#39;class_name&#39;: &#39;Dense&#39;,
+   &#39;config&#39;: {&#39;name&#39;: &#39;Layer_02_Hidden&#39;,
+    &#39;trainable&#39;: True,
+    &#39;dtype&#39;: &#39;float64&#39;,
+    &#39;units&#39;: 15,
+    &#39;activation&#39;: &#39;sigmoid&#39;,
+    &#39;use_bias&#39;: True,
+    &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;GlorotUniform&#39;,
+     &#39;config&#39;: {&#39;seed&#39;: None}},
+    &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;Zeros&#39;, &#39;config&#39;: {}},
+    &#39;kernel_regularizer&#39;: None,
+    &#39;bias_regularizer&#39;: None,
+    &#39;activity_regularizer&#39;: None,
+    &#39;kernel_constraint&#39;: None,
+    &#39;bias_constraint&#39;: None}},
+  {&#39;class_name&#39;: &#39;Dense&#39;,
+   &#39;config&#39;: {&#39;name&#39;: &#39;Layer_03_Output&#39;,
+    &#39;trainable&#39;: True,
+    &#39;dtype&#39;: &#39;float64&#39;,
+    &#39;units&#39;: 10,
+    &#39;activation&#39;: &#39;softmax&#39;,
+    &#39;use_bias&#39;: True,
+    &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;GlorotUniform&#39;,
+     &#39;config&#39;: {&#39;seed&#39;: None}},
+    &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;Zeros&#39;, &#39;config&#39;: {}},
+    &#39;kernel_regularizer&#39;: None,
+    &#39;bias_regularizer&#39;: None,
+    &#39;activity_regularizer&#39;: None,
+    &#39;kernel_constraint&#39;: None,
+    &#39;bias_constraint&#39;: None}}]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_input</span><span class="p">,</span> <span class="n">T_outputs</span><span class="p">,</span> <span class="n">T_weights</span><span class="p">,</span> <span class="n">F_outputs</span><span class="p">,</span> <span class="n">F_gradients</span> <span class="o">=</span> <span class="n">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scale_X</span><span class="o">=.</span><span class="mi">2</span>
+<span class="n">shift_X</span> <span class="o">=.</span><span class="mi">5</span>
+<span class="o">!</span>rm -rf log
+<span class="n">tb_callback</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./log/winit&#39;</span><span class="p">,</span> <span class="n">histogram_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="n">write_grads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_images</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">((</span><span class="n">X_train</span><span class="o">-</span><span class="n">shift_X</span><span class="p">)</span><span class="o">*</span><span class="n">scale_X</span><span class="p">,</span> <span class="n">y_train_oh</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">((</span><span class="n">X_test</span><span class="o">-</span><span class="n">shift_X</span><span class="p">)</span><span class="o">*</span><span class="n">scale_X</span><span class="p">,</span> <span class="n">y_test_oh</span><span class="p">),</span> 
+         <span class="p">)</span><span class="c1">#callbacks=[tb_callback])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:`write_grads` will be ignored in TensorFlow 2.0 for the `TensorBoard` Callback.
+Epoch 1/30
+38/38 [==============================] - 1s 7ms/step - loss: 2.3824 - accuracy: 0.0700 - val_loss: 2.3389 - val_accuracy: 0.0633
+Epoch 2/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.3160 - accuracy: 0.0903 - val_loss: 2.3143 - val_accuracy: 0.1200
+Epoch 3/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.3025 - accuracy: 0.1276 - val_loss: 2.3052 - val_accuracy: 0.1200
+Epoch 4/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2956 - accuracy: 0.1366 - val_loss: 2.2995 - val_accuracy: 0.1200
+Epoch 5/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2911 - accuracy: 0.1292 - val_loss: 2.2965 - val_accuracy: 0.1200
+Epoch 6/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2911 - accuracy: 0.1159 - val_loss: 2.2925 - val_accuracy: 0.1200
+Epoch 7/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2899 - accuracy: 0.1176 - val_loss: 2.2902 - val_accuracy: 0.1200
+Epoch 8/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2863 - accuracy: 0.1247 - val_loss: 2.2873 - val_accuracy: 0.1200
+Epoch 9/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2796 - accuracy: 0.1328 - val_loss: 2.2833 - val_accuracy: 0.1200
+Epoch 10/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2807 - accuracy: 0.1299 - val_loss: 2.2783 - val_accuracy: 0.1233
+Epoch 11/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2792 - accuracy: 0.1330 - val_loss: 2.2745 - val_accuracy: 0.1267
+Epoch 12/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2701 - accuracy: 0.1386 - val_loss: 2.2710 - val_accuracy: 0.1233
+Epoch 13/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2613 - accuracy: 0.1528 - val_loss: 2.2634 - val_accuracy: 0.1533
+Epoch 14/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2551 - accuracy: 0.1687 - val_loss: 2.2570 - val_accuracy: 0.1867
+Epoch 15/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2501 - accuracy: 0.1962 - val_loss: 2.2477 - val_accuracy: 0.2100
+Epoch 16/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2346 - accuracy: 0.2027 - val_loss: 2.2394 - val_accuracy: 0.2200
+Epoch 17/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2299 - accuracy: 0.2420 - val_loss: 2.2276 - val_accuracy: 0.2400
+Epoch 18/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2141 - accuracy: 0.2739 - val_loss: 2.2158 - val_accuracy: 0.2367
+Epoch 19/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.2075 - accuracy: 0.2595 - val_loss: 2.2004 - val_accuracy: 0.2633
+Epoch 20/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.1874 - accuracy: 0.2863 - val_loss: 2.1857 - val_accuracy: 0.2733
+Epoch 21/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.1739 - accuracy: 0.2888 - val_loss: 2.1679 - val_accuracy: 0.2867
+Epoch 22/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.1684 - accuracy: 0.2844 - val_loss: 2.1502 - val_accuracy: 0.2833
+Epoch 23/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.1453 - accuracy: 0.2817 - val_loss: 2.1315 - val_accuracy: 0.2933
+Epoch 24/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.1047 - accuracy: 0.3103 - val_loss: 2.1106 - val_accuracy: 0.2967
+Epoch 25/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.0978 - accuracy: 0.2924 - val_loss: 2.0893 - val_accuracy: 0.2933
+Epoch 26/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.0690 - accuracy: 0.3182 - val_loss: 2.0703 - val_accuracy: 0.2933
+Epoch 27/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.0508 - accuracy: 0.3184 - val_loss: 2.0510 - val_accuracy: 0.2967
+Epoch 28/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.0495 - accuracy: 0.2791 - val_loss: 2.0312 - val_accuracy: 0.3000
+Epoch 29/30
+38/38 [==============================] - 0s 2ms/step - loss: 2.0039 - accuracy: 0.3155 - val_loss: 2.0111 - val_accuracy: 0.3033
+Epoch 30/30
+38/38 [==============================] - 0s 2ms/step - loss: 1.9814 - accuracy: 0.3261 - val_loss: 1.9950 - val_accuracy: 0.3067
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7ff7019169d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="effects-of-different-initializations">
+<h1>Effects of different initializations<a class="headerlink" href="#effects-of-different-initializations" title="Permalink to this headline">¶</a></h1>
+<p>understand carefully the following function</p>
+<p>check the notebook on <strong>Inspecting model internals</strong> to understand <code class="docutils literal notranslate"><span class="pre">get_tensors_and_functions</span></code> and the objects it returns</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">layer_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">T_input</span><span class="p">,</span> <span class="n">T_outputs</span><span class="p">,</span> <span class="n">T_weights</span><span class="p">,</span> <span class="n">F_outputs</span><span class="p">,</span> <span class="n">F_gradients</span> <span class="o">=</span> <span class="n">get_gradients_functions</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="n">w0_before</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">o0_before</span> <span class="o">=</span> <span class="n">F_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]([</span><span class="n">X_train</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">g0_before</span> <span class="o">=</span> <span class="n">F_gradients</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_oh</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_oh</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
+              <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test_oh</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">w0_after</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">o0_after</span> <span class="o">=</span> <span class="n">F_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]([</span><span class="n">X_train</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">g0_after</span> <span class="o">=</span> <span class="n">F_gradients</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_oh</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">acc</span><span class="p">,</span> <span class="n">val_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">141</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;train_acc&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_acc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;test_acc&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;sigma=</span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;epoch&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">142</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">w0_after</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">w0_before</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;layer 0 weights&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">143</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">o0_after</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">o0_before</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;layer 0 outputs&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">144</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_percentile</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">perc</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="p">[</span><span class="n">perc</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">k</span><span class="p">[(</span><span class="n">k</span><span class="o">&gt;-</span><span class="n">p</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">k</span><span class="o">&lt;</span><span class="n">p</span><span class="p">)]</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">get_percentile</span><span class="p">(</span><span class="n">g0_after</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>    
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">get_percentile</span><span class="p">(</span><span class="n">g0_before</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;layer 0 gradients&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initializing-with-a-standard-normal-mu-0-and-sigma-1">
+<h2>initializing with a standard normal (<span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>)<a class="headerlink" href="#initializing-with-a-standard-normal-mu-0-and-sigma-1" title="Permalink to this headline">¶</a></h2>
+<p>histograms show weights, outputs and gradients before and after training</p>
+<p>in good configurations:</p>
+<ul class="simple">
+<li><p>weights move during training</p></li>
+<li><p>gradients are spread around zero before training</p></li>
+<li><p>outputs before training are spread</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">layer_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;KerasTensor: shape=(None, 10) dtype=float64 (created by layer &#39;Layer_03_Output&#39;)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">loss</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function tensorflow.python.keras.losses.categorical_crossentropy(y_true, y_pred, from_logits=False, label_smoothing=0)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.08 - Weights initialization_23_0.png" src="../_images/U2.08 - Weights initialization_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="initializing-with-a-small-sigma">
+<h2>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-small-sigma" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.08 - Weights initialization_25_0.png" src="../_images/U2.08 - Weights initialization_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="initializing-with-a-large-sigma">
+<h2>initializing with a large <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-large-sigma" title="Permalink to this headline">¶</a></h2>
+<p>observe how gradients are very concentrated arounz zero at the beginning of training</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.08 - Weights initialization_27_0.png" src="../_images/U2.08 - Weights initialization_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="initializing-with-a-small-sigma-but-with-large-values-for-input-data">
+<h2>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span> but with large values for input data<a class="headerlink" href="#initializing-with-a-small-sigma-but-with-large-values-for-input-data" title="Permalink to this headline">¶</a></h2>
+<p>Recall that <span class="math notranslate nohighlight">\(XW+b\)</span> is what enters the <span class="math notranslate nohighlight">\(sigmoid\)</span> function. If large, it will be away from the linear regine around zero. It can be large because of <span class="math notranslate nohighlight">\(W\)</span> (large initialization <span class="math notranslate nohighlight">\(\sigma\)</span>), or because of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="o">*</span><span class="mi">100</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="o">*</span><span class="mi">100</span><span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U2.08 - Weights initialization_29_0.png" src="../_images/U2.08 - Weights initialization_29_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="U2.07%20-%20Vanishing%20gradients.html" title="previous page">2.7 - Vanishing gradients</a>
+    <a class='right-next' id="next-link" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html" title="next page">LAB 2.1 - Customized loss function</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By YOUR NAME / YOUR INSTITUTION<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

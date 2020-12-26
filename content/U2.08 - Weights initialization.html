@@ -170,11 +170,6 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="#effects-of-different-initializations">
-     Effects of different initializations
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
      LAB 2.1 - Customized loss function
     </a>
@@ -279,29 +274,22 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   2.8 - Weights initialization
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#follow-the-explanation-here">
+   follow the explanation here
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#follow-the-explanation-here">
-     follow the explanation here
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-data-and-train-a-simple-model">
-     load data and train a simple model
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data-and-train-a-simple-model">
+   load data and train a simple model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#effects-of-different-initializations">
    Effects of different initializations
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initializing-with-a-standard-normal-mu-0-and-sigma-1">
      initializing with a standard normal (
      <span class="math notranslate nohighlight">
@@ -314,7 +302,7 @@
      )
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initializing-with-a-small-sigma">
      initializing with a small
      <span class="math notranslate nohighlight">
@@ -322,7 +310,7 @@
      </span>
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initializing-with-a-large-sigma">
      initializing with a large
      <span class="math notranslate nohighlight">
@@ -330,7 +318,7 @@
      </span>
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initializing-with-a-small-sigma-but-with-large-values-for-input-data">
      initializing with a small
      <span class="math notranslate nohighlight">
@@ -692,9 +680,8 @@ Epoch 30/30
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="effects-of-different-initializations">
-<h1>Effects of different initializations<a class="headerlink" href="#effects-of-different-initializations" title="Permalink to this headline">¶</a></h1>
+<h2>Effects of different initializations<a class="headerlink" href="#effects-of-different-initializations" title="Permalink to this headline">¶</a></h2>
 <p>understand carefully the following function</p>
 <p>check the notebook on <strong>Inspecting model internals</strong> to understand <code class="docutils literal notranslate"><span class="pre">get_tensors_and_functions</span></code> and the objects it returns</p>
 <div class="cell docutils container">
@@ -751,7 +738,7 @@ Epoch 30/30
 </div>
 </div>
 <div class="section" id="initializing-with-a-standard-normal-mu-0-and-sigma-1">
-<h2>initializing with a standard normal (<span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>)<a class="headerlink" href="#initializing-with-a-standard-normal-mu-0-and-sigma-1" title="Permalink to this headline">¶</a></h2>
+<h3>initializing with a standard normal (<span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>)<a class="headerlink" href="#initializing-with-a-standard-normal-mu-0-and-sigma-1" title="Permalink to this headline">¶</a></h3>
 <p>histograms show weights, outputs and gradients before and after training</p>
 <p>in good configurations:</p>
 <ul class="simple">
@@ -802,7 +789,7 @@ Epoch 30/30
 </div>
 </div>
 <div class="section" id="initializing-with-a-small-sigma">
-<h2>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-small-sigma" title="Permalink to this headline">¶</a></h2>
+<h3>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-small-sigma" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X_test</span><span class="p">)</span>
@@ -815,7 +802,7 @@ Epoch 30/30
 </div>
 </div>
 <div class="section" id="initializing-with-a-large-sigma">
-<h2>initializing with a large <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-large-sigma" title="Permalink to this headline">¶</a></h2>
+<h3>initializing with a large <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#initializing-with-a-large-sigma" title="Permalink to this headline">¶</a></h3>
 <p>observe how gradients are very concentrated arounz zero at the beginning of training</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -829,7 +816,7 @@ Epoch 30/30
 </div>
 </div>
 <div class="section" id="initializing-with-a-small-sigma-but-with-large-values-for-input-data">
-<h2>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span> but with large values for input data<a class="headerlink" href="#initializing-with-a-small-sigma-but-with-large-values-for-input-data" title="Permalink to this headline">¶</a></h2>
+<h3>initializing with a small <span class="math notranslate nohighlight">\(\sigma\)</span> but with large values for input data<a class="headerlink" href="#initializing-with-a-small-sigma-but-with-large-values-for-input-data" title="Permalink to this headline">¶</a></h3>
 <p>Recall that <span class="math notranslate nohighlight">\(XW+b\)</span> is what enters the <span class="math notranslate nohighlight">\(sigmoid\)</span> function. If large, it will be away from the linear regine around zero. It can be large because of <span class="math notranslate nohighlight">\(W\)</span> (large initialization <span class="math notranslate nohighlight">\(\sigma\)</span>), or because of <span class="math notranslate nohighlight">\(X\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -839,6 +826,7 @@ Epoch 30/30
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/U2.08 - Weights initialization_29_0.png" src="../_images/U2.08 - Weights initialization_29_0.png" />
+</div>
 </div>
 </div>
 </div>

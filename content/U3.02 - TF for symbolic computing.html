@@ -448,7 +448,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.3.0&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.2.0&#39;
 </pre></div>
 </div>
 </div>
@@ -522,6 +522,7 @@
 </div>
 </div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">f</span></code> is <strong>SYMBOLIC EXPRESSION</strong> (a <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> in TF terms) that also contains a value attached to it.</p>
 <p>for which TF can obtain gradients automatically. This might seem a rather akward way of obtaining the gradient (with <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code>). The goal is that you <strong>write code as in Python</strong> and TF takes care of building the computational graph with it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -534,7 +535,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14. 10.], shape=(2,), dtype=float32) tf.Tensor([ 27. 192.], shape=(2,), dtype=float32)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14.], shape=(1,), dtype=float32) tf.Tensor([243.], shape=(1,), dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;tf.Tensor: shape=(1,), dtype=float32, numpy=array([14.], dtype=float32)&gt;, &lt;tf.Tensor: shape=(1,), dtype=float32, numpy=array([243.], dtype=float32)&gt;]
 </pre></div>
 </div>
 </div>
@@ -559,7 +572,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14. 10.], shape=(2,), dtype=float32) tf.Tensor([ 27. 192.], shape=(2,), dtype=float32)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14.], shape=(1,), dtype=float32) tf.Tensor([243.], shape=(1,), dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -572,10 +585,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.eager.def_function.Function object at 0x7f76b80f7350&gt;
-WARNING:tensorflow:From /opt/anaconda/lib/python3.7/site-packages/tensorflow/python/ops/summary_ops_v2.py:1277: stop (from tensorflow.python.eager.profiler) is deprecated and will be removed after 2020-07-01.
-Instructions for updating:
-use `tf.profiler.experimental.stop` instead.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.eager.def_function.Function object at 0x7ff6641a2d60&gt;
 </pre></div>
 </div>
 </div>
@@ -587,17 +597,17 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reusing TensorBoard on port 6006 (pid 507336), started 17:25:07 ago. (Use &#39;!kill 507336&#39; to kill it.)
+</pre></div>
+</div>
 <div class="output text_html">
-<iframe id="tensorboard-frame-302b41d262e6c42" width="100%" height="800" frameborder="0">
+<iframe id="tensorboard-frame-dfe7831662b3a2ec" width="100%" height="800" frameborder="0">
 </iframe>
 <script>
   (function() {
-    const frame = document.getElementById("tensorboard-frame-302b41d262e6c42");
+    const frame = document.getElementById("tensorboard-frame-dfe7831662b3a2ec");
     const url = new URL("/", window.location);
-    const port = 6006;
-    if (port) {
-      url.port = port;
-    }
+    url.port = 6006;
     frame.src = url;
   })();
 </script>
@@ -606,42 +616,59 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 <div class="section" id="tensors">
 <h2>Tensors<a class="headerlink" href="#tensors" title="Permalink to this headline">¶</a></h2>
-<p>in <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code> the notion of a Tensor is just a <strong>symbolic multidimensional array</strong>. Although, this is a recent simplified version of what always has been known as a tensor in differential geometry (see <a class="reference external" href="https://bjlkeng.github.io/posts/tensors-tensors-tensors/">https://bjlkeng.github.io/posts/tensors-tensors-tensors/</a>.</p>
+<p>in <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code> the notion of a Tensor is just a <strong>symbolic multidimensional array</strong>. Although, this is a recent simplified version of what always has been known as a tensor in differential geometry (see <a class="reference external" href="https://bjlkeng.github.io/posts/tensors-tensors-tensors/">https://bjlkeng.github.io/posts/tensors-tensors-tensors/</a>).</p>
 <p>Observe how Tensorflow naturally deals with multidimensional symbolic variables (Tensors)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="p">[[</span><span class="mi">8</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">3</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">((</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     
-<span class="n">gx</span><span class="p">,</span> <span class="n">gy</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">gx</span><span class="p">,</span> <span class="n">gy</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">g</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14. 10.], shape=(2,), dtype=float32) tf.Tensor([ 27. 192.], shape=(2,), dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 1), dtype=float32, numpy=
+array([[-38.      ],
+       [-48.666668]], dtype=float32)&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <p>But a <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> is always a symbolic variable. In order to reconcile symbolic and execution worlds, <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code> <strong>attaches</strong> a value to each symbolic variable, and carries it forward when making derivations.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are Tensors that we define with a specific value</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">gx</span></code> and <code class="docutils literal notranslate"><span class="pre">gy</span></code> are Tensors derived from <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> that have ALSO been evaluated with the values from <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> are Tensors that we define with a specific value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code> is a Tensor derived from <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> that have ALSO been evaluated with the corresponding values.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># another way of taking several derivatives simultaneously</span>
-<span class="n">gx</span><span class="p">,</span> <span class="n">gy</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">gx</span><span class="p">,</span> <span class="n">gy</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([14. 10.], shape=(2,), dtype=float32) tf.Tensor([ 27. 192.], shape=(2,), dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 1), dtype=float32, numpy=
+array([[-38.      ],
+       [-48.666668]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-38.      ],
+       [-48.666668]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -666,7 +693,7 @@ use `tf.profiler.experimental.stop` instead.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(150, 1) (150,)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_21_1.png" src="../_images/U3.02 - TF for symbolic computing_21_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_23_1.png" src="../_images/U3.02 - TF for symbolic computing_23_1.png" />
 </div>
 </div>
 </div>
@@ -705,10 +732,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (4000 of 4000) |####################| Elapsed Time: 0:00:04 Time:  0:00:04
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (4000 of 4000) |####################| Elapsed Time: 0:00:03 Time:  0:00:03
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.677704] [[-0.7156436]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.677992] [[-0.71570003]]
 </pre></div>
 </div>
 </div>
@@ -724,10 +751,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 50)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 50.0)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_24_1.png" src="../_images/U3.02 - TF for symbolic computing_24_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_26_1.png" src="../_images/U3.02 - TF for symbolic computing_26_1.png" />
 </div>
 </div>
 </div>
@@ -767,10 +794,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (4000 of 4000) |####################| Elapsed Time: 0:00:02 Time:  0:00:02
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (4000 of 4000) |####################| Elapsed Time: 0:00:01 Time:  0:00:01
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.677471] [[-0.7155976]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.677922] [[-0.7156864]]
 </pre></div>
 </div>
 </div>
@@ -788,10 +815,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 50)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 50.0)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_27_1.png" src="../_images/U3.02 - TF for symbolic computing_27_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_29_1.png" src="../_images/U3.02 - TF for symbolic computing_29_1.png" />
 </div>
 </div>
 </div>
@@ -831,10 +858,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (400 of 400) |######################| Elapsed Time: 0:00:02 Time:  0:00:02
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (400 of 400) |######################| Elapsed Time: 0:00:01 Time:  0:00:01
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.658868] [[-0.77054477]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[12.669797] [[-0.68306226]]
 </pre></div>
 </div>
 </div>
@@ -852,10 +879,10 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 50)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 50.0)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_30_1.png" src="../_images/U3.02 - TF for symbolic computing_30_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_32_1.png" src="../_images/U3.02 - TF for symbolic computing_32_1.png" />
 </div>
 </div>
 </div>
@@ -923,8 +950,8 @@ use `tf.profiler.experimental.stop` instead.
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 1), dtype=float32, numpy=
-array([[-0.11625272],
-       [-0.07879776]], dtype=float32)&gt;
+array([[-0.14624596],
+       [-0.0850179 ]], dtype=float32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1009,7 +1036,7 @@ array([[-0.11625272],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 50)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_43_1.png" src="../_images/U3.02 - TF for symbolic computing_43_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_45_1.png" src="../_images/U3.02 - TF for symbolic computing_45_1.png" />
 </div>
 </div>
 </div>
@@ -1058,7 +1085,7 @@ array([[-0.11625272],
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U3.02 - TF for symbolic computing_48_0.png" src="../_images/U3.02 - TF for symbolic computing_48_0.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_50_0.png" src="../_images/U3.02 - TF for symbolic computing_50_0.png" />
 </div>
 </div>
 </div>
@@ -1122,7 +1149,7 @@ array([[-0.11625272],
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U3.02 - TF for symbolic computing_53_0.png" src="../_images/U3.02 - TF for symbolic computing_53_0.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_55_0.png" src="../_images/U3.02 - TF for symbolic computing_55_0.png" />
 </div>
 </div>
 </div>
@@ -1240,7 +1267,7 @@ array([[-0.11625272],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 50)
 </pre></div>
 </div>
-<img alt="../_images/U3.02 - TF for symbolic computing_62_1.png" src="../_images/U3.02 - TF for symbolic computing_62_1.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_64_1.png" src="../_images/U3.02 - TF for symbolic computing_64_1.png" />
 </div>
 </div>
 </div>
@@ -1278,7 +1305,7 @@ array([[-0.11625272],
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U3.02 - TF for symbolic computing_65_0.png" src="../_images/U3.02 - TF for symbolic computing_65_0.png" />
+<img alt="../_images/U3.02 - TF for symbolic computing_67_0.png" src="../_images/U3.02 - TF for symbolic computing_67_0.png" />
 </div>
 </div>
 </div>
@@ -1293,16 +1320,16 @@ array([[-0.11625272],
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "p38"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "p38",
             path: "./content"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'p38'</script>
 
               </div>
               

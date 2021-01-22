@@ -418,7 +418,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.2.0&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
 </pre></div>
 </div>
 </div>
@@ -468,14 +468,14 @@
 </div>
 </div>
 </div>
-<p>a <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> is <strong>traced</strong> (converted to computation graph) the first time it is executed, then it is cached</p>
+<p>a <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> is <strong>traced</strong> (converted to computation graph) the first time it is executed, then it is cached <strong>IF IT IS REUSED WITH THE SAME TF VARIABLES</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
-<span class="k">def</span> <span class="nf">f47</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">f47</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Tracing!&#39;</span><span class="p">)</span>
     <span class="n">tf</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s1">&#39;Executing&#39;</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="mi">47</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">t</span><span class="o">*</span><span class="mi">47</span>
 </pre></div>
 </div>
 </div>
@@ -514,7 +514,8 @@ Executing
 <p>observe that if the type changes, the function is <strong>traced</strong> again since a different computational graph must be created</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f47</span><span class="p">(</span><span class="mf">2.1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">f47</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -523,7 +524,136 @@ Executing
 Executing
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=103.11&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=98.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">3.4</span><span class="p">)</span>
+<span class="n">f47</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=171.36&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>tracing happens for <strong>EACH VARIABLE</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">f47</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tracing!
+Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=98.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f47</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=98.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f47</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=171.36&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">f47</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tracing!
+Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int32, numpy=150&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">f47</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int32, numpy=504&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">f47</span><span class="o">.</span><span class="n">pretty_printed_concrete_signatures</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f47(t)
+  Args:
+    t: VariableSpec(shape=(), dtype=tf.float32, name=&#39;t&#39;)
+  Returns:
+    float32 Tensor, shape=()
+
+f47(t=2)
+  Returns:
+    int32 Tensor, shape=()
+
+f47(t)
+  Args:
+    t: VariableSpec(shape=(), dtype=tf.float32, name=&#39;t&#39;)
+  Returns:
+    float32 Tensor, shape=()
+
+f47(t)
+  Args:
+    t: VariableSpec(shape=(), dtype=tf.int32, name=&#39;t&#39;)
+  Returns:
+    int32 Tensor, shape=()
 </pre></div>
 </div>
 </div>
@@ -536,51 +666,19 @@ Executing
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>def tf__f47(x):
-    do_return = False
-    retval_ = ag__.UndefinedReturnValue()
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>def tf__f47(t):
     with ag__.FunctionScope(&#39;f47&#39;, &#39;fscope&#39;, ag__.ConversionOptions(recursive=True, user_requested=True, optional_features=(), internal_convert_user_code=True)) as fscope:
-        print(&#39;Tracing!&#39;)
-        ag__.converted_call(tf.print, (&#39;Executing&#39;,), None, fscope)
+        do_return = False
+        retval_ = ag__.UndefinedReturnValue()
+        ag__.ld(print)(&#39;Tracing!&#39;)
+        ag__.converted_call(ag__.ld(tf).print, (&#39;Executing&#39;,), None, fscope)
         try:
             do_return = True
-            retval_ = fscope.mark_return_value(((x ** 2) + (x * 47)))
+            retval_ = ((ag__.ld(t) ** 2) + (ag__.ld(t) * 47))
         except:
             do_return = False
             raise
-    (do_return,)
-    return ag__.retval(retval_)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f47</span><span class="o">.</span><span class="n">get_concrete_function</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">))(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int64, numpy=98&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f47</span><span class="o">.</span><span class="n">python_function</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tracing!
-Executing
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>98
+        return fscope.ret(retval_, do_return)
 </pre></div>
 </div>
 </div>
@@ -630,10 +728,10 @@ Executing
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.8252264,
- &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.57828975&gt;,
- &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.5782897&gt;,
- &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.5782897&gt;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.8393676,
+ &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.5855545&gt;,
+ &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.5855545&gt;,
+ &lt;tf.Tensor: shape=(), dtype=float32, numpy=0.5855545&gt;)
 </pre></div>
 </div>
 </div>

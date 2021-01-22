@@ -533,10 +533,6 @@ num classes 3
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
 
 <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bn1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bn2</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">bn1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bn2</span> <span class="o">=</span> <span class="n">bn2</span>
             
     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
         
@@ -545,7 +541,6 @@ num classes 3
         
         <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;random_normal&#39;</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">),</span> <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;random_normal&#39;</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>        
-
         
     <span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
     <span class="k">def</span> <span class="nf">get_z1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
@@ -652,11 +647,10 @@ num classes 3
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (20 of 20) |########################| Elapsed Time: 0:00:07 Time:  0:00:07
- 10% (15 of 144) |##                     | Elapsed Time: 0:00:00 ETA:   0:00:00
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy 0.670
-test  accuracy 0.601
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy 0.682
+test  accuracy 0.593
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (144 of 144) |######################| Elapsed Time: 0:00:01 Time:  0:00:01
@@ -666,35 +660,6 @@ test  accuracy 0.601
 </pre></div>
 </div>
 <img alt="../_images/U3.04 - Batch Normalization_17_3.png" src="../_images/U3.04 - Batch Normalization_17_3.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">categorical_crossentropy</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_trainf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)[</span><span class="n">y_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)],</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;train accuracy </span><span class="si">%.3f</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">model</span>.score(x_trainf, y_train))
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;test  accuracy </span><span class="si">%.3f</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">model</span>.score(x_testf, y_test))
-<span class="n">model</span><span class="o">.</span><span class="n">plot_hist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (20 of 20) |########################| Elapsed Time: 0:00:07 Time:  0:00:07
- 10% (15 of 144) |##                     | Elapsed Time: 0:00:00 ETA:   0:00:00
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy 0.770
-test  accuracy 0.670
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (144 of 144) |######################| Elapsed Time: 0:00:01 Time:  0:00:01
-100% (144 of 144) |######################| Elapsed Time: 0:00:00 Time:  0:00:00
-100% (144 of 144) |######################| Elapsed Time: 0:00:01 Time:  0:00:01
-100% (144 of 144) |######################| Elapsed Time: 0:00:00 Time:  0:00:00
-</pre></div>
-</div>
-<img alt="../_images/U3.04 - Batch Normalization_18_3.png" src="../_images/U3.04 - Batch Normalization_18_3.png" />
 </div>
 </div>
 <p><strong>Batch Normalizations</strong> fixes the covariate shift:</p>

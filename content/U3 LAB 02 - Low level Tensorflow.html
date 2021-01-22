@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LAB 3.2 - Batch normalization &#8212; Fundamentos de Deep Learning</title>
+    <title>LAB 3.2 - Low level tensorflow &#8212; Fundamentos de Deep Learning</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -56,7 +56,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="LAB 3.1 - TF model subclassing" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -93,7 +92,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="M00.html">
    Información 20211 - UdeA
@@ -197,11 +196,11 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M03.html">
    03 - TENSORFLOW
   </a>
-  <ul class="current collapse-ul">
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U3.01%20-%20Simbolic%20computing%20for%20ML.html">
      3.1 - Symbolic computing for ML
@@ -230,11 +229,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
      LAB 3.1 - TF model subclassing
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     LAB 3.2 - Batch normalization
     </a>
    </li>
   </ul>
@@ -281,7 +275,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U3 LAB 02 - Batch normalization.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U3 LAB 02 - Low level Tensorflow.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -308,7 +302,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U3 LAB 02 - Batch normalization.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U3 LAB 02 - Low level Tensorflow.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -337,6 +331,11 @@
    TASK 2: Implement batch normalization
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-3-compute-the-hessian">
+   TASK 3: Compute the Hessian
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -348,8 +347,8 @@
         
               <div>
                 
-  <div class="section" id="lab-3-2-batch-normalization">
-<h1>LAB 3.2 - Batch normalization<a class="headerlink" href="#lab-3-2-batch-normalization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lab-3-2-low-level-tensorflow">
+<h1>LAB 3.2 - Low level <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code><a class="headerlink" href="#lab-3-2-low-level-tensorflow" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -606,6 +605,166 @@
 </div>
 </div>
 </div>
+<div class="section" id="task-3-compute-the-hessian">
+<h2>TASK 3: Compute the Hessian<a class="headerlink" href="#task-3-compute-the-hessian" title="Permalink to this headline">¶</a></h2>
+<p>Complete the function below so that computes the Hessian of a function with respect to a set of variables. Remember that the Hessian is the matrix with all combinations of double partial derivatives. See <a class="reference external" href="https://en.wikipedia.org/wiki/Hessian_matrix">https://en.wikipedia.org/wiki/Hessian_matrix</a></p>
+<p>The arguments for your code below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">expression_fn</span></code>: is a Python function that, when executed, will return a Tensor depending on the variables in <code class="docutils literal notranslate"><span class="pre">svars</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">svars</span></code>: a list of <span class="math notranslate nohighlight">\(n\)</span> <code class="docutils literal notranslate"><span class="pre">tf.Variable</span></code>s against which  the derivatives are to be taken.</p></li>
+</ul>
+<p>The result:</p>
+<ul class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array of dimension <span class="math notranslate nohighlight">\(n\times n\)</span>, containing in each position the value of the corresponding double derivative evaluated with the value attached to each variable in <code class="docutils literal notranslate"><span class="pre">svars</span></code>.</p></li>
+</ul>
+<p>See the example call below to understand what you have to produce.</p>
+<p><strong>NOTE</strong>: Observe that <code class="docutils literal notranslate"><span class="pre">expression_fn</span></code> is a function that you <strong>must call</strong> inside some <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> to obtain the expresion. This needs to be done this way because <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> needs to <em>watch</em> how expressions are built to be able to access the computational graph and compute the gradient. This is a technique which is very often used in Tensorflow.</p>
+<p><strong>WARN</strong>: You cannot use <code class="docutils literal notranslate"><span class="pre">tf.hessian</span></code> or <code class="docutils literal notranslate"><span class="pre">GradientTape.jacobian</span></code> or <code class="docutils literal notranslate"><span class="pre">sympy</span></code>. Do not use the name <code class="docutils literal notranslate"><span class="pre">hessian</span></code> to name any variable within your code.</p>
+<p><strong>HINT 1</strong>: use a <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> inside another <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code>.</p>
+<p><strong>HINT 2</strong>: use <code class="docutils literal notranslate"><span class="pre">unconnected_gradients=tf.UnconnectedGradients.ZERO</span></code> as argument to <code class="docutils literal notranslate"><span class="pre">GradientTape.gradient</span></code> to have the variables not participating in an expresion result in gradient zero. For instance with <span class="math notranslate nohighlight">\(f=xy\)</span>, we have <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y\partial y}=0\)</span>, since <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y}=1\)</span>. Or if we have <span class="math notranslate nohighlight">\(f=x\)</span> we have <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y\partial x}=0\)</span>, since <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y}=0\)</span>. If you do not include this argument, Tensorflow will return these values as <code class="docutils literal notranslate"><span class="pre">None</span></code> and you would have to fix them later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_double_derivatives</span><span class="p">(</span><span class="n">expression_fn</span><span class="p">,</span><span class="n">svars</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="o">...</span> 
+    
+    <span class="k">return</span> <span class="n">result</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<p>check your code. The following expression</p>
+<div class="math notranslate nohighlight">
+\[f = 2xy^2 + 3x\cos{y}\]</div>
+<p>has as first derivatives:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial x} = 2y^2 +3\cos{y}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial y} = 4xy - 3x\sin{y}\)</span></p></li>
+</ul>
+<p>and as second derivatives:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial x \partial x} = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial x \partial y} = 4y - 3\sin{y}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial y \partial x} = 4y - 3\sin{y}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{\partial f }{\partial y \partial y} = 4x - 3x\cos{y}\)</span></p></li>
+</ul>
+<p>which, when evaluated at <span class="math notranslate nohighlight">\(x=2\)</span> and <span class="math notranslate nohighlight">\(y=-3\)</span> yields</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[[  0     ,  -11.58],
+ [ -11.58 ,   13.94]]
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">tf</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">get_double_derivatives</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">*x**</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="si">}</span><span class="s1">*y**</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="si">}</span><span class="s1">+&#39;</span> <span class="o">+</span> \
+              <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;tf.cos(x)*y&#39;</span><span class="p">,</span><span class="s1">&#39;tf.tanh(y)*tf.sin(x)&#39;</span><span class="p">,</span> <span class="s1">&#39;y*tf.sigmoid(x)&#39;</span><span class="p">])</span>
+<span class="n">expr_str</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">*x**</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="si">}</span><span class="s1">*y**</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="si">}</span><span class="s1">+&#39;</span> <span class="o">+</span> \
+              <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;tf.cos(x)*y&#39;</span><span class="p">,</span><span class="s1">&#39;tf.tanh(y)*tf.sin(x)&#39;</span><span class="p">,</span> <span class="s1">&#39;y*tf.sigmoid(x)&#39;</span><span class="p">])</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expr_str</span><span class="p">)</span>
+<span class="n">get_double_derivatives</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+
+<span class="n">vx</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">vy</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="n">expr</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expr_str</span><span class="p">)</span>
+<span class="n">get_hessian</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sy</span>
+
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;x y&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expr_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;tf&#39;</span><span class="p">,</span><span class="s1">&#39;sy&#39;</span><span class="p">))</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">vx</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">vy</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">vx</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">vy</span><span class="p">})),</span> <span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">vx</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">vy</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">vx</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">vy</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">UnconnectedGradients</span><span class="o">.</span><span class="n">ZERO</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;tf.cos(x)*y&#39;</span><span class="p">,</span><span class="s1">&#39;tf.tanh(y)*tf.sin(x)&#39;</span><span class="p">,</span> <span class="s1">&#39;y*tf.sigmoid(x)&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">tf</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">get_hessian</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Registra tu solución en linea</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T3&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -636,7 +795,6 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html" title="previous page">LAB 3.1 - TF model subclassing</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -656,7 +814,7 @@
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

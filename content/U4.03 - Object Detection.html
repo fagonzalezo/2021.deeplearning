@@ -1,0 +1,1706 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.3 - Object detection &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="4.2 - Transfer learning" href="U4.02%20-%20Transfer%20learning.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/fudea.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="M00.html">
+   Información 20211 - UdeA
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions in Tensorflow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.08%20-%20Weights%20initialization.html">
+     2.8 - Weights initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Parwise classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
+     LAB 2.4 - Model instrumentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M03.html">
+   03 - TENSORFLOW CORE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.01%20-%20Simbolic%20computing%20for%20ML.html">
+     3.1 - Symbolic computing for ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.02%20-%20TF%20for%20symbolic%20computing.html">
+     3.2 - TF symbolic engine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.03%20-%20Using%20tf.function.html">
+     3.3 - Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tf.function
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.04%20-%20Batch%20Normalization.html">
+     3.4 - Batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
+     LAB 3.1 - TF model subclassing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
+     LAB 3.2 - Low level
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tensorflow
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="M04.html">
+   04 - CONVOLUTIONAL NETWORKS
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.01%20-%20Convolutional%20Neural%20Networks.html">
+     4.1 - Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.02%20-%20Transfer%20learning.html">
+     4.2 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#id1">
+     Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#observe-how-an-image-is-annotated-for-detection">
+     Observe how an image is annotated for detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#patch-classification-with-inceptionv3-from-keras">
+     Patch classification, with InceptionV3 from Keras
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#patch-classification-with-resnet-model-published-on-tensorflow-hub">
+     Patch classification, with ResNet model published on TensorFlow Hub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#one-stage-detectors">
+     One stage detectors
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U4.03 - Object Detection.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.03 - Object Detection.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4.3 - Object detection
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Object detection
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#approaches">
+     Approaches:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#observe-how-an-image-is-annotated-for-detection">
+   Observe how an image is annotated for detection
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#patch-classification-with-inceptionv3-from-keras">
+   Patch classification, with InceptionV3 from Keras
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#patch-classification-with-resnet-model-published-on-tensorflow-hub">
+   Patch classification, with ResNet model published on TensorFlow Hub
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-stage-detectors">
+   One stage detectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#region-priors">
+     Region priors
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predictions">
+     Predictions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loss-function">
+     Loss function
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-maximum-suppression">
+     Non maximum suppression
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="object-detection">
+<h1>4.3 - Object detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> tensorboard
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">local.lib</span> <span class="kn">import</span> <span class="n">mlutils</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
+  %reload_ext tensorboard
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h1>Object detection<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>see the original papers on <a class="reference external" href="https://pjreddie.com/media/files/papers/YOLOv3.pdf">Yolov3</a>,  <a class="reference external" href="https://arxiv.org/pdf/1708.02002.pdf">RetinaNet</a></p></li>
+</ul>
+<div class="section" id="approaches">
+<h2>Approaches:<a class="headerlink" href="#approaches" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Classical</strong>: Sliding window, costly</p></li>
+<li><p><strong>Two Stage Detectors</strong>: First obtain proposed regions, then classify.</p></li>
+<li><p><strong>One Stage Detectors</strong>: Use region priors on fixed image grid</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="observe-how-an-image-is-annotated-for-detection">
+<h1>Observe how an image is annotated for detection<a class="headerlink" href="#observe-how-an-image-is-annotated-for-detection" title="Permalink to this headline">¶</a></h1>
+<p>This is an example from the <a class="reference external" href="https://storage.googleapis.com/openimages/web/index.html">Open Images V6 Dataset</a>, a dataset created and curated at Google. Explore and inspect images and annotations to understand the dataset.</p>
+<p>Particularly:</p>
+<ul class="simple">
+<li><p>get a view on the volumetry and class descriptions in https://storage.googleapis.com/openimages/web/factsfigures.html</p></li>
+<li><p>understand the image annotation formats in https://storage.googleapis.com/openimages/web/download.html</p></li>
+</ul>
+<p><strong>We download the class descriptions</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc https://storage.googleapis.com/openimages/v5/class-descriptions-boxable.csv
+<span class="n">c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;class-descriptions-boxable.csv&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2021-01-27 21:15:00--  https://storage.googleapis.com/openimages/v5/class-descriptions-boxable.csv
+Resolving storage.googleapis.com (storage.googleapis.com)... 172.217.173.48, 142.250.78.48, 142.250.78.16, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.173.48|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 12011 (12K) [text/csv]
+Saving to: ‘class-descriptions-boxable.csv’
+
+class-descriptions- 100%[===================&gt;]  11,73K  --.-KB/s    in 0,002s  
+
+2021-01-27 21:15:01 (6,82 MB/s) - ‘class-descriptions-boxable.csv’ saved [12011/12011]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>description</th>
+    </tr>
+    <tr>
+      <th>code</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>/m/011k07</th>
+      <td>Tortoise</td>
+    </tr>
+    <tr>
+      <th>/m/011q46kg</th>
+      <td>Container</td>
+    </tr>
+    <tr>
+      <th>/m/012074</th>
+      <td>Magpie</td>
+    </tr>
+    <tr>
+      <th>/m/0120dh</th>
+      <td>Sea turtle</td>
+    </tr>
+    <tr>
+      <th>/m/01226z</th>
+      <td>Football</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>An example image</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;local/imgs/0003bb040a62c86f.jpg&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fa1c5eb8dc0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.03 - Object Detection_7_1.png" src="../_images/U4.03 - Object Detection_7_1.png" />
+</div>
+</div>
+<p><strong>with its annotations</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;local/data/openimages_boxes_0003bb040a62c86f.csv&quot;</span><span class="p">)</span>
+<span class="n">boxes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ImageID</th>
+      <th>Source</th>
+      <th>LabelName</th>
+      <th>Confidence</th>
+      <th>XMin</th>
+      <th>XMax</th>
+      <th>YMin</th>
+      <th>YMax</th>
+      <th>IsOccluded</th>
+      <th>IsTruncated</th>
+      <th>...</th>
+      <th>IsDepiction</th>
+      <th>IsInside</th>
+      <th>XClick1X</th>
+      <th>XClick2X</th>
+      <th>XClick3X</th>
+      <th>XClick4X</th>
+      <th>XClick1Y</th>
+      <th>XClick2Y</th>
+      <th>XClick3Y</th>
+      <th>XClick4Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0003bb040a62c86f</td>
+      <td>activemil</td>
+      <td>/m/07j7r</td>
+      <td>1</td>
+      <td>0.280625</td>
+      <td>0.658125</td>
+      <td>0.021174</td>
+      <td>0.347449</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01g317</td>
+      <td>1</td>
+      <td>0.326250</td>
+      <td>0.349375</td>
+      <td>0.346487</td>
+      <td>0.397498</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.336875</td>
+      <td>0.326250</td>
+      <td>0.349375</td>
+      <td>0.344375</td>
+      <td>0.346487</td>
+      <td>0.363811</td>
+      <td>0.363811</td>
+      <td>0.397498</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01g317</td>
+      <td>1</td>
+      <td>0.461875</td>
+      <td>0.553750</td>
+      <td>0.312801</td>
+      <td>0.811357</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.505000</td>
+      <td>0.461875</td>
+      <td>0.543750</td>
+      <td>0.553750</td>
+      <td>0.312801</td>
+      <td>0.762271</td>
+      <td>0.811357</td>
+      <td>0.760346</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01g317</td>
+      <td>1</td>
+      <td>0.620000</td>
+      <td>0.641875</td>
+      <td>0.350337</td>
+      <td>0.448508</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.630000</td>
+      <td>0.620000</td>
+      <td>0.641875</td>
+      <td>0.621250</td>
+      <td>0.350337</td>
+      <td>0.436959</td>
+      <td>0.436959</td>
+      <td>0.448508</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01g317</td>
+      <td>1</td>
+      <td>0.650625</td>
+      <td>0.671250</td>
+      <td>0.344562</td>
+      <td>0.446583</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.660625</td>
+      <td>0.650625</td>
+      <td>0.671250</td>
+      <td>0.668750</td>
+      <td>0.344562</td>
+      <td>0.446583</td>
+      <td>0.435034</td>
+      <td>0.442733</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01g317</td>
+      <td>1</td>
+      <td>0.726250</td>
+      <td>0.754375</td>
+      <td>0.354187</td>
+      <td>0.448508</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.733750</td>
+      <td>0.726250</td>
+      <td>0.741250</td>
+      <td>0.754375</td>
+      <td>0.354187</td>
+      <td>0.433109</td>
+      <td>0.448508</td>
+      <td>0.401347</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01mqdt</td>
+      <td>1</td>
+      <td>0.397500</td>
+      <td>0.416875</td>
+      <td>0.256978</td>
+      <td>0.286814</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.397500</td>
+      <td>0.406250</td>
+      <td>0.416875</td>
+      <td>0.416875</td>
+      <td>0.281039</td>
+      <td>0.256978</td>
+      <td>0.286814</td>
+      <td>0.286814</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01mqdt</td>
+      <td>1</td>
+      <td>0.533125</td>
+      <td>0.560000</td>
+      <td>0.281039</td>
+      <td>0.328200</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.533125</td>
+      <td>0.545000</td>
+      <td>0.560000</td>
+      <td>0.546250</td>
+      <td>0.308951</td>
+      <td>0.281039</td>
+      <td>0.305101</td>
+      <td>0.328200</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.163750</td>
+      <td>0.233125</td>
+      <td>0.325313</td>
+      <td>0.409047</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.203750</td>
+      <td>0.163750</td>
+      <td>0.218125</td>
+      <td>0.233125</td>
+      <td>0.325313</td>
+      <td>0.379211</td>
+      <td>0.409047</td>
+      <td>0.366699</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.201875</td>
+      <td>0.227500</td>
+      <td>0.316651</td>
+      <td>0.342637</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.205625</td>
+      <td>0.201875</td>
+      <td>0.218125</td>
+      <td>0.227500</td>
+      <td>0.316651</td>
+      <td>0.332050</td>
+      <td>0.342637</td>
+      <td>0.324350</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.219375</td>
+      <td>0.255625</td>
+      <td>0.323388</td>
+      <td>0.380173</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.228750</td>
+      <td>0.219375</td>
+      <td>0.249375</td>
+      <td>0.255625</td>
+      <td>0.323388</td>
+      <td>0.336862</td>
+      <td>0.380173</td>
+      <td>0.348412</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.235000</td>
+      <td>0.259375</td>
+      <td>0.316651</td>
+      <td>0.354187</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.249375</td>
+      <td>0.235000</td>
+      <td>0.254375</td>
+      <td>0.259375</td>
+      <td>0.316651</td>
+      <td>0.326275</td>
+      <td>0.354187</td>
+      <td>0.337825</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.258125</td>
+      <td>0.289375</td>
+      <td>0.323388</td>
+      <td>0.368624</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.268750</td>
+      <td>0.258125</td>
+      <td>0.282500</td>
+      <td>0.289375</td>
+      <td>0.323388</td>
+      <td>0.331088</td>
+      <td>0.368624</td>
+      <td>0.349374</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.260625</td>
+      <td>0.298750</td>
+      <td>0.282964</td>
+      <td>0.358037</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.273125</td>
+      <td>0.260625</td>
+      <td>0.293750</td>
+      <td>0.298750</td>
+      <td>0.282964</td>
+      <td>0.305101</td>
+      <td>0.358037</td>
+      <td>0.330125</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.264375</td>
+      <td>0.297500</td>
+      <td>0.292589</td>
+      <td>0.333975</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.285000</td>
+      <td>0.297500</td>
+      <td>0.297500</td>
+      <td>0.264375</td>
+      <td>0.292589</td>
+      <td>0.333975</td>
+      <td>0.314726</td>
+      <td>0.312801</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.311875</td>
+      <td>0.336250</td>
+      <td>0.330125</td>
+      <td>0.354187</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.315625</td>
+      <td>0.316875</td>
+      <td>0.311875</td>
+      <td>0.336250</td>
+      <td>0.330125</td>
+      <td>0.354187</td>
+      <td>0.354187</td>
+      <td>0.342637</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.326250</td>
+      <td>0.353125</td>
+      <td>0.351299</td>
+      <td>0.430221</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.348125</td>
+      <td>0.326250</td>
+      <td>0.339375</td>
+      <td>0.353125</td>
+      <td>0.351299</td>
+      <td>0.390760</td>
+      <td>0.430221</td>
+      <td>0.366699</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/01prls</td>
+      <td>1</td>
+      <td>0.424375</td>
+      <td>0.490000</td>
+      <td>0.342637</td>
+      <td>0.415784</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.466875</td>
+      <td>0.424375</td>
+      <td>0.468125</td>
+      <td>0.490000</td>
+      <td>0.342637</td>
+      <td>0.391723</td>
+      <td>0.415784</td>
+      <td>0.348412</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/07j7r</td>
+      <td>1</td>
+      <td>0.000000</td>
+      <td>0.181875</td>
+      <td>0.000000</td>
+      <td>0.366699</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.071250</td>
+      <td>0.000000</td>
+      <td>0.078125</td>
+      <td>0.181875</td>
+      <td>0.000000</td>
+      <td>0.223292</td>
+      <td>0.366699</td>
+      <td>0.063523</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/07j7r</td>
+      <td>1</td>
+      <td>0.113750</td>
+      <td>0.273750</td>
+      <td>0.080847</td>
+      <td>0.360924</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.113750</td>
+      <td>0.188125</td>
+      <td>0.273750</td>
+      <td>0.172500</td>
+      <td>0.210780</td>
+      <td>0.080847</td>
+      <td>0.232916</td>
+      <td>0.360924</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/07j7r</td>
+      <td>1</td>
+      <td>0.761875</td>
+      <td>0.830000</td>
+      <td>0.302214</td>
+      <td>0.362849</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.761875</td>
+      <td>0.782500</td>
+      <td>0.830000</td>
+      <td>0.816250</td>
+      <td>0.335900</td>
+      <td>0.302214</td>
+      <td>0.333013</td>
+      <td>0.362849</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/07j7r</td>
+      <td>1</td>
+      <td>0.799375</td>
+      <td>0.999375</td>
+      <td>0.000000</td>
+      <td>0.471607</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.799375</td>
+      <td>0.999375</td>
+      <td>0.999375</td>
+      <td>0.999375</td>
+      <td>0.223292</td>
+      <td>0.000000</td>
+      <td>0.461983</td>
+      <td>0.471607</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/0hnnb</td>
+      <td>1</td>
+      <td>0.401250</td>
+      <td>0.555000</td>
+      <td>0.628489</td>
+      <td>0.748797</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.453750</td>
+      <td>0.401250</td>
+      <td>0.519375</td>
+      <td>0.555000</td>
+      <td>0.628489</td>
+      <td>0.681424</td>
+      <td>0.748797</td>
+      <td>0.703561</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0003bb040a62c86f</td>
+      <td>xclick</td>
+      <td>/m/0hnnb</td>
+      <td>1</td>
+      <td>0.501250</td>
+      <td>0.588125</td>
+      <td>0.570741</td>
+      <td>0.734360</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.550000</td>
+      <td>0.501250</td>
+      <td>0.551250</td>
+      <td>0.588125</td>
+      <td>0.570741</td>
+      <td>0.628489</td>
+      <td>0.734360</td>
+      <td>0.697786</td>
+    </tr>
+  </tbody>
+</table>
+<p>24 rows × 21 columns</p>
+</div></div></div>
+</div>
+<p><strong>the annotations of this image</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">description</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">boxes</span><span class="o">.</span><span class="n">LabelName</span><span class="p">])</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Land vehicle    10
+Person           5
+Tree             5
+Traffic sign     2
+Umbrella         2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">boxes</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span> 
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">h</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">boxes</span><span class="p">)):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">boxes</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">LabelName</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="o">*</span><span class="n">w</span><span class="p">,</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="o">*</span><span class="n">h</span><span class="p">),(</span><span class="n">k</span><span class="o">.</span><span class="n">XMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="p">)</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">k</span><span class="o">.</span><span class="n">YMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="o">*</span><span class="n">h</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_12_0.png" src="../_images/U4.03 - Object Detection_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="patch-classification-with-inceptionv3-from-keras">
+<h1>Patch classification, with InceptionV3 from Keras<a class="headerlink" href="#patch-classification-with-inceptionv3-from-keras" title="Permalink to this headline">¶</a></h1>
+<p>some sample patches</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patches</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="mi">190</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="mi">150</span><span class="p">:</span><span class="mi">270</span><span class="p">],</span> 
+           <span class="n">img</span><span class="p">[</span><span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">:</span><span class="mi">700</span><span class="p">],</span> 
+           <span class="n">img</span><span class="p">[</span><span class="mi">400</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span><span class="mi">500</span><span class="p">],</span>
+           <span class="n">img</span><span class="p">[</span><span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">:</span><span class="mi">400</span><span class="p">],</span>
+           <span class="n">img</span><span class="p">[</span><span class="mi">220</span><span class="p">:</span><span class="mi">290</span><span class="p">,</span> <span class="mi">325</span><span class="p">:</span><span class="mi">360</span><span class="p">],</span>
+           <span class="n">img</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">180</span><span class="p">,</span> <span class="mi">330</span><span class="p">:</span><span class="mi">670</span><span class="p">]]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">pimg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">patches</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">patches</span><span class="p">),</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pimg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_14_0.png" src="../_images/U4.03 - Object Detection_14_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.applications</span> <span class="kn">import</span> <span class="n">inception_v3</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;model&quot;</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">():</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">inception_v3</span><span class="o">.</span><span class="n">InceptionV3</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/inception_v3/inception_v3_weights_tf_dim_ordering_tf_kernels.h5
+96116736/96112376 [==============================] - 33s 0us/step
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_img_with_histogram</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
+
+<span class="n">pimg</span> <span class="o">=</span> <span class="n">patches</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">plot_img_with_histogram</span><span class="p">(</span><span class="n">pimg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_16_0.png" src="../_images/U4.03 - Object Detection_16_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+<span class="n">rimg</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span><span class="n">pimg</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">299</span><span class="p">,</span><span class="mi">299</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plot_img_with_histogram</span><span class="p">(</span><span class="n">rimg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_17_0.png" src="../_images/U4.03 - Object Detection_17_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">rimg</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">*</span><span class="n">rimg</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="n">pred</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1000)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">inception_v3</span><span class="o">.</span><span class="n">decode_predictions</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">100</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;preds&quot;</span><span class="p">])</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;preds&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json
+40960/35363 [==================================] - 0s 1us/step
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">k</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">preds</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">k</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;classes with highest prediction probability&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_20_0.png" src="../_images/U4.03 - Object Detection_20_0.png" />
+</div>
+</div>
+<p>observe how we decode prediction classes. We would nee to <strong>align</strong> them with our detectiond dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Predicted:&#39;</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">inception_v3</span><span class="o">.</span><span class="n">decode_predictions</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%10s</span><span class="s2"> </span><span class="si">%20s</span><span class="s2"> </span><span class="si">%.6f</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted:
+ n03630383             lab_coat 0.134186
+ n04479046          trench_coat 0.090892
+ n04507155             umbrella 0.087079
+ n02971356               carton 0.054701
+ n03787032          mortarboard 0.039948
+ n03617480               kimono 0.021387
+ n02777292         balance_beam 0.017429
+ n02669723        academic_gown 0.016952
+ n04336792            stretcher 0.016528
+ n04456115                torch 0.016192
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="patch-classification-with-resnet-model-published-on-tensorflow-hub">
+<h1>Patch classification, with ResNet model published on <a class="reference external" href="https://www.tensorflow.org/hub">TensorFlow Hub</a><a class="headerlink" href="#patch-classification-with-resnet-model-published-on-tensorflow-hub" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow_hub</span> <span class="k">as</span> <span class="nn">hub</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classnames</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;m&#39;</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">():</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+        <span class="n">hub</span><span class="o">.</span><span class="n">KerasLayer</span><span class="p">(</span><span class="s2">&quot;https://tfhub.dev/google/imagenet/inception_resnet_v2/classification/4&quot;</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">build</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+keras_layer (KerasLayer)     (None, 1001)              55875273  
+=================================================================
+Total params: 55,875,273
+Trainable params: 0
+Non-trainable params: 55,875,273
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">rimg</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">*</span><span class="n">rimg</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">preds</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0000002
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="n">classnames</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">names</span><span class="p">[</span><span class="s2">&quot;preds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">preds</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;preds&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">names</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>preds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>880</th>
+      <td>umbrella</td>
+      <td>0.581176</td>
+    </tr>
+    <tr>
+      <th>479</th>
+      <td>carton</td>
+      <td>0.035877</td>
+    </tr>
+    <tr>
+      <th>870</th>
+      <td>trench coat</td>
+      <td>0.031472</td>
+    </tr>
+    <tr>
+      <th>835</th>
+      <td>suit</td>
+      <td>0.010810</td>
+    </tr>
+    <tr>
+      <th>631</th>
+      <td>Loafer</td>
+      <td>0.005403</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">names</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">preds</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">names</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;classes with highest prediction probability&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_29_0.png" src="../_images/U4.03 - Object Detection_29_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="one-stage-detectors">
+<h1>One stage detectors<a class="headerlink" href="#one-stage-detectors" title="Permalink to this headline">¶</a></h1>
+<p>This blog: <a class="reference external" href="https://medium.com/analytics-vidhya/yolo-v3-theory-explained-33100f6d193">YOLO v3 theory explained</a> contains a detailed explanation on how YOLOv3 builds a prediction for detections.</p>
+<div class="section" id="region-priors">
+<h2>Region priors<a class="headerlink" href="#region-priors" title="Permalink to this headline">¶</a></h2>
+<p>A set of box shapes representative of what appears in the training dataset. Obtained typically with KMeans, one must decide how many. For instance</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;local/imgs/anchor_boxes.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_31_0.png" src="../_images/U4.03 - Object Detection_31_0.png" />
+</div>
+</div>
+<p><strong>Image fixed partition</strong></p>
+<ul class="simple">
+<li><p>each fixed size image cell is responsible for predicting objects whose center falls within that cell.</p></li>
+<li><p>for instance the red dot below signals the tree center and thus the cell responsible for its prediction.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="n">n</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="n">n</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    
+<span class="n">k</span> <span class="o">=</span> <span class="n">boxes</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">LabelName</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="o">*</span><span class="n">w</span><span class="p">,</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="o">*</span><span class="n">h</span><span class="p">),(</span><span class="n">k</span><span class="o">.</span><span class="n">XMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="p">)</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">k</span><span class="o">.</span><span class="n">YMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> 
+                       <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="o">*</span><span class="n">h</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">XMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">XMin</span><span class="p">)</span><span class="o">*</span><span class="n">w</span><span class="o">*.</span><span class="mi">5</span><span class="p">,</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="o">*</span><span class="n">h</span><span class="o">+</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">YMax</span><span class="o">-</span><span class="n">k</span><span class="o">.</span><span class="n">YMin</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="o">*.</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa055077df0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.03 - Object Detection_33_1.png" src="../_images/U4.03 - Object Detection_33_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="predictions">
+<h2>Predictions<a class="headerlink" href="#predictions" title="Permalink to this headline">¶</a></h2>
+<p>for <strong>each cell</strong> and <strong>each anchor box</strong> the model will make a prediction that will contain:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(t_x\)</span>, <span class="math notranslate nohighlight">\(t_y\)</span>: the offset of the object center to the cell’s top left corner.</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_w\)</span>: <span class="math notranslate nohighlight">\(t_y\)</span>: the widths of the object bounding box as referred to the anchor box size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_0\)</span>: a proxy for the probability of an object’s center being present at that cell:  <span class="math notranslate nohighlight">\(Pr(object)*IOU(b, object)=\sigma(t_0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{p}_c\)</span>: a vector of class probabilities</p></li>
+</ul>
+<p>observe that:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_w\)</span>, <span class="math notranslate nohighlight">\(p_h\)</span> are the dimensions of the anchor box.</p></li>
+<li><p>the sigmoid function <span class="math notranslate nohighlight">\(sigma\)</span> is used to bound offset coordinates.</p></li>
+<li><p>the exponential function <span class="math notranslate nohighlight">\(e\)</span> is used to bound sizes <span class="math notranslate nohighlight">\(&gt;0\)</span> and provide larger gradients when</p></li>
+<li><p>we are interested in <strong>both</strong> probability <strong>and</strong> IOU of the bounding box.</p></li>
+</ul>
+<p>Therefore for each cell and anchor box we have <span class="math notranslate nohighlight">\(5+C\)</span> predictions, <span class="math notranslate nohighlight">\(C\)</span> being the number of classes in our dataset.</p>
+<p>Image taken from <a class="reference external" href="https://arxiv.org/pdf/1612.08242.pdf">YOLO9000: Better, Faster, Stronger</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;local/imgs/yolo_predictions.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.03 - Object Detection_35_0.png" src="../_images/U4.03 - Object Detection_35_0.png" />
+</div>
+</div>
+<p>Typically, CNNs will</p>
+<ul class="simple">
+<li><p>downsample image dimensions to <span class="math notranslate nohighlight">\(13x13\)</span>, or the number of cells defined, and will do a <span class="math notranslate nohighlight">\((1,1)\)</span> convolution in 2D with <span class="math notranslate nohighlight">\(n_a(5+C)\)</span> channels, <span class="math notranslate nohighlight">\(n_a\)</span> being the number of anchor boxes.</p></li>
+<li><p>make the same process in previous CNN layers (for instance when the activation map is <span class="math notranslate nohighlight">\(52x52\)</span>) or larger. So there is a set of prediction boxes</p></li>
+</ul>
+<p>This will be ok to predict large object, but small ones get lost in CNN downsampling. To overcome this, different architectures use different techniques:</p>
+<ul class="simple">
+<li><p>YOLO3 make predictions in earlier CNN layers besides the last one.</p></li>
+<li><p>RetinaNet downsamples the image and then unsamples cativation maps, to integrate (sort of skipped connections) high level semantic information of late layers with spatial information from earlier layers.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://medium.com/&#64;jonathan_hui/what-do-we-learn-from-single-shot-object-detectors-ssd-yolo-fpn-focal-loss-3888677c5f4d">this blog</a> for further intuitions on this</p>
+</div>
+<div class="section" id="loss-function">
+<h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
+<p>Observe that we are doing <strong>BOTH</strong> regression (for boxes) <strong>AND</strong> classification (for object classes). A specific loss function must then be devised to take this into account.</p>
+<p>See <a class="reference external" href="https://stats.stackexchange.com/questions/287486/yolo-loss-function-explanation">this blog post</a> and <a class="reference external" href="https://stats.stackexchange.com/questions/373266/yolo-v3-loss-function">this blog post</a> for detailed explanations.</p>
+</div>
+<div class="section" id="non-maximum-suppression">
+<h2>Non maximum suppression<a class="headerlink" href="#non-maximum-suppression" title="Permalink to this headline">¶</a></h2>
+<p>Finally, as there might be many box predictions at different cells and resolutions, a decision must be taken for overlapping predictions. This is <strong>Non maximum suppression</strong>, and you can check <a class="reference external" href="https://towardsdatascience.com/non-maximum-suppression-nms-93ce178e177c">this blog</a> for a detailed explanation.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="U4.02%20-%20Transfer%20learning.html" title="previous page">4.2 - Transfer learning</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Raúl Ramos, Julián Arias / Universidad de Antioquia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-43235448-3', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

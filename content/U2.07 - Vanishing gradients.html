@@ -200,7 +200,7 @@
  </li>
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M03.html">
-   03 - TENSORFLOW
+   03 - TENSORFLOW CORE
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -260,6 +260,36 @@
    <li class="toctree-l2">
     <a class="reference internal" href="U4.02%20-%20Transfer%20learning.html">
      4.2 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html">
+     4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html#id1">
+     Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html#observe-how-an-image-is-annotated-for-detection">
+     Observe how an image is annotated for detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html#patch-classification-with-inceptionv3-from-keras">
+     Patch classification, with InceptionV3 from Keras
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html#patch-classification-with-resnet-model-published-on-tensorflow-hub">
+     Patch classification, with ResNet model published on TensorFlow Hub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html#one-stage-detectors">
+     One stage detectors
     </a>
    </li>
   </ul>
@@ -1541,8 +1571,8 @@ Epoch 300/300
 <div class="section" id="experiment-observations-on-tensorboard">
 <h2>Experiment observations, on Tensorboard<a class="headerlink" href="#experiment-observations-on-tensorboard" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>What is the distribution of the gradients observed as we move from the output layer to the input layer for each experiment?</p></li>
-<li><p>Look in <a class="reference external" href="http://localhost:6006">Tensorboard</a> at distributions or histograms charts named <code class="docutils literal notranslate"><span class="pre">Layer_00_Input/kernel_0_grad</span></code>, <code class="docutils literal notranslate"><span class="pre">Layer_01_Hidden/kernel_0_grad</span></code>, etc. for different layers. You should see:</p>
+<li><p>What is the distribution of the weights observed as we move from the output layer to the input layer for each experiment?</p></li>
+<li><p>Look in <a class="reference external" href="http://localhost:6006">Tensorboard</a> at distributions or histograms charts named <code class="docutils literal notranslate"><span class="pre">Layer_00_Input/kernel_0</span></code>, <code class="docutils literal notranslate"><span class="pre">Layer_01_Hidden/kernel_0</span></code>, etc. for different layers. You should see:</p>
 <ul>
 <li><p>Gradients are usually higher at the output layer and tend to decrease as you move backwards in the network.</p></li>
 <li><p>With sigmoid activations gradients are always low and rapidly decay from the output layer all the way to the input layer.</p></li>

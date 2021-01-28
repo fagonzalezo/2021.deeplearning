@@ -434,6 +434,8 @@
 </div>
 </div>
 </div>
+<div class="section" id="use-gpu-runtime">
+<h2>Use GPU runtime!!!<a class="headerlink" href="#use-gpu-runtime" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -455,26 +457,10 @@
 </div>
 </div>
 </div>
-<div class="section" id="use-gpu-runtime">
-<h2>Use GPU runtime!!!<a class="headerlink" href="#use-gpu-runtime" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;setting tensorflow version in colab&quot;</span><span class="p">)</span>
-    <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
-    <span class="o">%</span><span class="k">load_ext</span> tensorboard
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>setting tensorflow version in colab
-TensorFlow 2.x selected.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.1.0&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this will only work if you have a GPU environment</span>
+<span class="o">!</span>nvidia-smi
 </pre></div>
 </div>
 </div>
@@ -485,12 +471,26 @@ TensorFlow 2.x selected.
 <p>This notebook is adapted from this Keras Competition: <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">Data Science Bowl 2018</a></p>
 <p>https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook</p>
 <p>From the competition <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018/data">Data Section</a> download the file <code class="docutils literal notranslate"><span class="pre">stage1_train.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">stage1_test.zip</span></code>, unzip them, make it available somewhere in the file system and update the <code class="docutils literal notranslate"><span class="pre">TRAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST_PATH</span></code> variables accordingly below.</p>
+<p>Alternatively, you can use the <code class="docutils literal notranslate"><span class="pre">kaggle</span> <span class="pre">api</span></code> to download them automatically. This is convenient in Google Colab since the data transfer will happen directly between kaggle and colab. To do this</p>
+<ol class="simple">
+<li><p>download the <code class="docutils literal notranslate"><span class="pre">kaggle.json</span></code> file from your Kaggle account under <strong>Create new API token</strong></p></li>
+<li><p>upload it to your Colab notebook environment</p></li>
+<li><p>execute the following cell</p></li>
+</ol>
+<p>If kaggle utilities are not installed in your environment make sure to also execute</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install kaggle
+</pre></div>
 </div>
-<div class="section" id="intro">
-<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
-<p>Hello! This rather quick and dirty kernel shows how to get started on segmenting nuclei using a neural network in Keras.</p>
-<p>The architecture used is the so-called <a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is very common for image segmentation problems such as this. I believe they also have a tendency to work quite well even on small datasets.</p>
-<p>Let’s get started importing everything we need!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+export KAGGLE_CONFIG_DIR=.
+kaggle competitions download data-science-bowl-2018 -f stage1_train.zip 
+kaggle competitions download data-science-bowl-2018 -f stage1_test.zip 
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>unzip -o stage1_test.zip -d stage1_test &gt; /dev/null
@@ -498,13 +498,13 @@ TensorFlow 2.x selected.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unzip:  cannot find or open stage1_test.zip, stage1_test.zip.zip or stage1_test.zip.ZIP.
-unzip:  cannot find or open stage1_train.zip, stage1_train.zip.zip or stage1_train.zip.ZIP.
-</pre></div>
 </div>
 </div>
-</div>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>Hello! This rather quick and dirty kernel shows how to get started on segmenting nuclei using a neural network in Keras.</p>
+<p>The architecture used is the so-called <a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is very common for image segmentation problems such as this. I believe they also have a tendency to work quite well even on small datasets.</p>
+<p>Let’s get started importing everything we need!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progressbar</span> <span class="kn">import</span> <span class="n">progressbar</span> <span class="k">as</span> <span class="n">pbar</span>
@@ -681,7 +681,7 @@ unzip:  cannot find or open stage1_train.zip, stage1_train.zip.zip or stage1_tra
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.05 - Image segmentation_19_0.png" src="../_images/U4.05 - Image segmentation_19_0.png" />
+<img alt="../_images/U4.05 - Image segmentation_18_0.png" src="../_images/U4.05 - Image segmentation_18_0.png" />
 </div>
 </div>
 <p>Seems good!</p>
@@ -1085,7 +1085,7 @@ Epoch 00028: early stopping
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.05 - Image segmentation_32_0.png" src="../_images/U4.05 - Image segmentation_32_0.png" />
+<img alt="../_images/U4.05 - Image segmentation_31_0.png" src="../_images/U4.05 - Image segmentation_31_0.png" />
 </div>
 </div>
 </div>
@@ -1105,7 +1105,7 @@ Epoch 00028: early stopping
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.05 - Image segmentation_34_0.png" src="../_images/U4.05 - Image segmentation_34_0.png" />
+<img alt="../_images/U4.05 - Image segmentation_33_0.png" src="../_images/U4.05 - Image segmentation_33_0.png" />
 </div>
 </div>
 </div>

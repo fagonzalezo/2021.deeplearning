@@ -1,0 +1,1046 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.2 - Transfer learning &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="4.1 - Convolutional Neural Networks" href="U4.01%20-%20Convolutional%20Neural%20Networks.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/fudea.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="M00.html">
+   Información 20211 - UdeA
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions in Tensorflow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.08%20-%20Weights%20initialization.html">
+     2.8 - Weights initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Parwise classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
+     LAB 2.4 - Model instrumentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M03.html">
+   03 - TENSORFLOW
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.01%20-%20Simbolic%20computing%20for%20ML.html">
+     3.1 - Symbolic computing for ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.02%20-%20TF%20for%20symbolic%20computing.html">
+     3.2 - TF symbolic engine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.03%20-%20Using%20tf.function.html">
+     3.3 - Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tf.function
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.04%20-%20Batch%20Normalization.html">
+     3.4 - Batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
+     LAB 3.1 - TF model subclassing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
+     LAB 3.2 - Low level
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tensorflow
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="M04.html">
+   04 - CONVOLUTIONAL NETWORKS
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.01%20-%20Convolutional%20Neural%20Networks.html">
+     4.1 - Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.2 - Transfer learning
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U4.02 - Transfer learning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.02 - Transfer learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#observe-alexnet-filters-for-the-first-two-convolutional-layers">
+   Observe AlexNet filters for the first two convolutional layers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#we-will-use-them-as-starting-point-for-training-our-network">
+     We will use them as starting point for training our network
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-from-scratch">
+   Train from scratch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Transfer learning!!!
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#could-also-freeze-weights-to-avoid-being-changed-by-training">
+   Could also freeze weights to avoid being changed by training
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="transfer-learning">
+<h1>4.2 - Transfer learning<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2020.deeplearning/master/init.py
+<span class="kn">from</span> <span class="nn">init</span> <span class="kn">import</span> <span class="n">init</span><span class="p">;</span> <span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">local.lib</span> <span class="kn">import</span> <span class="n">mlutils</span>
+<span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">bz2</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> tensorboard
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="observe-alexnet-filters-for-the-first-two-convolutional-layers">
+<h2>Observe AlexNet filters for the first two convolutional layers<a class="headerlink" href="#observe-alexnet-filters-for-the-first-two-convolutional-layers" title="Permalink to this headline">¶</a></h2>
+<p>Pretrained Network: https://www.cs.toronto.edu/~guerzhoy/tf_alexnet/</p>
+<p>Paper: <a class="reference external" href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">ImageNet Classification with Deep Convolutional Neural Networks</a></p>
+<p>Source images: <a class="reference external" href="http://www.image-net.org/challenges/LSVRC/2012/">Large Scale Visual Recognition Challenge 2012</a> <a class="reference external" href="http://www.image-net.org">ImageNet</a></p>
+<p>Local file with weights from first two layers only</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lash local/data/alexnet_conv1_conv2.pklz
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1,4M -rw-r--r-- 1 rlx rlx 1,4M Jan 27 21:09 local/data/alexnet_conv1_conv2.pklz
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alex_c12</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bz2</span><span class="o">.</span><span class="n">BZ2File</span><span class="p">(</span><span class="s2">&quot;local/data/alexnet_conv1_conv2.pklz&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;bytes&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,(</span><span class="n">w</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">alex_c12</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;conv2&#39; (256,) (5, 5, 48, 256)
+b&#39;conv1&#39; (96,) (11, 11, 3, 96)
+</pre></div>
+</div>
+</div>
+</div>
+<p>we use for the moment only the first layer</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alex_w1</span> <span class="o">=</span> <span class="n">alex_c12</span><span class="p">[</span><span class="sa">b</span><span class="s2">&quot;conv1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">alex_w1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">mlutils</span><span class="o">.</span><span class="n">display_imgs</span><span class="p">(</span><span class="n">alex_w1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(11, 11, 3, 96)
+</pre></div>
+</div>
+<img alt="../_images/U4.02 - Transfer learning_7_1.png" src="../_images/U4.02 - Transfer learning_7_1.png" />
+</div>
+</div>
+<div class="section" id="we-will-use-them-as-starting-point-for-training-our-network">
+<h3>We will use them as starting point for training our network<a class="headerlink" href="#we-will-use-them-as-starting-point-for-training-our-network" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc https://s3.amazonaws.com/rlx/mini_cifar.h5
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File ‘mini_cifar.h5’ already there; not retrieving.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;mini_cifar.h5&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5f</span><span class="p">:</span>
+    <span class="n">x_cifar</span> <span class="o">=</span> <span class="n">h5f</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][:]</span>
+    <span class="n">y_cifar</span> <span class="o">=</span> <span class="n">h5f</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlutils</span><span class="o">.</span><span class="n">show_labeled_image_mosaic</span><span class="p">(</span><span class="n">x_cifar</span><span class="p">,</span> <span class="n">y_cifar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.02 - Transfer learning_11_0.png" src="../_images/U4.02 - Transfer learning_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_cifar</span><span class="p">,</span> <span class="n">y_cifar</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">distribution of train classes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">distribution of test classes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2253, 32, 32, 3) (2253,) (751, 32, 32, 3) (751,)
+
+distribution of train classes
+0    769
+2    750
+1    734
+dtype: int64
+
+distribution of test classes
+2    275
+1    240
+0    236
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">img_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="nb">compile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using&quot;</span><span class="p">,</span><span class="n">num_classes</span><span class="p">,</span><span class="s2">&quot;classes&quot;</span><span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_1&quot;</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">96</span><span class="p">,(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">60</span><span class="p">,(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;output_1&quot;</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">predictions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">compile</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+                      <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;sparse_categorical_crossentropy&#39;</span><span class="p">,</span>
+                      <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">tensorboard</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;logs/&quot;</span><span class="o">+</span><span class="n">model_name</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard</span><span class="p">],</span>
+              <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+              <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">metrics_names</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_cifar</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>using 3 classes
+Model: &quot;model&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 32, 32, 3)]       0         
+_________________________________________________________________
+conv2d (Conv2D)              (None, 22, 22, 96)        34944     
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 11, 11, 96)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 1, 1, 60)          697020    
+_________________________________________________________________
+flatten (Flatten)            (None, 60)                0         
+_________________________________________________________________
+dropout (Dropout)            (None, 60)                0         
+_________________________________________________________________
+dense (Dense)                (None, 16)                976       
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 16)                0         
+_________________________________________________________________
+output_1 (Dense)             (None, 3)                 51        
+=================================================================
+Total params: 732,991
+Trainable params: 732,991
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-from-scratch">
+<h2>Train from scratch<a class="headerlink" href="#train-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>in some runs might take a while to start reducing loss</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;alexnet_fintuned&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/15
+141/141 [==============================] - 3s 20ms/step - loss: 1.1283 - accuracy: 0.3371 - val_loss: 1.0988 - val_accuracy: 0.3329
+Epoch 2/15
+141/141 [==============================] - 3s 18ms/step - loss: 1.0934 - accuracy: 0.3666 - val_loss: 1.0427 - val_accuracy: 0.4274
+Epoch 3/15
+141/141 [==============================] - 3s 18ms/step - loss: 1.0586 - accuracy: 0.4369 - val_loss: 1.0446 - val_accuracy: 0.4314
+Epoch 4/15
+141/141 [==============================] - 3s 18ms/step - loss: 1.0355 - accuracy: 0.4536 - val_loss: 1.0159 - val_accuracy: 0.4847
+Epoch 5/15
+141/141 [==============================] - 2s 18ms/step - loss: 1.0295 - accuracy: 0.4641 - val_loss: 1.0007 - val_accuracy: 0.5393
+Epoch 6/15
+141/141 [==============================] - 3s 18ms/step - loss: 1.0114 - accuracy: 0.5016 - val_loss: 0.9795 - val_accuracy: 0.5499
+Epoch 7/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.9972 - accuracy: 0.4710 - val_loss: 0.9574 - val_accuracy: 0.5260
+Epoch 8/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.9842 - accuracy: 0.4825 - val_loss: 0.9475 - val_accuracy: 0.5366
+Epoch 9/15
+141/141 [==============================] - 3s 19ms/step - loss: 0.9728 - accuracy: 0.4999 - val_loss: 0.9227 - val_accuracy: 0.5566
+Epoch 10/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.9897 - accuracy: 0.5052 - val_loss: 0.9453 - val_accuracy: 0.5459
+Epoch 11/15
+141/141 [==============================] - 3s 19ms/step - loss: 0.9494 - accuracy: 0.5428 - val_loss: 0.9663 - val_accuracy: 0.5206
+Epoch 12/15
+141/141 [==============================] - 3s 19ms/step - loss: 0.9504 - accuracy: 0.5307 - val_loss: 0.9612 - val_accuracy: 0.5193
+Epoch 13/15
+141/141 [==============================] - 3s 19ms/step - loss: 0.9551 - accuracy: 0.5325 - val_loss: 0.9301 - val_accuracy: 0.5632
+Epoch 14/15
+141/141 [==============================] - 3s 19ms/step - loss: 0.9412 - accuracy: 0.5141 - val_loss: 0.9355 - val_accuracy: 0.5632
+Epoch 15/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.9122 - accuracy: 0.5733 - val_loss: 0.9249 - val_accuracy: 0.5686
+24/24 [==============================] - 0s 6ms/step - loss: 0.9249 - accuracy: 0.5686
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;loss&#39;: 0.9248688220977783, &#39;accuracy&#39;: 0.5685752034187317}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mlutils</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normalized confusion matrix
+[[0.48305085 0.20762712 0.30932203]
+ [0.05833333 0.67916667 0.2625    ]
+ [0.28727273 0.16727273 0.54545455]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f74bf1c3370&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.02 - Transfer learning_18_2.png" src="../_images/U4.02 - Transfer learning_18_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Transfer learning!!!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Keep first level filters to compare later</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">w</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>using 3 classes
+(11, 11, 3, 96)
+(96,)
+(11, 11, 96, 60)
+(60,)
+(60, 16)
+(16,)
+(16, 3)
+(3,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">alex_w1</span>
+<span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="n">mlutils</span><span class="o">.</span><span class="n">display_imgs</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.02 - Transfer learning_21_0.png" src="../_images/U4.02 - Transfer learning_21_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;alexnet_fintuned&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/15
+141/141 [==============================] - 3s 20ms/step - loss: 1.1366 - accuracy: 0.3932 - val_loss: 0.9753 - val_accuracy: 0.6458
+Epoch 2/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.9676 - accuracy: 0.5499 - val_loss: 0.9510 - val_accuracy: 0.5513
+Epoch 3/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.8886 - accuracy: 0.5938 - val_loss: 0.8310 - val_accuracy: 0.6591
+Epoch 4/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.8180 - accuracy: 0.6287 - val_loss: 0.7262 - val_accuracy: 0.7084
+Epoch 5/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.7335 - accuracy: 0.6893 - val_loss: 0.7712 - val_accuracy: 0.6671
+Epoch 6/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.7056 - accuracy: 0.6992 - val_loss: 0.6892 - val_accuracy: 0.7057
+Epoch 7/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.6646 - accuracy: 0.7138 - val_loss: 0.6665 - val_accuracy: 0.7217
+Epoch 8/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.6225 - accuracy: 0.7349 - val_loss: 0.7221 - val_accuracy: 0.7044
+Epoch 9/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.5744 - accuracy: 0.7654 - val_loss: 0.6893 - val_accuracy: 0.7270
+Epoch 10/15
+141/141 [==============================] - 3s 20ms/step - loss: 0.5224 - accuracy: 0.7908 - val_loss: 0.6523 - val_accuracy: 0.7417
+Epoch 11/15
+141/141 [==============================] - 2s 18ms/step - loss: 0.4752 - accuracy: 0.8087 - val_loss: 0.6232 - val_accuracy: 0.7430
+Epoch 12/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.4926 - accuracy: 0.8066 - val_loss: 0.6843 - val_accuracy: 0.7457
+Epoch 13/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.4509 - accuracy: 0.8346 - val_loss: 0.6546 - val_accuracy: 0.7563
+Epoch 14/15
+141/141 [==============================] - 3s 18ms/step - loss: 0.4006 - accuracy: 0.8366 - val_loss: 0.7221 - val_accuracy: 0.7470
+Epoch 15/15
+141/141 [==============================] - 2s 18ms/step - loss: 0.4072 - accuracy: 0.8469 - val_loss: 0.7341 - val_accuracy: 0.7443
+24/24 [==============================] - 0s 5ms/step - loss: 0.7341 - accuracy: 0.7443
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;loss&#39;: 0.7341428995132446, &#39;accuracy&#39;: 0.7443408966064453}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mlutils</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normalized confusion matrix
+[[0.74152542 0.05084746 0.20762712]
+ [0.12916667 0.8        0.07083333]
+ [0.21090909 0.09090909 0.69818182]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f74befe5cd0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.02 - Transfer learning_23_2.png" src="../_images/U4.02 - Transfer learning_23_2.png" />
+</div>
+</div>
+<p>first level filters changed but not much</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w0</span><span class="o">-</span><span class="n">alex_w1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.024149708
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mlutils</span><span class="o">.</span><span class="n">display_imgs</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.02 - Transfer learning_26_0.png" src="../_images/U4.02 - Transfer learning_26_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;alexnet_finetuned_minicifar.model&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Assets written to: alexnet_finetuned_minicifar.model/assets
+</pre></div>
+</div>
+</div>
+</div>
+<p>observe that you can also save separately the architecture</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;alexnet_finetuned_minicifar.architecture.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lash alexnet_finetuned_minicifar*
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4,0K -rw-rw-r-- 1 rlx rlx 3,5K Jan 27 21:11 alexnet_finetuned_minicifar.architecture.json
+
+alexnet_finetuned_minicifar.model:
+total 168K
+4,0K drwxr-xr-x 4 rlx rlx 4,0K Jan 27 21:11 .
+4,0K drwxr-xr-x 7 rlx rlx 4,0K Jan 27 21:11 ..
+4,0K drwxr-xr-x 2 rlx rlx 4,0K Jan 27 21:11 assets
+152K -rw-rw-r-- 1 rlx rlx 152K Jan 27 21:11 saved_model.pb
+4,0K drwxr-xr-x 2 rlx rlx 4,0K Jan 27 21:11 variables
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head alexnet_finetuned_minicifar.architecture.json
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&quot;class_name&quot;: &quot;Functional&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;model_1&quot;, &quot;layers&quot;: [{&quot;class_name&quot;: &quot;InputLayer&quot;, &quot;config&quot;: {&quot;batch_input_shape&quot;: [null, 32, 32, 3], &quot;dtype&quot;: &quot;float32&quot;, &quot;sparse&quot;: false, &quot;ragged&quot;: false, &quot;name&quot;: &quot;input_1&quot;}, &quot;name&quot;: &quot;input_1&quot;, &quot;inbound_nodes&quot;: []}, {&quot;class_name&quot;: &quot;Conv2D&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;conv2d_2&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;filters&quot;: 96, &quot;kernel_size&quot;: [11, 11], &quot;strides&quot;: [1, 1], &quot;padding&quot;: &quot;valid&quot;, &quot;data_format&quot;: &quot;channels_last&quot;, &quot;dilation_rate&quot;: [1, 1], &quot;groups&quot;: 1, &quot;activation&quot;: &quot;relu&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}, &quot;name&quot;: &quot;conv2d_2&quot;, &quot;inbound_nodes&quot;: [[[&quot;input_1&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;MaxPooling2D&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;max_pooling2d_1&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;pool_size&quot;: [2, 2], &quot;padding&quot;: &quot;valid&quot;, &quot;strides&quot;: [2, 2], &quot;data_format&quot;: &quot;channels_last&quot;}, &quot;name&quot;: &quot;max_pooling2d_1&quot;, &quot;inbound_nodes&quot;: [[[&quot;conv2d_2&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Conv2D&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;conv2d_3&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;filters&quot;: 60, &quot;kernel_size&quot;: [11, 11], &quot;strides&quot;: [1, 1], &quot;padding&quot;: &quot;valid&quot;, &quot;data_format&quot;: &quot;channels_last&quot;, &quot;dilation_rate&quot;: [1, 1], &quot;groups&quot;: 1, &quot;activation&quot;: &quot;relu&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}, &quot;name&quot;: &quot;conv2d_3&quot;, &quot;inbound_nodes&quot;: [[[&quot;max_pooling2d_1&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Flatten&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;flatten_1&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;data_format&quot;: &quot;channels_last&quot;}, &quot;name&quot;: &quot;flatten_1&quot;, &quot;inbound_nodes&quot;: [[[&quot;conv2d_3&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Dropout&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;dropout_2&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;rate&quot;: 0.4, &quot;noise_shape&quot;: null, &quot;seed&quot;: null}, &quot;name&quot;: &quot;dropout_2&quot;, &quot;inbound_nodes&quot;: [[[&quot;flatten_1&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Dense&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;dense_1&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;units&quot;: 16, &quot;activation&quot;: &quot;relu&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}, &quot;name&quot;: &quot;dense_1&quot;, &quot;inbound_nodes&quot;: [[[&quot;dropout_2&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Dropout&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;dropout_3&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;rate&quot;: 0.4, &quot;noise_shape&quot;: null, &quot;seed&quot;: null}, &quot;name&quot;: &quot;dropout_3&quot;, &quot;inbound_nodes&quot;: [[[&quot;dense_1&quot;, 0, 0, {}]]]}, {&quot;class_name&quot;: &quot;Dense&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;output_1&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;units&quot;: 3, &quot;activation&quot;: &quot;softmax&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}, &quot;name&quot;: &quot;output_1&quot;, &quot;inbound_nodes&quot;: [[[&quot;dropout_3&quot;, 0, 0, {}]]]}], &quot;input_layers&quot;: [[&quot;input_1&quot;, 0, 0]], &quot;output_layers&quot;: [[&quot;output_1&quot;, 0, 0]]}, &quot;keras_version&quot;: &quot;2.4.0&quot;, &quot;backend&quot;: &quot;tensorflow&quot;}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="could-also-freeze-weights-to-avoid-being-changed-by-training">
+<h2>Could also freeze weights to avoid being changed by training<a class="headerlink" href="#could-also-freeze-weights-to-avoid-being-changed-by-training" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_modelT</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">img_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="nb">compile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using&quot;</span><span class="p">,</span><span class="n">num_classes</span><span class="p">,</span><span class="s2">&quot;classes&quot;</span><span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_1&quot;</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">96</span><span class="p">,(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">60</span><span class="p">,(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;output_1&quot;</span><span class="p">)(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">predictions</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">compile</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+                      <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;sparse_categorical_crossentropy&#39;</span><span class="p">,</span>
+                      <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_modelT</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">alex_w1</span>
+<span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>using 3 classes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;alexnet_fintuned&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/15
+141/141 [==============================] - 2s 10ms/step - loss: 1.3444 - accuracy: 0.3657 - val_loss: 0.9156 - val_accuracy: 0.5406
+Epoch 2/15
+141/141 [==============================] - 1s 10ms/step - loss: 0.9494 - accuracy: 0.5068 - val_loss: 0.8395 - val_accuracy: 0.6059
+Epoch 3/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.8832 - accuracy: 0.5502 - val_loss: 0.7787 - val_accuracy: 0.7204
+Epoch 4/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.8231 - accuracy: 0.5990 - val_loss: 0.6660 - val_accuracy: 0.7683
+Epoch 5/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.7679 - accuracy: 0.6256 - val_loss: 0.6897 - val_accuracy: 0.7483
+Epoch 6/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.7963 - accuracy: 0.6048 - val_loss: 0.5991 - val_accuracy: 0.7656
+Epoch 7/15
+141/141 [==============================] - 1s 10ms/step - loss: 0.7414 - accuracy: 0.6711 - val_loss: 0.6323 - val_accuracy: 0.7510
+Epoch 8/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6887 - accuracy: 0.6659 - val_loss: 0.5820 - val_accuracy: 0.7750
+Epoch 9/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6968 - accuracy: 0.6589 - val_loss: 0.5667 - val_accuracy: 0.7883
+Epoch 10/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6699 - accuracy: 0.6929 - val_loss: 0.6296 - val_accuracy: 0.7870
+Epoch 11/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6654 - accuracy: 0.6872 - val_loss: 0.5682 - val_accuracy: 0.7963
+Epoch 12/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6421 - accuracy: 0.6983 - val_loss: 0.5988 - val_accuracy: 0.7763
+Epoch 13/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.6433 - accuracy: 0.6959 - val_loss: 0.5548 - val_accuracy: 0.7909
+Epoch 14/15
+141/141 [==============================] - 1s 9ms/step - loss: 0.5953 - accuracy: 0.7325 - val_loss: 0.5475 - val_accuracy: 0.7870
+Epoch 15/15
+141/141 [==============================] - 1s 8ms/step - loss: 0.5750 - accuracy: 0.7506 - val_loss: 0.5833 - val_accuracy: 0.7923
+24/24 [==============================] - 0s 6ms/step - loss: 0.5833 - accuracy: 0.7923
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;loss&#39;: 0.5832616686820984, &#39;accuracy&#39;: 0.7922769784927368}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mlutils</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normalized confusion matrix
+[[0.75       0.05932203 0.19067797]
+ [0.06666667 0.81666667 0.11666667]
+ [0.13454545 0.05818182 0.80727273]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f74fc333490&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.02 - Transfer learning_36_2.png" src="../_images/U4.02 - Transfer learning_36_2.png" />
+</div>
+</div>
+<p>check filters did not change</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w0</span><span class="o">-</span><span class="n">alex_w1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="U4.01%20-%20Convolutional%20Neural%20Networks.html" title="previous page">4.1 - Convolutional Neural Networks</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Raúl Ramos, Julián Arias / Universidad de Antioquia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-43235448-3', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

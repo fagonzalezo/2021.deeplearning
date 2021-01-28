@@ -273,38 +273,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="#experiment-with-convolutions-using-them-directly">
-     Experiment with convolutions using them directly
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html">
      4.5 - Image segmentation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#id1">
-     Image Segmentation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#intro">
-     Intro
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#get-the-data">
-     Get the data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#build-and-train-our-neural-network">
-     Build and train our neural network
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#make-predictions">
-     Make predictions
     </a>
    </li>
   </ul>
@@ -397,37 +367,32 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   4.4 Transposed convolutions
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#experiment-with-convolutions-using-them-directly">
    Experiment with convolutions using them directly
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#d-convolution">
      2d convolution
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
      1d convolution
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#doing-the-convolution-by-hand">
      doing the convolution by hand
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#using-a-convolution-matrix">
      using a convolution matrix
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#transposed-convolution">
      transposed convolution
     </a>
@@ -482,9 +447,8 @@
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="experiment-with-convolutions-using-them-directly">
-<h1>Experiment with convolutions using them directly<a class="headerlink" href="#experiment-with-convolutions-using-them-directly" title="Permalink to this headline">¶</a></h1>
+<h2>Experiment with convolutions using them directly<a class="headerlink" href="#experiment-with-convolutions-using-them-directly" title="Permalink to this headline">¶</a></h2>
 <p>See</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://towardsdatascience.com/up-sampling-with-transposed-convolution-9ae4f2df52d0">Up-sampling with Transposed Convolution</a></p></li>
@@ -518,7 +482,7 @@
 </div>
 </div>
 <div class="section" id="d-convolution">
-<h2>2d convolution<a class="headerlink" href="#d-convolution" title="Permalink to this headline">¶</a></h2>
+<h3>2d convolution<a class="headerlink" href="#d-convolution" title="Permalink to this headline">¶</a></h3>
 <p>load an image and one filter</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -619,7 +583,7 @@
 </div>
 </div>
 <div class="section" id="id1">
-<h2>1d convolution<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h3>1d convolution<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>observe how we simply apply an untrained layer</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -737,7 +701,7 @@
 </div>
 </div>
 <div class="section" id="doing-the-convolution-by-hand">
-<h2>doing the convolution by hand<a class="headerlink" href="#doing-the-convolution-by-hand" title="Permalink to this headline">¶</a></h2>
+<h3>doing the convolution by hand<a class="headerlink" href="#doing-the-convolution-by-hand" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernels</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
@@ -861,7 +825,7 @@
 </div>
 </div>
 <div class="section" id="using-a-convolution-matrix">
-<h2>using a convolution matrix<a class="headerlink" href="#using-a-convolution-matrix" title="Permalink to this headline">¶</a></h2>
+<h3>using a convolution matrix<a class="headerlink" href="#using-a-convolution-matrix" title="Permalink to this headline">¶</a></h3>
 <p>the filter is transformed into a matrix so that when doing matrix multiplication with the original input, the result contains the elements obtained through a sequential convolution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -975,7 +939,7 @@
 </div>
 </div>
 <div class="section" id="transposed-convolution">
-<h2>transposed convolution<a class="headerlink" href="#transposed-convolution" title="Permalink to this headline">¶</a></h2>
+<h3>transposed convolution<a class="headerlink" href="#transposed-convolution" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">get_conv_matrix</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">kernel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -1065,6 +1029,7 @@
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((7, 6, 1), (7, 6, 1))
 </pre></div>
+</div>
 </div>
 </div>
 </div>

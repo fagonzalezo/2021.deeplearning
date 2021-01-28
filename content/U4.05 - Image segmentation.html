@@ -271,39 +271,9 @@
      4.4 Transposed convolutions
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.04%20-%20Transposed%20convolutions.html#experiment-with-convolutions-using-them-directly">
-     Experiment with convolutions using them directly
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      4.5 - Image segmentation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#id1">
-     Image Segmentation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#intro">
-     Intro
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#get-the-data">
-     Get the data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#build-and-train-our-neural-network">
-     Build and train our neural network
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#make-predictions">
-     Make predictions
     </a>
    </li>
   </ul>
@@ -396,61 +366,52 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   4.5 - Image segmentation
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-gpu-runtime">
+   Use GPU runtime!!!
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#use-gpu-runtime">
-     Use GPU runtime!!!
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    Image Segmentation
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#intro">
    Intro
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-the-data">
    Get the data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#build-and-train-our-neural-network">
    Build and train our neural network
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
      you may skip this step by downloading directly the pretrained weights
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#make-predictions">
    Make predictions
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#performance-on-validation-data">
-     performance on validation data
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#and-on-test-data">
-     And on test data
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-on-validation-data">
+   performance on validation data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#and-on-test-data">
+   And on test data
+  </a>
  </li>
 </ul>
 
@@ -519,15 +480,14 @@ TensorFlow 2.x selected.
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="id1">
-<h1>Image Segmentation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h2>Image Segmentation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>This notebook is adapted from this Keras Competition: <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">Data Science Bowl 2018</a></p>
 <p>https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook</p>
 <p>From the competition <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018/data">Data Section</a> download the file <code class="docutils literal notranslate"><span class="pre">stage1_train.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">stage1_test.zip</span></code>, unzip them, make it available somewhere in the file system and update the <code class="docutils literal notranslate"><span class="pre">TRAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST_PATH</span></code> variables accordingly below.</p>
 </div>
 <div class="section" id="intro">
-<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h1>
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
 <p>Hello! This rather quick and dirty kernel shows how to get started on segmenting nuclei using a neural network in Keras.</p>
 <p>The architecture used is the so-called <a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is very common for image segmentation problems such as this. I believe they also have a tendency to work quite well even on small datasets.</p>
 <p>Let’s get started importing everything we need!</p>
@@ -605,7 +565,7 @@ unzip:  cannot find or open stage1_train.zip, stage1_train.zip.zip or stage1_tra
 </div>
 </div>
 <div class="section" id="get-the-data">
-<h1>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h1>
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s first import all the images and associated masks. I downsample both the training and test images to keep things light and manageable, but we need to keep a record of the original sizes of the test images to upsample our predicted masks and create correct run-length encodings later on. There are definitely better ways to handle this, but it works fine for now!</p>
 <p>Observe some image sizes and their variability</p>
 <div class="cell docutils container">
@@ -727,7 +687,7 @@ unzip:  cannot find or open stage1_train.zip, stage1_train.zip.zip or stage1_tra
 <p>Seems good!</p>
 </div>
 <div class="section" id="build-and-train-our-neural-network">
-<h1>Build and train our neural network<a class="headerlink" href="#build-and-train-our-neural-network" title="Permalink to this headline">¶</a></h1>
+<h2>Build and train our neural network<a class="headerlink" href="#build-and-train-our-neural-network" title="Permalink to this headline">¶</a></h2>
 <p>Next we build our U-Net model, loosely based on <a class="reference external" href="https://arxiv.org/pdf/1505.04597.pdf">U-Net: Convolutional Networks for Biomedical Image Segmentation</a> and very similar to <a class="reference external" href="https://github.com/jocicmarko/ultrasound-nerve-segmentation">this repo</a> from the Kaggle Ultrasound Nerve Segmentation competition.</p>
 <p><img alt="" src="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png" /></p>
 <div class="cell docutils container">
@@ -908,7 +868,7 @@ ________________________________________________________________________________
 <p>Next we fit the model on the training data, using a validation split of 0.1. We use a small batch size because we have so little data. I recommend using checkpointing and early stopping when training your model. I won’t do it here to make things a bit more reproducible (although it’s very likely that your results will be different anyway). I’ll just train for 10 epochs, which takes around 10 minutes in the Kaggle kernel with the current parameters.</p>
 <p><em>Update: Added early stopping and checkpointing and increased to 30 epochs.</em></p>
 <div class="section" id="you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
-<h2>you may skip this step by downloading directly the pretrained weights<a class="headerlink" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights" title="Permalink to this headline">¶</a></h2>
+<h3>you may skip this step by downloading directly the pretrained weights<a class="headerlink" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc https://s3.amazonaws.com/rlx/model-dsbowl2018-1.h5
@@ -1063,7 +1023,7 @@ Epoch 00028: early stopping
 </div>
 </div>
 <div class="section" id="make-predictions">
-<h1>Make predictions<a class="headerlink" href="#make-predictions" title="Permalink to this headline">¶</a></h1>
+<h2>Make predictions<a class="headerlink" href="#make-predictions" title="Permalink to this headline">¶</a></h2>
 <p>Let’s make predictions both on the test set, the val set and the train set (as a sanity check). Remember to load the best saved model if you’ve used early stopping and checkpointing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1104,6 +1064,7 @@ Epoch 00028: early stopping
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(603, 670)
 </pre></div>
+</div>
 </div>
 </div>
 </div>

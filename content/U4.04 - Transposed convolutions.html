@@ -1,0 +1,1138 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.4 Transposed convolutions &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.5 - Image segmentation" href="U4.05%20-%20Image%20segmentation.html" />
+    <link rel="prev" title="4.3 - Object detection" href="U4.03%20-%20Object%20Detection.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/fudea.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="M00.html">
+   Información 20211 - UdeA
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions in Tensorflow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.08%20-%20Weights%20initialization.html">
+     2.8 - Weights initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Parwise classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
+     LAB 2.4 - Model instrumentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M03.html">
+   03 - TENSORFLOW CORE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.01%20-%20Simbolic%20computing%20for%20ML.html">
+     3.1 - Symbolic computing for ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.02%20-%20TF%20for%20symbolic%20computing.html">
+     3.2 - TF symbolic engine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.03%20-%20Using%20tf.function.html">
+     3.3 - Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tf.function
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.04%20-%20Batch%20Normalization.html">
+     3.4 - Batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
+     LAB 3.1 - TF model subclassing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
+     LAB 3.2 - Low level
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tensorflow
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="M04.html">
+   04 - CONVOLUTIONAL NETWORKS
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.01%20-%20Convolutional%20Neural%20Networks.html">
+     4.1 - Convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.02%20-%20Transfer%20learning.html">
+     4.2 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html">
+     4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.4 Transposed convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#experiment-with-convolutions-using-them-directly">
+     Experiment with convolutions using them directly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html">
+     4.5 - Image segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#id1">
+     Image Segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#intro">
+     Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#get-the-data">
+     Get the data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#build-and-train-our-neural-network">
+     Build and train our neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html#make-predictions">
+     Make predictions
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U4.04 - Transposed convolutions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.04 - Transposed convolutions.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4.4 Transposed convolutions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#experiment-with-convolutions-using-them-directly">
+   Experiment with convolutions using them directly
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#d-convolution">
+     2d convolution
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     1d convolution
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#doing-the-convolution-by-hand">
+     doing the convolution by hand
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-a-convolution-matrix">
+     using a convolution matrix
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transposed-convolution">
+     transposed convolution
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="transposed-convolutions">
+<h1>4.4 Transposed convolutions<a class="headerlink" href="#transposed-convolutions" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> tensorboard
+<span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">bz2</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">local.lib</span> <span class="kn">import</span> <span class="n">mlutils</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
+  %reload_ext tensorboard
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="experiment-with-convolutions-using-them-directly">
+<h1>Experiment with convolutions using them directly<a class="headerlink" href="#experiment-with-convolutions-using-them-directly" title="Permalink to this headline">¶</a></h1>
+<p>See</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://towardsdatascience.com/up-sampling-with-transposed-convolution-9ae4f2df52d0">Up-sampling with Transposed Convolution</a></p></li>
+<li><p><a class="reference external" href="https://towardsdatascience.com/types-of-convolutions-in-deep-learning-717013397f4d">Types of convolution</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a></p></li>
+<li><p><a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a></p></li>
+</ul>
+<p><strong>Convolution 2D</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Image</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;local/imgs/convolution2d.gif&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.04 - Transposed convolutions_4_0.png" src="../_images/U4.04 - Transposed convolutions_4_0.png" />
+</div>
+</div>
+<p><strong>Convolution 2D Transposed</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;local/imgs/convolution2d-transposed.gif&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.04 - Transposed convolutions_6_0.png" src="../_images/U4.04 - Transposed convolutions_6_0.png" />
+</div>
+</div>
+<div class="section" id="d-convolution">
+<h2>2d convolution<a class="headerlink" href="#d-convolution" title="Permalink to this headline">¶</a></h2>
+<p>load an image and one filter</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;local/imgs/cars-driving.jpg&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">img</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>255 0
+</pre></div>
+</div>
+<img alt="../_images/U4.04 - Transposed convolutions_8_1.png" src="../_images/U4.04 - Transposed convolutions_8_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alex_c12</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bz2</span><span class="o">.</span><span class="n">BZ2File</span><span class="p">(</span><span class="s2">&quot;local/data/alexnet_conv1_conv2.pklz&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;bytes&quot;</span><span class="p">)</span>
+<span class="n">filter_number</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">akernel</span> <span class="o">=</span> <span class="n">alex_c12</span><span class="p">[</span><span class="sa">b</span><span class="s2">&quot;conv1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][:,:,:,</span><span class="n">filter_number</span><span class="p">]</span>
+<span class="n">abias</span>   <span class="o">=</span> <span class="n">alex_c12</span><span class="p">[</span><span class="sa">b</span><span class="s2">&quot;conv1&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">filter_number</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span><span class="o">.</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="n">akernel</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">akernel</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">akernel</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">akernel</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.04 - Transposed convolutions_9_0.png" src="../_images/U4.04 - Transposed convolutions_9_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">akernel</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(11, 11, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>observe how we do one convolution, setting the weights with the filter we just loaded</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">w</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(11, 11, 3, 1), (1,)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">akernel</span><span class="p">[:,:,:,</span><span class="kc">None</span><span class="p">]</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_img</span> <span class="o">=</span> <span class="n">c2</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="kc">None</span><span class="p">,:,:,:]</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">output_img</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fa1e6b172b0&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.04 - Transposed convolutions_16_1.png" src="../_images/U4.04 - Transposed convolutions_16_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>1d convolution<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>observe how we simply apply an untrained layer</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;tanh&quot;</span><span class="p">)</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([[[-0.58414793,  0.6564418 ]],
+ 
+        [[ 0.26771164,  0.7640059 ]],
+ 
+        [[-0.6514672 , -0.52539873]]], dtype=float32),
+ array([0., 0.], dtype=float32)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">size</span><span class="o">=</span><span class="mi">7</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">size</span><span class="p">]</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7, 6, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2., 0., 0., 1., 1., 1.],
+       [1., 0., 2., 0., 2., 1.],
+       [2., 0., 2., 1., 0., 2.],
+       [1., 2., 1., 2., 1., 2.],
+       [2., 0., 1., 1., 1., 2.],
+       [2., 0., 1., 1., 2., 0.],
+       [2., 2., 0., 1., 1., 1.]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2., 0., 0., 1., 1., 1.], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">c1</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">output</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7, 4, 2)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[-0.82372516,  0.8650032 ],
+        [-0.57265687, -0.48185602],
+        [-0.36596447,  0.2341797 ],
+        [-0.7477816 ,  0.71387863]],
+
+       [[-0.95511776, -0.3751091 ],
+        [ 0.48951572,  0.91008365],
+        [-0.9858272 ,  0.25624573],
+        [-0.1155258 ,  0.7626894 ]],
+
+       [[-0.9858272 ,  0.25624573],
+        [-0.1155258 ,  0.7626894 ],
+        [-0.7165823 ,  0.9690758 ],
+        [-0.95511776, -0.3751091 ]],
+
+       [[-0.6044895 ,  0.9300898 ],
+        [-0.9759112 ,  0.7723363 ],
+        [-0.6044895 ,  0.9300898 ],
+        [-0.9759112 ,  0.7723363 ]],
+
+       [[-0.94881487,  0.6569818 ],
+        [-0.36596447,  0.2341797 ],
+        [-0.7477816 ,  0.71387863],
+        [-0.92453283,  0.35368574]],
+
+       [[-0.94881487,  0.6569818 ],
+        [-0.36596447,  0.2341797 ],
+        [-0.92453283,  0.35368574],
+        [-0.04868612,  0.97498655]],
+
+       [[-0.56002706,  0.9932083 ],
+        [-0.94881487,  0.6569818 ],
+        [-0.36596447,  0.2341797 ],
+        [-0.7477816 ,  0.71387863]]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="doing-the-convolution-by-hand">
+<h2>doing the convolution by hand<a class="headerlink" href="#doing-the-convolution-by-hand" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernels</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="n">kernels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">bias</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((3, 1, 2), (2,))
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>first filter output</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.82372516, -0.57265687, -0.36596447, -0.7477816 ],
+       [-0.95511776,  0.48951572, -0.9858272 , -0.1155258 ],
+       [-0.9858272 , -0.1155258 , -0.7165823 , -0.95511776],
+       [-0.6044895 , -0.9759112 , -0.6044895 , -0.9759112 ],
+       [-0.94881487, -0.36596447, -0.7477816 , -0.92453283],
+       [-0.94881487, -0.36596447, -0.92453283, -0.04868612],
+       [-0.56002706, -0.94881487, -0.36596447, -0.7477816 ]],
+      dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>first filter</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernels</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.58414793,  0.26771164, -0.6514672 ], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>first filter applied manually to the first input row</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">kernels</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.8237251, -0.5726568, -0.3659645, -0.7477816]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>now for all the input elements and filters</strong></p>
+<p>the loop is for each convolution step</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<span class="n">outputh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kernel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,:])</span><span class="o">+</span><span class="n">bias</span><span class="p">)</span> \
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)]]</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">outputh</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[-0.8237251 ,  0.8650032 ],
+        [-0.5726568 , -0.48185605],
+        [-0.3659645 ,  0.23417974],
+        [-0.7477816 ,  0.71387863]],
+
+       [[-0.9551178 , -0.3751091 ],
+        [ 0.48951578,  0.9100838 ],
+        [-0.98582715,  0.25624576],
+        [-0.11552583,  0.7626894 ]],
+
+       [[-0.98582715,  0.25624576],
+        [-0.11552583,  0.7626894 ],
+        [-0.7165823 ,  0.96907574],
+        [-0.9551178 , -0.3751091 ]],
+
+       [[-0.60448956,  0.9300898 ],
+        [-0.9759112 ,  0.77233624],
+        [-0.60448956,  0.9300898 ],
+        [-0.9759112 ,  0.77233624]],
+
+       [[-0.9488148 ,  0.6569818 ],
+        [-0.3659645 ,  0.23417974],
+        [-0.7477816 ,  0.71387863],
+        [-0.9245329 ,  0.35368577]],
+
+       [[-0.9488148 ,  0.6569818 ],
+        [-0.3659645 ,  0.23417974],
+        [-0.9245329 ,  0.35368577],
+        [-0.04868613,  0.9749867 ]],
+
+       [[-0.56002706,  0.9932082 ],
+        [-0.9488148 ,  0.6569818 ],
+        [-0.3659645 ,  0.23417974],
+        [-0.7477816 ,  0.71387863]]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">outputh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-a-convolution-matrix">
+<h2>using a convolution matrix<a class="headerlink" href="#using-a-convolution-matrix" title="Permalink to this headline">¶</a></h2>
+<p>the filter is transformed into a matrix so that when doing matrix multiplication with the original input, the result contains the elements obtained through a sequential convolution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_conv_matrix</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span><span class="o">+</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> \
+                   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>convolution matrix for the first filter</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">get_conv_matrix</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">kernel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cm</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, 6)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.65644181,  0.        ,  0.        ,  0.        ],
+       [ 0.7640059 ,  0.65644181,  0.        ,  0.        ],
+       [-0.52539873,  0.7640059 ,  0.65644181,  0.        ],
+       [ 0.        , -0.52539873,  0.7640059 ,  0.65644181],
+       [ 0.        ,  0.        , -0.52539873,  0.7640059 ],
+       [ 0.        ,  0.        ,  0.        , -0.52539873]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">X</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="n">bias</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.86500323, -0.48185601,  0.23417973,  0.71387857],
+       [-0.37510911,  0.91008374,  0.25624574,  0.7626894 ],
+       [ 0.25624574,  0.7626894 ,  0.96907575, -0.37510911],
+       [ 0.93008977,  0.77233625,  0.93008977,  0.77233625],
+       [ 0.65698187,  0.23417973,  0.71387857,  0.35368575],
+       [ 0.65698187,  0.23417973,  0.35368575,  0.97498665],
+       [ 0.99320824,  0.65698187,  0.23417973,  0.71387857]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>and for all the filters together</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outputm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">X</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">get_conv_matrix</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">kernel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="n">bias</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">T</span> \
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]]</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">outputm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[-0.8237251 ,  0.86500323],
+        [-0.57265685, -0.48185601],
+        [-0.36596451,  0.23417973],
+        [-0.74778155,  0.71387857]],
+
+       [[-0.95511781, -0.37510911],
+        [ 0.48951575,  0.91008374],
+        [-0.98582712,  0.25624574],
+        [-0.11552583,  0.7626894 ]],
+
+       [[-0.98582712,  0.25624574],
+        [-0.11552583,  0.7626894 ],
+        [-0.71658222,  0.96907575],
+        [-0.95511781, -0.37510911]],
+
+       [[-0.60448954,  0.93008977],
+        [-0.97591118,  0.77233625],
+        [-0.60448954,  0.93008977],
+        [-0.97591118,  0.77233625]],
+
+       [[-0.94881479,  0.65698187],
+        [-0.36596451,  0.23417973],
+        [-0.74778155,  0.71387857],
+        [-0.92453287,  0.35368575]],
+
+       [[-0.94881479,  0.65698187],
+        [-0.36596451,  0.23417973],
+        [-0.92453287,  0.35368575],
+        [-0.04868613,  0.97498665]],
+
+       [[-0.56002704,  0.99320824],
+        [-0.94881479,  0.65698187],
+        [-0.36596451,  0.23417973],
+        [-0.74778155,  0.71387857]]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">outputm</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="transposed-convolution">
+<h2>transposed convolution<a class="headerlink" href="#transposed-convolution" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">get_conv_matrix</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">kernel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>direct convolution</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">X</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="n">bias</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.86500323, -0.48185601,  0.23417973,  0.71387857],
+       [-0.37510911,  0.91008374,  0.25624574,  0.7626894 ],
+       [ 0.25624574,  0.7626894 ,  0.96907575, -0.37510911],
+       [ 0.93008977,  0.77233625,  0.93008977,  0.77233625],
+       [ 0.65698187,  0.23417973,  0.71387857,  0.35368575],
+       [ 0.65698187,  0.23417973,  0.35368575,  0.97498665],
+       [ 0.99320824,  0.65698187,  0.23417973,  0.71387857]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">cm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((7, 4, 2), (7, 6, 1), (4, 6))
+</pre></div>
+</div>
+</div>
+</div>
+<p>transposed convolution. It recovers the <strong>shape</strong> of the original input (not the content)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tc</span> <span class="o">=</span> <span class="n">output</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">tc</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[-0.54072764, -0.62697923, -0.64713819, -0.39681218,
+         -0.62284175, -0.62284175, -0.36762518],
+        [-1.0052468 , -0.40837702, -0.82901377, -1.10246246,
+         -0.96513454, -0.96513454, -1.05070573],
+        [-0.24496345,  0.22867237, -0.04070461, -0.82481608,
+         -0.27196798, -0.38799489, -0.67089703],
+        [-0.46960091, -1.08620471, -1.11375522, -0.58971995,
+         -0.98593427, -0.54603087, -0.27196798],
+        [-0.37903227,  0.42968997, -0.35322417, -0.4280039 ,
+         -0.31346505,  0.44855189, -0.37903227],
+        [ 0.39288349,  0.06069711,  0.50181766,  0.51274251,
+          0.48574838,  0.02557963,  0.39288349]]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[[2., 1., 2., 1., 2., 2., 2.],
+        [0., 0., 0., 2., 0., 0., 2.],
+        [0., 2., 2., 1., 1., 1., 0.],
+        [1., 0., 1., 2., 1., 1., 1.],
+        [1., 2., 0., 1., 1., 2., 1.],
+        [1., 1., 2., 2., 2., 0., 1.]]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">tc</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((7, 6, 1), (7, 6, 1))
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="U4.03%20-%20Object%20Detection.html" title="previous page">4.3 - Object detection</a>
+    <a class='right-next' id="next-link" href="U4.05%20-%20Image%20segmentation.html" title="next page">4.5 - Image segmentation</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Raúl Ramos, Julián Arias / Universidad de Antioquia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-43235448-3', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

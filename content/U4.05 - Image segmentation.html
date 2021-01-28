@@ -1,0 +1,1216 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.5 - Image segmentation &#8212; Fundamentos de Deep Learning</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="4.4 Transposed convolutions" href="U4.04%20-%20Transposed%20convolutions.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/fudea.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="M00.html">
+   Información 20211 - UdeA
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M01.html">
+   01 - INTRODUCTION
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions in Tensorflow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2.08%20-%20Weights%20initialization.html">
+     2.8 - Weights initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Parwise classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
+     LAB 2.4 - Model instrumentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="M03.html">
+   03 - TENSORFLOW CORE
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.01%20-%20Simbolic%20computing%20for%20ML.html">
+     3.1 - Symbolic computing for ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.02%20-%20TF%20for%20symbolic%20computing.html">
+     3.2 - TF symbolic engine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.03%20-%20Using%20tf.function.html">
+     3.3 - Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tf.function
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3.04%20-%20Batch%20Normalization.html">
+     3.4 - Batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
+     LAB 3.1 - TF model subclassing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
+     LAB 3.2 - Low level
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tensorflow
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="M04.html">
+   04 - CONVOLUTIONAL NETWORKS
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.01%20-%20Convolutional%20Neural%20Networks.html">
+     4.1 - Convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.02%20-%20Transfer%20learning.html">
+     4.2 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html">
+     4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.04%20-%20Transposed%20convolutions.html">
+     4.4 Transposed convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.04%20-%20Transposed%20convolutions.html#experiment-with-convolutions-using-them-directly">
+     Experiment with convolutions using them directly
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.5 - Image segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#id1">
+     Image Segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#intro">
+     Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#get-the-data">
+     Get the data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#build-and-train-our-neural-network">
+     Build and train our neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#make-predictions">
+     Make predictions
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/U4.05 - Image segmentation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.05 - Image segmentation.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4.5 - Image segmentation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-gpu-runtime">
+     Use GPU runtime!!!
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Image Segmentation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intro">
+   Intro
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#get-the-data">
+   Get the data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#build-and-train-our-neural-network">
+   Build and train our neural network
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
+     you may skip this step by downloading directly the pretrained weights
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#make-predictions">
+   Make predictions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performance-on-validation-data">
+     performance on validation data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#and-on-test-data">
+     And on test data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="image-segmentation">
+<h1>4.5 - Image segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">load_ext</span> tensorboard
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">local.lib</span> <span class="kn">import</span> <span class="n">mlutils</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="use-gpu-runtime">
+<h2>Use GPU runtime!!!<a class="headerlink" href="#use-gpu-runtime" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;setting tensorflow version in colab&quot;</span><span class="p">)</span>
+    <span class="o">%</span><span class="k">tensorflow_version</span> 2.x
+    <span class="o">%</span><span class="k">load_ext</span> tensorboard
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>setting tensorflow version in colab
+TensorFlow 2.x selected.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.1.0&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h1>Image Segmentation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>This notebook is adapted from this Keras Competition: <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">Data Science Bowl 2018</a></p>
+<p>https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook</p>
+<p>From the competition <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018/data">Data Section</a> download the file <code class="docutils literal notranslate"><span class="pre">stage1_train.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">stage1_test.zip</span></code>, unzip them, make it available somewhere in the file system and update the <code class="docutils literal notranslate"><span class="pre">TRAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST_PATH</span></code> variables accordingly below.</p>
+</div>
+<div class="section" id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h1>
+<p>Hello! This rather quick and dirty kernel shows how to get started on segmenting nuclei using a neural network in Keras.</p>
+<p>The architecture used is the so-called <a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is very common for image segmentation problems such as this. I believe they also have a tendency to work quite well even on small datasets.</p>
+<p>Let’s get started importing everything we need!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>unzip -o stage1_test.zip -d stage1_test &gt; /dev/null
+<span class="o">!</span>unzip -o stage1_train.zip -d stage1_train &gt; /dev/null
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unzip:  cannot find or open stage1_test.zip, stage1_test.zip.zip or stage1_test.zip.ZIP.
+unzip:  cannot find or open stage1_train.zip, stage1_train.zip.zip or stage1_train.zip.ZIP.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">progressbar</span> <span class="kn">import</span> <span class="n">progressbar</span> <span class="k">as</span> <span class="n">pbar</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imread</span><span class="p">,</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">imread_collection</span><span class="p">,</span> <span class="n">concatenate_images</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">label</span>
+
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">load_model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Lambda</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">Conv2DTranspose</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">MaxPooling2D</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">concatenate</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">ModelCheckpoint</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="c1"># Set some parameters</span>
+<span class="n">IMG_WIDTH</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">IMG_HEIGHT</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">IMG_CHANNELS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">TRAIN_PATH</span> <span class="o">=</span> <span class="s1">&#39;stage1_train/&#39;</span>
+<span class="n">TEST_PATH</span> <span class="o">=</span> <span class="s1">&#39;stage1_test/&#39;</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;skimage&#39;</span><span class="p">)</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get train and test IDs</span>
+<span class="n">train_ids</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">TRAIN_PATH</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">test_ids</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">TEST_PATH</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="get-the-data">
+<h1>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h1>
+<p>Let’s first import all the images and associated masks. I downsample both the training and test images to keep things light and manageable, but we need to keep a record of the original sizes of the test images to upsample our predicted masks and create correct run-length encodings later on. There are definitely better ways to handle this, but it works fine for now!</p>
+<p>Observe some image sizes and their variability</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">id_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">train_ids</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">TRAIN_PATH</span> <span class="o">+</span> <span class="n">id_</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">id_</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)[:,:,:</span><span class="n">IMG_CHANNELS</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(256, 256, 3)
+(520, 696, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+(256, 256, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get and resize train images and masks</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">train_ids</span><span class="p">),</span> <span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">,</span> <span class="n">IMG_CHANNELS</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">train_ids</span><span class="p">),</span> <span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting and resizing train images and masks ... &#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">pbar</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">train_ids</span><span class="p">),</span> <span class="n">max_value</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">train_ids</span><span class="p">)):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">TRAIN_PATH</span> <span class="o">+</span> <span class="n">id_</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">id_</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)[:,:,:</span><span class="n">IMG_CHANNELS</span><span class="p">]</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mask_file</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/masks/&#39;</span><span class="p">))[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">mask_</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/masks/&#39;</span> <span class="o">+</span> <span class="n">mask_file</span><span class="p">)</span>
+        <span class="n">mask_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">resize</span><span class="p">(</span><span class="n">mask_</span><span class="p">,</span> <span class="p">(</span><span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> 
+                                      <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">mask_</span><span class="p">)</span>
+    <span class="n">Y_train</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span>
+
+    
+<span class="c1"># Get and resize test images</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">test_ids</span><span class="p">),</span> <span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">,</span> <span class="n">IMG_CHANNELS</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">sizes_test</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting and resizing test images ... &#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">pbar</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">test_ids</span><span class="p">),</span> <span class="n">max_value</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">test_ids</span><span class="p">)):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">TEST_PATH</span> <span class="o">+</span> <span class="n">id_</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/images/&#39;</span> <span class="o">+</span> <span class="n">id_</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)[:,:,:</span><span class="n">IMG_CHANNELS</span><span class="p">]</span>
+    <span class="n">sizes_test</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">X_test</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Getting and resizing train images and masks ... 
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (670 of 670) |######################| Elapsed Time: 0:07:34 Time:  0:07:34
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Getting and resizing test images ... 
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100% (65 of 65) |########################| Elapsed Time: 0:00:02 Time:  0:00:02
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((670, 128, 128, 3), (670, 128, 128, 1))
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s see if things look all right by drawing some random images and their associated masks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_img</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> min </span><span class="si">%d</span><span class="s2">, max </span><span class="si">%d</span><span class="se">\n</span><span class="s2">shape </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;IMAGE </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>)
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">Y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="s2">&quot;LABEL </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>, cmap=plt.cm.Greys_r)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.05 - Image segmentation_19_0.png" src="../_images/U4.05 - Image segmentation_19_0.png" />
+</div>
+</div>
+<p>Seems good!</p>
+</div>
+<div class="section" id="build-and-train-our-neural-network">
+<h1>Build and train our neural network<a class="headerlink" href="#build-and-train-our-neural-network" title="Permalink to this headline">¶</a></h1>
+<p>Next we build our U-Net model, loosely based on <a class="reference external" href="https://arxiv.org/pdf/1505.04597.pdf">U-Net: Convolutional Networks for Biomedical Image Segmentation</a> and very similar to <a class="reference external" href="https://github.com/jocicmarko/ultrasound-nerve-segmentation">this repo</a> from the Kaggle Ultrasound Nerve Segmentation competition.</p>
+<p><img alt="" src="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">():</span>
+    
+    <span class="c1"># Build U-Net model</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">Input</span><span class="p">((</span><span class="n">IMG_HEIGHT</span><span class="p">,</span> <span class="n">IMG_WIDTH</span><span class="p">,</span> <span class="n">IMG_CHANNELS</span><span class="p">))</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span> <span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="p">(</span><span class="n">c3</span><span class="p">)</span>
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c3</span><span class="p">)</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="n">c3</span><span class="p">)</span>
+
+    <span class="n">c4</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">p3</span><span class="p">)</span>
+    <span class="n">c4</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+    <span class="n">c4</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+
+    <span class="n">c5</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">p4</span><span class="p">)</span>
+    <span class="n">c5</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span> <span class="p">(</span><span class="n">c5</span><span class="p">)</span>
+    <span class="n">c5</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c5</span><span class="p">)</span>
+
+    <span class="n">u6</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c5</span><span class="p">)</span>
+    <span class="n">u6</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">u6</span><span class="p">,</span> <span class="n">c4</span><span class="p">])</span>
+    <span class="n">c6</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">u6</span><span class="p">)</span>
+    <span class="n">c6</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="p">(</span><span class="n">c6</span><span class="p">)</span>
+    <span class="n">c6</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c6</span><span class="p">)</span>
+
+    <span class="n">u7</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c6</span><span class="p">)</span>
+    <span class="n">u7</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">u7</span><span class="p">,</span> <span class="n">c3</span><span class="p">])</span>
+    <span class="n">c7</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">u7</span><span class="p">)</span>
+    <span class="n">c7</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="p">(</span><span class="n">c7</span><span class="p">)</span>
+    <span class="n">c7</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c7</span><span class="p">)</span>
+
+    <span class="n">u8</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c7</span><span class="p">)</span>
+    <span class="n">u8</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">u8</span><span class="p">,</span> <span class="n">c2</span><span class="p">])</span>
+    <span class="n">c8</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">u8</span><span class="p">)</span>
+    <span class="n">c8</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">(</span><span class="n">c8</span><span class="p">)</span>
+    <span class="n">c8</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c8</span><span class="p">)</span>
+
+    <span class="n">u9</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c8</span><span class="p">)</span>
+    <span class="n">u9</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">u9</span><span class="p">,</span> <span class="n">c1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">c9</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">u9</span><span class="p">)</span>
+    <span class="n">c9</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">(</span><span class="n">c9</span><span class="p">)</span>
+    <span class="n">c9</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;elu&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c9</span><span class="p">)</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">c9</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">inputs</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">outputs</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_5&quot;
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_6 (InputLayer)            [(None, 128, 128, 3) 0                                            
+__________________________________________________________________________________________________
+lambda_5 (Lambda)               (None, 128, 128, 3)  0           input_6[0][0]                    
+__________________________________________________________________________________________________
+conv2d_95 (Conv2D)              (None, 128, 128, 16) 448         lambda_5[0][0]                   
+__________________________________________________________________________________________________
+dropout_45 (Dropout)            (None, 128, 128, 16) 0           conv2d_95[0][0]                  
+__________________________________________________________________________________________________
+conv2d_96 (Conv2D)              (None, 128, 128, 16) 2320        dropout_45[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_20 (MaxPooling2D) (None, 64, 64, 16)   0           conv2d_96[0][0]                  
+__________________________________________________________________________________________________
+conv2d_97 (Conv2D)              (None, 64, 64, 32)   4640        max_pooling2d_20[0][0]           
+__________________________________________________________________________________________________
+dropout_46 (Dropout)            (None, 64, 64, 32)   0           conv2d_97[0][0]                  
+__________________________________________________________________________________________________
+conv2d_98 (Conv2D)              (None, 64, 64, 32)   9248        dropout_46[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_21 (MaxPooling2D) (None, 32, 32, 32)   0           conv2d_98[0][0]                  
+__________________________________________________________________________________________________
+conv2d_99 (Conv2D)              (None, 32, 32, 64)   18496       max_pooling2d_21[0][0]           
+__________________________________________________________________________________________________
+dropout_47 (Dropout)            (None, 32, 32, 64)   0           conv2d_99[0][0]                  
+__________________________________________________________________________________________________
+conv2d_100 (Conv2D)             (None, 32, 32, 64)   36928       dropout_47[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_22 (MaxPooling2D) (None, 16, 16, 64)   0           conv2d_100[0][0]                 
+__________________________________________________________________________________________________
+conv2d_101 (Conv2D)             (None, 16, 16, 128)  73856       max_pooling2d_22[0][0]           
+__________________________________________________________________________________________________
+dropout_48 (Dropout)            (None, 16, 16, 128)  0           conv2d_101[0][0]                 
+__________________________________________________________________________________________________
+conv2d_102 (Conv2D)             (None, 16, 16, 128)  147584      dropout_48[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_23 (MaxPooling2D) (None, 8, 8, 128)    0           conv2d_102[0][0]                 
+__________________________________________________________________________________________________
+conv2d_103 (Conv2D)             (None, 8, 8, 256)    295168      max_pooling2d_23[0][0]           
+__________________________________________________________________________________________________
+dropout_49 (Dropout)            (None, 8, 8, 256)    0           conv2d_103[0][0]                 
+__________________________________________________________________________________________________
+conv2d_104 (Conv2D)             (None, 8, 8, 256)    590080      dropout_49[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_20 (Conv2DTran (None, 16, 16, 128)  131200      conv2d_104[0][0]                 
+__________________________________________________________________________________________________
+concatenate_20 (Concatenate)    (None, 16, 16, 256)  0           conv2d_transpose_20[0][0]        
+                                                                 conv2d_102[0][0]                 
+__________________________________________________________________________________________________
+conv2d_105 (Conv2D)             (None, 16, 16, 128)  295040      concatenate_20[0][0]             
+__________________________________________________________________________________________________
+dropout_50 (Dropout)            (None, 16, 16, 128)  0           conv2d_105[0][0]                 
+__________________________________________________________________________________________________
+conv2d_106 (Conv2D)             (None, 16, 16, 128)  147584      dropout_50[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_21 (Conv2DTran (None, 32, 32, 64)   32832       conv2d_106[0][0]                 
+__________________________________________________________________________________________________
+concatenate_21 (Concatenate)    (None, 32, 32, 128)  0           conv2d_transpose_21[0][0]        
+                                                                 conv2d_100[0][0]                 
+__________________________________________________________________________________________________
+conv2d_107 (Conv2D)             (None, 32, 32, 64)   73792       concatenate_21[0][0]             
+__________________________________________________________________________________________________
+dropout_51 (Dropout)            (None, 32, 32, 64)   0           conv2d_107[0][0]                 
+__________________________________________________________________________________________________
+conv2d_108 (Conv2D)             (None, 32, 32, 64)   36928       dropout_51[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_22 (Conv2DTran (None, 64, 64, 32)   8224        conv2d_108[0][0]                 
+__________________________________________________________________________________________________
+concatenate_22 (Concatenate)    (None, 64, 64, 64)   0           conv2d_transpose_22[0][0]        
+                                                                 conv2d_98[0][0]                  
+__________________________________________________________________________________________________
+conv2d_109 (Conv2D)             (None, 64, 64, 32)   18464       concatenate_22[0][0]             
+__________________________________________________________________________________________________
+dropout_52 (Dropout)            (None, 64, 64, 32)   0           conv2d_109[0][0]                 
+__________________________________________________________________________________________________
+conv2d_110 (Conv2D)             (None, 64, 64, 32)   9248        dropout_52[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_23 (Conv2DTran (None, 128, 128, 16) 2064        conv2d_110[0][0]                 
+__________________________________________________________________________________________________
+concatenate_23 (Concatenate)    (None, 128, 128, 32) 0           conv2d_transpose_23[0][0]        
+                                                                 conv2d_96[0][0]                  
+__________________________________________________________________________________________________
+conv2d_111 (Conv2D)             (None, 128, 128, 16) 4624        concatenate_23[0][0]             
+__________________________________________________________________________________________________
+dropout_53 (Dropout)            (None, 128, 128, 16) 0           conv2d_111[0][0]                 
+__________________________________________________________________________________________________
+conv2d_112 (Conv2D)             (None, 128, 128, 16) 2320        dropout_53[0][0]                 
+__________________________________________________________________________________________________
+conv2d_113 (Conv2D)             (None, 128, 128, 1)  17          conv2d_112[0][0]                 
+==================================================================================================
+Total params: 1,941,105
+Trainable params: 1,941,105
+Non-trainable params: 0
+__________________________________________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Update: Changed to ELU units, added dropout.</em></p>
+<p>Next we fit the model on the training data, using a validation split of 0.1. We use a small batch size because we have so little data. I recommend using checkpointing and early stopping when training your model. I won’t do it here to make things a bit more reproducible (although it’s very likely that your results will be different anyway). I’ll just train for 10 epochs, which takes around 10 minutes in the Kaggle kernel with the current parameters.</p>
+<p><em>Update: Added early stopping and checkpointing and increased to 30 epochs.</em></p>
+<div class="section" id="you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
+<h2>you may skip this step by downloading directly the pretrained weights<a class="headerlink" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc https://s3.amazonaws.com/rlx/model-dsbowl2018-1.h5
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2020-03-25 02:55:13--  https://s3.amazonaws.com/rlx/model-dsbowl2018-1.h5
+Resolving s3.amazonaws.com (s3.amazonaws.com)... 52.216.228.115
+Connecting to s3.amazonaws.com (s3.amazonaws.com)|52.216.228.115|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 23467056 (22M) [application/x-www-form-urlencoded]
+Saving to: ‘model-dsbowl2018-1.h5’
+
+model-dsbowl2018-1. 100%[===================&gt;]  22.38M  19.2MB/s    in 1.2s    
+
+2020-03-25 02:55:15 (19.2 MB/s) - ‘model-dsbowl2018-1.h5’ saved [23467056/23467056]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit model</span>
+<span class="n">earlystopper</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">checkpointer</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s1">&#39;model-dsbowl2018-1.h5&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlystopper</span><span class="p">,</span> <span class="n">checkpointer</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 603 samples, validate on 67 samples
+Epoch 1/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.3574 - mean_io_u: 0.4008
+Epoch 00001: val_loss improved from inf to 0.21305, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 11s 18ms/sample - loss: 0.3530 - mean_io_u: 0.4014 - val_loss: 0.2130 - val_mean_io_u: 0.3849
+Epoch 2/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.1669 - mean_io_u: 0.4013
+Epoch 00002: val_loss improved from 0.21305 to 0.19397, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.1658 - mean_io_u: 0.4014 - val_loss: 0.1940 - val_mean_io_u: 0.3849
+Epoch 3/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.1370 - mean_io_u: 0.4009
+Epoch 00003: val_loss improved from 0.19397 to 0.16098, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.1365 - mean_io_u: 0.4014 - val_loss: 0.1610 - val_mean_io_u: 0.3849
+Epoch 4/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.1267 - mean_io_u: 0.4015
+Epoch 00004: val_loss improved from 0.16098 to 0.15192, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.1263 - mean_io_u: 0.4014 - val_loss: 0.1519 - val_mean_io_u: 0.3849
+Epoch 5/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.1146 - mean_io_u: 0.4010
+Epoch 00005: val_loss improved from 0.15192 to 0.13820, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.1141 - mean_io_u: 0.4014 - val_loss: 0.1382 - val_mean_io_u: 0.3849
+Epoch 6/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.1036 - mean_io_u: 0.4017
+Epoch 00006: val_loss improved from 0.13820 to 0.11756, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.1039 - mean_io_u: 0.4014 - val_loss: 0.1176 - val_mean_io_u: 0.3849
+Epoch 7/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0988 - mean_io_u: 0.4008
+Epoch 00007: val_loss did not improve from 0.11756
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0980 - mean_io_u: 0.4014 - val_loss: 0.1211 - val_mean_io_u: 0.3849
+Epoch 8/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0972 - mean_io_u: 0.4010
+Epoch 00008: val_loss did not improve from 0.11756
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0968 - mean_io_u: 0.4014 - val_loss: 0.1205 - val_mean_io_u: 0.3849
+Epoch 9/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0963 - mean_io_u: 0.4015
+Epoch 00009: val_loss improved from 0.11756 to 0.10811, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0962 - mean_io_u: 0.4014 - val_loss: 0.1081 - val_mean_io_u: 0.3849
+Epoch 10/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0904 - mean_io_u: 0.4016
+Epoch 00010: val_loss did not improve from 0.10811
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0905 - mean_io_u: 0.4014 - val_loss: 0.1147 - val_mean_io_u: 0.3849
+Epoch 11/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0931 - mean_io_u: 0.4016
+Epoch 00011: val_loss did not improve from 0.10811
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0929 - mean_io_u: 0.4014 - val_loss: 0.1213 - val_mean_io_u: 0.3849
+Epoch 12/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0916 - mean_io_u: 0.4017
+Epoch 00012: val_loss improved from 0.10811 to 0.10744, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0921 - mean_io_u: 0.4014 - val_loss: 0.1074 - val_mean_io_u: 0.3849
+Epoch 13/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0905 - mean_io_u: 0.4009
+Epoch 00013: val_loss did not improve from 0.10744
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0904 - mean_io_u: 0.4014 - val_loss: 0.1108 - val_mean_io_u: 0.3849
+Epoch 14/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0888 - mean_io_u: 0.4015
+Epoch 00014: val_loss did not improve from 0.10744
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0889 - mean_io_u: 0.4014 - val_loss: 0.1097 - val_mean_io_u: 0.3849
+Epoch 15/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0831 - mean_io_u: 0.4017
+Epoch 00015: val_loss improved from 0.10744 to 0.10214, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0830 - mean_io_u: 0.4014 - val_loss: 0.1021 - val_mean_io_u: 0.3849
+Epoch 16/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0810 - mean_io_u: 0.4013
+Epoch 00016: val_loss did not improve from 0.10214
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0813 - mean_io_u: 0.4014 - val_loss: 0.1022 - val_mean_io_u: 0.3849
+Epoch 17/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0812 - mean_io_u: 0.4014
+Epoch 00017: val_loss improved from 0.10214 to 0.10067, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0816 - mean_io_u: 0.4014 - val_loss: 0.1007 - val_mean_io_u: 0.3849
+Epoch 18/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0786 - mean_io_u: 0.4022
+Epoch 00018: val_loss did not improve from 0.10067
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0790 - mean_io_u: 0.4014 - val_loss: 0.1056 - val_mean_io_u: 0.3849
+Epoch 19/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0801 - mean_io_u: 0.4018
+Epoch 00019: val_loss did not improve from 0.10067
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0800 - mean_io_u: 0.4014 - val_loss: 0.1067 - val_mean_io_u: 0.3849
+Epoch 20/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0781 - mean_io_u: 0.4016
+Epoch 00020: val_loss improved from 0.10067 to 0.10014, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0780 - mean_io_u: 0.4014 - val_loss: 0.1001 - val_mean_io_u: 0.3849
+Epoch 21/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0803 - mean_io_u: 0.4007
+Epoch 00021: val_loss improved from 0.10014 to 0.09945, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0799 - mean_io_u: 0.4014 - val_loss: 0.0994 - val_mean_io_u: 0.3849
+Epoch 22/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0751 - mean_io_u: 0.4010
+Epoch 00022: val_loss improved from 0.09945 to 0.09816, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0754 - mean_io_u: 0.4014 - val_loss: 0.0982 - val_mean_io_u: 0.3849
+Epoch 23/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0740 - mean_io_u: 0.4019
+Epoch 00023: val_loss improved from 0.09816 to 0.09671, saving model to model-dsbowl2018-1.h5
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0738 - mean_io_u: 0.4014 - val_loss: 0.0967 - val_mean_io_u: 0.3849
+Epoch 24/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0769 - mean_io_u: 0.4015
+Epoch 00024: val_loss did not improve from 0.09671
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0772 - mean_io_u: 0.4014 - val_loss: 0.1064 - val_mean_io_u: 0.3849
+Epoch 25/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0747 - mean_io_u: 0.4014
+Epoch 00025: val_loss did not improve from 0.09671
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0747 - mean_io_u: 0.4014 - val_loss: 0.1042 - val_mean_io_u: 0.3849
+Epoch 26/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0711 - mean_io_u: 0.4018
+Epoch 00026: val_loss did not improve from 0.09671
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0710 - mean_io_u: 0.4014 - val_loss: 0.0971 - val_mean_io_u: 0.3849
+Epoch 27/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0700 - mean_io_u: 0.4011
+Epoch 00027: val_loss did not improve from 0.09671
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0699 - mean_io_u: 0.4014 - val_loss: 0.1028 - val_mean_io_u: 0.3849
+Epoch 28/50
+592/603 [============================&gt;.] - ETA: 0s - loss: 0.0682 - mean_io_u: 0.4011
+Epoch 00028: val_loss did not improve from 0.09671
+603/603 [==============================] - 1s 2ms/sample - loss: 0.0687 - mean_io_u: 0.4014 - val_loss: 0.1006 - val_mean_io_u: 0.3849
+Epoch 00028: early stopping
+</pre></div>
+</div>
+</div>
+</div>
+<p>All right, looks good! Loss seems to be a bit erratic, though. I’ll leave it to you to improve the model architecture and parameters!</p>
+</div>
+</div>
+<div class="section" id="make-predictions">
+<h1>Make predictions<a class="headerlink" href="#make-predictions" title="Permalink to this headline">¶</a></h1>
+<p>Let’s make predictions both on the test set, the val set and the train set (as a sanity check). Remember to load the best saved model if you’ve used early stopping and checkpointing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict on train, val and test</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;model-dsbowl2018-1.h5&#39;</span><span class="p">,</span> <span class="n">custom_objects</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mean_iou&#39;</span><span class="p">:</span> <span class="n">mean_iou</span><span class="p">})</span>
+<span class="n">preds_train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)],</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">preds_val</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span><span class="p">):],</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">preds_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Threshold predictions</span>
+<span class="n">preds_train_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">preds_train</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">preds_val_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">preds_val</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">preds_test_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">preds_test</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="c1"># Create list of upsampled test masks</span>
+<span class="n">preds_test_upsampled</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">preds_test</span><span class="p">)):</span>
+    <span class="n">preds_test_upsampled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">preds_test</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> 
+                                       <span class="p">(</span><span class="n">sizes_test</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sizes_test</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> 
+                                       <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>603/603 [==============================] - 1s 1ms/sample
+67/67 [==============================] - 0s 612us/sample
+65/65 [==============================] - 0s 2ms/sample
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(603, 670)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="performance-on-validation-data">
+<h2>performance on validation data<a class="headerlink" href="#performance-on-validation-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">preds_val</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span><span class="p">):][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;IMAGE </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>)
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">Y_train</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.9</span><span class="p">):][</span><span class="n">i</span><span class="p">]),</span> <span class="s2">&quot;LABEL </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>, cmap=plt.cm.Greys_r)
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">preds_val_t</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="s2">&quot;PREDICTION </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>, cmap=plt.cm.Greys_r)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.05 - Image segmentation_32_0.png" src="../_images/U4.05 - Image segmentation_32_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="and-on-test-data">
+<h2>And on test data<a class="headerlink" href="#and-on-test-data" title="Permalink to this headline">¶</a></h2>
+<p>The model is at least able to fit to the training data! Certainly a lot of room for improvement even here, but a decent start. How about the validation data?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">preds_test</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;IMAGE </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>)
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">show_img</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">preds_test_t</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="s2">&quot;PREDICTION </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">i</span>, cmap=plt.cm.Greys_r)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/U4.05 - Image segmentation_34_0.png" src="../_images/U4.05 - Image segmentation_34_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "p38"
+        },
+        kernelOptions: {
+            kernelName: "p38",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'p38'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="U4.04%20-%20Transposed%20convolutions.html" title="previous page">4.4 Transposed convolutions</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Raúl Ramos, Julián Arias / Universidad de Antioquia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-43235448-3', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>

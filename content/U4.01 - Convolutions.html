@@ -56,7 +56,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1 - Convolutional Neural Networks" href="U4.02%20-%20Convolutional%20Neural%20Networks.html" />
+    <link rel="next" title="4.1 - CNNs" href="U4.02%20-%20Convolutional%20Neural%20Networks.html" />
     <link rel="prev" title="04 - CONVOLUTIONAL NETWORKS" href="M04.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -259,7 +259,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U4.02%20-%20Convolutional%20Neural%20Networks.html">
-     4.1 - Convolutional Neural Networks
+     4.1 - CNNs
     </a>
    </li>
    <li class="toctree-l2">
@@ -442,17 +442,20 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">((</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">((</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;same&quot;</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;convolution&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;convolution&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -566,7 +569,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f376ca20af0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb948e03400&gt;
 </pre></div>
 </div>
 <img alt="../_images/U4.01 - Convolutions_17_1.png" src="../_images/U4.01 - Convolutions_17_1.png" />
@@ -575,53 +578,9 @@
 <p>a conv 2D is just the same element by element multiplication and summation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]]</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1 -1]
- [ 1 -1]]
-</pre></div>
-</div>
-</div>
-</div>
-<p>doing manually the first pixel of the resulting img</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">img</span><span class="p">[:</span><span class="mi">2</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">f</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.013227513227513255, -0.013227513227513255)
-</pre></div>
-</div>
-</div>
-</div>
-<p>and this filter has a border detection effect. We use <code class="docutils literal notranslate"><span class="pre">abs</span></code> con convert all differences into positive, since we do not care the <em>direction</em> of edges.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f376cbe6b80&gt;
-</pre></div>
-</div>
-<img alt="../_images/U4.01 - Convolutions_23_1.png" src="../_images/U4.01 - Convolutions_23_1.png" />
-</div>
-</div>
-<p>other filters</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -630,10 +589,82 @@
  [ 1  1]]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f376c9530d0&gt;
+</div>
+</div>
+<p>doing manually the first pixel of the resulting img</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">img</span><span class="p">[:</span><span class="mi">2</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">f1</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_25_2.png" src="../_images/U4.01 - Convolutions_25_2.png" />
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.002645502645502562, -0.002645502645502562)
+</pre></div>
+</div>
+</div>
+</div>
+<p>and this filter has a border detection effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb948229b80&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.01 - Convolutions_23_1.png" src="../_images/U4.01 - Convolutions_23_1.png" />
+</div>
+</div>
+<p>We use <code class="docutils literal notranslate"><span class="pre">abs</span></code> con convert all differences into positive, since we do not care the <em>direction</em> of edges.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb948568190&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.01 - Convolutions_25_1.png" src="../_images/U4.01 - Convolutions_25_1.png" />
+</div>
+</div>
+<p>and a filter for vertical edge detection</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 1 -1]
+ [ 1 -1]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb948308430&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.01 - Convolutions_27_2.png" src="../_images/U4.01 - Convolutions_27_2.png" />
+</div>
+</div>
+<p>combining both outputs</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c1</span><span class="o">+</span><span class="n">c2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb949422130&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.01 - Convolutions_29_1.png" src="../_images/U4.01 - Convolutions_29_1.png" />
 </div>
 </div>
 <p>a blurring filter</p>
@@ -659,10 +690,10 @@
  [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f376c99ff40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f1e015a4250&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_27_2.png" src="../_images/U4.01 - Convolutions_27_2.png" />
+<img alt="../_images/U4.01 - Convolutions_31_2.png" src="../_images/U4.01 - Convolutions_31_2.png" />
 </div>
 </div>
 </div>
@@ -705,14 +736,14 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;kernel:0&#39; shape=(2, 2, 1, 1) dtype=float32, numpy=
-array([[[[ 0.32571155]],
+array([[[[ 0.7055436 ]],
 
-        [[ 0.01681423]]],
+        [[-0.60452265]]],
 
 
-       [[[-0.80759746]],
+       [[[-0.24864691]],
 
-        [[-0.43496493]]]], dtype=float32)&gt;
+        [[ 0.7435402 ]]]], dtype=float32)&gt;
 &lt;tf.Variable &#39;bias:0&#39; shape=(1,) dtype=float32, numpy=array([0.], dtype=float32)&gt;
 </pre></div>
 </div>
@@ -746,10 +777,10 @@ array([[[[ 0.32571155]],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f374c113f40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb9493a1d00&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_36_1.png" src="../_images/U4.01 - Convolutions_36_1.png" />
+<img alt="../_images/U4.01 - Convolutions_40_1.png" src="../_images/U4.01 - Convolutions_40_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -775,10 +806,10 @@ array([[[[ 0.32571155]],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f374c06b400&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb930518160&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_39_1.png" src="../_images/U4.01 - Convolutions_39_1.png" />
+<img alt="../_images/U4.01 - Convolutions_43_1.png" src="../_images/U4.01 - Convolutions_43_1.png" />
 </div>
 </div>
 <p>or the other direcction inverting the filter</p>
@@ -792,10 +823,10 @@ array([[[[ 0.32571155]],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f374c034dc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb9304e6280&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_41_1.png" src="../_images/U4.01 - Convolutions_41_1.png" />
+<img alt="../_images/U4.01 - Convolutions_45_1.png" src="../_images/U4.01 - Convolutions_45_1.png" />
 </div>
 </div>
 <p>for color images, filters also have to have three channels</p>
@@ -809,10 +840,10 @@ array([[[[ 0.32571155]],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f3728701490&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fb9304afa30&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_44_1.png" src="../_images/U4.01 - Convolutions_44_1.png" />
+<img alt="../_images/U4.01 - Convolutions_48_1.png" src="../_images/U4.01 - Convolutions_48_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -874,7 +905,7 @@ array([[[[ 0.32571155]],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.5, 490.5, 275.5, -0.5)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_49_1.png" src="../_images/U4.01 - Convolutions_49_1.png" />
+<img alt="../_images/U4.01 - Convolutions_53_1.png" src="../_images/U4.01 - Convolutions_53_1.png" />
 </div>
 </div>
 <p>detect green (little)</p>
@@ -895,7 +926,7 @@ array([[[[ 0.32571155]],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.5, 490.5, 275.5, -0.5)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_51_1.png" src="../_images/U4.01 - Convolutions_51_1.png" />
+<img alt="../_images/U4.01 - Convolutions_55_1.png" src="../_images/U4.01 - Convolutions_55_1.png" />
 </div>
 </div>
 <p>detect blue (little tolerace)</p>
@@ -916,7 +947,7 @@ array([[[[ 0.32571155]],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.5, 490.5, 275.5, -0.5)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutions_53_1.png" src="../_images/U4.01 - Convolutions_53_1.png" />
+<img alt="../_images/U4.01 - Convolutions_57_1.png" src="../_images/U4.01 - Convolutions_57_1.png" />
 </div>
 </div>
 </div>
@@ -951,7 +982,7 @@ array([[[[ 0.32571155]],
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="M04.html" title="previous page">04 - CONVOLUTIONAL NETWORKS</a>
-    <a class='right-next' id="next-link" href="U4.02%20-%20Convolutional%20Neural%20Networks.html" title="next page">4.1 - Convolutional Neural Networks</a>
+    <a class='right-next' id="next-link" href="U4.02%20-%20Convolutional%20Neural%20Networks.html" title="next page">4.1 - CNNs</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

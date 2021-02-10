@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4.1 - Convolutions &#8212; Fundamentos de Deep Learning</title>
+    <title>4.1 - Convolutional Neural Networks &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2 - Transfer learning" href="U4.02%20-%20Transfer%20learning.html" />
-    <link rel="prev" title="04 - CONVOLUTIONAL NETWORKS" href="M04.html" />
+    <link rel="next" title="4.3 - Transfer learning" href="U4.03%20-%20Transfer%20learning.html" />
+    <link rel="prev" title="4.1 - Convolutions" href="U4.01%20-%20Convolutions.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -252,29 +252,34 @@
    04 - CONVOLUTIONAL NETWORKS
   </a>
   <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.01%20-%20Convolutions.html">
      4.1 - Convolutions
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U4.02%20-%20Transfer%20learning.html">
-     4.2 - Transfer learning
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.1 - Convolutional Neural Networks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.03%20-%20Object%20Detection.html">
-     4.3 - Object detection
+    <a class="reference internal" href="U4.03%20-%20Transfer%20learning.html">
+     4.3 - Transfer learning
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.04%20-%20Transposed%20convolutions.html">
-     4.4 - Transposed convolutions
+    <a class="reference internal" href="U4.04%20-%20Object%20Detection.html">
+     4.4 - Object detection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Image%20segmentation.html">
-     4.5 - Image segmentation
+    <a class="reference internal" href="U4.05%20-%20Transposed%20convolutions.html">
+     4.5 - Transposed convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.06%20-%20Image%20segmentation.html">
+     4.6 - Image segmentation
     </a>
    </li>
   </ul>
@@ -321,7 +326,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U4.01 - Convolutional Neural Networks.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U4.02 - Convolutional Neural Networks.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -348,7 +353,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.01 - Convolutional Neural Networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.02 - Convolutional Neural Networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -380,7 +385,7 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convolutional-neural-networks">
+  <a class="reference internal nav-link" href="#id1">
    Convolutional Neural Networks
   </a>
   <ul class="nav section-nav flex-column">
@@ -424,8 +429,8 @@
         
               <div>
                 
-  <div class="section" id="convolutions">
-<h1>4.1 - Convolutions<a class="headerlink" href="#convolutions" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="convolutional-neural-networks">
+<h1>4.1 - Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -465,7 +470,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_5_0.jpg" src="../_images/U4.01 - Convolutional Neural Networks_5_0.jpg" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_5_0.jpg" src="../_images/U4.02 - Convolutional Neural Networks_5_0.jpg" />
 </div>
 </div>
 <div class="section" id="explore-coco-dataset">
@@ -478,8 +483,8 @@
 </ul>
 </div>
 </div>
-<div class="section" id="convolutional-neural-networks">
-<h2>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Convolutional Neural Networks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>see https://cloud.google.com/blog/big-data/2017/01/learn-tensorflow-and-deep-learning-without-a-phd</p>
 <p>see <a class="reference external" href="http://ml4a.github.io/demos/convolution_all/">filter activation demo</a> <a class="reference external" href="http://ml4a.github.io/demos/confusion_cifar/">confusion matrix</a></p>
 <p>see <a class="reference external" href="https://adeshpande3.github.io/The-9-Deep-Learning-Papers-You-Need-To-Know-About.html">The 9 Deep Learning Papers You Should Know</a></p>
@@ -503,7 +508,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_9_0.png" src="../_images/U4.01 - Convolutional Neural Networks_9_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_9_0.png" src="../_images/U4.02 - Convolutional Neural Networks_9_0.png" />
 </div>
 </div>
 </div>
@@ -516,7 +521,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_11_0.png" src="../_images/U4.01 - Convolutional Neural Networks_11_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_11_0.png" src="../_images/U4.02 - Convolutional Neural Networks_11_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -526,7 +531,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_12_0.jpg" src="../_images/U4.01 - Convolutional Neural Networks_12_0.jpg" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_12_0.jpg" src="../_images/U4.02 - Convolutional Neural Networks_12_0.jpg" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -536,7 +541,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_13_0.jpg" src="../_images/U4.01 - Convolutional Neural Networks_13_0.jpg" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_13_0.jpg" src="../_images/U4.02 - Convolutional Neural Networks_13_0.jpg" />
 </div>
 </div>
 <p>otros ejemplos de filtros de primer nivel</p>
@@ -547,7 +552,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_15_0.png" src="../_images/U4.01 - Convolutional Neural Networks_15_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_15_0.png" src="../_images/U4.02 - Convolutional Neural Networks_15_0.png" />
 </div>
 </div>
 <p>We have a small image dataset based on <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a>, where each image size is <strong>32x32x3</strong>.</p>
@@ -580,7 +585,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_19_0.png" src="../_images/U4.01 - Convolutional Neural Networks_19_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_19_0.png" src="../_images/U4.02 - Convolutional Neural Networks_19_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -606,7 +611,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fd6cc488250&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutional Neural Networks_21_1.png" src="../_images/U4.01 - Convolutional Neural Networks_21_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_21_1.png" src="../_images/U4.02 - Convolutional Neural Networks_21_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -822,7 +827,7 @@ Epoch 10/10
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fd5fc0680d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutional Neural Networks_36_2.png" src="../_images/U4.01 - Convolutional Neural Networks_36_2.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_36_2.png" src="../_images/U4.02 - Convolutional Neural Networks_36_2.png" />
 </div>
 </div>
 <p>observe the outp in tensorboard</p>
@@ -864,7 +869,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_40_0.png" src="../_images/U4.01 - Convolutional Neural Networks_40_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_40_0.png" src="../_images/U4.02 - Convolutional Neural Networks_40_0.png" />
 </div>
 </div>
 <p>and after training</p>
@@ -880,7 +885,7 @@ Epoch 10/10
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 3, 3, 15)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutional Neural Networks_42_1.png" src="../_images/U4.01 - Convolutional Neural Networks_42_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_42_1.png" src="../_images/U4.02 - Convolutional Neural Networks_42_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -892,11 +897,11 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_43_0.png" src="../_images/U4.01 - Convolutional Neural Networks_43_0.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_43_1.png" src="../_images/U4.01 - Convolutional Neural Networks_43_1.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_43_2.png" src="../_images/U4.01 - Convolutional Neural Networks_43_2.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_43_3.png" src="../_images/U4.01 - Convolutional Neural Networks_43_3.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_43_4.png" src="../_images/U4.01 - Convolutional Neural Networks_43_4.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_43_0.png" src="../_images/U4.02 - Convolutional Neural Networks_43_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_43_1.png" src="../_images/U4.02 - Convolutional Neural Networks_43_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_43_2.png" src="../_images/U4.02 - Convolutional Neural Networks_43_2.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_43_3.png" src="../_images/U4.02 - Convolutional Neural Networks_43_3.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_43_4.png" src="../_images/U4.02 - Convolutional Neural Networks_43_4.png" />
 </div>
 </div>
 <div class="section" id="let-s-try-a-more-complex-network">
@@ -997,7 +1002,7 @@ Epoch 10/10
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5, 5, 3, 15)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutional Neural Networks_47_1.png" src="../_images/U4.01 - Convolutional Neural Networks_47_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_47_1.png" src="../_images/U4.02 - Convolutional Neural Networks_47_1.png" />
 </div>
 </div>
 </div>
@@ -1099,7 +1104,7 @@ Epoch 10/10
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(11, 11, 3, 96)
 </pre></div>
 </div>
-<img alt="../_images/U4.01 - Convolutional Neural Networks_51_1.png" src="../_images/U4.01 - Convolutional Neural Networks_51_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_51_1.png" src="../_images/U4.02 - Convolutional Neural Networks_51_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1111,7 +1116,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_52_0.png" src="../_images/U4.01 - Convolutional Neural Networks_52_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_52_0.png" src="../_images/U4.02 - Convolutional Neural Networks_52_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1132,7 +1137,7 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_54_0.png" src="../_images/U4.01 - Convolutional Neural Networks_54_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_54_0.png" src="../_images/U4.02 - Convolutional Neural Networks_54_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1144,11 +1149,11 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.01 - Convolutional Neural Networks_56_0.png" src="../_images/U4.01 - Convolutional Neural Networks_56_0.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_56_1.png" src="../_images/U4.01 - Convolutional Neural Networks_56_1.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_56_2.png" src="../_images/U4.01 - Convolutional Neural Networks_56_2.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_56_3.png" src="../_images/U4.01 - Convolutional Neural Networks_56_3.png" />
-<img alt="../_images/U4.01 - Convolutional Neural Networks_56_4.png" src="../_images/U4.01 - Convolutional Neural Networks_56_4.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_56_0.png" src="../_images/U4.02 - Convolutional Neural Networks_56_0.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_56_1.png" src="../_images/U4.02 - Convolutional Neural Networks_56_1.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_56_2.png" src="../_images/U4.02 - Convolutional Neural Networks_56_2.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_56_3.png" src="../_images/U4.02 - Convolutional Neural Networks_56_3.png" />
+<img alt="../_images/U4.02 - Convolutional Neural Networks_56_4.png" src="../_images/U4.02 - Convolutional Neural Networks_56_4.png" />
 </div>
 </div>
 <p>see</p>
@@ -1190,8 +1195,8 @@ https://jacobgil.github.io/deeplearning/class-activation-maps</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="M04.html" title="previous page">04 - CONVOLUTIONAL NETWORKS</a>
-    <a class='right-next' id="next-link" href="U4.02%20-%20Transfer%20learning.html" title="next page">4.2 - Transfer learning</a>
+    <a class='left-prev' id="prev-link" href="U4.01%20-%20Convolutions.html" title="previous page">4.1 - Convolutions</a>
+    <a class='right-next' id="next-link" href="U4.03%20-%20Transfer%20learning.html" title="next page">4.3 - Transfer learning</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -409,6 +409,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tensorflow-hub">
+   Tensorflow Hub
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -422,6 +436,13 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
 <span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>enabling encryption...
+encryption enabled
+replicating local resources
 </pre></div>
 </div>
 </div>
@@ -442,6 +463,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
+  %reload_ext tensorboard
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
 </pre></div>
 </div>
@@ -462,12 +487,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/vgg16/vgg16_weights_tf_dim_ordering_tf_kernels.h5
-553467904/553467096 [==============================] - 163s 0us/step
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -480,7 +499,7 @@
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-input_1 (InputLayer)         [(None, 224, 224, 3)]     0         
+input_2 (InputLayer)         [(None, 224, 224, 3)]     0         
 _________________________________________________________________
 block1_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
 _________________________________________________________________
@@ -534,64 +553,252 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<p>you can also get the architecture with out the FC layers for any input shape, but then, cannnot use imagenet weights</p>
+<p>Get some random image and transform it. We need the correct shape and pixel values</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vgg16</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">VGG16</span><span class="p">(</span><span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">vgg16</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img_url</span> <span class="o">=</span> <span class="s1">&#39;https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/rrswbphev006.jpg?itok=9I7wPblq&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_img</span><span class="p">(</span><span class="n">img_url</span><span class="p">):</span>
+    <span class="n">img_fname</span> <span class="o">=</span> <span class="n">img_url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">!</span>wget -nc <span class="nv">$img_url</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">img_fname</span><span class="p">)</span>
+    <span class="n">simg</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">simg</span> <span class="o">=</span> <span class="p">((</span><span class="n">simg</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">simg</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">simg</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">simg</span><span class="p">))</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">simg</span> <span class="o">=</span> <span class="n">simg</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">*</span><span class="n">simg</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">simg</span>
+
+<span class="n">simg</span> <span class="o">=</span> <span class="n">get_img</span><span class="p">(</span><span class="n">img_url</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simg</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">simg</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">simg</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">simg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;vgg16&quot;
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_7 (InputLayer)         [(None, 32, 32, 3)]       0         
-_________________________________________________________________
-block1_conv1 (Conv2D)        (None, 32, 32, 64)        1792      
-_________________________________________________________________
-block1_conv2 (Conv2D)        (None, 32, 32, 64)        36928     
-_________________________________________________________________
-block1_pool (MaxPooling2D)   (None, 16, 16, 64)        0         
-_________________________________________________________________
-block2_conv1 (Conv2D)        (None, 16, 16, 128)       73856     
-_________________________________________________________________
-block2_conv2 (Conv2D)        (None, 16, 16, 128)       147584    
-_________________________________________________________________
-block2_pool (MaxPooling2D)   (None, 8, 8, 128)         0         
-_________________________________________________________________
-block3_conv1 (Conv2D)        (None, 8, 8, 256)         295168    
-_________________________________________________________________
-block3_conv2 (Conv2D)        (None, 8, 8, 256)         590080    
-_________________________________________________________________
-block3_conv3 (Conv2D)        (None, 8, 8, 256)         590080    
-_________________________________________________________________
-block3_pool (MaxPooling2D)   (None, 4, 4, 256)         0         
-_________________________________________________________________
-block4_conv1 (Conv2D)        (None, 4, 4, 512)         1180160   
-_________________________________________________________________
-block4_conv2 (Conv2D)        (None, 4, 4, 512)         2359808   
-_________________________________________________________________
-block4_conv3 (Conv2D)        (None, 4, 4, 512)         2359808   
-_________________________________________________________________
-block4_pool (MaxPooling2D)   (None, 2, 2, 512)         0         
-_________________________________________________________________
-block5_conv1 (Conv2D)        (None, 2, 2, 512)         2359808   
-_________________________________________________________________
-block5_conv2 (Conv2D)        (None, 2, 2, 512)         2359808   
-_________________________________________________________________
-block5_conv3 (Conv2D)        (None, 2, 2, 512)         2359808   
-_________________________________________________________________
-block5_pool (MaxPooling2D)   (None, 1, 1, 512)         0         
-=================================================================
-Total params: 14,714,688
-Trainable params: 14,714,688
-Non-trainable params: 0
-_________________________________________________________________
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2021-02-14 19:57:46--  https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/rrswbphev006.jpg?itok=9I7wPblq
+Resolving www.autocar.co.uk (www.autocar.co.uk)... 13.226.49.122, 13.226.49.37, 13.226.49.22, ...
+Connecting to www.autocar.co.uk (www.autocar.co.uk)|13.226.49.122|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 116781 (114K) [image/jpeg]
+Saving to: ‘rrswbphev006.jpg?itok=9I7wPblq’
+
+rrswbphev006.jpg?it 100%[===================&gt;] 114.04K  --.-KB/s    in 0.05s   
+
+2021-02-14 19:57:46 (2.05 MB/s) - ‘rrswbphev006.jpg?itok=9I7wPblq’ saved [116781/116781]
+
+(1, 224, 224, 3) 0 255
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f3bb93ae240&gt;
+</pre></div>
+</div>
+<img alt="../_images/U4.04 - CNN Architectures_9_2.png" src="../_images/U4.04 - CNN Architectures_9_2.png" />
+</div>
+</div>
+<p>make and decode prediction</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">vgg16</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">simg</span><span class="p">)</span>
+<span class="n">output</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1000)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3bb932b518&gt;]
+</pre></div>
+</div>
+<img alt="../_images/U4.04 - CNN Architectures_12_1.png" src="../_images/U4.04 - CNN Architectures_12_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([717, 609, 436, 656, 511])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.applications.imagenet_utils</span> <span class="kn">import</span> <span class="n">decode_predictions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decode_predictions</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[(&#39;n03930630&#39;, &#39;pickup&#39;, 0.2946707),
+  (&#39;n03594945&#39;, &#39;jeep&#39;, 0.2187905),
+  (&#39;n02814533&#39;, &#39;beach_wagon&#39;, 0.14391266),
+  (&#39;n03770679&#39;, &#39;minivan&#39;, 0.105930716),
+  (&#39;n03100240&#39;, &#39;convertible&#39;, 0.078578584)]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>we can also use it as a feature extractor</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">vgg16</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">vgg16</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s1">&#39;fc1&#39;</span><span class="p">)</span>
+
+<span class="n">layer_output_fn</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_output_fn</span><span class="p">(</span><span class="n">simg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 4096), dtype=float32, numpy=
+array([[0.     , 0.     , 0.     , ..., 1.44261, 0.     , 0.     ]],
+      dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>and do other stuff (train other models, compare, etc.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simg2</span> <span class="o">=</span> <span class="n">get_img</span><span class="p">(</span><span class="s1">&#39;https://specials-images.forbesimg.com/imageserve/5d61562368cb0a0008c04988/960x0.jpg?fit=scale&#39;</span><span class="p">)</span>
+<span class="n">simg3</span> <span class="o">=</span> <span class="n">get_img</span><span class="p">(</span><span class="s1">&#39;https://static01.nyt.com/images/2020/08/13/fashion/12VIRUS-CARS-eli/12VIRUS-CARS-eli-mobileMasterAt3x-v2.jpg&#39;</span><span class="p">)</span>
+<span class="n">simg4</span> <span class="o">=</span> <span class="n">get_img</span><span class="p">(</span><span class="s1">&#39;https://media-cdn.tripadvisor.com/media/photo-s/12/99/82/95/bellaire-house.jpg&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">141</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">simg</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">142</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">simg2</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">143</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">simg3</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">144</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">simg4</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File ‘960x0.jpg?fit=scale’ already there; not retrieving.
+
+File ‘12VIRUS-CARS-eli-mobileMasterAt3x-v2.jpg’ already there; not retrieving.
+
+--2021-02-14 19:59:26--  https://media-cdn.tripadvisor.com/media/photo-s/12/99/82/95/bellaire-house.jpg
+Resolving media-cdn.tripadvisor.com (media-cdn.tripadvisor.com)... 151.101.2.38, 151.101.66.38, 151.101.130.38, ...
+Connecting to media-cdn.tripadvisor.com (media-cdn.tripadvisor.com)|151.101.2.38|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 58530 (57K) [image/jpeg]
+Saving to: ‘bellaire-house.jpg’
+
+bellaire-house.jpg  100%[===================&gt;]  57.16K  --.-KB/s    in 0.01s   
+
+2021-02-14 19:59:26 (4.44 MB/s) - ‘bellaire-house.jpg’ saved [58530/58530]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.5, 223.5, 223.5, -0.5)
+</pre></div>
+</div>
+<img alt="../_images/U4.04 - CNN Architectures_20_2.png" src="../_images/U4.04 - CNN Architectures_20_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feats</span> <span class="o">=</span> <span class="n">layer_output_fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">simg</span><span class="p">,</span><span class="n">simg2</span><span class="p">,</span><span class="n">simg3</span><span class="p">,</span><span class="n">simg4</span><span class="p">)))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">feats</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, 4096)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">feats</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">feats</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feats</span><span class="p">)),</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feats</span><span class="p">))):</span>
+    <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">feats</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">feats</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+<span class="n">r</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.        , 2.57414365, 2.57649517, 2.30459738],
+       [2.57414365, 0.        , 3.01039696, 2.43500757],
+       [2.57649517, 3.01039696, 0.        , 2.78080606],
+       [2.30459738, 2.43500757, 2.78080606, 0.        ]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>and, of course, the imagenet classification</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">vgg16</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">simg</span><span class="p">,</span><span class="n">simg2</span><span class="p">,</span><span class="n">simg3</span><span class="p">,</span><span class="n">simg4</span><span class="p">)))</span>
+<span class="n">decode_predictions</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[(&#39;n03930630&#39;, &#39;pickup&#39;, 0.29467037),
+  (&#39;n03594945&#39;, &#39;jeep&#39;, 0.21879068),
+  (&#39;n02814533&#39;, &#39;beach_wagon&#39;, 0.14391305),
+  (&#39;n03770679&#39;, &#39;minivan&#39;, 0.1059308),
+  (&#39;n03100240&#39;, &#39;convertible&#39;, 0.078578345)],
+ [(&#39;n04482393&#39;, &#39;tricycle&#39;, 0.4868581),
+  (&#39;n03791053&#39;, &#39;motor_scooter&#39;, 0.122519016),
+  (&#39;n03785016&#39;, &#39;moped&#39;, 0.06780141),
+  (&#39;n03534580&#39;, &#39;hoopskirt&#39;, 0.0479511),
+  (&#39;n02769748&#39;, &#39;backpack&#39;, 0.04404157)],
+ [(&#39;n02930766&#39;, &#39;cab&#39;, 0.64891493),
+  (&#39;n04252077&#39;, &#39;snowmobile&#39;, 0.048013847),
+  (&#39;n03459775&#39;, &#39;grille&#39;, 0.043748885),
+  (&#39;n03445924&#39;, &#39;golfcart&#39;, 0.0394534),
+  (&#39;n02704792&#39;, &#39;amphibian&#39;, 0.032926943)],
+ [(&#39;n02859443&#39;, &#39;boathouse&#39;, 0.41583353),
+  (&#39;n02825657&#39;, &#39;bell_cote&#39;, 0.17513582),
+  (&#39;n03028079&#39;, &#39;church&#39;, 0.08576325),
+  (&#39;n03930313&#39;, &#39;picket_fence&#39;, 0.06905515),
+  (&#39;n02793495&#39;, &#39;barn&#39;, 0.042880956)]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tensorflow-hub">
+<h2>Tensorflow Hub<a class="headerlink" href="#tensorflow-hub" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.tensorflow.org/hub">https://www.tensorflow.org/hub</a></p>
 </div>
 </div>
 

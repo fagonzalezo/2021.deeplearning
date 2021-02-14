@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4.4 - Object detection &#8212; Fundamentos de Deep Learning</title>
+    <title>4.6 - Object detection &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -45,8 +45,6 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -54,10 +52,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.5 - Transposed convolutions" href="U4.05%20-%20Transposed%20convolutions.html" />
-    <link rel="prev" title="4.3 - Transfer learning" href="U4.03%20-%20Transfer%20learning.html" />
+    <link rel="next" title="4.7 - Transposed convolutions" href="U4.07%20-%20Transposed%20convolutions.html" />
+    <link rel="prev" title="4.5 - Transfer learning" href="U4.05%20-%20Transfer%20learning.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -263,23 +263,33 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.03%20-%20Transfer%20learning.html">
-     4.3 - Transfer learning
+    <a class="reference internal" href="U4.03%20-%20Dropout%2C%20pooling.html">
+     4.3 - Dropout, pooling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.04%20-%20CNN%20Architectures.html">
+     4.04 - CNN Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.05%20-%20Transfer%20learning.html">
+     4.5 - Transfer learning
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.4 - Object detection
+     4.6 - Object detection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.05%20-%20Transposed%20convolutions.html">
-     4.5 - Transposed convolutions
+    <a class="reference internal" href="U4.07%20-%20Transposed%20convolutions.html">
+     4.7 - Transposed convolutions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="U4.06%20-%20Image%20segmentation.html">
-     4.6 - Image segmentation
+    <a class="reference internal" href="U4.08%20-%20Image%20segmentation.html">
+     4.8 - Image segmentation
     </a>
    </li>
   </ul>
@@ -360,7 +370,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U4.04 - Object Detection.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U4.06 - Object Detection.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -387,7 +397,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.04 - Object Detection.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.06 - Object Detection.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -472,7 +482,7 @@
               <div>
                 
   <div class="section" id="object-detection">
-<h1>4.4 - Object detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">¶</a></h1>
+<h1>4.6 - Object detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -615,7 +625,7 @@ class-descriptions- 100%[===================&gt;]  11,73K  --.-KB/s    in 0,002s
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fa1c5eb8dc0&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.04 - Object Detection_7_1.png" src="../_images/U4.04 - Object Detection_7_1.png" />
+<img alt="../_images/U4.06 - Object Detection_7_1.png" src="../_images/U4.06 - Object Detection_7_1.png" />
 </div>
 </div>
 <p><strong>with its annotations</strong></p>
@@ -1285,7 +1295,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_12_0.png" src="../_images/U4.04 - Object Detection_12_0.png" />
+<img alt="../_images/U4.06 - Object Detection_12_0.png" src="../_images/U4.06 - Object Detection_12_0.png" />
 </div>
 </div>
 </div>
@@ -1308,7 +1318,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_14_0.png" src="../_images/U4.04 - Object Detection_14_0.png" />
+<img alt="../_images/U4.06 - Object Detection_14_0.png" src="../_images/U4.06 - Object Detection_14_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1342,7 +1352,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_16_0.png" src="../_images/U4.04 - Object Detection_16_0.png" />
+<img alt="../_images/U4.06 - Object Detection_16_0.png" src="../_images/U4.06 - Object Detection_16_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1354,7 +1364,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_17_0.png" src="../_images/U4.04 - Object Detection_17_0.png" />
+<img alt="../_images/U4.06 - Object Detection_17_0.png" src="../_images/U4.06 - Object Detection_17_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1396,7 +1406,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_20_0.png" src="../_images/U4.04 - Object Detection_20_0.png" />
+<img alt="../_images/U4.06 - Object Detection_20_0.png" src="../_images/U4.06 - Object Detection_20_0.png" />
 </div>
 </div>
 <p>observe how we decode prediction classes. We would nee to <strong>align</strong> them with our detectiond dataset.</p>
@@ -1556,7 +1566,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_29_0.png" src="../_images/U4.04 - Object Detection_29_0.png" />
+<img alt="../_images/U4.06 - Object Detection_29_0.png" src="../_images/U4.06 - Object Detection_29_0.png" />
 </div>
 </div>
 </div>
@@ -1573,7 +1583,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_31_0.png" src="../_images/U4.04 - Object Detection_31_0.png" />
+<img alt="../_images/U4.06 - Object Detection_31_0.png" src="../_images/U4.06 - Object Detection_31_0.png" />
 </div>
 </div>
 <p><strong>Image fixed partition</strong></p>
@@ -1604,7 +1614,7 @@ _________________________________________________________________
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa055077df0&gt;
 </pre></div>
 </div>
-<img alt="../_images/U4.04 - Object Detection_33_1.png" src="../_images/U4.04 - Object Detection_33_1.png" />
+<img alt="../_images/U4.06 - Object Detection_33_1.png" src="../_images/U4.06 - Object Detection_33_1.png" />
 </div>
 </div>
 </div>
@@ -1633,7 +1643,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.04 - Object Detection_35_0.png" src="../_images/U4.04 - Object Detection_35_0.png" />
+<img alt="../_images/U4.06 - Object Detection_35_0.png" src="../_images/U4.06 - Object Detection_35_0.png" />
 </div>
 </div>
 <p>Typically, CNNs will</p>
@@ -1688,8 +1698,8 @@ _________________________________________________________________
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U4.03%20-%20Transfer%20learning.html" title="previous page">4.3 - Transfer learning</a>
-    <a class='right-next' id="next-link" href="U4.05%20-%20Transposed%20convolutions.html" title="next page">4.5 - Transposed convolutions</a>
+    <a class='left-prev' id="prev-link" href="U4.05%20-%20Transfer%20learning.html" title="previous page">4.5 - Transfer learning</a>
+    <a class='right-next' id="next-link" href="U4.07%20-%20Transposed%20convolutions.html" title="next page">4.7 - Transposed convolutions</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

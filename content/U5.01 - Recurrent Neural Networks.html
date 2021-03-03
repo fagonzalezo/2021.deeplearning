@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.37f24b989f4638ff9c27c22dc7559d4f.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -44,7 +44,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -56,8 +56,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.2 Long Short Term Memory RNN (LSTM)" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html" />
-    <link rel="prev" title="5.0 Data partition in time series problems" href="U5.00%20-%20Intro%20time%20series.html" />
+    <link rel="next" title="5.2 LSTM and GRU" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html" />
+    <link rel="prev" title="5.0 Crossvalidation in time series" href="U5.00%20-%20Intro%20time%20series.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -303,7 +303,7 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U5.00%20-%20Intro%20time%20series.html">
-     5.0 Data partition in time series problems
+     5.0 Crossvalidation in time series
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -312,18 +312,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="#predicting-several-times-ahead">
-     Predicting several times ahead
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html">
-     5.2 Long Short Term Memory RNN (LSTM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html#gated-recurrent-units">
-     Gated Recurrent Units
+     5.2 LSTM and GRU
     </a>
    </li>
   </ul>
@@ -347,21 +337,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -379,16 +369,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -406,100 +396,94 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   5.1 Recurrent Neural Networks
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lets-do-some-examples-of-time-series-using-conventional-mlps">
+   Lets do some examples of Time series using conventional MLPs
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#lets-do-some-examples-of-time-series-using-conventional-mlps">
-     Lets do some examples of Time series using conventional MLPs
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-three-steps-backward-to-predict-one-step-ahead">
+     Using three steps backward to predict one step ahead:
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#using-three-steps-backward-to-predict-one-step-ahead">
-       Using three steps backward to predict one step ahead:
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#let-s-define-formaly-the-recurrent-neural-networks">
-       Let’s define formaly the Recurrent Neural Networks
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#backpropagation-through-time-bptt">
-       Backpropagation through time (BPTT)
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#now-using-a-rnn-layer-instead-of-a-dense-layer">
-     Now using a RNN layer instead of a Dense layer:
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-s-define-formaly-the-recurrent-neural-networks">
+     Let’s define formaly the Recurrent Neural Networks
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#using-multiple-times-as-features">
-       Using multiple times as features
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#using-multiple-times-as-multiple-times">
-       Using multiple times as multiple times!
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#lets-make-more-complex-architectures">
-     Lets make more complex architectures
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backpropagation-through-time-bptt">
+     Backpropagation through time (BPTT)
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#two-recurrent-layers">
-       Two recurrent layers:
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#now-using-a-rnn-layer-instead-of-a-dense-layer">
+   Now using a RNN layer instead of a Dense layer:
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-multiple-times-as-features">
+     Using multiple times as features
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-multiple-times-as-multiple-times">
+     Using multiple times as multiple times!
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lets-make-more-complex-architectures">
+   Lets make more complex architectures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#two-recurrent-layers">
+     Two recurrent layers:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#predicting-several-times-ahead">
    Predicting several times ahead
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#walk-forward-using-a-rnn">
      Walk forward using a RNN
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#a-rnn-network-with-multiple-outputs">
      A RNN network with multiple outputs
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#encoder-decoder-architecture-sequence-to-sequence">
-     Encoder-Decoder architecture (sequence-to-sequence)
-    </a>
-   </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#encoder-decoder-architecture-sequence-to-sequence">
+   Encoder-Decoder architecture (sequence-to-sequence)
+  </a>
  </li>
 </ul>
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -690,7 +674,7 @@ Test [[0.04530746]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_1&quot;
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -716,10 +700,10 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 22.91 RMSE
-Test Score: 48.53 RMSE
-Train Score: 8.54 MAPE
-Test Score: 9.76 MAPE
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 23.11 RMSE
+Test Score: 50.42 RMSE
+Train Score: 8.66 MAPE
+Test Score: 10.00 MAPE
 1
 </pre></div>
 </div>
@@ -748,10 +732,10 @@ Test Score: 9.76 MAPE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 25.37 RMSE
-Test Score: 55.77 RMSE
-Train Score: 9.09 MAPE
-Test Score: 11.03 MAPE
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 25.21 RMSE
+Test Score: 55.92 RMSE
+Train Score: 9.08 MAPE
+Test Score: 10.97 MAPE
 1
 </pre></div>
 </div>
@@ -791,10 +775,10 @@ Test Score: 11.03 MAPE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 0.31 RMSE
-Test Score: 0.35 RMSE
-Train Score: 0.71 MAPE
-Test Score: 0.61 MAPE
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 0.33 RMSE
+Test Score: 0.46 RMSE
+Train Score: 0.78 MAPE
+Test Score: 0.81 MAPE
 1
 </pre></div>
 </div>
@@ -902,10 +886,10 @@ L = \sum_t L^{(t)}\end{split}\]</div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 22.87 RMSE
-Test Score: 49.03 RMSE
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Score: 22.91 RMSE
+Test Score: 48.49 RMSE
 Train Score: 8.54 MAPE
-Test Score: 9.80 MAPE
+Test Score: 9.77 MAPE
 1
 </pre></div>
 </div>
@@ -1367,11 +1351,10 @@ Test Score: 1.48 MAPE
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="predicting-several-times-ahead">
-<h1>Predicting several times ahead<a class="headerlink" href="#predicting-several-times-ahead" title="Permalink to this headline">¶</a></h1>
+<h2>Predicting several times ahead<a class="headerlink" href="#predicting-several-times-ahead" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="walk-forward-using-a-rnn">
-<h2>Walk forward using a RNN<a class="headerlink" href="#walk-forward-using-a-rnn" title="Permalink to this headline">¶</a></h2>
+<h3>Walk forward using a RNN<a class="headerlink" href="#walk-forward-using-a-rnn" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">look_back</span> <span class="o">=</span> <span class="mi">10</span>
@@ -1427,7 +1410,7 @@ Test Score: 1.24 MAPE
 </div>
 </div>
 <div class="section" id="a-rnn-network-with-multiple-outputs">
-<h2>A RNN network with multiple outputs<a class="headerlink" href="#a-rnn-network-with-multiple-outputs" title="Permalink to this headline">¶</a></h2>
+<h3>A RNN network with multiple outputs<a class="headerlink" href="#a-rnn-network-with-multiple-outputs" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">look_back</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
@@ -1534,6 +1517,7 @@ Test Score: 1.26 MAPE
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/U5.01 - Recurrent Neural Networks_78_0.png" src="../_images/U5.01 - Recurrent Neural Networks_78_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -1646,15 +1630,15 @@ Test Score: 1.59 MAPE
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="U5.00%20-%20Intro%20time%20series.html" title="previous page">5.0 Data partition in time series problems</a>
-    <a class='right-next' id="next-link" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html" title="next page">5.2 Long Short Term Memory RNN (LSTM)</a>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="U5.00%20-%20Intro%20time%20series.html" title="previous page">5.0 Crossvalidation in time series</a>
+    <a class='right-next' id="next-link" href="U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html" title="next page">5.2 LSTM and GRU</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

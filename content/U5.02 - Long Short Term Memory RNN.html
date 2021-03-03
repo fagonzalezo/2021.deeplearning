@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5.2 Long Short Term Memory RNN (LSTM) &#8212; Fundamentos de Deep Learning</title>
+    <title>5.2 LSTM and GRU &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.37f24b989f4638ff9c27c22dc7559d4f.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -44,7 +44,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -302,7 +302,7 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U5.00%20-%20Intro%20time%20series.html">
-     5.0 Data partition in time series problems
+     5.0 Crossvalidation in time series
     </a>
    </li>
    <li class="toctree-l2">
@@ -310,19 +310,9 @@
      5.1 Recurrent Neural Networks
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="U5.01%20-%20Recurrent%20Neural%20Networks.html#predicting-several-times-ahead">
-     Predicting several times ahead
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     5.2 Long Short Term Memory RNN (LSTM)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#gated-recurrent-units">
-     Gated Recurrent Units
+     5.2 LSTM and GRU
     </a>
    </li>
   </ul>
@@ -346,21 +336,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -378,16 +368,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -405,22 +395,22 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   5.2 Long Short Term Memory RNN (LSTM)
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#u5-02-long-short-term-memory-rnn">
+   U5.02 - Long Short Term Memory RNN
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gated-recurrent-units">
    Gated Recurrent Units
   </a>
@@ -429,6 +419,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -436,8 +427,8 @@
         
               <div>
                 
-  <div class="section" id="long-short-term-memory-rnn-lstm">
-<h1>5.2 Long Short Term Memory RNN (LSTM)<a class="headerlink" href="#long-short-term-memory-rnn-lstm" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lstm-and-gru">
+<h1>5.2 LSTM and GRU<a class="headerlink" href="#lstm-and-gru" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -465,6 +456,8 @@
 </div>
 </div>
 </div>
+<div class="section" id="u5-02-long-short-term-memory-rnn">
+<h2>U5.02 - Long Short Term Memory RNN<a class="headerlink" href="#u5-02-long-short-term-memory-rnn" title="Permalink to this headline">¶</a></h2>
 <p>The main drawback of conventional RNNs is its inability to learn long term dependency, or even the capacity of capturing long and short dependences at the same time.</p>
 <p>Remenber that in a RNN:</p>
 <div class="math notranslate nohighlight">
@@ -486,7 +479,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_6_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_6_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_7_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_7_0.png" />
 </div>
 </div>
 <p>The cells use the principle of cumulative average called <strong>Exponential Weighted Moving Average (EWMA)</strong> originally proposed for a type of units called leaky units. EWMA takes into account more or less information from the past based on a <span class="math notranslate nohighlight">\(\beta\)</span> paratemer. The rule is given by: <span class="math notranslate nohighlight">\(\mu^{(t)} \leftarrow \beta \mu^{(t-1)} + (1 - \beta)\upsilon^{(t)}\)</span>.</p>
@@ -520,7 +513,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_8_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_8_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_9_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_9_0.png" />
 </div>
 </div>
 <p>The LSTM network uses the same principle the level of memory or time dependence, but instead of one controling parameter, it define <strong>gates</strong> adjusted during the training phase.</p>
@@ -552,7 +545,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_11_0.jpg" src="../_images/U5.02 - Long Short Term Memory RNN_11_0.jpg" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_12_0.jpg" src="../_images/U5.02 - Long Short Term Memory RNN_12_0.jpg" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -567,6 +560,20 @@
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">LSTM</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">GRU</span><span class="p">,</span> <span class="n">SimpleRNN</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Esta celda es por problemas de compatibilidad con la GPU en la última actualización</span>
+
+<span class="kn">from</span> <span class="nn">tensorflow.compat.v1</span> <span class="kn">import</span> <span class="n">ConfigProto</span>
+<span class="kn">from</span> <span class="nn">tensorflow.compat.v1</span> <span class="kn">import</span> <span class="n">InteractiveSession</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">ConfigProto</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">allow_growth</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">InteractiveSession</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -687,7 +694,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_15_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_15_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_17_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_17_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -736,15 +743,15 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_2&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-simple_rnn_1 (SimpleRNN)     (None, 50)                2600      
+simple_rnn (SimpleRNN)       (None, 50)                2600      
 _________________________________________________________________
-dropout_2 (Dropout)          (None, 50)                0         
+dropout (Dropout)            (None, 50)                0         
 _________________________________________________________________
-dense_2 (Dense)              (None, 1)                 51        
+dense (Dense)                (None, 1)                 51        
 =================================================================
 Total params: 2,651
 Trainable params: 2,651
@@ -765,110 +772,109 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 2507 samples
-Epoch 1/50
-2507/2507 [==============================] - 1s 240us/sample - loss: 0.0145
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+79/79 [==============================] - 1s 3ms/step - loss: 0.0558
 Epoch 2/50
-2507/2507 [==============================] - 0s 110us/sample - loss: 0.0044
+79/79 [==============================] - 0s 3ms/step - loss: 0.0057
 Epoch 3/50
-2507/2507 [==============================] - 0s 105us/sample - loss: 0.0041
+79/79 [==============================] - 0s 3ms/step - loss: 0.0037
 Epoch 4/50
-2507/2507 [==============================] - 0s 96us/sample - loss: 0.0037
+79/79 [==============================] - 0s 3ms/step - loss: 0.0030
 Epoch 5/50
-2507/2507 [==============================] - 0s 95us/sample - loss: 0.0033
+79/79 [==============================] - 0s 3ms/step - loss: 0.0030
 Epoch 6/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0035
+79/79 [==============================] - 0s 3ms/step - loss: 0.0027
 Epoch 7/50
-2507/2507 [==============================] - 0s 100us/sample - loss: 0.0030
+79/79 [==============================] - 0s 3ms/step - loss: 0.0024
 Epoch 8/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0028
+79/79 [==============================] - 0s 3ms/step - loss: 0.0026
 Epoch 9/50
-2507/2507 [==============================] - 0s 107us/sample - loss: 0.0028
+79/79 [==============================] - 0s 3ms/step - loss: 0.0025
 Epoch 10/50
-2507/2507 [==============================] - 0s 117us/sample - loss: 0.0025
+79/79 [==============================] - 0s 3ms/step - loss: 0.0023
 Epoch 11/50
-2507/2507 [==============================] - 0s 115us/sample - loss: 0.0025
+79/79 [==============================] - 0s 3ms/step - loss: 0.0021
 Epoch 12/50
-2507/2507 [==============================] - 0s 115us/sample - loss: 0.0023
+79/79 [==============================] - 0s 3ms/step - loss: 0.0022
 Epoch 13/50
-2507/2507 [==============================] - 0s 118us/sample - loss: 0.0021
+79/79 [==============================] - 0s 3ms/step - loss: 0.0022
 Epoch 14/50
-2507/2507 [==============================] - 0s 118us/sample - loss: 0.0024
+79/79 [==============================] - 0s 3ms/step - loss: 0.0020
 Epoch 15/50
-2507/2507 [==============================] - 0s 118us/sample - loss: 0.0020
+79/79 [==============================] - 0s 3ms/step - loss: 0.0020
 Epoch 16/50
-2507/2507 [==============================] - 0s 109us/sample - loss: 0.0020
+79/79 [==============================] - 0s 3ms/step - loss: 0.0019
 Epoch 17/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0021
+79/79 [==============================] - 0s 3ms/step - loss: 0.0019
 Epoch 18/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0019
+79/79 [==============================] - 0s 3ms/step - loss: 0.0019
 Epoch 19/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0018
+79/79 [==============================] - 0s 3ms/step - loss: 0.0018
 Epoch 20/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0018
+79/79 [==============================] - 0s 3ms/step - loss: 0.0018
 Epoch 21/50
-2507/2507 [==============================] - 0s 100us/sample - loss: 0.0018
+79/79 [==============================] - 0s 3ms/step - loss: 0.0018
 Epoch 22/50
-2507/2507 [==============================] - 0s 99us/sample - loss: 0.0017
+79/79 [==============================] - 0s 3ms/step - loss: 0.0018
 Epoch 23/50
-2507/2507 [==============================] - 0s 100us/sample - loss: 0.0015
+79/79 [==============================] - 0s 3ms/step - loss: 0.0018
 Epoch 24/50
-2507/2507 [==============================] - 0s 98us/sample - loss: 0.0015
+79/79 [==============================] - 0s 3ms/step - loss: 0.0015
 Epoch 25/50
-2507/2507 [==============================] - 0s 95us/sample - loss: 0.0016
+79/79 [==============================] - 0s 3ms/step - loss: 0.0016
 Epoch 26/50
-2507/2507 [==============================] - 0s 95us/sample - loss: 0.0016
+79/79 [==============================] - 0s 3ms/step - loss: 0.0016
 Epoch 27/50
-2507/2507 [==============================] - 0s 98us/sample - loss: 0.0015
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 28/50
-2507/2507 [==============================] - 0s 109us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 29/50
-2507/2507 [==============================] - 0s 110us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0013
 Epoch 30/50
-2507/2507 [==============================] - 0s 108us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 31/50
-2507/2507 [==============================] - 0s 96us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0013
 Epoch 32/50
-2507/2507 [==============================] - 0s 96us/sample - loss: 0.0013
+79/79 [==============================] - 0s 3ms/step - loss: 0.0015
 Epoch 33/50
-2507/2507 [==============================] - 0s 100us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 34/50
-2507/2507 [==============================] - 0s 117us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0012
 Epoch 35/50
-2507/2507 [==============================] - 0s 120us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0013
 Epoch 36/50
-2507/2507 [==============================] - 0s 125us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0012
 Epoch 37/50
-2507/2507 [==============================] - 0s 120us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0011
 Epoch 38/50
-2507/2507 [==============================] - 0s 128us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 0.0011
 Epoch 39/50
-2507/2507 [==============================] - 0s 119us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 0.0011
 Epoch 40/50
-2507/2507 [==============================] - 0s 94us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 9.7971e-04
 Epoch 41/50
-2507/2507 [==============================] - 0s 95us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 0.0010
 Epoch 42/50
-2507/2507 [==============================] - 0s 96us/sample - loss: 0.0010
+79/79 [==============================] - 0s 3ms/step - loss: 0.0011
 Epoch 43/50
-2507/2507 [==============================] - 0s 96us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 9.0645e-04
 Epoch 44/50
-2507/2507 [==============================] - 0s 97us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 0.0010
 Epoch 45/50
-2507/2507 [==============================] - 0s 98us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 0.0010
 Epoch 46/50
-2507/2507 [==============================] - 0s 107us/sample - loss: 0.0011
+79/79 [==============================] - 0s 3ms/step - loss: 9.9077e-04
 Epoch 47/50
-2507/2507 [==============================] - 0s 100us/sample - loss: 0.0010
+79/79 [==============================] - 0s 3ms/step - loss: 9.1604e-04
 Epoch 48/50
-2507/2507 [==============================] - 0s 105us/sample - loss: 0.0010
+79/79 [==============================] - 0s 3ms/step - loss: 0.0011
 Epoch 49/50
-2507/2507 [==============================] - 0s 106us/sample - loss: 9.6191e-04
+79/79 [==============================] - 0s 3ms/step - loss: 7.9438e-04
 Epoch 50/50
-2507/2507 [==============================] - 0s 103us/sample - loss: 0.0010
+79/79 [==============================] - 0s 3ms/step - loss: 8.6249e-04
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fdbb0293b50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7f6e3046cf90&gt;
 </pre></div>
 </div>
 </div>
@@ -918,7 +924,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_24_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_24_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_26_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_26_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -932,7 +938,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.5497764666382868.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.34510828924483167.
 </pre></div>
 </div>
 </div>
@@ -992,110 +998,109 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 2507 samples
-Epoch 1/50
-2507/2507 [==============================] - 1s 413us/sample - loss: 0.0197
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+79/79 [==============================] - 2s 2ms/step - loss: 0.1240
 Epoch 2/50
-2507/2507 [==============================] - 0s 159us/sample - loss: 0.0053
+79/79 [==============================] - 0s 2ms/step - loss: 0.0077
 Epoch 3/50
-2507/2507 [==============================] - 0s 188us/sample - loss: 0.0043
+79/79 [==============================] - 0s 3ms/step - loss: 0.0056
 Epoch 4/50
-2507/2507 [==============================] - 0s 153us/sample - loss: 0.0038
+79/79 [==============================] - 0s 3ms/step - loss: 0.0045
 Epoch 5/50
-2507/2507 [==============================] - 0s 196us/sample - loss: 0.0034
+79/79 [==============================] - 0s 4ms/step - loss: 0.0035
 Epoch 6/50
-2507/2507 [==============================] - 0s 156us/sample - loss: 0.0034
+79/79 [==============================] - 0s 4ms/step - loss: 0.0034
 Epoch 7/50
-2507/2507 [==============================] - 0s 196us/sample - loss: 0.0032
+79/79 [==============================] - 0s 4ms/step - loss: 0.0034
 Epoch 8/50
-2507/2507 [==============================] - 1s 228us/sample - loss: 0.0033
+79/79 [==============================] - 0s 4ms/step - loss: 0.0034
 Epoch 9/50
-2507/2507 [==============================] - 0s 188us/sample - loss: 0.0030
+79/79 [==============================] - 0s 4ms/step - loss: 0.0031
 Epoch 10/50
-2507/2507 [==============================] - 0s 168us/sample - loss: 0.0029
+79/79 [==============================] - 0s 4ms/step - loss: 0.0029
 Epoch 11/50
-2507/2507 [==============================] - 0s 173us/sample - loss: 0.0028
+79/79 [==============================] - 0s 4ms/step - loss: 0.0030
 Epoch 12/50
-2507/2507 [==============================] - 0s 165us/sample - loss: 0.0026
+79/79 [==============================] - 0s 4ms/step - loss: 0.0028
 Epoch 13/50
-2507/2507 [==============================] - 0s 155us/sample - loss: 0.0027
+79/79 [==============================] - 0s 4ms/step - loss: 0.0030
 Epoch 14/50
-2507/2507 [==============================] - 0s 150us/sample - loss: 0.0026
+79/79 [==============================] - 0s 4ms/step - loss: 0.0028
 Epoch 15/50
-2507/2507 [==============================] - 0s 151us/sample - loss: 0.0024
+79/79 [==============================] - 0s 2ms/step - loss: 0.0027
 Epoch 16/50
-2507/2507 [==============================] - 0s 154us/sample - loss: 0.0023
+79/79 [==============================] - 0s 2ms/step - loss: 0.0027
 Epoch 17/50
-2507/2507 [==============================] - 0s 161us/sample - loss: 0.0024
+79/79 [==============================] - 0s 1ms/step - loss: 0.0026
 Epoch 18/50
-2507/2507 [==============================] - 0s 157us/sample - loss: 0.0024
+79/79 [==============================] - 0s 1ms/step - loss: 0.0027
 Epoch 19/50
-2507/2507 [==============================] - 0s 185us/sample - loss: 0.0021
+79/79 [==============================] - 0s 2ms/step - loss: 0.0027
 Epoch 20/50
-2507/2507 [==============================] - 0s 189us/sample - loss: 0.0019
+79/79 [==============================] - 0s 2ms/step - loss: 0.0023
 Epoch 21/50
-2507/2507 [==============================] - 0s 193us/sample - loss: 0.0019
+79/79 [==============================] - 0s 2ms/step - loss: 0.0025
 Epoch 22/50
-2507/2507 [==============================] - 1s 232us/sample - loss: 0.0020
+79/79 [==============================] - 0s 2ms/step - loss: 0.0023
 Epoch 23/50
-2507/2507 [==============================] - 0s 172us/sample - loss: 0.0018
+79/79 [==============================] - 0s 2ms/step - loss: 0.0021
 Epoch 24/50
-2507/2507 [==============================] - 0s 166us/sample - loss: 0.0019
+79/79 [==============================] - 0s 2ms/step - loss: 0.0024
 Epoch 25/50
-2507/2507 [==============================] - 0s 164us/sample - loss: 0.0018
+79/79 [==============================] - 0s 1ms/step - loss: 0.0022
 Epoch 26/50
-2507/2507 [==============================] - 0s 168us/sample - loss: 0.0017
+79/79 [==============================] - 0s 1ms/step - loss: 0.0021
 Epoch 27/50
-2507/2507 [==============================] - 0s 126us/sample - loss: 0.0017
+79/79 [==============================] - 0s 2ms/step - loss: 0.0020
 Epoch 28/50
-2507/2507 [==============================] - 0s 131us/sample - loss: 0.0017
+79/79 [==============================] - 0s 2ms/step - loss: 0.0020
 Epoch 29/50
-2507/2507 [==============================] - 0s 129us/sample - loss: 0.0015
+79/79 [==============================] - 0s 2ms/step - loss: 0.0018
 Epoch 30/50
-2507/2507 [==============================] - 0s 130us/sample - loss: 0.0016
+79/79 [==============================] - 0s 2ms/step - loss: 0.0021
 Epoch 31/50
-2507/2507 [==============================] - 0s 122us/sample - loss: 0.0016
+79/79 [==============================] - 0s 2ms/step - loss: 0.0017
 Epoch 32/50
-2507/2507 [==============================] - 0s 122us/sample - loss: 0.0015
+79/79 [==============================] - 0s 2ms/step - loss: 0.0019
 Epoch 33/50
-2507/2507 [==============================] - 0s 133us/sample - loss: 0.0014
+79/79 [==============================] - 0s 2ms/step - loss: 0.0017
 Epoch 34/50
-2507/2507 [==============================] - 0s 183us/sample - loss: 0.0015
+79/79 [==============================] - 0s 2ms/step - loss: 0.0018
 Epoch 35/50
-2507/2507 [==============================] - 0s 187us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0016
 Epoch 36/50
-2507/2507 [==============================] - 0s 136us/sample - loss: 0.0014
+79/79 [==============================] - 0s 3ms/step - loss: 0.0016
 Epoch 37/50
-2507/2507 [==============================] - 0s 63us/sample - loss: 0.0013
+79/79 [==============================] - 0s 3ms/step - loss: 0.0015
 Epoch 38/50
-2507/2507 [==============================] - 0s 79us/sample - loss: 0.0013
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 39/50
-2507/2507 [==============================] - 0s 89us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0015
 Epoch 40/50
-2507/2507 [==============================] - 0s 101us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0014
 Epoch 41/50
-2507/2507 [==============================] - 0s 112us/sample - loss: 0.0012
+79/79 [==============================] - 0s 3ms/step - loss: 0.0016
 Epoch 42/50
-2507/2507 [==============================] - 0s 149us/sample - loss: 0.0013
+79/79 [==============================] - 0s 2ms/step - loss: 0.0014
 Epoch 43/50
-2507/2507 [==============================] - 0s 92us/sample - loss: 0.0012
+79/79 [==============================] - 0s 1ms/step - loss: 0.0014
 Epoch 44/50
-2507/2507 [==============================] - 0s 135us/sample - loss: 0.0012
+79/79 [==============================] - 0s 1ms/step - loss: 0.0013
 Epoch 45/50
-2507/2507 [==============================] - 0s 187us/sample - loss: 0.0012
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 Epoch 46/50
-2507/2507 [==============================] - 0s 138us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0014
 Epoch 47/50
-2507/2507 [==============================] - 1s 221us/sample - loss: 0.0010
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 Epoch 48/50
-2507/2507 [==============================] - 0s 188us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0011
 Epoch 49/50
-2507/2507 [==============================] - 0s 160us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 Epoch 50/50
-2507/2507 [==============================] - 0s 156us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fdaf4425690&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7f6dac013910&gt;
 </pre></div>
 </div>
 </div>
@@ -1122,7 +1127,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_31_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_31_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_33_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_33_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1134,14 +1139,14 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.4645987872708732.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.4540379895030553.
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="gated-recurrent-units">
-<h1>Gated Recurrent Units<a class="headerlink" href="#gated-recurrent-units" title="Permalink to this headline">¶</a></h1>
+<h2>Gated Recurrent Units<a class="headerlink" href="#gated-recurrent-units" title="Permalink to this headline">¶</a></h2>
 <p>The GRU unit does not have to use a memory unit to control the flow of information like the LSTM unit. It can directly makes use of the all hidden states without any control. GRUs have fewer parameters and thus may train a bit faster or need less data to generalize. But, with large data, the LSTMs with higher expressiveness may lead to better results. <a class="reference external" href="https://www.kaggle.com/honeysingh/intro-to-recurrent-neural-networks-lstm-gru/notebook">Source</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1150,7 +1155,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_35_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_35_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_37_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_37_0.png" />
 </div>
 </div>
 <p><a class="reference external" href="https://isaacchanghau.github.io/post/lstm-gru-formula/">Source</a></p>
@@ -1211,110 +1216,109 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 2507 samples
-Epoch 1/50
-2507/2507 [==============================] - 1s 308us/sample - loss: 0.0323
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+79/79 [==============================] - 1s 2ms/step - loss: 0.1361
 Epoch 2/50
-2507/2507 [==============================] - 0s 158us/sample - loss: 0.0062
+79/79 [==============================] - 0s 2ms/step - loss: 0.0072
 Epoch 3/50
-2507/2507 [==============================] - 0s 130us/sample - loss: 0.0044
+79/79 [==============================] - 0s 2ms/step - loss: 0.0044
 Epoch 4/50
-2507/2507 [==============================] - 0s 179us/sample - loss: 0.0039
+79/79 [==============================] - 0s 3ms/step - loss: 0.0039
 Epoch 5/50
-2507/2507 [==============================] - 0s 175us/sample - loss: 0.0039
+79/79 [==============================] - 0s 4ms/step - loss: 0.0035
 Epoch 6/50
-2507/2507 [==============================] - 1s 225us/sample - loss: 0.0034
+79/79 [==============================] - 0s 4ms/step - loss: 0.0035
 Epoch 7/50
-2507/2507 [==============================] - 0s 171us/sample - loss: 0.0034
+79/79 [==============================] - 0s 4ms/step - loss: 0.0033
 Epoch 8/50
-2507/2507 [==============================] - 0s 169us/sample - loss: 0.0032
+79/79 [==============================] - 0s 4ms/step - loss: 0.0031
 Epoch 9/50
-2507/2507 [==============================] - 1s 201us/sample - loss: 0.0030
+79/79 [==============================] - 0s 4ms/step - loss: 0.0033
 Epoch 10/50
-2507/2507 [==============================] - 0s 176us/sample - loss: 0.0026
+79/79 [==============================] - 0s 3ms/step - loss: 0.0032
 Epoch 11/50
-2507/2507 [==============================] - 0s 120us/sample - loss: 0.0027
+79/79 [==============================] - 0s 4ms/step - loss: 0.0029
 Epoch 12/50
-2507/2507 [==============================] - 0s 129us/sample - loss: 0.0025
+79/79 [==============================] - 0s 4ms/step - loss: 0.0027
 Epoch 13/50
-2507/2507 [==============================] - 0s 139us/sample - loss: 0.0028
+79/79 [==============================] - 0s 4ms/step - loss: 0.0028
 Epoch 14/50
-2507/2507 [==============================] - 0s 150us/sample - loss: 0.0024
+79/79 [==============================] - 0s 4ms/step - loss: 0.0027
 Epoch 15/50
-2507/2507 [==============================] - 0s 171us/sample - loss: 0.0023
+79/79 [==============================] - 0s 3ms/step - loss: 0.0024
 Epoch 16/50
-2507/2507 [==============================] - 0s 176us/sample - loss: 0.0023
+79/79 [==============================] - 0s 2ms/step - loss: 0.0027
 Epoch 17/50
-2507/2507 [==============================] - 0s 151us/sample - loss: 0.0023
+79/79 [==============================] - 0s 2ms/step - loss: 0.0025
 Epoch 18/50
-2507/2507 [==============================] - 0s 137us/sample - loss: 0.0021
+79/79 [==============================] - 0s 2ms/step - loss: 0.0024
 Epoch 19/50
-2507/2507 [==============================] - 0s 166us/sample - loss: 0.0022
+79/79 [==============================] - 0s 2ms/step - loss: 0.0023
 Epoch 20/50
-2507/2507 [==============================] - 0s 136us/sample - loss: 0.0022
+79/79 [==============================] - 0s 2ms/step - loss: 0.0026
 Epoch 21/50
-2507/2507 [==============================] - 0s 140us/sample - loss: 0.0020
+79/79 [==============================] - 0s 4ms/step - loss: 0.0023
 Epoch 22/50
-2507/2507 [==============================] - 0s 161us/sample - loss: 0.0019
+79/79 [==============================] - 0s 4ms/step - loss: 0.0023
 Epoch 23/50
-2507/2507 [==============================] - 0s 158us/sample - loss: 0.0018
+79/79 [==============================] - 0s 4ms/step - loss: 0.0020
 Epoch 24/50
-2507/2507 [==============================] - 0s 160us/sample - loss: 0.0018
+79/79 [==============================] - 0s 3ms/step - loss: 0.0021
 Epoch 25/50
-2507/2507 [==============================] - 0s 173us/sample - loss: 0.0018
+79/79 [==============================] - 0s 2ms/step - loss: 0.0021
 Epoch 26/50
-2507/2507 [==============================] - 0s 199us/sample - loss: 0.0017
+79/79 [==============================] - 0s 2ms/step - loss: 0.0019
 Epoch 27/50
-2507/2507 [==============================] - 1s 203us/sample - loss: 0.0016
+79/79 [==============================] - 0s 1ms/step - loss: 0.0018
 Epoch 28/50
-2507/2507 [==============================] - 1s 202us/sample - loss: 0.0016
+79/79 [==============================] - 0s 1ms/step - loss: 0.0018
 Epoch 29/50
-2507/2507 [==============================] - 1s 200us/sample - loss: 0.0016
+79/79 [==============================] - 0s 2ms/step - loss: 0.0019
 Epoch 30/50
-2507/2507 [==============================] - 1s 202us/sample - loss: 0.0015
+79/79 [==============================] - 0s 2ms/step - loss: 0.0017
 Epoch 31/50
-2507/2507 [==============================] - 0s 176us/sample - loss: 0.0015
+79/79 [==============================] - 0s 2ms/step - loss: 0.0017
 Epoch 32/50
-2507/2507 [==============================] - 0s 123us/sample - loss: 0.0014
+79/79 [==============================] - 0s 1ms/step - loss: 0.0017
 Epoch 33/50
-2507/2507 [==============================] - 0s 122us/sample - loss: 0.0014
+79/79 [==============================] - 0s 2ms/step - loss: 0.0015
 Epoch 34/50
-2507/2507 [==============================] - 0s 117us/sample - loss: 0.0014
+79/79 [==============================] - 0s 1ms/step - loss: 0.0018
 Epoch 35/50
-2507/2507 [==============================] - 0s 170us/sample - loss: 0.0014
+79/79 [==============================] - 0s 2ms/step - loss: 0.0015
 Epoch 36/50
-2507/2507 [==============================] - 0s 168us/sample - loss: 0.0012
+79/79 [==============================] - 0s 2ms/step - loss: 0.0015
 Epoch 37/50
-2507/2507 [==============================] - 1s 216us/sample - loss: 0.0013
+79/79 [==============================] - 0s 1ms/step - loss: 0.0016
 Epoch 38/50
-2507/2507 [==============================] - 0s 110us/sample - loss: 0.0012
+79/79 [==============================] - 0s 1ms/step - loss: 0.0015
 Epoch 39/50
-2507/2507 [==============================] - 0s 145us/sample - loss: 0.0012
+79/79 [==============================] - 0s 1ms/step - loss: 0.0013
 Epoch 40/50
-2507/2507 [==============================] - 0s 123us/sample - loss: 0.0012
+79/79 [==============================] - 0s 2ms/step - loss: 0.0014
 Epoch 41/50
-2507/2507 [==============================] - 0s 110us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0013
 Epoch 42/50
-2507/2507 [==============================] - 0s 173us/sample - loss: 0.0012
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 Epoch 43/50
-2507/2507 [==============================] - 0s 172us/sample - loss: 0.0011
+79/79 [==============================] - 0s 1ms/step - loss: 0.0013
 Epoch 44/50
-2507/2507 [==============================] - 0s 182us/sample - loss: 0.0011
+79/79 [==============================] - 0s 1ms/step - loss: 0.0012
 Epoch 45/50
-2507/2507 [==============================] - 0s 168us/sample - loss: 0.0012
+79/79 [==============================] - 0s 1ms/step - loss: 0.0013
 Epoch 46/50
-2507/2507 [==============================] - 0s 160us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0011
 Epoch 47/50
-2507/2507 [==============================] - 0s 160us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0012
 Epoch 48/50
-2507/2507 [==============================] - 0s 163us/sample - loss: 0.0011
+79/79 [==============================] - 0s 2ms/step - loss: 0.0011
 Epoch 49/50
-2507/2507 [==============================] - 0s 159us/sample - loss: 0.0010
+79/79 [==============================] - 0s 2ms/step - loss: 0.0011
 Epoch 50/50
-2507/2507 [==============================] - 0s 178us/sample - loss: 9.9624e-04
+79/79 [==============================] - 0s 2ms/step - loss: 0.0010
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fdad0731c10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7f6d60752bd0&gt;
 </pre></div>
 </div>
 </div>
@@ -1342,7 +1346,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.02 - Long Short Term Memory RNN_44_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_44_0.png" />
+<img alt="../_images/U5.02 - Long Short Term Memory RNN_46_0.png" src="../_images/U5.02 - Long Short Term Memory RNN_46_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1354,7 +1358,7 @@ Epoch 50/50
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.4645987872708732.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root mean squared error is 0.4540379895030553.
 </pre></div>
 </div>
 </div>
@@ -1363,6 +1367,7 @@ Epoch 50/50
 <ul class="simple">
 <li><p>Understanding LSTM Networks. http://colah.github.io/posts/2015-08-Understanding-LSTMs/</p></li>
 </ul>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1387,14 +1392,14 @@ Epoch 50/50
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="U5.01%20-%20Recurrent%20Neural%20Networks.html" title="previous page">5.1 Recurrent Neural Networks</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

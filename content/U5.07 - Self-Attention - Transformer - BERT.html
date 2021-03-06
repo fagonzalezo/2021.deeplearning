@@ -342,11 +342,6 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="#bert-bidirectional-encoder-representations-from-transformers">
-     BERT (Bidirectional Encoder Representations from Transformers)
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="U5.08%20-%20CNN-LSTM%20architectures.html">
      5.8  CNN-LSTM architectures
     </a>
@@ -441,26 +436,19 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   5.7 Transformer
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#self-attention">
+   Self-attention
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#self-attention">
-     Self-attention
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-sentiment-analysis-using-a-transformer-block">
-     Example: Sentiment analysis using a transformer block
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bert-bidirectional-encoder-representations-from-transformers">
-   BERT (Bidirectional Encoder Representations from Transformers)
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-sentiment-analysis-using-a-transformer-block">
+   Example: Sentiment analysis using a transformer block
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bert">
+   BERT
   </a>
  </li>
 </ul>
@@ -740,9 +728,9 @@ Epoch 3/3
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="bert-bidirectional-encoder-representations-from-transformers">
-<h1>BERT (Bidirectional Encoder Representations from Transformers)<a class="headerlink" href="#bert-bidirectional-encoder-representations-from-transformers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="bert">
+<h2>BERT<a class="headerlink" href="#bert" title="Permalink to this headline">¶</a></h2>
+<p>Bidirectional Encoder Representations from Transformers</p>
 <p>BERT’s key technical innovation is applying the bidirectional training of Transformer <a class="reference external" href="https://arxiv.org/pdf/1810.04805.pdf">BERT</a>. The paper’s results show that a language model which is bidirectionally trained can have a deeper sense of language context and flow than single-direction language models.</p>
 <p>The algorithm proposed by the authors is called <strong>“masked  language  model”  (MLM)</strong> and uses only the encoder part of the transformer. In order to train a deep bidirectional representation, MLM simply mask some percentage of the input tokens at random, and then predict those masked tokens.</p>
 <div class="cell docutils container">
@@ -768,6 +756,7 @@ Epoch 3/3
 <li><p><a class="reference external" href="https://towardsdatascience.com/a-review-of-bert-based-models-4ffdc0f15d58">A review of BERT based models</a></p></li>
 </ul>
 </div></div>
+</div>
 
     <script type="text/x-thebe-config">
     {

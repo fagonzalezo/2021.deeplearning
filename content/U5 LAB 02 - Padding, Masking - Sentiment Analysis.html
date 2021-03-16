@@ -54,7 +54,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="LAB 5.1 - Multivariate time series prediction" href="U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html" />
+    <link rel="prev" title="LAB 5.1 - Time series prediction" href="U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -360,7 +360,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html">
-     LAB 5.1 - Multivariate time series prediction
+     LAB 5.1 - Time series prediction
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -740,7 +740,8 @@
 <p><strong>Note</strong>: Take care on the tokenization of the words. Keras tokenizer does not assign the zero value to any word because of padding purposes. Make sure that the order of the vectors in the GloVe embedding matrix corresponds with the indexes in the dictionary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gensim.downloader</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Run this cell to get the pre-trained word embedding vectors</span>
+<span class="kn">import</span> <span class="nn">gensim.downloader</span>
 <span class="n">glove_vectors</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">downloader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;glove-twitter-50&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -748,7 +749,8 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Run this cell to provide the grader with the word embedding vectors</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;GloVe.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">glove_vectors</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>
 </pre></div>
@@ -897,7 +899,7 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html" title="previous page">LAB 5.1 - Multivariate time series prediction</a>
+    <a class='left-prev' id="prev-link" href="U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html" title="previous page">LAB 5.1 - Time series prediction</a>
 
         </div>
         

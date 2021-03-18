@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4.8 - Image segmentation &#8212; Fundamentos de Deep Learning</title>
+    <title>4.8 - UNet Image segmentation &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -54,7 +54,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LAB 4.1 - Convolutions" href="U4%20LAB%2001%20-%20Convolutions.html" />
+    <link rel="next" title="4.9 - Atrous convolutions" href="U4.09%20-%20Atrous%20convolutions.html" />
     <link rel="prev" title="4.7 - Transposed convolutions" href="U4.07%20-%20Transposed%20convolutions.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -287,7 +287,12 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.8 - Image segmentation
+     4.8 - UNet Image segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4.09%20-%20Atrous%20convolutions.html">
+     4.9 - Atrous convolutions
     </a>
    </li>
    <li class="toctree-l2">
@@ -418,7 +423,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/U4.08 - Image segmentation.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/U4.08 - UNet image segmentation.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -445,7 +450,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.08 - Image segmentation.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U4.08 - UNet image segmentation.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -471,7 +476,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#image-segmentation">
    Image Segmentation
   </a>
  </li>
@@ -524,8 +529,8 @@
         
               <div>
                 
-  <div class="section" id="image-segmentation">
-<h1>4.8 - Image segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="unet-image-segmentation">
+<h1>4.8 - UNet Image segmentation<a class="headerlink" href="#unet-image-segmentation" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
@@ -534,6 +539,15 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>https://neptune.ai/blog/image-segmentation-in-2020</p></li>
+<li><p>https://naokishibuya.medium.com/up-sampling-with-transposed-convolution-9ae4f2df52d0</p></li>
+<li><p>https://nanonets.com/blog/semantic-image-segmentation-2020/</p></li>
+<li><p>https://debuggercafe.com/introduction-to-image-segmentation-in-deep-learning/</p></li>
+<li><p>https://github.com/facebookresearch/detectron2</p></li>
+<li><p>https://towardsdatascience.com/types-of-convolutions-in-deep-learning-717013397f4d</p></li>
+<li><p>https://beerensahu.wordpress.com/2019/02/07/explained-deeplab-for-semantic-segmentation/</p></li>
+</ul>
 <div class="section" id="use-gpu-runtime">
 <h2>Use GPU runtime!!!<a class="headerlink" href="#use-gpu-runtime" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -566,8 +580,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>Image Segmentation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="image-segmentation">
+<h2>Image Segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this headline">¶</a></h2>
 <p>This notebook is adapted from this Keras Competition: <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">Data Science Bowl 2018</a></p>
 <p><a class="reference external" href="https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook">https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook</a></p>
 <p>From the competition <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018/data">Data Section</a> download the file <code class="docutils literal notranslate"><span class="pre">stage1_train.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">stage1_test.zip</span></code>, unzip them, make it available somewhere in the file system and update the <code class="docutils literal notranslate"><span class="pre">TRAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">TEST_PATH</span></code> variables accordingly below.</p>
@@ -781,7 +795,7 @@ kaggle competitions download data-science-bowl-2018 -f stage1_test.zip
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.08 - Image segmentation_18_0.png" src="../_images/U4.08 - Image segmentation_18_0.png" />
+<img alt="../_images/U4.08 - UNet image segmentation_21_0.png" src="../_images/U4.08 - UNet image segmentation_21_0.png" />
 </div>
 </div>
 <p>Seems good!</p>
@@ -1185,7 +1199,7 @@ Epoch 00028: early stopping
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.08 - Image segmentation_31_0.png" src="../_images/U4.08 - Image segmentation_31_0.png" />
+<img alt="../_images/U4.08 - UNet image segmentation_34_0.png" src="../_images/U4.08 - UNet image segmentation_34_0.png" />
 </div>
 </div>
 </div>
@@ -1205,7 +1219,7 @@ Epoch 00028: early stopping
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.08 - Image segmentation_33_0.png" src="../_images/U4.08 - Image segmentation_33_0.png" />
+<img alt="../_images/U4.08 - UNet image segmentation_36_0.png" src="../_images/U4.08 - UNet image segmentation_36_0.png" />
 </div>
 </div>
 </div>
@@ -1237,7 +1251,7 @@ Epoch 00028: early stopping
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="U4.07%20-%20Transposed%20convolutions.html" title="previous page">4.7 - Transposed convolutions</a>
-    <a class='right-next' id="next-link" href="U4%20LAB%2001%20-%20Convolutions.html" title="next page">LAB 4.1 - Convolutions</a>
+    <a class='right-next' id="next-link" href="U4.09%20-%20Atrous%20convolutions.html" title="next page">4.9 - Atrous convolutions</a>
 
         </div>
         

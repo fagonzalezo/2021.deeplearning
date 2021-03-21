@@ -287,7 +287,10 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="U4.08%20-%20UNet%20image%20segmentation.html">
-     4.8 - UNet Image segmentation
+     <strong>
+      4.8
+     </strong>
+     - UNet Image segmentation
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -308,6 +311,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="U4%20LAB%2003%20-%20Object%20Detection.html">
      LAB 4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U4%20LAB%2004%20-%20Semantic%20segmentation.html">
+     LAB 4.4 - Semantic segmentation
     </a>
    </li>
   </ul>
@@ -504,9 +512,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">load_ext</span> tensorboard
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">dilate</span><span class="p">(</span><span class="n">simg</span><span class="p">):</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">simg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -519,8 +525,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
-  %reload_ext tensorboard
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.4.1
 </pre></div>
 </div>
 </div>
@@ -532,6 +537,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[[</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">8</span><span class="p">],[</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]]]</span>
 </pre></div>
 </div>
 </div>
@@ -546,12 +552,12 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>filter
- [[1 2]
- [3 4]]
+ [[10 -8]
+ [15 -2]]
 dilated filter
- [[1 0 2]
- [0 0 0]
- [3 0 4]]
+ [[10  0 -8]
+ [ 0  0  0]
+ [15  0 -2]]
 </pre></div>
 </div>
 </div>
@@ -567,9 +573,9 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[49., 77., 78.],
-       [50., 66., 58.],
-       [53., 61., 67.]], dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ -1.,  90., 128.],
+       [-21.,  94.,  98.],
+       [ 62.,  73., 117.]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -585,8 +591,8 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[53., 53.],
-       [63., 71.]], dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9., 76.],
+       [22., 75.]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -599,7 +605,7 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>49.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.0
 </pre></div>
 </div>
 </div>
@@ -611,7 +617,7 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>53.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.0
 </pre></div>
 </div>
 </div>
@@ -627,8 +633,23 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[53., 53.],
-       [63., 71.]], dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9., 76.],
+       [22., 75.]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4., 5., 8., 7.],
+       [1., 8., 8., 8.],
+       [3., 6., 6., 4.],
+       [6., 5., 7., 8.]], dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -658,7 +679,7 @@ dilated filter
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U4.09 - Atrous convolutions_17_0.png" src="../_images/U4.09 - Atrous convolutions_17_0.png" />
+<img alt="../_images/U4.09 - Atrous convolutions_18_0.png" src="../_images/U4.09 - Atrous convolutions_18_0.png" />
 </div>
 </div>
 <p>observe the regular convolution at the original resolution</p>
@@ -683,7 +704,7 @@ dilated filter
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;conv filter 1&#39;)
 </pre></div>
 </div>
-<img alt="../_images/U4.09 - Atrous convolutions_19_2.png" src="../_images/U4.09 - Atrous convolutions_19_2.png" />
+<img alt="../_images/U4.09 - Atrous convolutions_20_2.png" src="../_images/U4.09 - Atrous convolutions_20_2.png" />
 </div>
 </div>
 <p>now a dilated convolution, think of applying the same filter at a lower resolution while keeping details</p>
@@ -711,11 +732,11 @@ dilated filter
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;conv filter 1&#39;)
 </pre></div>
 </div>
-<img alt="../_images/U4.09 - Atrous convolutions_21_2.png" src="../_images/U4.09 - Atrous convolutions_21_2.png" />
+<img alt="../_images/U4.09 - Atrous convolutions_22_2.png" src="../_images/U4.09 - Atrous convolutions_22_2.png" />
 </div>
 </div>
 <p>now we actually resize the image <strong>and THEN</strong> apply the original filter (with no dilution), so that the final resolution is the same</p>
-<p>observe how the dilated convolutions tries to keep sharper details of the original image</p>
+<p>However, observe how the previous dilated convolutions tries to keep sharper details of the original image</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
@@ -753,7 +774,7 @@ dilated filter
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;conv filter 1&#39;)
 </pre></div>
 </div>
-<img alt="../_images/U4.09 - Atrous convolutions_24_2.png" src="../_images/U4.09 - Atrous convolutions_24_2.png" />
+<img alt="../_images/U4.09 - Atrous convolutions_25_2.png" src="../_images/U4.09 - Atrous convolutions_25_2.png" />
 </div>
 </div>
 </div>
@@ -784,7 +805,7 @@ dilated filter
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="U4.08%20-%20UNet%20image%20segmentation.html" title="previous page">4.8 - UNet Image segmentation</a>
+    <a class='left-prev' id="prev-link" href="U4.08%20-%20UNet%20image%20segmentation.html" title="previous page"><strong>4.8</strong> - UNet Image segmentation</a>
     <a class='right-next' id="next-link" href="U4%20LAB%2001%20-%20Convolutions.html" title="next page">LAB 4.1 - Convolutions</a>
 
         </div>

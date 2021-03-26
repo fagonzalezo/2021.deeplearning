@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LAB 2.3 - Pairwise classification &#8212; Fundamentos de Deep Learning</title>
+    <title>&lt;no title&gt; &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -92,7 +92,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="M00.html">
    Información 20211 - UdeA
@@ -127,11 +127,11 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
+ <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="M02.html">
    02 - NEURAL NETWORKS
   </a>
-  <ul class="current collapse-ul">
+  <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="U2.01%20-%20The%20Perceptron.html">
      2.1 - The Perceptron
@@ -180,11 +180,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="U2%20LAB%2002%20-%20Autoencoders.html">
      LAB 2.2 - Sparse Autoencoders
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     LAB 2.3 - Pairwise classification
     </a>
    </li>
    <li class="toctree-l2">
@@ -387,6 +382,11 @@
      LAB 5.2 - Padding - Masking
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="U5%20LAB%2003%20-%20Sentiment%20Analysis%20using%20BERT.html">
+     LAB 5.3 - Transformer - BERT
+    </a>
+   </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
@@ -451,22 +451,6 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/rramosp/2021.deeplearning/blob/master/content/U2 LAB 03 - Pairwise image classification.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
@@ -477,22 +461,7 @@
             Contents
         </div>
         <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lab-summary">
-   LAB SUMMARY
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#task-1-multi-input-model">
-   TASK 1: Multi-input model
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#task-2-measure-per-class-accuracy">
-   TASK 2: Measure per-class accuracy
-  </a>
- </li>
+            <ul class="simple nav section-nav flex-column">
 </ul>
 
         </nav>
@@ -505,480 +474,7 @@
         
               <div>
                 
-  <div class="section" id="lab-2-3-pairwise-classification">
-<h1>LAB 2.3 - Pairwise classification<a class="headerlink" href="#lab-2-3-pairwise-classification" title="Permalink to this headline">¶</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
-<span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="n">init</span><span class="o">.</span><span class="n">get_weblink</span><span class="p">()</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.03&quot;</span> <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="lab-summary">
-<h2>LAB SUMMARY<a class="headerlink" href="#lab-summary" title="Permalink to this headline">¶</a></h2>
-<p>In this lab we will use define a <strong>slightly different</strong> machine learning task. Given two MNIST images <strong>as input</strong> we want a network with a binary output: <code class="docutils literal notranslate"><span class="pre">1</span></code> if both images belong to the same MNIST class, and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;local/data/mnist1.5k.csv.gz&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X</span><span class="o">=</span><span class="p">(</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">785</span><span class="p">]</span><span class="o">/</span><span class="mf">255.</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="n">mnist</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dimension de las imagenes y las clases&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xtr</span><span class="p">,</span> <span class="n">Xts</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">yts</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">Xtr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">ytr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Xts</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">yts</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>FIRST</strong>, observe how we build a labelled dataset for this task, so that each training example has:</p>
-<ul class="simple">
-<li><p>two images selected randomly from the original dataset</p></li>
-<li><p>label <code class="docutils literal notranslate"><span class="pre">0</span></code> if they belong to the same class, or <code class="docutils literal notranslate"><span class="pre">1</span></code> otherwise</p></li>
-</ul>
-<p>This way, the resulting data structures</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pXtr</span></code> and <code class="docutils literal notranslate"><span class="pre">pXts</span></code> contain the paired images, for train and for test</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pytr</span></code> and <code class="docutils literal notranslate"><span class="pre">pyts</span></code> contain the labels of the corresponding paired images, for train and for test</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eytr</span></code> and <code class="docutils literal notranslate"><span class="pre">eyts</span></code> contain the <code class="docutils literal notranslate"><span class="pre">0</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code> new labels, one for each pair.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pairup</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_pairs_per_class</span><span class="p">,</span> <span class="n">same_class</span><span class="p">):</span>
-    
-    <span class="n">idxs</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
-        <span class="n">idxs_p1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">same_class</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y</span><span class="o">!=</span><span class="n">i</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">idxs_p2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">idxs_p1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_pairs_per_class</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">idxs_p2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_pairs_per_class</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="p">])</span><span class="o">.</span><span class="n">T</span>
-        
-        <span class="n">idxs</span> <span class="o">=</span> <span class="n">c</span> <span class="k">if</span> <span class="n">idxs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">idxs</span><span class="p">,</span><span class="n">c</span><span class="p">))</span>
-        
-    <span class="n">X_pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]],</span><span class="n">X</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]]</span>
-    <span class="n">y_pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]],</span><span class="n">y</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]]</span>
-    <span class="n">y_labels</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]]</span><span class="o">==</span><span class="n">y</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]]</span>        
-        
-    <span class="k">return</span> <span class="n">idxs</span><span class="p">,</span> <span class="n">X_pairs</span><span class="p">,</span> <span class="n">y_pairs</span><span class="p">,</span> <span class="n">y_labels</span>
-
-<span class="k">def</span> <span class="nf">build_image_pairs</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">n_pairs_per_class</span><span class="p">):</span>
-    <span class="n">idxs0</span><span class="p">,</span> <span class="n">pX0</span><span class="p">,</span> <span class="n">py0</span><span class="p">,</span> <span class="n">ey0</span> <span class="o">=</span> <span class="n">pairup</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_pairs_per_class</span><span class="p">,</span> <span class="n">same_class</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">idxs1</span><span class="p">,</span> <span class="n">pX1</span><span class="p">,</span> <span class="n">py1</span><span class="p">,</span> <span class="n">ey1</span> <span class="o">=</span> <span class="n">pairup</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_pairs_per_class</span><span class="p">,</span> <span class="n">same_class</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
-    <span class="n">pX</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pX0</span><span class="p">,</span> <span class="n">pX1</span><span class="p">)]</span>
-    <span class="n">py</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">py0</span><span class="p">,</span> <span class="n">py1</span><span class="p">)]</span>
-    <span class="n">ey</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ey0</span><span class="p">,</span> <span class="n">ey1</span><span class="p">))</span>
-    <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">idxs0</span><span class="p">,</span> <span class="n">idxs1</span><span class="p">))</span>
-    
-    <span class="k">return</span> <span class="n">idxs</span><span class="p">,</span> <span class="n">pX</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">ey</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">itr</span><span class="p">,</span> <span class="n">pXtr</span><span class="p">,</span> <span class="n">pytr</span><span class="p">,</span> <span class="n">eytr</span> <span class="o">=</span> <span class="n">build_image_pairs</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">n_pairs_per_class</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">its</span><span class="p">,</span> <span class="n">pXts</span><span class="p">,</span> <span class="n">pyts</span><span class="p">,</span> <span class="n">eyts</span> <span class="o">=</span> <span class="n">build_image_pairs</span><span class="p">(</span><span class="n">Xts</span><span class="p">,</span> <span class="n">yts</span><span class="p">,</span> <span class="n">n_pairs_per_class</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>understand and inspect the structures created and observe how the function above creates a <strong>balanced</strong> dataset</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pXtr</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pytr</span><span class="p">],</span> <span class="n">itr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">eytr</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([(2000, 784), (2000, 784)], [(2000,), (2000,)], (2000, 2), (2000,))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pXts</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pyts</span><span class="p">],</span> <span class="n">its</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">eyts</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([(2000, 784), (2000, 784)], [(2000,), (2000,)], (2000, 2), (2000,))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;class distribution </span><span class="si">%.2f</span><span class="s2">::</span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">eytr</span><span class="p">),</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">eytr</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class distribution 0.50::0.50
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pXtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pXtr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span> 
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;CLASS </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">eytr</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;pair_0 :     </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pytr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]));</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([],[]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([],[])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pXtr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span> 
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;pair_1 :     </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">pytr</span>[1][i]); plt.xticks([],[]); plt.yticks([],[])
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_14_0.png" src="../_images/U2 LAB 03 - Pairwise image classification_14_0.png" />
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_14_1.png" src="../_images/U2 LAB 03 - Pairwise image classification_14_1.png" />
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_14_2.png" src="../_images/U2 LAB 03 - Pairwise image classification_14_2.png" />
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_14_3.png" src="../_images/U2 LAB 03 - Pairwise image classification_14_3.png" />
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_14_4.png" src="../_images/U2 LAB 03 - Pairwise image classification_14_4.png" />
-</div>
-</div>
-</div>
-<div class="section" id="task-1-multi-input-model">
-<h2>TASK 1: Multi-input model<a class="headerlink" href="#task-1-multi-input-model" title="Permalink to this headline">¶</a></h2>
-<p>Create a model with the architecture depicted in the following figure.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/twoinputs.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 03 - Pairwise image classification_16_0.png" src="../_images/U2 LAB 03 - Pairwise image classification_16_0.png" />
-</div>
-</div>
-<p>Observe that</p>
-<ul class="simple">
-<li><p>it will have <strong>TWO</strong> input layers with <code class="docutils literal notranslate"><span class="pre">input_dim=784</span></code> neurons each.</p></li>
-<li><p>there is ony <strong>ONE</strong> output neuron.</p></li>
-<li><p>the model summary should be as follows and <strong>MUST NAME THE LAYERS ACCORDINGLY</strong> (but not the <code class="docutils literal notranslate"><span class="pre">tf.concat</span></code> which is just an operation, not a layer):</p></li>
-</ul>
-<pre>
-
-    __________________________________________________________________________________________________
-    Layer (type)                    Output Shape         Param #     Connected to                     
-    ==================================================================================================
-    input_img0 (InputLayer)         [(None, 784)]        0                                            
-    __________________________________________________________________________________________________
-    input_img1 (InputLayer)         [(None, 784)]        0                                            
-    __________________________________________________________________________________________________
-    layer1_img0 (Dense)             (None, 100)          78500       input_img0[0][0]                 
-    __________________________________________________________________________________________________
-    layer1_img1 (Dense)             (None, 100)          78500       input_img1[0][0]                 
-    __________________________________________________________________________________________________
-    tf_op_layer_concat_39 (TensorFl [(None, 200)]        0           layer1_img0[0][0]                
-                                                                     layer1_img1[0][0]                
-    __________________________________________________________________________________________________
-    layer2_common (Dense)           (None, 100)          20100       tf_op_layer_concat_39[0][0]      
-    __________________________________________________________________________________________________
-    output (Dense)                  (None, 1)            101         layer2_common[0][0]              
-    ==================================================================================================
-    Total params: 177,201
-    Trainable params: 177,201
-    Non-trainable params: 0
-    __________________________________________________________________________________________________
-</pre><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">):</span>
-    
-    <span class="n">inputs1</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_img0&quot;</span><span class="p">)</span>
-    <span class="n">inputs2</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_img1&quot;</span><span class="p">)</span>
-    
-    <span class="o">...</span>
-    
-    <span class="n">outputs</span> <span class="o">=</span> <span class="o">...</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">inputs1</span><span class="p">,</span> <span class="n">inputs2</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>    
-    
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Registra tu solución en linea</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T1&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>test your model</strong></p>
-<p>now we can test your model</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">pXtr</span><span class="p">,</span> <span class="n">eytr</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_ts</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pXts</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">preds_tr</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pXtr</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;accuracy in train data </span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">preds_tr</span><span class="o">==</span><span class="n">eytr</span><span class="p">)))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;accuracy in test data  </span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">preds_ts</span><span class="o">==</span><span class="n">eyts</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>inspect TEST predictions. Do you see any class getting more confused with others?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pXts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pXts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;PREDICTION </span><span class="si">%d</span><span class="se">\n</span><span class="s2">TARGET </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">preds_ts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">eyts</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pXts</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="task-2-measure-per-class-accuracy">
-<h2>TASK 2: Measure per-class accuracy<a class="headerlink" href="#task-2-measure-per-class-accuracy" title="Permalink to this headline">¶</a></h2>
-<p>For each class we want to measure what is the prediction accuracy for the binary task when it participates in a pair. Observe how we gather the labels of each pair together with the binary prediction and the true value.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">pyts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pyts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eyts</span><span class="p">,</span> <span class="n">preds_ts</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pair_0&quot;</span><span class="p">,</span> <span class="s2">&quot;pair_1&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;pred&quot;</span><span class="p">])</span>
-<span class="n">ts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>pair_0</th>
-      <th>pair_1</th>
-      <th>true</th>
-      <th>pred</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>8</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>of course, the <code class="docutils literal notranslate"><span class="pre">true</span></code> value coincides with <code class="docutils literal notranslate"><span class="pre">pair_0</span></code> being equal or different from <code class="docutils literal notranslate"><span class="pre">pair_1</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">ts</span><span class="o">.</span><span class="n">pair_0</span><span class="o">==</span><span class="n">ts</span><span class="o">.</span><span class="n">pair_1</span><span class="p">)</span><span class="o">==</span><span class="n">ts</span><span class="o">.</span><span class="n">true</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>To compute, per-class accuracy in this task, for instance for class 2:</p>
-<ul class="simple">
-<li><p>select the rows where <code class="docutils literal notranslate"><span class="pre">pair_0</span></code> or <code class="docutils literal notranslate"><span class="pre">pair_1</span></code> is 2</p></li>
-<li><p>measure the percentage of time in the selected rows where <code class="docutils literal notranslate"><span class="pre">true==pred</span></code></p></li>
-</ul>
-<p>for instance, for the following DataFrame</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        pair_0  pair_1  true  pred
-    0        0       0     1     1
-    1        0       0     1     1
-    2        0       0     1     1
-    3        2       2     1     1
-    4        1       1     1     1
-    5        0       2     0     0
-    6        2       2     1     0
-    7        2       2     1     1
-    8        2       2     1     1
-    9        1       1     1     1
-    10       1       1     1     1
-    11       1       1     1     1
-    12       2       2     1     1
-    13       0       2     0     1
-    14       2       2     1     1
-    15       0       0     1     1
-    16       2       2     1     1
-    17       1       1     1     0
-    18       1       1     1     1
-    19       1       1     1     1
-</pre></div>
-</div>
-<p>you must return this accuracies:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    {0: 0.8333333333333334, 1: 0.8571428571428571, 2: 0.7777777777777778}
-</pre></div>
-</div>
-<p>the accuracies must be returned as a dictionary such as above. They keys are the original class labels, and the values the accuracy just described.</p>
-<p>The accuracies must be correct up to 3 decimal values.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">perclass_bin_accuracy</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
-        
-    <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">pair_0</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">ts</span><span class="o">.</span><span class="n">pair_1</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
-        <span class="o">...</span>
-        <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># your code here</span>
-
-    <span class="k">return</span> <span class="n">r</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>test your code with the example above</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> 
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pair_0&quot;</span><span class="p">,</span> <span class="s2">&quot;pair_1&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;pred&quot;</span><span class="p">])</span>
-<span class="n">perclass_bin_accuracy</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>test your code with other random examples</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">n_classes</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span>
-<span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-<span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-<span class="n">dtrue</span> <span class="o">=</span> <span class="p">(</span><span class="n">p0</span><span class="o">==</span><span class="n">p1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-<span class="n">td</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">dtrue</span><span class="p">,</span><span class="n">preds</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pair_0&quot;</span><span class="p">,</span> <span class="s2">&quot;pair_1&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;pred&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-
-<span class="n">td</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">perclass_bin_accuracy</span><span class="p">(</span><span class="n">td</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Registra tu solución en linea</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T2&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
+  
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -988,16 +484,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "p38"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "p38",
+            kernelName: "python3",
             path: "./content"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'p38'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

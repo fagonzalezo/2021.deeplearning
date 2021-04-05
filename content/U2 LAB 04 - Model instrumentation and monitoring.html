@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 2.4 - Model instrumentation &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -525,7 +526,7 @@
         
               <div>
                 
-  <div class="section" id="lab-2-4-model-instrumentation">
+  <section id="lab-2-4-model-instrumentation">
 <h1>LAB 2.4 - Model instrumentation<a class="headerlink" href="#lab-2-4-model-instrumentation" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -558,12 +559,12 @@
 </div>
 </div>
 </div>
-<div class="section" id="lab-summary">
+<section id="lab-summary">
 <h2>LAB SUMMARY<a class="headerlink" href="#lab-summary" title="Permalink to this headline">¶</a></h2>
 <p>In this lab you will be implementing Tensorflow Callbacks that will be invoked at different stages when a model gets trained.</p>
 <p>Read carefully the following tutorial: <a class="reference external" href="https://www.tensorflow.org/guide/keras/custom_callback">https://www.tensorflow.org/guide/keras/custom_callback</a></p>
-</div>
-<div class="section" id="load-sample-mnist-data-as-customary">
+</section>
+<section id="load-sample-mnist-data-as-customary">
 <h2>load sample MNIST data as customary<a class="headerlink" href="#load-sample-mnist-data-as-customary" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -597,8 +598,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="a-basic-multi-layered-dense-model">
+</section>
+<section id="a-basic-multi-layered-dense-model">
 <h2>A basic multi layered dense model<a class="headerlink" href="#a-basic-multi-layered-dense-model" title="Permalink to this headline">¶</a></h2>
 <p>observe that the function allows us to parametrize the number of hidden layers and their activation function</p>
 <div class="cell docutils container">
@@ -619,8 +620,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-1-weights-monitoring-callback">
+</section>
+<section id="task-1-weights-monitoring-callback">
 <h2>TASK 1: Weights monitoring callback<a class="headerlink" href="#task-1-weights-monitoring-callback" title="Permalink to this headline">¶</a></h2>
 <p>Create a callback that:</p>
 <ul class="simple">
@@ -718,8 +719,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2-activations-monitoring-callback">
+</section>
+<section id="task-2-activations-monitoring-callback">
 <h2>TASK 2: Activations monitoring callback<a class="headerlink" href="#task-2-activations-monitoring-callback" title="Permalink to this headline">¶</a></h2>
 <p>observe how, given a model and a certain input, we can get the activations at different layers in a very straight forward manner. If we do this before training (<code class="docutils literal notranslate"><span class="pre">.fit</span></code>) it is also ok, the model will simply use the initial random weights.</p>
 <div class="cell docutils container">
@@ -842,8 +843,8 @@
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

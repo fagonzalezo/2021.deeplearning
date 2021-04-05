@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 5.2 - Padding - Masking &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -546,7 +547,7 @@
         
               <div>
                 
-  <div class="section" id="lab-5-2-padding-masking">
+  <section id="lab-5-2-padding-masking">
 <h1>LAB 5.2 - Padding - Masking<a class="headerlink" href="#lab-5-2-padding-masking" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -587,7 +588,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="the-aim-of-this-lab-is-to-build-a-system-for-sentiment-analysis-on-a-dataset-of-tweets">
+<section id="the-aim-of-this-lab-is-to-build-a-system-for-sentiment-analysis-on-a-dataset-of-tweets">
 <h2>The aim of this lab is to build a system for sentiment analysis on a dataset of tweets.<a class="headerlink" href="#the-aim-of-this-lab-is-to-build-a-system-for-sentiment-analysis-on-a-dataset-of-tweets" title="Permalink to this headline">¶</a></h2>
 <p>The data consist on passenger’s reviews of U.S. airlines: https://www.kaggle.com/crowdflower/twitter-airline-sentiment</p>
 <div class="cell docutils container">
@@ -658,8 +659,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-1">
+</section>
+<section id="task-1">
 <h2>Task 1<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h2>
 <p>all_words is a list with all the tweets that are going to be used to train the model. Create a function ‘get_preprocessed_seq’ that build and apply a Tokenizer to the a list like all_words. Tokenizer must define a dictionary of 2000 words (remeber that position 0 is reserved). Once the sentences are tokenized, take into account that the length of every tweet is different so before they can be passed to the training step, the tweets must be <strong>padded</strong> in order to provide them with equal length. The function ‘get_preprocessed_seq’ must return the Tokenizer object and the padded dataset.</p>
 <p>Review the <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/sequence/pad_sequences">padding function</a> in the preprocessing module of keras.</p>
@@ -680,8 +681,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2">
+</section>
+<section id="task-2">
 <h2>Task 2<a class="headerlink" href="#task-2" title="Permalink to this headline">¶</a></h2>
 <p>The previous step add 0’s to some tweets in order to set them with the same length. Now it is necessary to define a model that be able to discard those 0’s. Review the masking layer and masking option of the embedding layer of keras. Take a look to the TensorFlow <a class="reference external" href="https://www.tensorflow.org/guide/keras/masking_and_padding">documentation</a>.</p>
 <p>Create a function to define a RNN architecture for the sentiment analysis problem. Use the Embedding layer and its masking option to discard the 0’s added during padding step. The architecture must consist of a RNN layer with a ‘cells_number’ of neurons, a dense hidden layer of 10 neurons and the output layer. Include a Dropout layer in between the dense layers with a drop rate of 0.3 . The type of RNN layer must be defined through a ‘layer_type’ parameter; the embedding dimension must also be set as an input parameter.</p>
@@ -702,7 +703,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="let-s-test-the-model">
+<section id="let-s-test-the-model">
 <h3>Let’s test the model:<a class="headerlink" href="#let-s-test-the-model" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 1 and 2.</p>
 <div class="cell docutils container">
@@ -761,9 +762,9 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="task-3">
+</section>
+</section>
+<section id="task-3">
 <h2>Task 3<a class="headerlink" href="#task-3" title="Permalink to this headline">¶</a></h2>
 <p>Create a similar architecture to that of task 2, but in this case use global vectors (GloVe) from gensim library to set the Embedding weights. Set the Embedding layer as non trainable. If there is any missing word in the pre-trained GloVes, you can use the token ‘unk’ instead.</p>
 <p><strong>Note</strong>: Take care on the tokenization of the words. Keras tokenizer does not assign the zero value to any word because of padding purposes. Make sure that the order of the vectors in the GloVe embedding matrix corresponds with the indexes in the dictionary.</p>
@@ -803,7 +804,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Let’s test the model:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 2 and 3.</p>
 <div class="cell docutils container">
@@ -840,9 +841,9 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="task-4">
+</section>
+</section>
+<section id="task-4">
 <h2>Task 4<a class="headerlink" href="#task-4" title="Permalink to this headline">¶</a></h2>
 <p>Create a function similar to that of task 3, but use a Conv1D layer instead of the LSTM one. The number of filters (kernels) must be an input parameter and define the kernels in order for them to use trigrams. Use the GloVe embedding weights from the former task. To complete the architecture and shape correctly the tensors, you must use a GlobalMaxPooling1D layer after the CNN layer.</p>
 <div class="cell docutils container">
@@ -862,7 +863,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h3>Let’s test the model:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 3 and 4.</p>
 <div class="cell docutils container">
@@ -899,9 +900,9 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>5.3 Truncated BPTT &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -550,7 +551,7 @@
         
               <div>
                 
-  <div class="section" id="truncated-bptt">
+  <section id="truncated-bptt">
 <h1>5.3 Truncated BPTT<a class="headerlink" href="#truncated-bptt" title="Permalink to this headline">¶</a></h1>
 <p>When the sequences are very long (thousands of points), the network training can be very slow and the memory requirements increase. The truncated BPTT is an alternative similar to mini-batch training in Dense Networks, even though in RNN the batch parameter can also be used.</p>
 <div class="cell docutils container">
@@ -586,12 +587,12 @@
 </div>
 </div>
 <p>The TBPTT can be implemented by setting up the data appropriately. Let’s remember that for recurrent neural networks, data must have the format <strong>[n_samples,n_times,n_features]</strong>, so if you want to use Truncated BPTT you just have to split the sequences into more <strong>n_samples</strong> of less <strong>n_times</strong>.</p>
-<div class="section" id="but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences">
+<section id="but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences">
 <h2><strong>BUT</strong>, <strong>Is it possible that the LSTM may find dependencies between the sequences?</strong><a class="headerlink" href="#but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences" title="Permalink to this headline">¶</a></h2>
 <p>No it’s not possible unless you go for the stateful LSTM.</p>
 <p>So the use of Truncated BPTT requires to set up the <strong>Stateful</strong> mode.</p>
-</div>
-<div class="section" id="example">
+</section>
+<section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Extracted from: http://philipperemy.github.io/keras-stateful-lstm/</p>
 <p>Let’s see a problem of classifying sequences. The data matrix <span class="math notranslate nohighlight">\(X\)</span> is made exclusively of zeros except in the first column where exactly half of the values are 1.</p>
@@ -754,7 +755,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="let-s-train-a-regular-lstm-network">
+<section id="let-s-train-a-regular-lstm-network">
 <h3>Let’s train a regular LSTM network<a class="headerlink" href="#let-s-train-a-regular-lstm-network" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -764,8 +765,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-the-original-sequences">
+</section>
+<section id="using-the-original-sequences">
 <h3>Using the original sequences:<a class="headerlink" href="#using-the-original-sequences" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -811,8 +812,8 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-the-splitted-sequences">
+</section>
+<section id="using-the-splitted-sequences">
 <h3>Using the splitted sequences:<a class="headerlink" href="#using-the-splitted-sequences" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -879,12 +880,12 @@ Epoch 15/15
 </div>
 </div>
 <p>The sequences composed of 0s are correctly classified. The subsequences starting with 1 are correctly classified, but the sebsequences of class 1 starting with 0, are wrong classified. Those are the 25% of the sequences.</p>
-</div>
-<div class="section" id="what-happened">
+</section>
+<section id="what-happened">
 <h3>What happened?<a class="headerlink" href="#what-happened" title="Permalink to this headline">¶</a></h3>
 <p>The long range memory required to classify the sequences correctly has been lost because of the sequences’ partition.</p>
-</div>
-<div class="section" id="stateful-model">
+</section>
+<section id="stateful-model">
 <h3>STATEFUL Model<a class="headerlink" href="#stateful-model" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1048,9 +1049,9 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="discussion-about-gpu-performance-for-recurrent-networks">
+</section>
+</section>
+<section id="discussion-about-gpu-performance-for-recurrent-networks">
 <h2>Discussion about GPU performance for Recurrent Networks<a class="headerlink" href="#discussion-about-gpu-performance-for-recurrent-networks" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1064,8 +1065,8 @@ Epoch 5/5
 </div>
 </div>
 <p><a class="reference external" href="https://timdettmers.com/2019/04/03/which-gpu-for-deep-learning/">Image taken from here</a></p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

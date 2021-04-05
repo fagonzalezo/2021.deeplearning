@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>4.6 - Object detection &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -556,7 +557,7 @@
         
               <div>
                 
-  <div class="section" id="object-detection">
+  <section id="object-detection">
 <h1>4.6 - Object detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -593,21 +594,21 @@
 </div>
 </div>
 </div>
-<div class="section" id="id1">
+<section id="id1">
 <h2>Object detection<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>see the original papers on <a class="reference external" href="https://pjreddie.com/media/files/papers/YOLOv3.pdf">Yolov3</a>,  <a class="reference external" href="https://arxiv.org/pdf/1708.02002.pdf">RetinaNet</a></p></li>
 </ul>
-<div class="section" id="approaches">
+<section id="approaches">
 <h3>Approaches:<a class="headerlink" href="#approaches" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Classical</strong>: Sliding window, costly</p></li>
 <li><p><strong>Two Stage Detectors</strong>: First obtain proposed regions, then classify.</p></li>
 <li><p><strong>One Stage Detectors</strong>: Use region priors on fixed image grid</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="observe-how-an-image-is-annotated-for-detection">
+</section>
+</section>
+<section id="observe-how-an-image-is-annotated-for-detection">
 <h2>Observe how an image is annotated for detection<a class="headerlink" href="#observe-how-an-image-is-annotated-for-detection" title="Permalink to this headline">¶</a></h2>
 <p>This is an example from the <a class="reference external" href="https://storage.googleapis.com/openimages/web/index.html">Open Images V6 Dataset</a>, a dataset created and curated at Google. Explore and inspect images and annotations to understand the dataset.</p>
 <p>Particularly:</p>
@@ -1373,8 +1374,8 @@ dtype: int64
 <img alt="../_images/U4.06 - Object Detection_12_0.png" src="../_images/U4.06 - Object Detection_12_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="patch-classification-with-inceptionv3-from-keras">
+</section>
+<section id="patch-classification-with-inceptionv3-from-keras">
 <h2>Patch classification, with InceptionV3 from Keras<a class="headerlink" href="#patch-classification-with-inceptionv3-from-keras" title="Permalink to this headline">¶</a></h2>
 <p>some sample patches</p>
 <div class="cell docutils container">
@@ -1510,8 +1511,8 @@ dtype: int64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="patch-classification-with-resnet-model-published-on-tensorflow-hub">
+</section>
+<section id="patch-classification-with-resnet-model-published-on-tensorflow-hub">
 <h2>Patch classification, with ResNet model published on <a class="reference external" href="https://www.tensorflow.org/hub">TensorFlow Hub</a><a class="headerlink" href="#patch-classification-with-resnet-model-published-on-tensorflow-hub" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1644,11 +1645,11 @@ _________________________________________________________________
 <img alt="../_images/U4.06 - Object Detection_29_0.png" src="../_images/U4.06 - Object Detection_29_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="one-stage-detectors">
+</section>
+<section id="one-stage-detectors">
 <h2>One stage detectors<a class="headerlink" href="#one-stage-detectors" title="Permalink to this headline">¶</a></h2>
 <p>This blog: <a class="reference external" href="https://medium.com/analytics-vidhya/yolo-v3-theory-explained-33100f6d193">YOLO v3 theory explained</a> contains a detailed explanation on how YOLOv3 builds a prediction for detections.</p>
-<div class="section" id="region-priors">
+<section id="region-priors">
 <h3>Region priors<a class="headerlink" href="#region-priors" title="Permalink to this headline">¶</a></h3>
 <p>A set of box shapes representative of what appears in the training dataset. Obtained typically with KMeans, one must decide how many. For instance</p>
 <div class="cell docutils container">
@@ -1692,8 +1693,8 @@ _________________________________________________________________
 <img alt="../_images/U4.06 - Object Detection_33_1.png" src="../_images/U4.06 - Object Detection_33_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="predictions">
+</section>
+<section id="predictions">
 <h3>Predictions<a class="headerlink" href="#predictions" title="Permalink to this headline">¶</a></h3>
 <p>for <strong>each cell</strong> and <strong>each anchor box</strong> the model will make a prediction that will contain:</p>
 <ul class="simple">
@@ -1732,18 +1733,18 @@ _________________________________________________________________
 <li><p>RetinaNet downsamples the image and then unsamples cativation maps, to integrate (sort of skipped connections) high level semantic information of late layers with spatial information from earlier layers.</p></li>
 </ul>
 <p>See <a class="reference external" href="https://medium.com/&#64;jonathan_hui/what-do-we-learn-from-single-shot-object-detectors-ssd-yolo-fpn-focal-loss-3888677c5f4d">this blog</a> for further intuitions on this</p>
-</div>
-<div class="section" id="loss-function">
+</section>
+<section id="loss-function">
 <h3>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h3>
 <p>Observe that we are doing <strong>BOTH</strong> regression (for boxes) <strong>AND</strong> classification (for object classes). A specific loss function must then be devised to take this into account.</p>
 <p>See <a class="reference external" href="https://stats.stackexchange.com/questions/287486/yolo-loss-function-explanation">this blog post</a> and <a class="reference external" href="https://stats.stackexchange.com/questions/373266/yolo-v3-loss-function">this blog post</a> for detailed explanations.</p>
-</div>
-<div class="section" id="non-maximum-suppression">
+</section>
+<section id="non-maximum-suppression">
 <h3>Non maximum suppression<a class="headerlink" href="#non-maximum-suppression" title="Permalink to this headline">¶</a></h3>
 <p>Finally, as there might be many box predictions at different cells and resolutions, a decision must be taken for overlapping predictions. This is <strong>Non maximum suppression</strong>, and you can check <a class="reference external" href="https://towardsdatascience.com/non-maximum-suppression-nms-93ce178e177c">this blog</a> for a detailed explanation.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>5.6 Bidirectional RNNs &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -554,7 +555,7 @@
         
               <div>
                 
-  <div class="section" id="bidirectional-rnns">
+  <section id="bidirectional-rnns">
 <h1>5.6 Bidirectional RNNs<a class="headerlink" href="#bidirectional-rnns" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -629,7 +630,7 @@
 <img alt="../_images/U5.06 - Bidirectional RNNs - Attention Model_7_0.png" src="../_images/U5.06 - Bidirectional RNNs - Attention Model_7_0.png" />
 </div>
 </div>
-<div class="section" id="neural-machine-translation">
+<section id="neural-machine-translation">
 <h2>Neural Machine Translation<a class="headerlink" href="#neural-machine-translation" title="Permalink to this headline">¶</a></h2>
 <p>This example is based on the Machine Translation material included in the Deep Learning Specilization offered by Coursera: https://es.coursera.org/specializations/deep-learning</p>
 <p>The following model architecture could be used for a full language translation problem, however it would require hundred of thousands of texts, a big computational power (GPU) and hundreds of hours in order to get a fairly accurate model. Therefore, we are going to use a medium sized datase that includes 118964 sentences in English and Spanish.</p>
@@ -738,7 +739,7 @@ b&#39;&lt;start&gt; \xc2\xbf puedo tomar prestado este libro ? &lt;end&gt;&#39;
 </div>
 </div>
 </div>
-<div class="section" id="tokenize">
+<section id="tokenize">
 <h3>Tokenize<a class="headerlink" href="#tokenize" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -762,8 +763,8 @@ b&#39;&lt;start&gt; \xc2\xbf puedo tomar prestado este libro ? &lt;end&gt;&#39;
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="optional">
+</section>
+<section id="optional">
 <h3>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -856,8 +857,8 @@ Target Language; index to word mapping
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="create-a-tf-data-dataset">
+</section>
+<section id="create-a-tf-data-dataset">
 <h3>Create a tf.data dataset<a class="headerlink" href="#create-a-tf-data-dataset" title="Permalink to this headline">¶</a></h3>
 <p>For the simplest models, the size of input and output sequences must be equal!</p>
 <div class="cell docutils container">
@@ -912,8 +913,8 @@ Target Language; index to word mapping
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="simple-rnn-network">
+</section>
+<section id="simple-rnn-network">
 <h3>Simple RNN network<a class="headerlink" href="#simple-rnn-network" title="Permalink to this headline">¶</a></h3>
 <p>Pay attention to the output format and the loss function.</p>
 <div class="cell docutils container">
@@ -1118,9 +1119,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="using-word2vec">
+</section>
+</section>
+<section id="using-word2vec">
 <h2>Using word2vec<a class="headerlink" href="#using-word2vec" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1293,8 +1294,8 @@ Epoch 50/50
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="bidirectional-rnn">
+</section>
+<section id="bidirectional-rnn">
 <h2>Bidirectional RNN<a class="headerlink" href="#bidirectional-rnn" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1484,8 +1485,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="encoder-decoder">
+</section>
+<section id="encoder-decoder">
 <h2>Encoder-decoder<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1726,8 +1727,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="neural-machine-translation-with-attention">
+</section>
+<section id="neural-machine-translation-with-attention">
 <h2>Neural machine translation with attention<a class="headerlink" href="#neural-machine-translation-with-attention" title="Permalink to this headline">¶</a></h2>
 <p>One of the problems of the previous model is the fact that the model has to memorize the entire sentence before start to translate it. The attention model introduces and additional layer that weight the contribution of the first bidirectional RNN layer’s outputs to be feed into the last recurrent layer.</p>
 <p>Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio , Neural Machine Translation by Jointly Learning to Align and Translate. https://arxiv.org/abs/1409.0473</p>
@@ -2293,15 +2294,15 @@ Predicted translation: this is my life . &lt;end&gt;
 <img alt="../_images/U5.06 - Bidirectional RNNs - Attention Model_78_1.png" src="../_images/U5.06 - Bidirectional RNNs - Attention Model_78_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="metrics-in-a-real-context">
+</section>
+<section id="metrics-in-a-real-context">
 <h2>Metrics in a real context<a class="headerlink" href="#metrics-in-a-real-context" title="Permalink to this headline">¶</a></h2>
 <p>From: wikipedia</p>
 <p><strong>BLEU (bilingual evaluation understudy)</strong> is an algorithm for evaluating the quality of text which has been machine-translated from one natural language to another. Quality is considered to be the correspondence between a machine’s output and that of a human: “the closer a machine translation is to a professional human translation, the better it is” – this is the central idea behind BLEU. BLEU was one of the first metrics to claim a high correlation with human judgements of quality, and remains one of the most popular automated and inexpensive metrics.</p>
 <p>Scores are calculated for individual translated segments—generally sentences—by comparing them with a set of good quality reference translations. Those scores are then averaged over the whole corpus to reach an estimate of the translation’s overall quality. Intelligibility or grammatical correctness are not taken into account</p>
 <p>NLTK provides the sentence_bleu() function for evaluating a candidate sentence against one or more reference sentences.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

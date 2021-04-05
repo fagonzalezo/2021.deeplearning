@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 4.3 - Object detection &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -517,7 +518,7 @@
         
               <div>
                 
-  <div class="section" id="lab-4-3-object-detection">
+  <section id="lab-4-3-object-detection">
 <h1>LAB 4.3 - Object detection<a class="headerlink" href="#lab-4-3-object-detection" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -547,7 +548,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="task-1-create-anchor-boxes">
+<section id="task-1-create-anchor-boxes">
 <h2>TASK 1: Create anchor boxes<a class="headerlink" href="#task-1-create-anchor-boxes" title="Permalink to this headline">¶</a></h2>
 <p>observe how we download and extract the first 20K bounding-box annotations from the Open Images V6 dataset, out of the total 14M available. We are interested in the width and height of each box, which we must obtain by substracting the box coordinates, according to the description <a class="reference external" href="https://storage.googleapis.com/openimages/web/download.html">here</a>. Recall that the coordinates are <span class="math notranslate nohighlight">\(\in [0,1]\)</span> as they are relative to the image size</p>
 <div class="cell docutils container">
@@ -638,8 +639,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2-get-closest-anchor">
+</section>
+<section id="task-2-get-closest-anchor">
 <h2>TASK 2: Get closest anchor<a class="headerlink" href="#task-2-get-closest-anchor" title="Permalink to this headline">¶</a></h2>
 <p>assume we have these anchor boxes, sorted by size</p>
 <div class="cell docutils container">
@@ -709,8 +710,8 @@ returns the index of the most similar anchor to the bouding box.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-3-compute-desired-model-bounding-box-predictions">
+</section>
+<section id="task-3-compute-desired-model-bounding-box-predictions">
 <h2>TASK 3: Compute desired model bounding box predictions<a class="headerlink" href="#task-3-compute-desired-model-bounding-box-predictions" title="Permalink to this headline">¶</a></h2>
 <p>Understand the schema of YOLO coordinates below</p>
 <ul class="simple">
@@ -793,8 +794,8 @@ returns the index of the most similar anchor to the bouding box.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

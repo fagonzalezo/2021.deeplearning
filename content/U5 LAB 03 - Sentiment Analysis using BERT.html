@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 5.3 - Transformer - BERT &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -524,7 +525,7 @@
         
               <div>
                 
-  <div class="section" id="lab-5-3-transformer-bert">
+  <section id="lab-5-3-transformer-bert">
 <h1>LAB 5.3 - Transformer - BERT<a class="headerlink" href="#lab-5-3-transformer-bert" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -563,7 +564,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="example">
+<section id="example">
 <h2>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p><strong>Let’s take a look to the following example about the use of BERT model from Tensorflow_hub</strong></p>
 <p>We are going to use the same dataset for sentiment analysis than in the LAB 5.2</p>
@@ -876,8 +877,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-1">
+</section>
+<section id="task-1">
 <h2>Task 1:<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h2>
 <p>Create a layer class TokenAndPositionEmbedding similar to the one used in the course material <a class="reference external" href="https://rramosp.github.io/2021.deeplearning/content/U5.08%20-%20Self-Attention%20-%20Transformer%20-%20BERT.html">U5.08</a> , but in this case define it such that returns word Embedding vectors plus non trainable sinusoidal positional embeddings, which must be set according to the embedding dimension and maximum length of the sentences.</p>
 <p>The sinusoidal positional embedding can be estimated as:</p>
@@ -919,8 +920,8 @@ $$PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_e}}\right)\]</div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2">
+</section>
+<section id="task-2">
 <h2>Task 2:<a class="headerlink" href="#task-2" title="Permalink to this headline">¶</a></h2>
 <p>Create a function ‘get_transformer_model’ that define a DL model for the sentiment analysis prediction problem. The model must have the following architecture:</p>
 <ul class="simple">
@@ -970,7 +971,7 @@ $$PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_e}}\right)\]</div>
 </div>
 </div>
 </div>
-<div class="section" id="let-s-test-the-model">
+<section id="let-s-test-the-model">
 <h3>Let’s test the model:<a class="headerlink" href="#let-s-test-the-model" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 1 and 2.</p>
 <div class="cell docutils container">
@@ -1068,9 +1069,9 @@ $$PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_e}}\right)\]</div>
 </div>
 <p><strong>UNGRADED TASK</strong></p>
 <p>Repeat the former experiment but declaring equally weighted classes during training instead; compare the results with the ones you just got.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

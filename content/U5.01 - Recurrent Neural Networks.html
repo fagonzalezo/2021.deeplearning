@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>5.1 Recurrent Neural Networks &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -575,7 +576,7 @@
         
               <div>
                 
-  <div class="section" id="recurrent-neural-networks">
+  <section id="recurrent-neural-networks">
 <h1>5.1 Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -661,7 +662,7 @@
 </ol>
 </li>
 </ul>
-<div class="section" id="lets-do-some-examples-of-time-series-using-conventional-mlps">
+<section id="lets-do-some-examples-of-time-series-using-conventional-mlps">
 <h2>Lets do some examples of Time series using conventional MLPs<a class="headerlink" href="#lets-do-some-examples-of-time-series-using-conventional-mlps" title="Permalink to this headline">¶</a></h2>
 <p>First we need some data:</p>
 <div class="cell docutils container">
@@ -794,7 +795,7 @@ Test Score: 10.00 MAPE
 <img alt="../_images/U5.01 - Recurrent Neural Networks_18_1.png" src="../_images/U5.01 - Recurrent Neural Networks_18_1.png" />
 </div>
 </div>
-<div class="section" id="using-three-steps-backward-to-predict-one-step-ahead">
+<section id="using-three-steps-backward-to-predict-one-step-ahead">
 <h3>Using three steps backward to predict one step ahead:<a class="headerlink" href="#using-three-steps-backward-to-predict-one-step-ahead" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -883,8 +884,8 @@ Test Score: 0.81 MAPE
 </div>
 </div>
 <p>There are also problems with basic MLP when we have multiple time series to forecast one of them (<strong>Multiple Input series</strong>), or multiple time series to predict  all of them (<strong>Multiple parallel series</strong>)</p>
-</div>
-<div class="section" id="let-s-define-formaly-the-recurrent-neural-networks">
+</section>
+<section id="let-s-define-formaly-the-recurrent-neural-networks">
 <h3>Let’s define formaly the Recurrent Neural Networks<a class="headerlink" href="#let-s-define-formaly-the-recurrent-neural-networks" title="Permalink to this headline">¶</a></h3>
 <p>An alternative view of the network</p>
 <div class="cell docutils container">
@@ -902,8 +903,8 @@ Test Score: 0.81 MAPE
 <div class="math notranslate nohighlight">
 \[\begin{split}{\bf{a}}^{(t)} = {\bf{b}} + {\bf{V}}{\bf{h}}^{(t-1)} + {\bf{U}}{\bf{x}}^{(t)},\\ {\bf{h}}^{(t)} = \tanh({\bf{a}}^{(t)}), \\ {\bf{o}}^{(t)} = {\bf{c}} + {\bf{W}}{\bf{h}}^{(t)}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\bf{V}\)</span> is the weights matrix of the feedback loop. <span class="math notranslate nohighlight">\(\bf{U}\)</span> is the  weights matrix of the inputs and <span class="math notranslate nohighlight">\(\bf{W}\)</span> is the weights matrix that contects the <strong>state</strong> of the network with the output layer. <span class="math notranslate nohighlight">\(\bf{b}\)</span> and <span class="math notranslate nohighlight">\(\bf{c}\)</span> are the bias vectors for the hidden and output layers respectively. The ouput of the network <span class="math notranslate nohighlight">\({\bf{y}}^{(t)}\)</span> corresponds to the application of the activation function to the values <span class="math notranslate nohighlight">\({\bf{o}}^{(t)}\)</span>.</p>
-</div>
-<div class="section" id="backpropagation-through-time-bptt">
+</section>
+<section id="backpropagation-through-time-bptt">
 <h3>Backpropagation through time (BPTT)<a class="headerlink" href="#backpropagation-through-time-bptt" title="Permalink to this headline">¶</a></h3>
 <p>The first step for training a RNN is to define the loss function. Let’s consider a sequence of length <span class="math notranslate nohighlight">\(\tau\)</span>, the loss for that single sequence can be expressed as:</p>
 <div class="math notranslate nohighlight">
@@ -930,9 +931,9 @@ L = \sum_t L^{(t)}\end{split}\]</div>
 \[\nabla_{\bf V}L = \sum_t \text{diag}\left( 1 - \left( {\bf{h}}^{(t)} \right)^2\right)(\nabla_{{\bf{h}}^{(t)}} L){\bf{h}}^{(t-1)^T}\]</div>
 <div class="math notranslate nohighlight">
 \[ \nabla_{\bf U}L = \sum_t \text{diag}\left( 1 - \left( {\bf{h}}^{(t)} \right)^2\right)(\nabla_{{\bf{h}}^{(t)}} L){\bf{x}}^{(t)^T} \]</div>
-</div>
-</div>
-<div class="section" id="now-using-a-rnn-layer-instead-of-a-dense-layer">
+</section>
+</section>
+<section id="now-using-a-rnn-layer-instead-of-a-dense-layer">
 <h2>Now using a RNN layer instead of a Dense layer:<a class="headerlink" href="#now-using-a-rnn-layer-instead-of-a-dense-layer" title="Permalink to this headline">¶</a></h2>
 <p>Input data must have the following structure: <strong>[n_samples,n_times,n_features]</strong></p>
 <p>Input: <strong>[n_samples,1,1]</strong></p>
@@ -1003,7 +1004,7 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<div class="section" id="using-multiple-times-as-features">
+<section id="using-multiple-times-as-features">
 <h3>Using multiple times as features<a class="headerlink" href="#using-multiple-times-as-features" title="Permalink to this headline">¶</a></h3>
 <p>Input: <strong>[n_samples,1,2]</strong></p>
 <div class="cell docutils container">
@@ -1059,8 +1060,8 @@ _________________________________________________________________
 </div>
 </div>
 <p>Using multiple times instead of multiple features:</p>
-</div>
-<div class="section" id="using-multiple-times-as-multiple-times">
+</section>
+<section id="using-multiple-times-as-multiple-times">
 <h3>Using multiple times as multiple times!<a class="headerlink" href="#using-multiple-times-as-multiple-times" title="Permalink to this headline">¶</a></h3>
 <p>Input: <strong>[n_samples,2,1]</strong></p>
 <div class="cell docutils container">
@@ -1168,11 +1169,11 @@ Test Score: 0.59 MAPE
 <img alt="../_images/U5.01 - Recurrent Neural Networks_55_0.png" src="../_images/U5.01 - Recurrent Neural Networks_55_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="lets-make-more-complex-architectures">
+</section>
+</section>
+<section id="lets-make-more-complex-architectures">
 <h2>Lets make more complex architectures<a class="headerlink" href="#lets-make-more-complex-architectures" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="two-recurrent-layers">
+<section id="two-recurrent-layers">
 <h3>Two recurrent layers:<a class="headerlink" href="#two-recurrent-layers" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1433,11 +1434,11 @@ Test Score: 1.48 MAPE
 <img alt="../_images/U5.01 - Recurrent Neural Networks_70_0.png" src="../_images/U5.01 - Recurrent Neural Networks_70_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="predicting-several-times-ahead">
+</section>
+</section>
+<section id="predicting-several-times-ahead">
 <h2>Predicting several times ahead<a class="headerlink" href="#predicting-several-times-ahead" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="walk-forward-using-a-rnn">
+<section id="walk-forward-using-a-rnn">
 <h3>Walk forward using a RNN<a class="headerlink" href="#walk-forward-using-a-rnn" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1492,8 +1493,8 @@ Test Score: 1.24 MAPE
 <img alt="../_images/U5.01 - Recurrent Neural Networks_74_0.png" src="../_images/U5.01 - Recurrent Neural Networks_74_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="a-rnn-network-with-multiple-outputs">
+</section>
+<section id="a-rnn-network-with-multiple-outputs">
 <h3>A RNN network with multiple outputs<a class="headerlink" href="#a-rnn-network-with-multiple-outputs" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1603,9 +1604,9 @@ Test Score: 1.26 MAPE
 <img alt="../_images/U5.01 - Recurrent Neural Networks_78_0.png" src="../_images/U5.01 - Recurrent Neural Networks_78_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="encoder-decoder-architecture-sequence-to-sequence">
+</section>
+</section>
+<section id="encoder-decoder-architecture-sequence-to-sequence">
 <h2>Encoder-Decoder architecture (sequence-to-sequence)<a class="headerlink" href="#encoder-decoder-architecture-sequence-to-sequence" title="Permalink to this headline">¶</a></h2>
 <p>Input: <strong>[n_samples,3,1]</strong></p>
 <p>Ouput: <strong>[n_samples,3,1]</strong></p>
@@ -1689,8 +1690,8 @@ Test Score: 1.59 MAPE
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

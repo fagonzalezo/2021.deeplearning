@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 2.1 - Customized loss function &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -541,7 +542,7 @@
         
               <div>
                 
-  <div class="section" id="lab-2-1-customized-loss-function">
+  <section id="lab-2-1-customized-loss-function">
 <h1>LAB 2.1 - Customized loss function<a class="headerlink" href="#lab-2-1-customized-loss-function" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -560,7 +561,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="loading-the-fashion-mnist-database">
+<section id="loading-the-fashion-mnist-database">
 <h2>Loading the Fashion MNIST database…<a class="headerlink" href="#loading-the-fashion-mnist-database" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -604,8 +605,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-1-basic-model">
+</section>
+<section id="task-1-basic-model">
 <h2>TASK 1. Basic model<a class="headerlink" href="#task-1-basic-model" title="Permalink to this headline">¶</a></h2>
 <p>Define a new model using the keras sequential API. The model must have four hidden layers with the following neurons <code class="docutils literal notranslate"><span class="pre">[128,64,32,16]</span></code>. For all the hidden layers use the <code class="docutils literal notranslate"><span class="pre">relu</span></code> activation function. Use <code class="docutils literal notranslate"><span class="pre">nb_classes</span></code> and <code class="docutils literal notranslate"><span class="pre">softmax</span></code> activation for the output layer.</p>
 <p>You must return an instance of a <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> model. <strong>DO NOT</strong> invoke <code class="docutils literal notranslate"><span class="pre">compile</span></code> or <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
@@ -703,8 +704,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2-l-2-regularization">
+</section>
+<section id="task-2-l-2-regularization">
 <h2>TASK 2: <span class="math notranslate nohighlight">\(L_2\)</span> regularization<a class="headerlink" href="#task-2-l-2-regularization" title="Permalink to this headline">¶</a></h2>
 <p>Create a model like on TASK 1, but include <span class="math notranslate nohighlight">\(L_2\)</span> regularization to every hidden layer (in <code class="docutils literal notranslate"><span class="pre">kernel_regularizer</span></code>) with a regularization parameter equal to 0.0001.</p>
 <p>Use <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/regularizers/L2">tf.keras.regularizer.L2</a></p>
@@ -784,8 +785,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-3-l-1-l-2-regularization">
+</section>
+<section id="task-3-l-1-l-2-regularization">
 <h2>TASK 3: <span class="math notranslate nohighlight">\(L_1\)</span>+<span class="math notranslate nohighlight">\(L_2\)</span> regularization<a class="headerlink" href="#task-3-l-1-l-2-regularization" title="Permalink to this headline">¶</a></h2>
 <p>Create a model like on TASK 1, but use <span class="math notranslate nohighlight">\(L_1\)</span>+<span class="math notranslate nohighlight">\(L_2\)</span> regularization to every hidden layer (in <code class="docutils literal notranslate"><span class="pre">kernel_regularizer</span></code>) with both regularization parameters equal to 0.0001.</p>
 <p>Use <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/regularizers/L1L2">tf.keras.regularizer.L1L2</a></p>
@@ -866,7 +867,7 @@ _________________________________________________________________
 </div>
 </div>
 <p>Create a graph with the histogram of the network weigths in the first hidden layer. Compare it with the histograms obtained in the previous exercises. What is the effect of applying <span class="math notranslate nohighlight">\(L_1\)</span> regularization?</p>
-<div class="section" id="task-4-customized-loss-function">
+<section id="task-4-customized-loss-function">
 <h3>TASK 4: Customized loss function<a class="headerlink" href="#task-4-customized-loss-function" title="Permalink to this headline">¶</a></h3>
 <p>Complete the function below to implement the following loss function:</p>
 <div class="math notranslate nohighlight">
@@ -1018,9 +1019,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

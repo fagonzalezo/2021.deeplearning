@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>LAB 3.1 - TF model subclassing &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -532,7 +533,7 @@
         
               <div>
                 
-  <div class="section" id="lab-3-1-tf-model-subclassing">
+  <section id="lab-3-1-tf-model-subclassing">
 <h1>LAB 3.1 - TF model subclassing<a class="headerlink" href="#lab-3-1-tf-model-subclassing" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -583,7 +584,7 @@
 <div class="math notranslate nohighlight">
 \[J(\mathbf{b}_1, b_2, \mathbf{W}_1, \mathbf{W}_2) = \frac{1}{m}\sum_{i=0}^{m-1} (\hat{y}-y)^2 + \lambda \sum_{i=0}^{n-1} \bigg[ \| \mathbf{b}_i\|^2 + \|\mathbf{W}_i\|^2 \bigg]\]</div>
 <p><span class="math notranslate nohighlight">\(\lambda\)</span> regulates the participation of the regularization terms. Given a vector or matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>, its squared norm is denoted by <span class="math notranslate nohighlight">\(||\mathbf{T}||^2 \in \mathbb{R}\)</span> and it’s computed by squaring all its elements and summing them all up.</p>
-<div class="section" id="task-1-model-build">
+<section id="task-1-model-build">
 <h2>TASK 1: Model <code class="docutils literal notranslate"><span class="pre">build</span></code><a class="headerlink" href="#task-1-model-build" title="Permalink to this headline">¶</a></h2>
 <p>Observe the class template below which is used to build a multilayer perceptron with a specific number of layers. In the constructor.</p>
 <ul class="simple">
@@ -660,8 +661,8 @@ b shapes [TensorShape([10]), TensorShape([5]), TensorShape([1])]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-2-model-call">
+</section>
+<section id="task-2-model-call">
 <h2>Task 2: Model <code class="docutils literal notranslate"><span class="pre">call</span></code><a class="headerlink" href="#task-2-model-call" title="Permalink to this headline">¶</a></h2>
 <p>Complete the <code class="docutils literal notranslate"><span class="pre">call</span></code> method below so that it computes the output of the configured MLP with the input <code class="docutils literal notranslate"><span class="pre">X</span></code> as</p>
 <div class="math notranslate nohighlight">
@@ -736,14 +737,14 @@ b shapes [TensorShape([10]), TensorShape([5]), TensorShape([1])]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="task-3-loss-function">
+</section>
+<section id="task-3-loss-function">
 <h2>Task 3: Loss function<a class="headerlink" href="#task-3-loss-function" title="Permalink to this headline">¶</a></h2>
 <p>Complete the <code class="docutils literal notranslate"><span class="pre">loss</span></code> method below so that it computes the loss of the <code class="docutils literal notranslate"><span class="pre">MLP</span></code> given predictions <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> (as the output of the network) and desired output <code class="docutils literal notranslate"><span class="pre">y_true</span></code>.</p>
 <div class="math notranslate nohighlight">
-\[J(\mathbf{b}_1, b_2, \mathbf{W}_1, \mathbf{W}_2) = \frac{1}{m}\sum_{i=0}^{m-1} (\hat{y}-y)^2 + \lambda \sum_{i=0}^{n-1} \bigg[ \| \mathbf{b}_i\|^2 + \|\mathbf{W}_i\|^2 \bigg]\]</div>
+\[J(\mathbf{b}_1, b_2, \mathbf{W}_1, \mathbf{W}_2) = \frac{1}{m}\sum_{i=0}^{m-1} (\hat{y}-y)^2 + \lambda \sum_{i=0}^{n-1} \bigg[ \| \mathbf{b}_i\|^2_{mean} + \|\mathbf{W}_i\|^2_{mean} \bigg]\]</div>
 <p>observe the regularization term <span class="math notranslate nohighlight">\(\lambda\)</span> which is stored as <code class="docutils literal notranslate"><span class="pre">self.reg</span></code> in your class.</p>
-<p>For any weight or bias <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>, the expression <span class="math notranslate nohighlight">\(\| \mathbf{k}\|^2\)</span> is just the sum of all its elements squared.</p>
+<p>For any weight or bias <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>, the expression <span class="math notranslate nohighlight">\(\| \mathbf{k}\|^2_{mean}\)</span> is the mean of all its elements squared.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">MLP3</span><span class="p">(</span><span class="n">neurons</span><span class="p">,</span> <span class="n">activations</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
@@ -821,8 +822,8 @@ b shapes [TensorShape([10]), TensorShape([5]), TensorShape([1])]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="done">
+</section>
+<section id="done">
 <h2>Done!!<a class="headerlink" href="#done" title="Permalink to this headline">¶</a></h2>
 <p>now you can try your class with synthetic data</p>
 <div class="cell docutils container">
@@ -890,8 +891,8 @@ b shapes [TensorShape([10]), TensorShape([5]), TensorShape([1])]
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

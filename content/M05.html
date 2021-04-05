@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>05 - SEQUENCE MODELS &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -539,66 +540,66 @@
         
               <div>
                 
-  <div class="section" id="sequence-models">
+  <section id="sequence-models">
 <h1>05 - SEQUENCE MODELS<a class="headerlink" href="#sequence-models" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduccion">
+<section id="introduccion">
 <h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline">¶</a></h2>
 <p><strong>01 - Validación cruzada en problemas de series de tiempo</strong>: <a class="reference external" href="https://youtu.be/w8xfaSksicQ">Video 11mins</a><br/> Describimos las particularidades del proceso de validación en problemas de series de tiempo, una de las aplicaciones del procesamiento de datos secuenciales.</p>
 <p><strong>02 - Tareas de analítica de secuencias</strong>: <a class="reference external" href="https://youtu.be/xTxLaCqUbBk">Video 13mins</a><br/>Presentamos de manera general el principio de funcionamiento de una red recurrente, los tipos de aplicaciones que se presentan en el análisis de de secuencias y las configuraciones de redes más comunes.</p>
-</div>
-<div class="section" id="redes-neuronales-recurrentes">
+</section>
+<section id="redes-neuronales-recurrentes">
 <h2>Redes Neuronales Recurrentes<a class="headerlink" href="#redes-neuronales-recurrentes" title="Permalink to this headline">¶</a></h2>
 <p><strong>03 - Introducción a las Redes Neuronales Recurrentes</strong>: <a class="reference external" href="https://youtu.be/n5ropbj3lno">Video 13mins</a><br/>  Describimos los principios de funcionamiento de las RNN y la analizamos como una red densa de muchas capas.</p>
 <p><strong>04 - Algoritmo de Backpropagation Through Time</strong>: <a class="reference external" href="https://youtu.be/UiUSgNIvev8">Video 11mins</a><br/>  Analizamos los principios de funcionamiento del algoritmo de entrenamiento de las RNN y sus implicaciones en términos de computacionales.</p>
 <p><strong>05 - Implementación de RNN en TensorFlow</strong>: <a class="reference external" href="https://youtu.be/YLeoRmmYmq4">Video 17mins</a><br/> Usamos un problema de series de tiempo para implementar RNNs de una y dos capas ocultas en TensorFlow. Describimos los elementos básicos de una arquitectura Codificador-Decodificador.</p>
-</div>
-<div class="section" id="arquitecturas-recurrentes">
+</section>
+<section id="arquitecturas-recurrentes">
 <h2>Arquitecturas recurrentes<a class="headerlink" href="#arquitecturas-recurrentes" title="Permalink to this headline">¶</a></h2>
 <p><strong>06 - Implementación de Arquitecturas de RNN para problemas seq-to-seq</strong>: <a class="reference external" href="https://youtu.be/jitQc7YusUA">Video 19mins</a><br/>  Usamos un problema de series de tiempo en el que se desean predecir varios tiempos hacia adelante, para describir e implementar tres metodologías/arquitecturas para la solución de problemas donde tanto la entrada como la salida son secuencias.</p>
 <p><strong>07 - Long Short Term Memory RNN</strong>: <a class="reference external" href="https://youtu.be/jVei1bWFXMc">Video 22mins</a><br/> Presentamos los principios de funcionamiento de las redes recurrentes de tipo LSTM y GRM, así como su implementación en TensorFlow.</p>
 <p><strong>08 - Truncated BPTT</strong>: <a class="reference external" href="https://youtu.be/oSVbUKl2nYQ">Video 24mins</a> <br/> Presentamos una variante del algoritmo de Propagación hacia atrás en el tiempo que permite realizar actualizaciones de los parámetros de la red, a partir de propagaciones parciales de una secuencia y cómo se puede realizar su implementación utilizando el framework de tensorflow.</p>
-</div>
-<div class="section" id="laboratorio-1">
+</section>
+<section id="laboratorio-1">
 <h2>LABORATORIO 1<a class="headerlink" href="#laboratorio-1" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 1 - Multivariate Time-series prediction</strong>: <a class="reference external" href="https://youtu.be/oK4pDy7Q1MQ">Video 6mins</a> <br/>En este laboratorio debes diseñar diferentes arquitecturas de redes RNN para predecir un sólo tiempo hacia adelante y varios tiempos hacia adelante en un problema de series de tiempo multivariado.</p>
-</div>
-<div class="section" id="procesamiento-de-texto">
+</section>
+<section id="procesamiento-de-texto">
 <h2>Procesamiento de texto<a class="headerlink" href="#procesamiento-de-texto" title="Permalink to this headline">¶</a></h2>
 <p><strong>09 - Introducción al procesamiento de texto</strong>: <a class="reference external" href="https://youtu.be/IwEPJQEX-lc">Video 17mins</a> <br/> Describimos las principales etapas de preprocesamiento necesarias para el uso de modelos de Machine Learning en tareas de procesamiento de lenguaje natural.</p>
 <p><strong>10 - Word embeddings</strong>: <a class="reference external" href="https://youtu.be/lqXdZOq9U_0">Video 25mins</a> <br/> Peresentamos las razones que inspiraron la creación de técnicas de embebimiento de palabras y discutimos diversas variantes, sus principios de funcionamiento y la estrategia de transfer learning que permite usar word embeddings pre-entrenados dentro de modelos de Deep Learning en tensorflow.</p>
 <p><strong>11 - Generación de secuencias usando RNNs</strong>: <a class="reference external" href="https://youtu.be/VSswvuwTz-g">Video 9mins</a> <br/> Describimos el procedimiento que puede ser empleado para generar secuencias artificiales a partir de redes neuronales recurrentes pre-entrenadas.</p>
-</div>
-<div class="section" id="laboratorio-2">
+</section>
+<section id="laboratorio-2">
 <h2>LABORATORIO 2<a class="headerlink" href="#laboratorio-2" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 2 - Sentiment analysis in text</strong>: <a class="reference external" href="https://youtu.be/tUkhHJTvE-o">Video 10mins</a> <br/>En este laboratorio debes diseñar diferentes arquitecturas de DL y estrategias de transfer learning para clasificar tweets como positivos o negativos.</p>
-</div>
-<div class="section" id="redes-neuronales-recurrentes-bidirecionales">
+</section>
+<section id="redes-neuronales-recurrentes-bidirecionales">
 <h2>Redes Neuronales Recurrentes Bidirecionales<a class="headerlink" href="#redes-neuronales-recurrentes-bidirecionales" title="Permalink to this headline">¶</a></h2>
 <p><strong>12 - Redes RNN Bidirecionales</strong>: <a class="reference external" href="https://youtu.be/GneNfVlNq8E">Video 16mins</a> <br/> Presentamos las limitaciones que tienen las redes neuronales recurrentes para procesar secuencias en las que la predicción para una posición de la secuencia, depende no sólo de las observaciones anteriores de la secuencia sino también de observaciones futuras y cómo las redes neuronales bidireccionales resuelven ese problema.</p>
 <p><strong>13 - Arquitectura Encoder-Decoder con mecanismo de atención</strong>: <a class="reference external" href="https://youtu.be/XsgF5bFWcew">Video 17mins</a> <br/> Describimos una arquitectura particular de red recurrente de tipo codificador-decodificador, en la que se dota a la capa del decodificador de la cpacidad para seleccionar qué información de la secuencia de entrada es relevante para realizar cada una de las predicciones en la secuencia de salida.</p>
 <p><strong>14 - ELMo: Embeddings from Language Models</strong>: <a class="reference external" href="https://youtu.be/GC9zr2wPtZo">Video 23mins</a> <br/> Describimos una arquitectura de red conocida como ELMo que permite obtener vectores de embebimiento a partir de un procesamiento de secuencias a nivel de caracter, esto permite que el vector que representa a una palabra pueda depender del contexto y no sea siempre estático.</p>
-</div>
-<div class="section" id="el-modelo-transformer">
+</section>
+<section id="el-modelo-transformer">
 <h2>El modelo Transformer<a class="headerlink" href="#el-modelo-transformer" title="Permalink to this headline">¶</a></h2>
 <p><strong>15 - Mecanismo de auto-atención</strong>: <a class="reference external" href="https://youtu.be/p727fQCrw9c">Video 24mins</a> <br/> Describimos el modelo conocido como Transformer y su principal principio de funcionamiento: el mecanismo de auto-atención.</p>
 <p><strong>16 - Modelo BERT</strong>: <a class="reference external" href="https://youtu.be/XTtcdIXskvY">Video 5mins</a> <br/> Describimos el modelo BERT (Bidirectional Encoder Representations from Transformers) muy usado como modelo base para diferentes aplicaciones de NLP entre otras.</p>
-</div>
-<div class="section" id="laboratorio-3">
+</section>
+<section id="laboratorio-3">
 <h2>LABORATORIO 3<a class="headerlink" href="#laboratorio-3" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 3 - Sentiment analysis with a Self-Attention Layer</strong>: <a class="reference external" href="https://youtu.be/gvgjpkCAJcs">Video 15mins</a> <br/>En este laboratorio debes diseñar diferentes arquitecturas de DL basadas en el modelo de Transformer para clasificar tweets como positivos o negativos.</p>
-</div>
-<div class="section" id="arquitecturas-cnn-lstm">
+</section>
+<section id="arquitecturas-cnn-lstm">
 <h2>Arquitecturas CNN-LSTM<a class="headerlink" href="#arquitecturas-cnn-lstm" title="Permalink to this headline">¶</a></h2>
 <p><strong>17 - Arquitecturas CNN-LSTM y ConvLSTM</strong>: <a class="reference external" href="https://youtu.be/deVW91RR_lQ">Video 22mins</a> <br/> Presentamos las arquitecturas de redes neuronales profundas que pueden ser usadas para procesar secuencias de matrices u objetos 3D. Este tipo de arquitecturas permiten resolver tareas de ML sobre videos.</p>
-</div>
-<div class="section" id="laboratorio">
+</section>
+<section id="laboratorio">
 <h2>LABORATORIO<a class="headerlink" href="#laboratorio" title="Permalink to this headline">¶</a></h2>
 <p><strong>NON-REQUIRED LAB</strong></p>
 <p><strong>LAB 4 - Video classification</strong>: <br/>En este laboratorio debes diseñar arquitecturas de DL para clasificar videos de acuerdo con la acción que las personas están realizando en ellos.</p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

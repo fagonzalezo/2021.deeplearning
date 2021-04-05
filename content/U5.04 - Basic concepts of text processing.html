@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>5.4 Text processing &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -578,7 +579,7 @@
         
               <div>
                 
-  <div class="section" id="text-processing">
+  <section id="text-processing">
 <h1>5.4 Text processing<a class="headerlink" href="#text-processing" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -613,7 +614,7 @@
 <p>Natural Language Toolkit
 https://www.nltk.org/index.html</p>
 <p>NLTK is a platform for building Python programs to work with human language data. It provides easy-to-use interfaces to over 50 corpora and lexical resources such as WordNet, along with a suite of text processing libraries for classification, tokenization, stemming, tagging, parsing, and semantic reasoning.</p>
-<div class="section" id="tokenization">
+<section id="tokenization">
 <h2>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this headline">¶</a></h2>
 <p>This process assigns a unique number to every word (or character) in the dataset. Tokenization requires to set up the maximum number of fatures or words to be included in the tokenizer.</p>
 <div class="cell docutils container">
@@ -671,8 +672,8 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 <p>If there are more unique words in the text than <strong>num_words</strong>, only the most frequent ones are given a unique token.</p>
-</div>
-<div class="section" id="depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions">
+</section>
+<section id="depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions">
 <h2>Depending on the task, it may be necessary to eliminate some words such as prepositions<a class="headerlink" href="#depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -704,10 +705,10 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="document-representations">
+</section>
+<section id="document-representations">
 <h2>Document representations<a class="headerlink" href="#document-representations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="bag-of-words">
+<section id="bag-of-words">
 <h3>Bag of words<a class="headerlink" href="#bag-of-words" title="Permalink to this headline">¶</a></h3>
 <p>The most basic representation of a document is based on a One-hot encoding of the tokenized text. In other words, every text is represented as a vector of 0’s and only one ‘1’ in the position given by the index of the words in te text, according to the ones assigned during tokenization. The length of the vector corresponds to the parameter <strong>num_words</strong>, which is the size of the dictionary.</p>
 <p>Based on a bag of words representation a whole paragraph or document could be codified as a vector of num_words positions, where the position <span class="math notranslate nohighlight">\(i\)</span> accounts for the number of times that the word <span class="math notranslate nohighlight">\(i\)</span> appeared in the text. Usually, such vector is normalized with respecto the number of words in the text, this is call <em>term-frecuency</em> representation. However, it is more common to use the tf-idf representetation.</p>
@@ -773,8 +774,8 @@ Wall time: 3.56 ms
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="stemming">
+</section>
+<section id="stemming">
 <h3>Stemming<a class="headerlink" href="#stemming" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -834,8 +835,8 @@ Wall time: 3.56 ms
 </div>
 <p>This provides a matrix with a row per document and a column per word in the dictionary. The position [<span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span>] corresponds to the number of times the word <span class="math notranslate nohighlight">\(j\)</span> appeared in the document <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <p><strong>Home work</strong>: <a class="reference external" href="https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/">Read about the difference between steeming and lemmatization</a></p>
-</div>
-<div class="section" id="tf-idf-representation">
+</section>
+<section id="tf-idf-representation">
 <h3>tf-idf representation<a class="headerlink" href="#tf-idf-representation" title="Permalink to this headline">¶</a></h3>
 <p>This stands for term frequency and inverse document frequency. The tf-idf weighting scheme assigns to term <span class="math notranslate nohighlight">\(t\)</span> a weight in document <span class="math notranslate nohighlight">\(d\)</span> given by</p>
 <div class="math notranslate nohighlight">
@@ -927,11 +928,11 @@ Wall time: 24.4 ms
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="word-embeddings">
+</section>
+</section>
+<section id="word-embeddings">
 <h2>Word embeddings<a class="headerlink" href="#word-embeddings" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="word2vec">
+<section id="word2vec">
 <h3>word2vec<a class="headerlink" href="#word2vec" title="Permalink to this headline">¶</a></h3>
 <p>There exist several alternatives to represent the words in a different way. In most of the cases, those techniques try to take advantage on the semantic similarity of the words. Such similarity can be sintacmatic or paradigmatic. Paradigmatic similarity refers to the interchange of words. On the other hand, sintacmatic similarity refers to co-ocurrence.</p>
 <p>Two of the most used techniques are based on Neural Network representations:</p>
@@ -954,8 +955,8 @@ Wall time: 24.4 ms
 <p>According to Mikolov (https://arxiv.org/pdf/1310.4546.pdf):</p>
 <p>Skip-gram: works well with small amount of the training data, represents well even rare words or phrases.</p>
 <p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words</p>
-</div>
-<div class="section" id="alternative-activation-functions">
+</section>
+<section id="alternative-activation-functions">
 <h3>Alternative activation functions<a class="headerlink" href="#alternative-activation-functions" title="Permalink to this headline">¶</a></h3>
 <p>One of the problems with word2vec architecture is the large number of outputs, which increases a lot the computational cost. In order to tackle this problem, there are two approaches:</p>
 <ul class="simple">
@@ -1069,8 +1070,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="cbow">
+</section>
+<section id="cbow">
 <h3>CBOW<a class="headerlink" href="#cbow" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1169,8 +1170,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="skip-gram">
+</section>
+<section id="skip-gram">
 <h3>Skip-gram<a class="headerlink" href="#skip-gram" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1214,8 +1215,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 <li><p><strong>hs</strong> ({0, 1}, optional) – If 1, hierarchical softmax will be used for model training. If 0, and negative is non-zero, negative sampling will be used.</p></li>
 <li><p><strong>negative</strong> (int, optional) – If &gt; 0, negative sampling will be used, the int for negative specifies how many “noise words” should be drawn (usually between 5-20). If set to 0, no negative sampling is used.</p></li>
 </ul>
-</div>
-<div class="section" id="there-are-other-two-widely-used-representations-based-on-matrix-factorization">
+</section>
+<section id="there-are-other-two-widely-used-representations-based-on-matrix-factorization">
 <h3>There are other two widely used representations based on Matrix factorization:<a class="headerlink" href="#there-are-other-two-widely-used-representations-based-on-matrix-factorization" title="Permalink to this headline">¶</a></h3>
 <p>These methods utilize low-rank approximations to decompose large matrices that
 capture statistical information about a corpus. That means that this methods are unsupervised in comparison to skip-gram and CBOW that are supervised.</p>
@@ -1242,9 +1243,9 @@ capture statistical information about a corpus. That means that this methods are
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="keras-embedding">
+</section>
+</section>
+<section id="keras-embedding">
 <h2>Keras Embedding<a class="headerlink" href="#keras-embedding" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1258,7 +1259,7 @@ capture statistical information about a corpus. That means that this methods are
 </div>
 </div>
 </div>
-<div class="section" id="transfer-learning">
+<section id="transfer-learning">
 <h3>Transfer learning!<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">¶</a></h3>
 <p>The embedding weights can be replaced by pretrained word2vec weights and used into the the network:</p>
 <div class="cell docutils container">
@@ -1297,9 +1298,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>1.2 - Models derived from data &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -553,7 +554,7 @@
         
               <div>
                 
-  <div class="section" id="models-derived-from-data">
+  <section id="models-derived-from-data">
 <h1>1.2 - Models derived from data<a class="headerlink" href="#models-derived-from-data" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -563,7 +564,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="que-es-machine-learning-ml">
+<section id="que-es-machine-learning-ml">
 <h2>¿Qué es <em>Machine Learning (ML)</em>?<a class="headerlink" href="#que-es-machine-learning-ml" title="Permalink to this headline">¶</a></h2>
 <p><strong>Primero</strong> realizamos experimentos (ciencia), <strong>después</strong> desarrollamos productos (ingeniería)</p>
 <p>Dos roles <span class="math notranslate nohighlight">\(\rightarrow\)</span> dos flujos de trabajo:</p>
@@ -592,8 +593,8 @@
 <img alt="../_images/U1.02 - Modelos derivados de los datos_4_0.png" src="../_images/U1.02 - Modelos derivados de los datos_4_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="que-es-un-modelo-derivado-de-los-datos">
+</section>
+<section id="que-es-un-modelo-derivado-de-los-datos">
 <h2>¿Qué es un modelo derivado de los datos?<a class="headerlink" href="#que-es-un-modelo-derivado-de-los-datos" title="Permalink to this headline">¶</a></h2>
 <p><strong>Caso ideal</strong>: Sabemos las distribuciones de las que vienen los datos. <span class="math notranslate nohighlight">\(\Rightarrow\)</span> podemos calcular analíticamente nuestro modelo.</p>
 <ul class="simple">
@@ -646,7 +647,7 @@
 <img alt="../_images/U1.02 - Modelos derivados de los datos_7_1.png" src="../_images/U1.02 - Modelos derivados de los datos_7_1.png" />
 </div>
 </div>
-<div class="section" id="calculo-analitico-de-los-errores-de-clasificacion">
+<section id="calculo-analitico-de-los-errores-de-clasificacion">
 <h3>cálculo analítico de los errores de clasificación<a class="headerlink" href="#calculo-analitico-de-los-errores-de-clasificacion" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -801,8 +802,8 @@ pop 2 error 0.09957961739117976
 <img alt="../_images/U1.02 - Modelos derivados de los datos_21_0.png" src="../_images/U1.02 - Modelos derivados de los datos_21_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="los-algoritmos-de-machine-learning">
+</section>
+<section id="los-algoritmos-de-machine-learning">
 <h3>Los algoritmos de machine learning:<a class="headerlink" href="#los-algoritmos-de-machine-learning" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Los algoritmos de clasificación <strong>calculan fronteras</strong> entre los datos.</p></li>
@@ -828,8 +829,8 @@ pop 2 error 0.09957961739117976
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="observa-como-un-clasificador-lineal-aproxima-la-frontera-con-diferentes-tamanos-de-muestras">
+</section>
+<section id="observa-como-un-clasificador-lineal-aproxima-la-frontera-con-diferentes-tamanos-de-muestras">
 <h3>observa cómo un clasificador lineal aproxima la frontera con diferentes tamaños de muestras<a class="headerlink" href="#observa-como-un-clasificador-lineal-aproxima-la-frontera-con-diferentes-tamanos-de-muestras" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>cambia el parámetro <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> y experimenta con el siguiente código.</p></li>
@@ -897,9 +898,9 @@ pop 2 error 0.09957961739117976
 <img alt="../_images/U1.02 - Modelos derivados de los datos_26_1.png" src="../_images/U1.02 - Modelos derivados de los datos_26_1.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="solo-tenemos-un-dataset">
+</section>
+</section>
+<section id="solo-tenemos-un-dataset">
 <h2>Solo tenemos un dataset<a class="headerlink" href="#solo-tenemos-un-dataset" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>remuestrea, reentrena para medir el desempeño y entender la estabilidad</p></li>
@@ -1093,8 +1094,8 @@ test_score   0.43
 <img alt="../_images/U1.02 - Modelos derivados de los datos_35_2.png" src="../_images/U1.02 - Modelos derivados de los datos_35_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="multidimensionalidad-2d">
+</section>
+<section id="multidimensionalidad-2d">
 <h2>Multidimensionalidad (&gt;2D)<a class="headerlink" href="#multidimensionalidad-2d" title="Permalink to this headline">¶</a></h2>
 <p>normalmente tenemos datasets de muchas dimensiones (columnas) y no podemos visualizar los datos como en 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> necesitamos métodos para recabar evidencia sobre si tenemos pocos datos, estamos haciendo overfitting, etc.</p>
 <p>Las <strong>curvas de aprendizaje</strong> nos ayudan a esto.</p>
@@ -1157,8 +1158,8 @@ test_score   0.43
 </div>
 </div>
 <p>no olvides que normalmente <strong>no conocemos la <em>frontera bayesiana</em></strong>, y por tanto no tenemos el <em>bayes score</em></p>
-</div>
-<div class="section" id="taxonomia-de-problemas-de-machine-learning">
+</section>
+<section id="taxonomia-de-problemas-de-machine-learning">
 <h2>Taxonomía de problemas de machine learning<a class="headerlink" href="#taxonomia-de-problemas-de-machine-learning" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Supervisados</p>
@@ -1176,8 +1177,8 @@ test_score   0.43
 </li>
 <li><p>Reinforcement learning</p></li>
 </ul>
-</div>
-<div class="section" id="complejidad-de-los-modelos-vs-complejidad-de-los-datos">
+</section>
+<section id="complejidad-de-los-modelos-vs-complejidad-de-los-datos">
 <h2>Complejidad de los modelos vs. complejidad de los datos<a class="headerlink" href="#complejidad-de-los-modelos-vs-complejidad-de-los-datos" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1189,8 +1190,8 @@ test_score   0.43
 <img alt="../_images/U1.02 - Modelos derivados de los datos_43_0.png" src="../_images/U1.02 - Modelos derivados de los datos_43_0.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

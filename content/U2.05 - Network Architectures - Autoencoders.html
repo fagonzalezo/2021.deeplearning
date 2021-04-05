@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>2.5 - Autoencoders &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -578,7 +579,7 @@
         
               <div>
                 
-  <div class="section" id="autoencoders">
+  <section id="autoencoders">
 <h1>2.5 - Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -599,7 +600,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="introduction">
+<section id="introduction">
 <h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>An autoencoder is an unsupervised lerarning method in which we seek to obtain a <strong>LATENT REPRESENTATION</strong> of our data, usually with reduced dimensionality.</p>
 <p>We will be using</p>
@@ -650,8 +651,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="assembling-and-training-an-autoencoder">
+</section>
+<section id="assembling-and-training-an-autoencoder">
 <h2>2. Assembling and training an autoencoder<a class="headerlink" href="#assembling-and-training-an-autoencoder" title="Permalink to this headline">¶</a></h2>
 <p>Observe how an autoencoder is just a concatenation of two regular <code class="docutils literal notranslate"><span class="pre">Dense</span></code> layers. <strong>Why are we using a sigmoid as decoder output activation?</strong></p>
 <div class="cell docutils container">
@@ -925,7 +926,7 @@ Epoch 100/100
 <p>The training seems to have gone well (the loss was reduced)</p>
 <p><strong>Question</strong>: How can we measure how <strong><em>good</em></strong> was the result?</p>
 <p>You can try with larger layers, with more layers, etc.</p>
-<div class="section" id="making-predictions">
+<section id="making-predictions">
 <h3>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">¶</a></h3>
 <p>We can feed the model any input and get the output. Observe we <strong>get eager tensors</strong>, which are like a symbolic wrapper to numpy matrices. We will see more about this later in this course.</p>
 <div class="cell docutils container">
@@ -1029,8 +1030,8 @@ array([[3.6984453e-08, 1.9736575e-10, 2.5541331e-09, ..., 3.9784051e-10,
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_22_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_22_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="accessing-model-layers">
+</section>
+<section id="accessing-model-layers">
 <h3>Accessing model layers<a class="headerlink" href="#accessing-model-layers" title="Permalink to this headline">¶</a></h3>
 <p>We can also get the output of any layer, including the final layer</p>
 <div class="cell docutils container">
@@ -1090,8 +1091,8 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="accessing-model-weights">
+</section>
+<section id="accessing-model-weights">
 <h3>Accessing model weights<a class="headerlink" href="#accessing-model-weights" title="Permalink to this headline">¶</a></h3>
 <p>recall that these are the weights adjusted during training</p>
 <div class="cell docutils container">
@@ -1162,8 +1163,8 @@ layer 2 (50, 784) sum -1458.86, (784,) sum -181.90
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_34_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_34_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="custom-feeding-data-and-extracting-intermediate-activations">
+</section>
+<section id="custom-feeding-data-and-extracting-intermediate-activations">
 <h3>Custom feeding data and extracting intermediate activations<a class="headerlink" href="#custom-feeding-data-and-extracting-intermediate-activations" title="Permalink to this headline">¶</a></h3>
 <p>TF offers different ways to feed in and out of specific layers. The <code class="docutils literal notranslate"><span class="pre">tensorflow.keras.backend</span></code> offers somewhat more flexiblity.</p>
 <p>Observe how we can feed data to our autoencoder and get the activations on the <strong>encoder</strong>.</p>
@@ -1222,9 +1223,9 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="inspecting-data-in-latent-space-the-encoder">
+</section>
+</section>
+<section id="inspecting-data-in-latent-space-the-encoder">
 <h2>2. inspecting data in latent space (the encoder)<a class="headerlink" href="#inspecting-data-in-latent-space-the-encoder" title="Permalink to this headline">¶</a></h2>
 <p>for one randomly chosen image</p>
 <div class="cell docutils container">
@@ -1276,7 +1277,7 @@ array([[ 1.4733481 ,  5.6071835 ,  0.4546271 , ...,  6.584404  ,
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_44_1.png" src="../_images/U2.05 - Network Architectures - Autoencoders_44_1.png" />
 </div>
 </div>
-<div class="section" id="encoder-activations">
+<section id="encoder-activations">
 <h3>encoder activations<a class="headerlink" href="#encoder-activations" title="Permalink to this headline">¶</a></h3>
 <p>or more comprehensively for a set of images. Observe we sort the images grouping all images of each class together.</p>
 <ul class="simple">
@@ -1329,8 +1330,8 @@ mean activation at encoder 6.036
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_48_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_48_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="observe-distribution-of-activations-at-the-encoder">
+</section>
+<section id="observe-distribution-of-activations-at-the-encoder">
 <h3>observe distribution of activations at the encoder<a class="headerlink" href="#observe-distribution-of-activations-at-the-encoder" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1364,9 +1365,9 @@ mean activation at encoder 6.036
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="custom-loss-unsupervised-fit-x-call-rightarrow-mse">
+</section>
+</section>
+<section id="custom-loss-unsupervised-fit-x-call-rightarrow-mse">
 <h2>3. Custom loss, unsupervised <code class="docutils literal notranslate"><span class="pre">.fit(X)</span></code> call <span class="math notranslate nohighlight">\(\rightarrow\)</span> MSE<a class="headerlink" href="#custom-loss-unsupervised-fit-x-call-rightarrow-mse" title="Permalink to this headline">¶</a></h2>
 <p>given:</p>
 <ul class="simple">
@@ -1675,8 +1676,8 @@ Epoch 100/100
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_58_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_58_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="autoencoder-for-image-denoising">
+</section>
+<section id="autoencoder-for-image-denoising">
 <h2>4. Autoencoder for image denoising<a class="headerlink" href="#autoencoder-for-image-denoising" title="Permalink to this headline">¶</a></h2>
 <p>observe reconstruction when fed with noisy data</p>
 <div class="cell docutils container">
@@ -1714,7 +1715,7 @@ Epoch 100/100
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_64_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_64_0.png" />
 </div>
 </div>
-<div class="section" id="in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model">
+<section id="in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model">
 <h3>in a more real scenario we only have noisy data to train the model<a class="headerlink" href="#in-a-more-real-scenario-we-only-have-noisy-data-to-train-the-model" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1956,9 +1957,9 @@ Epoch 100/100
 <img alt="../_images/U2.05 - Network Architectures - Autoencoders_67_0.png" src="../_images/U2.05 - Network Architectures - Autoencoders_67_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.7 ELMo &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -537,7 +536,7 @@
         
               <div>
                 
-  <section id="elmo">
+  <div class="section" id="elmo">
 <h1>5.7 ELMo<a class="headerlink" href="#elmo" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -573,7 +572,7 @@ TensorFlow 1.x selected.
 </div>
 </div>
 </div>
-<section id="elmo-embeddings-from-language-models">
+<div class="section" id="elmo-embeddings-from-language-models">
 <h2>ELMo: Embeddings from Language Models<a class="headerlink" href="#elmo-embeddings-from-language-models" title="Permalink to this headline">¶</a></h2>
 <p>Word embeddings such as word2vec or GloVe provides an exact meaning to words. Eventhough they provided a great improvement to many NLP task, such “constant” meaning was a major drawback of this word embeddings as the meaning of words changes based on context, and thus this wasn’t the best option for Language Modelling.</p>
 <p>For instance, after we train word2vec/Glove on a corpus we get as output one vector representation for, say the word <strong>cell</strong>. So even if we had a sentence like “He went to the prison <strong>cell</strong> with his <strong>cell</strong> phone to extract blood <strong>cell</strong> samples from inmates”, where the word <strong>cell</strong> has different meanings based on the sentence context, these models just collapse them all into one vector for <strong>cell</strong> in their output <a class="reference external" href="https://www.quora.com/What-are-the-main-differences-between-the-word-embeddings-of-ELMo-BERT-Word2vec-and-GloVe">source</a>.</p>
@@ -597,7 +596,7 @@ TensorFlow 1.x selected.
 <p>ELMo is inspired in the Language Modelling problem, which has the advantage of being a <strong>self-supervised</strong> task.</p>
 <p>A practical implication of this difference is that we can use word2vec and Glove vectors trained on a large corpus directly for downstream tasks. All we need is the vectors for the words. There is no need for the model itself that was used to train these vectors.</p>
 <p>However, in the case of ELMo and BERT (we will see it in a forthcoming lecture), since they are context dependent, we need the model that was used to train the vectors even after training, since the models generate the vectors for a word based on context. <a class="reference external" href="https://www.quora.com/What-are-the-main-differences-between-the-word-embeddings-of-ELMo-BERT-Word2vec-and-GloVe">source</a>.</p>
-<section id="let-s-see-how-to-define-a-simplified-elmo-version-from-scratch">
+<div class="section" id="let-s-see-how-to-define-a-simplified-elmo-version-from-scratch">
 <h3>Let’s see how to define a simplified ELMo version from scratch:<a class="headerlink" href="#let-s-see-how-to-define-a-simplified-elmo-version-from-scratch" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -672,9 +671,9 @@ TensorFlow 1.x selected.
 </div>
 </div>
 <p>We can also use pre-trained ELMo from tensorflow hub repository.</p>
-</section>
-</section>
-<section id="download-the-model">
+</div>
+</div>
+<div class="section" id="download-the-model">
 <h2>Download the model<a class="headerlink" href="#download-the-model" title="Permalink to this headline">¶</a></h2>
 <p>Let’s load ELMo model. This will take some time because the model is over 350 Mb in size</p>
 <div class="cell docutils container">
@@ -719,8 +718,8 @@ TensorFlow 1.x selected.
 </div>
 </div>
 </div>
-</section>
-<section id="name-entity-recognition-ner">
+</div>
+<div class="section" id="name-entity-recognition-ner">
 <h2>Name Entity Recognition (NER)<a class="headerlink" href="#name-entity-recognition-ner" title="Permalink to this headline">¶</a></h2>
 <p>NER is a sequential labeling problem where the aim is to label every word in a sentence of pargraph, according to a list of “entity” classes. This is different from part of Speech (POS) tagging, which explains how a word is used in a sentence <a class="reference external" href="https://medium.com/greyatom/learning-pos-tagging-chunking-in-nlp-85f7f811a8cb">For more information about POS</a>.</p>
 <p>Tipical labels in NER are:</p>
@@ -1177,8 +1176,8 @@ TensorFlow 1.x selected.
 </div>
 </div>
 </div>
-</section>
-<section id="excercise-1-complete-the-model-arquitecture">
+</div>
+<div class="section" id="excercise-1-complete-the-model-arquitecture">
 <h2>Excercise 1: Complete the model arquitecture<a class="headerlink" href="#excercise-1-complete-the-model-arquitecture" title="Permalink to this headline">¶</a></h2>
 <p>After the Embedding layer include two Bidirectional LSTM layers with 512 cells each. The second layer must be on top of the first one. As output layer include a Dense layer which takes as input the sum of the two Bidirectional layers output’s. Remember that in NER the output must be a sequence of same length  as the input.</p>
 <div class="cell docutils container">
@@ -1418,7 +1417,7 @@ years          :O     (O)
 </div>
 </div>
 </div>
-<section id="lest-s-compare-the-result-with-a-simple-embedding-layer-instead-of-elmo">
+<div class="section" id="lest-s-compare-the-result-with-a-simple-embedding-layer-instead-of-elmo">
 <h3>Lest’s compare the result with a simple Embedding layer instead of ELMo<a class="headerlink" href="#lest-s-compare-the-result-with-a-simple-embedding-layer-instead-of-elmo" title="Permalink to this headline">¶</a></h3>
 <p>For the sake of comparison, create a model using a conventional Embedding layer, instead of ELMo model. We are going to use an output dimension of 1024 for the Embedding layer and 10000 words dictionary for tokanization.</p>
 <div class="cell docutils container">
@@ -1776,9 +1775,9 @@ macro avg       0.60      0.50      0.54     11301
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

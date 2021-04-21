@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3.2 - TF symbolic engine &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -613,7 +612,7 @@
         
               <div>
                 
-  <section id="tf-symbolic-engine">
+  <div class="section" id="tf-symbolic-engine">
 <h1>3.2 - TF symbolic engine<a class="headerlink" href="#tf-symbolic-engine" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -645,7 +644,7 @@
 </div>
 </div>
 </div>
-<section id="tensorflow-dev-summit">
+<div class="section" id="tensorflow-dev-summit">
 <h2>Tensorflow Dev Summit<a class="headerlink" href="#tensorflow-dev-summit" title="Permalink to this headline">¶</a></h2>
 <p>the following images are screenshots of the publicly available material from conferences at the <a class="reference external" href="https://www.tensorflow.org/dev-summit">TensorFLow Dev Summit</a></p>
 <div class="cell docutils container">
@@ -678,8 +677,8 @@
 <img alt="../_images/U3.02 - TF for symbolic computing_6_0.png" src="../_images/U3.02 - TF for symbolic computing_6_0.png" />
 </div>
 </div>
-</section>
-<section id="tf-is-a-symbolic-computing-optimization-library-for-machine-learning-problems">
+</div>
+<div class="section" id="tf-is-a-symbolic-computing-optimization-library-for-machine-learning-problems">
 <h2>TF is a symbolic computing + optimization library for machine learning problems<a class="headerlink" href="#tf-is-a-symbolic-computing-optimization-library-for-machine-learning-problems" title="Permalink to this headline">¶</a></h2>
 <p>ML expressions involve:</p>
 <ul class="simple">
@@ -789,8 +788,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="tensors">
+</div>
+<div class="section" id="tensors">
 <h2>Tensors<a class="headerlink" href="#tensors" title="Permalink to this headline">¶</a></h2>
 <p>in <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code> the notion of a Tensor is just a <strong>symbolic multidimensional array</strong>. Although, this is a recent simplified version of what always has been known as a tensor in differential geometry (see <a class="reference external" href="https://bjlkeng.github.io/posts/tensors-tensors-tensors/">https://bjlkeng.github.io/posts/tensors-tensors-tensors/</a>).</p>
 <p>Observe how Tensorflow naturally deals with multidimensional symbolic variables (Tensors)</p>
@@ -851,8 +850,8 @@ array([[-38.      ],
 </div>
 </div>
 </div>
-</section>
-<section id="implementing-linear-regresion-in-tf">
+</div>
+<div class="section" id="implementing-linear-regresion-in-tf">
 <h2>Implementing linear regresion in TF<a class="headerlink" href="#implementing-linear-regresion-in-tf" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -890,8 +889,8 @@ array([[-38.      ],
 </div>
 </div>
 </div>
-</section>
-<section id="version-1-raw-low-level-with-gradient-descent">
+</div>
+<div class="section" id="version-1-raw-low-level-with-gradient-descent">
 <h2>Version 1: raw low level with gradient descent<a class="headerlink" href="#version-1-raw-low-level-with-gradient-descent" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>beware of typing. <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> is very sensitive to numeric data types (<code class="docutils literal notranslate"><span class="pre">tf.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">tf.float64</span></code>, etc.) Default types in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> might not always be the same</p></li>
@@ -951,8 +950,8 @@ array([[-38.      ],
 <img alt="../_images/U3.02 - TF for symbolic computing_27_1.png" src="../_images/U3.02 - TF for symbolic computing_27_1.png" />
 </div>
 </div>
-</section>
-<section id="version-2-using-tf-function-to-speed-up">
+</div>
+<div class="section" id="version-2-using-tf-function-to-speed-up">
 <h2>Version 2: using <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> to speed up<a class="headerlink" href="#version-2-using-tf-function-to-speed-up" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1015,8 +1014,8 @@ array([[-38.      ],
 <img alt="../_images/U3.02 - TF for symbolic computing_30_1.png" src="../_images/U3.02 - TF for symbolic computing_30_1.png" />
 </div>
 </div>
-</section>
-<section id="version-3-using-batches-with-random-shuffling-stochastic-gradient-descent">
+</div>
+<div class="section" id="version-3-using-batches-with-random-shuffling-stochastic-gradient-descent">
 <h2>Version 3: using batches with random shuffling (stochastic gradient descent)<a class="headerlink" href="#version-3-using-batches-with-random-shuffling-stochastic-gradient-descent" title="Permalink to this headline">¶</a></h2>
 <p>notice we tune the number of epochs as the number of weights updates increases</p>
 <div class="cell docutils container">
@@ -1079,8 +1078,8 @@ array([[-38.      ],
 <img alt="../_images/U3.02 - TF for symbolic computing_33_1.png" src="../_images/U3.02 - TF for symbolic computing_33_1.png" />
 </div>
 </div>
-</section>
-<section id="version-4-packing-up-with-keras-class-api-and-custom-sgd">
+</div>
+<div class="section" id="version-4-packing-up-with-keras-class-api-and-custom-sgd">
 <h2>Version 4: packing up with Keras <code class="docutils literal notranslate"><span class="pre">class</span></code> API  and custom SGD<a class="headerlink" href="#version-4-packing-up-with-keras-class-api-and-custom-sgd" title="Permalink to this headline">¶</a></h2>
 <p>observe:</p>
 <ul class="simple">
@@ -1233,8 +1232,8 @@ array([[-0.04066426],
 <img alt="../_images/U3.02 - TF for symbolic computing_46_1.png" src="../_images/U3.02 - TF for symbolic computing_46_1.png" />
 </div>
 </div>
-</section>
-<section id="version-5-sequential-keras-model-with-standard-loop">
+</div>
+<div class="section" id="version-5-sequential-keras-model-with-standard-loop">
 <h2>Version 5: Sequential Keras model with standard loop<a class="headerlink" href="#version-5-sequential-keras-model-with-standard-loop" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1356,8 +1355,8 @@ array([[-0.04066426],
 </script>
 </div></div>
 </div>
-</section>
-<section id="version-6-custom-model-with-keras-class-api-and-standard-loop">
+</div>
+<div class="section" id="version-6-custom-model-with-keras-class-api-and-standard-loop">
 <h2>Version 6: Custom model with Keras <code class="docutils literal notranslate"><span class="pre">class</span></code> API  and standard loop<a class="headerlink" href="#version-6-custom-model-with-keras-class-api-and-standard-loop" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1435,8 +1434,8 @@ array([[-0.04066426],
 <img alt="../_images/U3.02 - TF for symbolic computing_62_0.png" src="../_images/U3.02 - TF for symbolic computing_62_0.png" />
 </div>
 </div>
-</section>
-<section id="version-7-using-train-step-rightarrow-control-loss-and-gradients-on-a-custom-model">
+</div>
+<div class="section" id="version-7-using-train-step-rightarrow-control-loss-and-gradients-on-a-custom-model">
 <h2>Version 7: Using <code class="docutils literal notranslate"><span class="pre">train_step</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> control loss and gradients on a custom model.<a class="headerlink" href="#version-7-using-train-step-rightarrow-control-loss-and-gradients-on-a-custom-model" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1516,8 +1515,8 @@ array([[-0.04066426],
 <img alt="../_images/U3.02 - TF for symbolic computing_69_0.png" src="../_images/U3.02 - TF for symbolic computing_69_0.png" />
 </div>
 </div>
-</section>
-<section id="version-8-using-train-step-rightarrow-control-loss-and-gradients-on-a-standard-model">
+</div>
+<div class="section" id="version-8-using-train-step-rightarrow-control-loss-and-gradients-on-a-standard-model">
 <h2>Version 8: Using <code class="docutils literal notranslate"><span class="pre">train_step</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> control loss and gradients on a standard model.<a class="headerlink" href="#version-8-using-train-step-rightarrow-control-loss-and-gradients-on-a-standard-model" title="Permalink to this headline">¶</a></h2>
 <p>observe that:</p>
 <ul class="simple">
@@ -1657,8 +1656,8 @@ _________________________________________________________________
 <img alt="../_images/U3.02 - TF for symbolic computing_80_0.png" src="../_images/U3.02 - TF for symbolic computing_80_0.png" />
 </div>
 </div>
-</section>
-<section id="version-9-using-train-on-batch-rightarrow-control-data">
+</div>
+<div class="section" id="version-9-using-train-on-batch-rightarrow-control-data">
 <h2>Version 9: using <code class="docutils literal notranslate"><span class="pre">train_on_batch</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> control data<a class="headerlink" href="#version-9-using-train-on-batch-rightarrow-control-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1716,8 +1715,8 @@ _________________________________________________________________
 <img alt="../_images/U3.02 - TF for symbolic computing_85_0.png" src="../_images/U3.02 - TF for symbolic computing_85_0.png" />
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

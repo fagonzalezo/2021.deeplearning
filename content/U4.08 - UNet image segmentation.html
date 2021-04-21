@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4.8 - UNet Image segmentation &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -553,7 +552,7 @@
         
               <div>
                 
-  <section id="unet-image-segmentation">
+  <div class="section" id="unet-image-segmentation">
 <h1><strong>4.8</strong> - UNet Image segmentation<a class="headerlink" href="#unet-image-segmentation" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -568,7 +567,7 @@
 </div>
 </div>
 </div>
-<section id="some-general-references-on-segmentation">
+<div class="section" id="some-general-references-on-segmentation">
 <h2>Some general references on segmentation<a class="headerlink" href="#some-general-references-on-segmentation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://neptune.ai/blog/image-segmentation-in-2020">https://neptune.ai/blog/image-segmentation-in-2020</a></p></li>
@@ -576,8 +575,8 @@
 <li><p><a class="reference external" href="https://debuggercafe.com/introduction-to-image-segmentation-in-deep-learning/">https://debuggercafe.com/introduction-to-image-segmentation-in-deep-learning/</a></p></li>
 <li><p><a class="reference external" href="https://beerensahu.wordpress.com/2019/02/07/explained-deeplab-for-semantic-segmentation/">https://beerensahu.wordpress.com/2019/02/07/explained-deeplab-for-semantic-segmentation/</a></p></li>
 </ul>
-</section>
-<section id="use-gpu-runtime">
+</div>
+<div class="section" id="use-gpu-runtime">
 <h2>Use GPU runtime!!!<a class="headerlink" href="#use-gpu-runtime" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -632,8 +631,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="image-segmentation">
+</div>
+<div class="section" id="image-segmentation">
 <h2>Image Segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this headline">¶</a></h2>
 <p>This notebook is adapted from this Keras Competition: <a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2018">Data Science Bowl 2018</a></p>
 <p><a class="reference external" href="https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook">https://www.kaggle.com/keegil/keras-u-net-starter-lb-0-277/notebook</a></p>
@@ -688,8 +687,8 @@ Downloading stage1_test.zip to /content
 </div>
 </div>
 </div>
-</section>
-<section id="intro">
+</div>
+<div class="section" id="intro">
 <h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
 <p>Hello! This rather quick and dirty kernel shows how to get started on segmenting nuclei using a neural network in Keras.</p>
 <p>The architecture used is the so-called <a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a>, which is very common for image segmentation problems such as this. I believe they also have a tendency to work quite well even on small datasets.</p>
@@ -752,8 +751,8 @@ Downloading stage1_test.zip to /content
 </div>
 </div>
 </div>
-</section>
-<section id="get-the-data">
+</div>
+<div class="section" id="get-the-data">
 <h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s first import all the images and associated masks. I downsample both the training and test images to keep things light and manageable, but we need to keep a record of the original sizes of the test images to upsample our predicted masks and create correct run-length encodings later on. There are definitely better ways to handle this, but it works fine for now!</p>
 <p>Observe some image sizes and their variability</p>
@@ -877,8 +876,8 @@ Downloading stage1_test.zip to /content
 </div>
 </div>
 <p>Seems good!</p>
-</section>
-<section id="build-and-train-our-neural-network">
+</div>
+<div class="section" id="build-and-train-our-neural-network">
 <h2>Build and train our neural network<a class="headerlink" href="#build-and-train-our-neural-network" title="Permalink to this headline">¶</a></h2>
 <p>Next we build our U-Net model, loosely based on <a class="reference external" href="https://arxiv.org/pdf/1505.04597.pdf">U-Net: Convolutional Networks for Biomedical Image Segmentation</a> and very similar to <a class="reference external" href="https://github.com/jocicmarko/ultrasound-nerve-segmentation">this repo</a> from the Kaggle Ultrasound Nerve Segmentation competition.</p>
 <p><img alt="" src="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png" /></p>
@@ -1059,7 +1058,7 @@ ________________________________________________________________________________
 <p><em>Update: Changed to ELU units, added dropout.</em></p>
 <p>Next we fit the model on the training data, using a validation split of 0.1. We use a small batch size because we have so little data. I recommend using checkpointing and early stopping when training your model. I won’t do it here to make things a bit more reproducible (although it’s very likely that your results will be different anyway). I’ll just train for 10 epochs, which takes around 10 minutes in the Kaggle kernel with the current parameters.</p>
 <p><em>Update: Added early stopping and checkpointing and increased to 30 epochs.</em></p>
-<section id="you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
+<div class="section" id="you-may-skip-this-step-by-downloading-directly-the-pretrained-weights">
 <h3>you may skip this step by downloading directly the pretrained weights<a class="headerlink" href="#you-may-skip-this-step-by-downloading-directly-the-pretrained-weights" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1210,9 +1209,9 @@ Epoch 00030: early stopping
 </div>
 </div>
 <p>All right, looks good! Loss seems to be a bit erratic, though. I’ll leave it to you to improve the model architecture and parameters!</p>
-</section>
-</section>
-<section id="make-predictions">
+</div>
+</div>
+<div class="section" id="make-predictions">
 <h2>Make predictions<a class="headerlink" href="#make-predictions" title="Permalink to this headline">¶</a></h2>
 <p>Let’s make predictions both on the test set, the val set and the train set (as a sanity check). Remember to load the best saved model if you’ve used early stopping and checkpointing.</p>
 <div class="cell docutils container">
@@ -1246,8 +1245,8 @@ Epoch 00030: early stopping
 </div>
 </div>
 </div>
-</section>
-<section id="performance-on-selected-validation-data">
+</div>
+<div class="section" id="performance-on-selected-validation-data">
 <h2>performance on selected validation data<a class="headerlink" href="#performance-on-selected-validation-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1267,8 +1266,8 @@ Epoch 00030: early stopping
 <img alt="../_images/U4.08 - UNet image segmentation_34_0.png" src="../_images/U4.08 - UNet image segmentation_34_0.png" />
 </div>
 </div>
-</section>
-<section id="and-on-test-data">
+</div>
+<div class="section" id="and-on-test-data">
 <h2>And on test data<a class="headerlink" href="#and-on-test-data" title="Permalink to this headline">¶</a></h2>
 <p>The model is at least able to fit to the training data! Certainly a lot of room for improvement even here, but a decent start. How about the validation data?</p>
 <div class="cell docutils container">
@@ -1287,8 +1286,8 @@ Epoch 00030: early stopping
 <img alt="../_images/U4.08 - UNet image segmentation_36_0.png" src="../_images/U4.08 - UNet image segmentation_36_0.png" />
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

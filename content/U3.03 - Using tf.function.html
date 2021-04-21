@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3.3 - Using tf.function &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -555,7 +554,7 @@
         
               <div>
                 
-  <section id="using-tf-function">
+  <div class="section" id="using-tf-function">
 <h1>3.3 - Using <code class="docutils literal notranslate"><span class="pre">tf.function</span></code><a class="headerlink" href="#using-tf-function" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,7 +584,7 @@
 </div>
 </div>
 </div>
-<section id="tf-function-automatically-converts-pythonic-code-to-a-computational-graph-using-tensors">
+<div class="section" id="tf-function-automatically-converts-pythonic-code-to-a-computational-graph-using-tensors">
 <h2><code class="docutils literal notranslate"><span class="pre">tf.function</span></code> automatically converts pythonic code to a computational graph, using Tensors<a class="headerlink" href="#tf-function-automatically-converts-pythonic-code-to-a-computational-graph-using-tensors" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -845,8 +844,8 @@ f47(t)
 </div>
 </div>
 </div>
-</section>
-<section id="performance-of-tf-function">
+</div>
+<div class="section" id="performance-of-tf-function">
 <h2>performance of <code class="docutils literal notranslate"><span class="pre">tf.function</span></code><a class="headerlink" href="#performance-of-tf-function" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1025,8 +1024,8 @@ array([[2.3446867 , 3.1720169 , 2.4340954 , ..., 0.94587123, 3.915599  ,
 </div>
 </div>
 </div>
-</section>
-<section id="underlying-concrete-functions-are-actual-tf-graphs-with-no-polymorphism-tied-to-specific-input-types">
+</div>
+<div class="section" id="underlying-concrete-functions-are-actual-tf-graphs-with-no-polymorphism-tied-to-specific-input-types">
 <h2>Underlying <code class="docutils literal notranslate"><span class="pre">concrete</span></code> functions are actual TF graphs with no polymorphism, tied to specific input types<a class="headerlink" href="#underlying-concrete-functions-are-actual-tf-graphs-with-no-polymorphism-tied-to-specific-input-types" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">tf.function</span></code> maps python polymorphism to a set of different underlying concrete functions</p>
 <div class="cell docutils container">
@@ -1095,8 +1094,8 @@ array([[2.3446867 , 3.1720169 , 2.4340954 , ..., 0.94587123, 3.915599  ,
 </div>
 </div>
 </div>
-</section>
-<section id="tf-function-with-keras-layers">
+</div>
+<div class="section" id="tf-function-with-keras-layers">
 <h2><code class="docutils literal notranslate"><span class="pre">tf.function</span></code> with <code class="docutils literal notranslate"><span class="pre">keras</span></code> layers<a class="headerlink" href="#tf-function-with-keras-layers" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1251,7 +1250,7 @@ Model&#39;s output: tf.Tensor(
 </div>
 </div>
 </div>
-<section id="including-graphs-in-upstream-functions">
+<div class="section" id="including-graphs-in-upstream-functions">
 <h3>including graphs in upstream functions.<a class="headerlink" href="#including-graphs-in-upstream-functions" title="Permalink to this headline">¶</a></h3>
 <p>observe how we compute the gradient of a computational graph:</p>
 <ul class="simple">
@@ -1343,9 +1342,9 @@ Model&#39;s output: tf.Tensor(
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

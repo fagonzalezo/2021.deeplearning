@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4.5 - Transfer learning &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -528,7 +527,7 @@
         
               <div>
                 
-  <section id="transfer-learning">
+  <div class="section" id="transfer-learning">
 <h1>4.5 - Transfer learning<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -553,7 +552,7 @@
 </div>
 </div>
 </div>
-<section id="observe-alexnet-filters-for-the-first-two-convolutional-layers">
+<div class="section" id="observe-alexnet-filters-for-the-first-two-convolutional-layers">
 <h2>Observe AlexNet filters for the first two convolutional layers<a class="headerlink" href="#observe-alexnet-filters-for-the-first-two-convolutional-layers" title="Permalink to this headline">¶</a></h2>
 <p>Pretrained Network: <a class="reference external" href="https://www.cs.toronto.edu/~guerzhoy/tf_alexnet/">https://www.cs.toronto.edu/~guerzhoy/tf_alexnet/</a></p>
 <p>Paper: <a class="reference external" href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">ImageNet Classification with Deep Convolutional Neural Networks</a></p>
@@ -602,7 +601,7 @@ b&#39;conv1&#39; (96,) (11, 11, 3, 96)
 <img alt="../_images/U4.05 - Transfer learning_7_1.png" src="../_images/U4.05 - Transfer learning_7_1.png" />
 </div>
 </div>
-<section id="we-will-use-them-as-starting-point-for-training-our-network">
+<div class="section" id="we-will-use-them-as-starting-point-for-training-our-network">
 <h3>We will use them as starting point for training our network<a class="headerlink" href="#we-will-use-them-as-starting-point-for-training-our-network" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -743,9 +742,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="train-from-scratch">
+</div>
+</div>
+<div class="section" id="train-from-scratch">
 <h2>Train from scratch<a class="headerlink" href="#train-from-scratch" title="Permalink to this headline">¶</a></h2>
 <p>in some runs might take a while to start reducing loss</p>
 <div class="cell docutils container">
@@ -813,8 +812,8 @@ Epoch 15/15
 <img alt="../_images/U4.05 - Transfer learning_18_2.png" src="../_images/U4.05 - Transfer learning_18_2.png" />
 </div>
 </div>
-</section>
-<section id="id1">
+</div>
+<div class="section" id="id1">
 <h2>Transfer learning!!!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Keep first level filters to compare later</p></li>
@@ -996,8 +995,8 @@ total 168K
 </div>
 </div>
 </div>
-</section>
-<section id="could-also-freeze-weights-to-avoid-being-changed-by-training">
+</div>
+<div class="section" id="could-also-freeze-weights-to-avoid-being-changed-by-training">
 <h2>Could also freeze weights to avoid being changed by training<a class="headerlink" href="#could-also-freeze-weights-to-avoid-being-changed-by-training" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1116,8 +1115,8 @@ Epoch 15/15
 </div>
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

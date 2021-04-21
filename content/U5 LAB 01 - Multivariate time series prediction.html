@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAB 5.1 - Time series prediction &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -566,7 +565,7 @@
         
               <div>
                 
-  <section id="lab-5-1-time-series-prediction">
+  <div class="section" id="lab-5-1-time-series-prediction">
 <h1>LAB 5.1 - Time series prediction<a class="headerlink" href="#lab-5-1-time-series-prediction" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -607,7 +606,7 @@
 </div>
 </div>
 </div>
-<section id="context">
+<div class="section" id="context">
 <h2>Context<a class="headerlink" href="#context" title="Permalink to this headline">¶</a></h2>
 <p>The aim of this LAB is to test the capacity of recurrent networks to predict future values of pollution based on past vallues of pollution and other environmental time series.</p>
 <p>Load data:</p>
@@ -670,8 +669,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="task-1">
+</div>
+<div class="section" id="task-1">
 <h2>TASK 1.<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h2>
 <p>In order to train a DL model for time series prediction, the first step is to split the data correctly. Define a function valled create_datasetMV that takes the dataset of environmental time series (MVSeries), and return two arrays: the input array and the target array. This function will be used to set up the data for predicting the next value of the pollution time series. During the experiments, we are going to test different look backs (observations of the time series in past times), so the function should have an input parameter to define this number.</p>
 <p><strong>Hint</strong>:</p>
@@ -748,8 +747,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="task-2">
+</div>
+<div class="section" id="task-2">
 <h2>Task 2.<a class="headerlink" href="#task-2" title="Permalink to this headline">¶</a></h2>
 <p>Create a function that takes as input one type of recurrent layer from this set: ‘SimpleRNN’, ‘LSTM’, or ‘GRU’, and return an instances of a DL model. The model must use two recurrent layers (of selected type) with 10 neurons each, and one output layer with only one single output.</p>
 <p>You must return an instance of a <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> model. <strong>DO NOT</strong> invoke <code class="docutils literal notranslate"><span class="pre">compile</span></code> or <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
@@ -771,7 +770,7 @@
 </div>
 </div>
 </div>
-<section id="let-s-train-the-models">
+<div class="section" id="let-s-train-the-models">
 <h3>Let’s train the models:<a class="headerlink" href="#let-s-train-the-models" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 1 and 2.</p>
 <div class="cell docutils container">
@@ -809,8 +808,8 @@
 </div>
 <div class="alert alert-block alert-info"><b>Note:</b>
 <p>A good exercise is to repeat the training process using a <a href="https://rramosp.github.io/2021.deeplearning/content/U5.00%20-%20Intro%20time%20series.html#">time-series cross-validation strategy</a>, estimate confindence intervals, and include them into the plot.</p>
-</div></section>
-<section id="let-s-see-how-the-real-and-predicted-time-series-look-like">
+</div></div>
+<div class="section" id="let-s-see-how-the-real-and-predicted-time-series-look-like">
 <h3>Let’s see how the real and predicted time series look like:<a class="headerlink" href="#let-s-see-how-the-real-and-predicted-time-series-look-like" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -847,9 +846,9 @@
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="task-3">
+</div>
+</div>
+<div class="section" id="task-3">
 <h2>Task 3<a class="headerlink" href="#task-3" title="Permalink to this headline">¶</a></h2>
 <p>Create two functions:</p>
 <ul class="simple">
@@ -923,7 +922,7 @@
 </div>
 </div>
 </div>
-<section id="id1">
+<div class="section" id="id1">
 <h3>Let’s train the models:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Task 3.</p>
 <div class="cell docutils container">
@@ -945,7 +944,7 @@
 </div>
 </div>
 </div>
-<section id="let-s-see-how-the-models-perform-for-a-2-times-ahead-prediction">
+<div class="section" id="let-s-see-how-the-models-perform-for-a-2-times-ahead-prediction">
 <h4>Let’s see how the models perform for a 2 times ahead prediction:<a class="headerlink" href="#let-s-see-how-the-models-perform-for-a-2-times-ahead-prediction" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -980,10 +979,10 @@
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="task-4">
+</div>
+</div>
+</div>
+<div class="section" id="task-4">
 <h2>Task 4<a class="headerlink" href="#task-4" title="Permalink to this headline">¶</a></h2>
 <p>Create a function Recurrent_Model_ED to solve the same problem addressed in the former task, but using en encoder-decoder architecure. The encoder must be coposed of a stack of two recurrent layers of 15 neurons each and the decoder must be composed of one recurrent layer of 10 neurons. As in the previous task, the function must receive a layer_type parameter and a n_steps_ahead parameter to define the prediction horizon.</p>
 <div class="cell docutils container">
@@ -1004,7 +1003,7 @@
 </div>
 </div>
 </div>
-<section id="id2">
+<div class="section" id="id2">
 <h3>Let’s train the models:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p><strong>Warning</strong>: Run this part only if you have already passed Tasks 3 and 4.</p>
 <div class="cell docutils container">
@@ -1026,7 +1025,7 @@
 </div>
 </div>
 </div>
-<section id="let-s-see-how-the-encoder-models-perform-for-a-2-times-ahead-prediction">
+<div class="section" id="let-s-see-how-the-encoder-models-perform-for-a-2-times-ahead-prediction">
 <h4>Let’s see how the encoder models perform for a 2 times ahead prediction:<a class="headerlink" href="#let-s-see-how-the-encoder-models-perform-for-a-2-times-ahead-prediction" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1084,10 +1083,10 @@
 <img alt="../_images/U5 LAB 01 - Multivariate time series prediction_56_0.png" src="../_images/U5 LAB 01 - Multivariate time series prediction_56_0.png" />
 </div>
 </div>
-</section>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1098,16 +1097,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "conda-root-py"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "conda-root-py",
+            kernelName: "python3",
             path: "./content"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'conda-root-py'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.4 Text processing &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -579,7 +578,7 @@
         
               <div>
                 
-  <section id="text-processing">
+  <div class="section" id="text-processing">
 <h1>5.4 Text processing<a class="headerlink" href="#text-processing" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -614,7 +613,7 @@
 <p>Natural Language Toolkit
 https://www.nltk.org/index.html</p>
 <p>NLTK is a platform for building Python programs to work with human language data. It provides easy-to-use interfaces to over 50 corpora and lexical resources such as WordNet, along with a suite of text processing libraries for classification, tokenization, stemming, tagging, parsing, and semantic reasoning.</p>
-<section id="tokenization">
+<div class="section" id="tokenization">
 <h2>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this headline">¶</a></h2>
 <p>This process assigns a unique number to every word (or character) in the dataset. Tokenization requires to set up the maximum number of fatures or words to be included in the tokenizer.</p>
 <div class="cell docutils container">
@@ -642,6 +641,8 @@ https://www.nltk.org/index.html</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.text</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
 
+<span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;ejemplo de texto a ser procesado ejemplo&#39;</span>
+
 <span class="n">max_fatures</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="n">max_fatures</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 <span class="n">tokenizer</span><span class="o">.</span><span class="n">fit_on_texts</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
@@ -652,8 +653,8 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ejemplo de texto a ser procesado&#39;]
-[[1, 2, 3, 4, 5, 6]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ejemplo de texto a ser procesado ejemplo&#39;]
+[[1, 2, 3, 4, 5, 6, 1]]
 </pre></div>
 </div>
 </div>
@@ -672,8 +673,8 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 <p>If there are more unique words in the text than <strong>num_words</strong>, only the most frequent ones are given a unique token.</p>
-</section>
-<section id="depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions">
+</div>
+<div class="section" id="depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions">
 <h2>Depending on the task, it may be necessary to eliminate some words such as prepositions<a class="headerlink" href="#depending-on-the-task-it-may-be-necessary-to-eliminate-some-words-such-as-prepositions" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -700,15 +701,15 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ejemplo&#39;, &#39;texto&#39;, &#39;ser&#39;, &#39;procesado&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ejemplo&#39;, &#39;texto&#39;, &#39;ser&#39;, &#39;procesado&#39;, &#39;ejemplo&#39;]
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="document-representations">
+</div>
+<div class="section" id="document-representations">
 <h2>Document representations<a class="headerlink" href="#document-representations" title="Permalink to this headline">¶</a></h2>
-<section id="bag-of-words">
+<div class="section" id="bag-of-words">
 <h3>Bag of words<a class="headerlink" href="#bag-of-words" title="Permalink to this headline">¶</a></h3>
 <p>The most basic representation of a document is based on a One-hot encoding of the tokenized text. In other words, every text is represented as a vector of 0’s and only one ‘1’ in the position given by the index of the words in te text, according to the ones assigned during tokenization. The length of the vector corresponds to the parameter <strong>num_words</strong>, which is the size of the dictionary.</p>
 <p>Based on a bag of words representation a whole paragraph or document could be codified as a vector of num_words positions, where the position <span class="math notranslate nohighlight">\(i\)</span> accounts for the number of times that the word <span class="math notranslate nohighlight">\(i\)</span> appeared in the text. Usually, such vector is normalized with respecto the number of words in the text, this is call <em>term-frecuency</em> representation. However, it is more common to use the tf-idf representetation.</p>
@@ -733,8 +734,8 @@ https://www.nltk.org/index.html</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 0 ns, sys: 2.64 ms, total: 2.64 ms
-Wall time: 3.56 ms
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 569 µs, sys: 272 µs, total: 841 µs
+Wall time: 607 µs
 (3, 18)
 </pre></div>
 </div>
@@ -774,8 +775,8 @@ Wall time: 3.56 ms
 </div>
 </div>
 </div>
-</section>
-<section id="stemming">
+</div>
+<div class="section" id="stemming">
 <h3>Stemming<a class="headerlink" href="#stemming" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -835,8 +836,8 @@ Wall time: 3.56 ms
 </div>
 <p>This provides a matrix with a row per document and a column per word in the dictionary. The position [<span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span>] corresponds to the number of times the word <span class="math notranslate nohighlight">\(j\)</span> appeared in the document <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <p><strong>Home work</strong>: <a class="reference external" href="https://blog.bitext.com/what-is-the-difference-between-stemming-and-lemmatization/">Read about the difference between steeming and lemmatization</a></p>
-</section>
-<section id="tf-idf-representation">
+</div>
+<div class="section" id="tf-idf-representation">
 <h3>tf-idf representation<a class="headerlink" href="#tf-idf-representation" title="Permalink to this headline">¶</a></h3>
 <p>This stands for term frequency and inverse document frequency. The tf-idf weighting scheme assigns to term <span class="math notranslate nohighlight">\(t\)</span> a weight in document <span class="math notranslate nohighlight">\(d\)</span> given by</p>
 <div class="math notranslate nohighlight">
@@ -866,52 +867,32 @@ Wall time: 3.56 ms
 <span class="o">%</span><span class="k">time</span> tfidf_matrix = tfidf_vectorizer.fit_transform(synopsesStem) #fit the vectorizer to synopses
 
 <span class="nb">print</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 23.6 ms, sys: 0 ns, total: 23.6 ms
-Wall time: 24.4 ms
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 15.2 ms, sys: 446 µs, total: 15.7 ms
+Wall time: 15 ms
 (3, 33)
-  (0, 32)	0.35517252025437435
-  (0, 12)	0.35517252025437435
-  (0, 26)	0.35517252025437435
-  (0, 31)	0.35517252025437435
-  (0, 11)	0.35517252025437435
-  (0, 19)	0.35517252025437435
-  (0, 23)	0.2701178563861315
-  (0, 30)	0.35517252025437435
-  (0, 8)	0.20977061198951072
-  (1, 15)	0.24898660220691754
-  (1, 25)	0.24898660220691754
-  (1, 22)	0.24898660220691754
-  (1, 10)	0.24898660220691754
-  (1, 2)	0.24898660220691754
-  (1, 4)	0.24898660220691754
-  (1, 14)	0.24898660220691754
-  (1, 24)	0.24898660220691754
-  (1, 21)	0.24898660220691754
-  (1, 9)	0.24898660220691754
-  (1, 1)	0.1893607287208777
-  (1, 3)	0.24898660220691754
-  (1, 13)	0.24898660220691754
-  (1, 20)	0.24898660220691754
-  (1, 0)	0.1893607287208777
-  (1, 23)	0.1893607287208777
-  (1, 8)	0.2941109964516782
-  (2, 7)	0.3085240515440934
-  (2, 18)	0.3085240515440934
-  (2, 29)	0.3085240515440934
-  (2, 6)	0.3085240515440934
-  (2, 17)	0.3085240515440934
-  (2, 28)	0.3085240515440934
-  (2, 5)	0.3085240515440934
-  (2, 16)	0.3085240515440934
-  (2, 27)	0.3085240515440934
-  (2, 1)	0.23464049354653999
-  (2, 0)	0.23464049354653999
-  (2, 8)	0.1822192749020558
+[[0.         0.         0.         0.         0.         0.
+  0.         0.         0.20977061 0.         0.         0.35517252
+  0.35517252 0.         0.         0.         0.         0.
+  0.         0.35517252 0.         0.         0.         0.27011786
+  0.         0.         0.35517252 0.         0.         0.
+  0.35517252 0.35517252 0.35517252]
+ [0.18936073 0.18936073 0.2489866  0.2489866  0.2489866  0.
+  0.         0.         0.294111   0.2489866  0.2489866  0.
+  0.         0.2489866  0.2489866  0.2489866  0.         0.
+  0.         0.         0.2489866  0.2489866  0.2489866  0.18936073
+  0.2489866  0.2489866  0.         0.         0.         0.
+  0.         0.         0.        ]
+ [0.23464049 0.23464049 0.         0.         0.         0.30852405
+  0.30852405 0.30852405 0.18221927 0.         0.         0.
+  0.         0.         0.         0.         0.30852405 0.30852405
+  0.30852405 0.         0.         0.         0.         0.
+  0.         0.         0.         0.30852405 0.30852405 0.30852405
+  0.         0.         0.        ]]
 </pre></div>
 </div>
 </div>
@@ -928,11 +909,11 @@ Wall time: 24.4 ms
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="word-embeddings">
+</div>
+</div>
+<div class="section" id="word-embeddings">
 <h2>Word embeddings<a class="headerlink" href="#word-embeddings" title="Permalink to this headline">¶</a></h2>
-<section id="word2vec">
+<div class="section" id="word2vec">
 <h3>word2vec<a class="headerlink" href="#word2vec" title="Permalink to this headline">¶</a></h3>
 <p>There exist several alternatives to represent the words in a different way. In most of the cases, those techniques try to take advantage on the semantic similarity of the words. Such similarity can be sintacmatic or paradigmatic. Paradigmatic similarity refers to the interchange of words. On the other hand, sintacmatic similarity refers to co-ocurrence.</p>
 <p>Two of the most used techniques are based on Neural Network representations:</p>
@@ -955,8 +936,8 @@ Wall time: 24.4 ms
 <p>According to Mikolov (https://arxiv.org/pdf/1310.4546.pdf):</p>
 <p>Skip-gram: works well with small amount of the training data, represents well even rare words or phrases.</p>
 <p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words</p>
-</section>
-<section id="alternative-activation-functions">
+</div>
+<div class="section" id="alternative-activation-functions">
 <h3>Alternative activation functions<a class="headerlink" href="#alternative-activation-functions" title="Permalink to this headline">¶</a></h3>
 <p>One of the problems with word2vec architecture is the large number of outputs, which increases a lot the computational cost. In order to tackle this problem, there are two approaches:</p>
 <ul class="simple">
@@ -1031,11 +1012,8 @@ Wall time: 24.4 ms
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vocabulary Size: 2342
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vocabulary Size: 2341
 Vocabulary Sample: [(&#39;ai&#39;, 1), (&#39;intelligence&#39;, 2), (&#39;human&#39;, 3), (&#39;artificial&#39;, 4), (&#39;research&#39;, 5), (&#39;machine&#39;, 6), (&#39;knowledge&#39;, 7), (&#39;many&#39;, 8), (&#39;learning&#39;, 9), (&#39;also&#39;, 10)]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using TensorFlow backend.
 </pre></div>
 </div>
 </div>
@@ -1070,8 +1048,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 </div>
 </div>
 </div>
-</section>
-<section id="cbow">
+</div>
+<div class="section" id="cbow">
 <h3>CBOW<a class="headerlink" href="#cbow" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1170,8 +1148,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 </div>
 </div>
 </div>
-</section>
-<section id="skip-gram">
+</div>
+<div class="section" id="skip-gram">
 <h3>Skip-gram<a class="headerlink" href="#skip-gram" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1215,8 +1193,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 <li><p><strong>hs</strong> ({0, 1}, optional) – If 1, hierarchical softmax will be used for model training. If 0, and negative is non-zero, negative sampling will be used.</p></li>
 <li><p><strong>negative</strong> (int, optional) – If &gt; 0, negative sampling will be used, the int for negative specifies how many “noise words” should be drawn (usually between 5-20). If set to 0, no negative sampling is used.</p></li>
 </ul>
-</section>
-<section id="there-are-other-two-widely-used-representations-based-on-matrix-factorization">
+</div>
+<div class="section" id="there-are-other-two-widely-used-representations-based-on-matrix-factorization">
 <h3>There are other two widely used representations based on Matrix factorization:<a class="headerlink" href="#there-are-other-two-widely-used-representations-based-on-matrix-factorization" title="Permalink to this headline">¶</a></h3>
 <p>These methods utilize low-rank approximations to decompose large matrices that
 capture statistical information about a corpus. That means that this methods are unsupervised in comparison to skip-gram and CBOW that are supervised.</p>
@@ -1243,9 +1221,9 @@ capture statistical information about a corpus. That means that this methods are
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="keras-embedding">
+</div>
+</div>
+<div class="section" id="keras-embedding">
 <h2>Keras Embedding<a class="headerlink" href="#keras-embedding" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1258,8 +1236,15 @@ capture statistical information about a corpus. That means that this methods are
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[[ 0.02357093  0.02092982 -0.04955918 -0.01931781]
+  [ 0.03651024  0.04621916 -0.04629884  0.00012832]
+  [-0.04131331 -0.02115368 -0.03124855  0.02596796]]]
+</pre></div>
 </div>
-<section id="transfer-learning">
+</div>
+</div>
+<div class="section" id="transfer-learning">
 <h3>Transfer learning!<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">¶</a></h3>
 <p>The embedding weights can be replaced by pretrained word2vec weights and used into the the network:</p>
 <div class="cell docutils container">
@@ -1298,9 +1283,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

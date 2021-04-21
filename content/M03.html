@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>03 - TENSORFLOW CORE &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -510,15 +509,15 @@
         
               <div>
                 
-  <section id="tensorflow-core">
+  <div class="section" id="tensorflow-core">
 <h1>03 - TENSORFLOW CORE<a class="headerlink" href="#tensorflow-core" title="Permalink to this headline">¶</a></h1>
-<section id="que-es-el-computo-simbolico">
+<div class="section" id="que-es-el-computo-simbolico">
 <h2>¿Qué es el cómputo simbólico?<a class="headerlink" href="#que-es-el-computo-simbolico" title="Permalink to this headline">¶</a></h2>
 <p><strong>01 - Introducción al cómputo simbólico</strong>: <a class="reference external" href="https://youtu.be/EnQ-peKXjCY">Video 10mins</a> <br/>Introducimos qué es y para qué sirve el cómputo simbólico, usando <a class="reference external" href="https://www.sympy.org"><code class="docutils literal notranslate"><span class="pre">sympy</span></code></a>.</p>
 <p><strong>02 - Grafos computacionales</strong>: <a class="reference external" href="https://youtu.be/nSL1_yyBa7Q">Video 18mins</a> <br/>Explicamos la noción de grafo computacional, que es central en Tensorflow, y la necesidad de alinear la manipulación simbólica de expresiones con la capacidad de ejecución de código.</p>
 <p><strong>03 - Obtención automática del gradiente para regresión lineal</strong>: <a class="reference external" href="https://youtu.be/hrEgwg9I0YE">Video 15mins</a> <br/>Ilustramos cómo podemos obtener el gradiente de una función de costo (o de pérdida) con herramientas estándar de cómputo simbólico.</p>
-</section>
-<section id="computo-simbolico-con-tensorflow">
+</div>
+<div class="section" id="computo-simbolico-con-tensorflow">
 <h2>Cómputo simbólico con <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code><a class="headerlink" href="#computo-simbolico-con-tensorflow" title="Permalink to this headline">¶</a></h2>
 <p><strong>04 - Tensorflow Overview</strong>: <a class="reference external" href="https://youtu.be/W7y2RS8jUUY">Video 13mins</a> <br/>Describimos la organización general de Tensorflow.</p>
 <p><strong>05 - Cómputo simbólico en <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code></strong>: <a class="reference external" href="https://youtu.be/LH_qSSLXaNA">Video 10mins</a> <br/>Mostramos cómo Tensorflow manipula expresiones simbólicas.</p>
@@ -526,21 +525,21 @@
 <p><strong>07 - Custom implementations</strong>: <a class="reference external" href="https://youtu.be/KmmGBVrdwVU">Video 21mins</a> <br/>Mostramos cómo integrar con Tensorflow nuestras propias implementaciones de los distintos componentes del proceso de construcción y entrenamiento de un modelo, usando toda la potencial del motor simbólico de Tensorflow.</p>
 <p><strong>08 - Necesidad de <code class="docutils literal notranslate"><span class="pre">tf.funcion</span></code></strong>: <a class="reference external" href="https://youtu.be/dPFqnZ5xfF8">Video 11mins</a> <br/>Explicamos qué es <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> y como contribuye a la eficiencia de la evalución de expresiones simbólicas.</p>
 <p><strong>09 - Rendimiento de <code class="docutils literal notranslate"><span class="pre">tf.function</span></code></strong>: <a class="reference external" href="https://youtu.be/lcDsF5ecdrw">Video 16mins</a> <br/>Realizamos varios experimentos para entender en qué circunstancias podemos usar <code class="docutils literal notranslate"><span class="pre">tf.function</span></code>.</p>
-</section>
-<section id="batch-normalization">
+</div>
+<div class="section" id="batch-normalization">
 <h2>Batch normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">¶</a></h2>
 <p><strong>10 - Histogramas de activaciones</strong>: <a class="reference external" href="https://youtu.be/-uuFHUl-SXk">Video 10mins</a> <br/>Describimos cómo se construyen los histogramas de activaciones de cada capa con cada batch de datos, para inspeccionar la evolución de una red neuronal durante el entrenamiento.</p>
 <p><strong>11 - Covariate shift</strong>: <a class="reference external" href="https://youtu.be/mQBanXHZSNI">Video 12mins</a><br/>Explicamos la intuición detrás del covariate shift y por qué es importante en el contexto de deep learning.</p>
 <p><strong>12 - Batch normalization</strong>: <a class="reference external" href="https://youtu.be/YN1U9yz8aSI">Video 15mins</a><br/>Mostramos como a través de batch normalization controlamos las distribuciones de entrada a distintos puntos de una red neuronal y desarrollamos un experimento para verificarlo en la práctica.</p>
-</section>
-<section id="laboratorios">
+</div>
+<div class="section" id="laboratorios">
 <h2>LABORATORIOS<a class="headerlink" href="#laboratorios" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 1 - Tensorflow subclassing</strong>: <a class="reference external" href="https://youtu.be/2gE9yjl5T5o">Video 5mins</a><br/>Laboratorio para crear un modelo estándar de Tensorflow.</p>
 <p><strong>LAB 2 - Tensorflow low level</strong>: <a class="reference external" href="https://youtu.be/oWzuEOCGe7Q">Video 11mins</a><br/>Laboratorio para adquirir práctica con la manipulación de modelos y gradientes en Tensorflow.</p>
 <div class="toctree-wrapper compound">
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

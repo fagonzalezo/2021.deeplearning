@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1.3 - ML algorithm design &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -562,7 +561,7 @@
         
               <div>
                 
-  <section id="ml-algorithm-design">
+  <div class="section" id="ml-algorithm-design">
 <h1>1.3 - ML algorithm design<a class="headerlink" href="#ml-algorithm-design" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -572,7 +571,7 @@
 </div>
 </div>
 </div>
-<section id="tipos-de-tareas-de-machine-learning">
+<div class="section" id="tipos-de-tareas-de-machine-learning">
 <h2>Tipos de tareas de machine learning<a class="headerlink" href="#tipos-de-tareas-de-machine-learning" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,8 +584,8 @@
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_3_0.jpg" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_3_0.jpg" />
 </div>
 </div>
-</section>
-<section id="como-se-disena-un-algoritmo-ml">
+</div>
+<div class="section" id="como-se-disena-un-algoritmo-ml">
 <h2>Cómo se diseña un algoritmo ML<a class="headerlink" href="#como-se-disena-un-algoritmo-ml" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>Elegir de qué parámetros depende una predicción <span class="math notranslate nohighlight">\(\rightarrow\)</span> se define <strong>cómo</strong> es un modelo.</p></li>
@@ -603,8 +602,8 @@
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_5_0.jpg" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_5_0.jpg" />
 </div>
 </div>
-</section>
-<section id="ejemplo">
+</div>
+<div class="section" id="ejemplo">
 <h2>Ejemplo<a class="headerlink" href="#ejemplo" title="Permalink to this headline">¶</a></h2>
 <p>Los Trilotrópicos son insectos imaginarios que viven en las latitudes tropicales. Conocer su densidad de escamas es muy importante para poder saber qué insecticida aplicar. Pero <strong>es muy costoso</strong> contar las escamas.</p>
 <p>Creemos que existe una relación entre la <strong>longitud</strong> y la <strong>densidad de escamas</strong> y queremos un modelo que prediga la densidad <strong>a partir de la longitud</strong>.</p>
@@ -638,7 +637,7 @@
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_8_1.png" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_8_1.png" />
 </div>
 </div>
-<section id="elegimos-la-forma-del-modelo">
+<div class="section" id="elegimos-la-forma-del-modelo">
 <h3>1. Elegimos la forma del modelo<a class="headerlink" href="#elegimos-la-forma-del-modelo" title="Permalink to this headline">¶</a></h3>
 <p><strong>Entrada</strong></p>
 <ul class="simple">
@@ -686,8 +685,8 @@
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_10_0.png" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_10_0.png" />
 </div>
 </div>
-</section>
-<section id="definimos-una-medida-de-error">
+</div>
+<div class="section" id="definimos-una-medida-de-error">
 <h3>2. Definimos una medida de error<a class="headerlink" href="#definimos-una-medida-de-error" title="Permalink to this headline">¶</a></h3>
 <p>Para un dato cualquiera <span class="math notranslate nohighlight">\((i)\)</span>
 $<span class="math notranslate nohighlight">\(
@@ -727,8 +726,8 @@ err^{(i)} &amp;= (\hat{y}^{(i)}-y^{(i)})^2\\
 </div>
 </div>
 </div>
-</section>
-<section id="obtenemos-los-parametros-que-minimizan-el-error-de-prediccion">
+</div>
+<div class="section" id="obtenemos-los-parametros-que-minimizan-el-error-de-prediccion">
 <h3>3. Obtenemos los parámetros que minimizan el error de predicción<a class="headerlink" href="#obtenemos-los-parametros-que-minimizan-el-error-de-prediccion" title="Permalink to this headline">¶</a></h3>
 <p>observa cómo usamos un <strong>algoritmo genérico de optimización</strong></p>
 <div class="cell docutils container">
@@ -790,8 +789,8 @@ error total 2.74
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_18_1.png" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_18_1.png" />
 </div>
 </div>
-</section>
-<section id="otra-forma-de-modelo">
+</div>
+<div class="section" id="otra-forma-de-modelo">
 <h3>Otra forma de modelo<a class="headerlink" href="#otra-forma-de-modelo" title="Permalink to this headline">¶</a></h3>
 <p>esta vez con tres parámetros y un término <strong>cuadrático</strong></p>
 <div class="math notranslate nohighlight">
@@ -854,16 +853,16 @@ error total 2.74
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="tipologia-de-algoritmos">
+</div>
+</div>
+<div class="section" id="tipologia-de-algoritmos">
 <h2>Tipología de algoritmos<a class="headerlink" href="#tipologia-de-algoritmos" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Generativos</p></li>
 <li><p>Discriminativos</p></li>
 </ul>
-</section>
-<section id="abriendo-la-caja-negra-de-la-optimizacion">
+</div>
+<div class="section" id="abriendo-la-caja-negra-de-la-optimizacion">
 <h2>Abriendo la caja negra de la optimización<a class="headerlink" href="#abriendo-la-caja-negra-de-la-optimizacion" title="Permalink to this headline">¶</a></h2>
 <p><strong>EN ML, NO ES POSIBLE USAR ALGORITMOS DE OPTIMIZACIÓN TAN GENÉRICOS</strong>, debido a:</p>
 <ul class="simple">
@@ -873,7 +872,7 @@ error total 2.74
 <p>p.ej. ¿cuántos términos tiene la siguiente expresión?</p>
 <div class="math notranslate nohighlight">
 \[J(\theta_0, \theta_1) = \frac{1}{m} \sum_{i=0}^{m-1}(\theta_0 + \theta_1 x^{(i)} - y^{(i)})^2\]</div>
-<section id="el-gradiente">
+<div class="section" id="el-gradiente">
 <h3>1. El gradiente<a class="headerlink" href="#el-gradiente" title="Permalink to this headline">¶</a></h3>
 <p>para que la optimización funcione en ML <strong>es necesario</strong> calcular el gradiente de la función de pérdida (el conjunto de derivadas parciales). Observa <a class="reference external" href="https://matthewebmckenna.com/posts/2017/05/gradient-descent-linear-regression">aquí</a> la derivación matemática del gradiente para el caso de regresión lineal (que en realidad es el más sencillo).</p>
 <p>Usamos la notación vectorial: <span class="math notranslate nohighlight">\(\theta = [\theta_0, \theta_1]\)</span>, <span class="math notranslate nohighlight">\(X = [ [1, x^{(i)}] ]^m \in \mathbb{R}^{m\times 2}\)</span> y la función de pérdida queda como:</p>
@@ -944,8 +943,8 @@ error total 2.74
 </div>
 <p>observa el mapa del coste respecto a todos los posibles valores de <span class="math notranslate nohighlight">\(\theta_0\)</span> y <span class="math notranslate nohighlight">\(\theta_1\)</span> en el caso de un modelo lineal.</p>
 <p>en blanco <strong>los valores óptimos</strong></p>
-</section>
-<section id="la-optimizacion-como-proceso-iterativo">
+</div>
+<div class="section" id="la-optimizacion-como-proceso-iterativo">
 <h3>2. la optimización como proceso iterativo<a class="headerlink" href="#la-optimizacion-como-proceso-iterativo" title="Permalink to this headline">¶</a></h3>
 <p>fíjate cómo la optimización busca un camino en el espacio de parámetros para llegar al mínimo.</p>
 <div class="cell docutils container">
@@ -1041,9 +1040,9 @@ error total 2.74
 <img alt="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_31_0.png" src="../_images/U1.03 - Como se disena un algoritmo de Machine Learning_31_0.png" />
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

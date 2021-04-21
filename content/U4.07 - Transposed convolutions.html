@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4.7 - Transposed convolutions &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -528,7 +527,7 @@
         
               <div>
                 
-  <section id="transposed-convolutions">
+  <div class="section" id="transposed-convolutions">
 <h1>4.7 - Transposed convolutions<a class="headerlink" href="#transposed-convolutions" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -561,7 +560,7 @@
 </div>
 </div>
 </div>
-<section id="types-of-convolutions">
+<div class="section" id="types-of-convolutions">
 <h2>Types of convolutions<a class="headerlink" href="#types-of-convolutions" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference external" href="https://medium.com/hitchhikers-guide-to-deep-learning/10-introduction-to-deep-learning-with-computer-vision-types-of-convolutions-atrous-convolutions-3cf142f77bc0">Types of convolutions</a> for a global view of how convolutions can be made in different ways.</p>
 <p>Complementary refs:</p>
@@ -570,16 +569,16 @@
 <li><p><a class="reference external" href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a></p></li>
 <li><p><a class="reference external" href="https://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a></p></li>
 </ul>
-</section>
-<section id="architectures">
+</div>
+<div class="section" id="architectures">
 <h2>Architectures:<a class="headerlink" href="#architectures" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>UNet: <a class="reference external" href="https://towardsdatascience.com/understanding-semantic-segmentation-with-unet-6be4f42d4b47">https://towardsdatascience.com/understanding-semantic-segmentation-with-unet-6be4f42d4b47</a></p></li>
 <li><p>DeepLab: <a class="reference external" href="https://developers.arcgis.com/python/guide/how-deeplabv3-works/">https://developers.arcgis.com/python/guide/how-deeplabv3-works/</a></p></li>
 <li><p>Mask R-CNN: <a class="reference external" href="https://towardsdatascience.com/computer-vision-instance-segmentation-with-mask-r-cnn-7983502fcad1">https://towardsdatascience.com/computer-vision-instance-segmentation-with-mask-r-cnn-7983502fcad1</a></p></li>
 </ul>
-</section>
-<section id="convolution-matrix">
+</div>
+<div class="section" id="convolution-matrix">
 <h2>Convolution matrix<a class="headerlink" href="#convolution-matrix" title="Permalink to this headline">¶</a></h2>
 <p>we have the following (very small) image and filter</p>
 <div class="cell docutils container">
@@ -691,8 +690,8 @@ filter
 <img alt="../_images/U4.07 - Transposed convolutions_13_0.png" src="../_images/U4.07 - Transposed convolutions_13_0.png" />
 </div>
 </div>
-</section>
-<section id="id1">
+</div>
+<div class="section" id="id1">
 <h2>Transposed convolutions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>we can turn the <code class="docutils literal notranslate"><span class="pre">.dot</span></code> product around by using <code class="docutils literal notranslate"><span class="pre">cm</span></code>´s transpose matrix. This <strong>IS NOT</strong> in general an inverse operation, but the dimensions are kept and can be used to recover reduced dimensions.</p>
 <div class="math notranslate nohighlight">
@@ -1031,8 +1030,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</section>
-<section id="downsampling-and-upsampling">
+</div>
+<div class="section" id="downsampling-and-upsampling">
 <h2>Downsampling and upsampling<a class="headerlink" href="#downsampling-and-upsampling" title="Permalink to this headline">¶</a></h2>
 <p>we use our <code class="docutils literal notranslate"><span class="pre">mini_cifar</span></code>, observe how:</p>
 <ul class="simple">
@@ -1208,8 +1207,8 @@ Epoch 20/20
 <img alt="../_images/U4.07 - Transposed convolutions_54_9.png" src="../_images/U4.07 - Transposed convolutions_54_9.png" />
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

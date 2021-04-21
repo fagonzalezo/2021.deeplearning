@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>04 - CONVOLUTIONAL NETWORKS &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -530,16 +529,16 @@
         
               <div>
                 
-  <section id="convolutional-networks">
+  <div class="section" id="convolutional-networks">
 <h1>04 - CONVOLUTIONAL NETWORKS<a class="headerlink" href="#convolutional-networks" title="Permalink to this headline">¶</a></h1>
-<section id="introduccion">
+<div class="section" id="introduccion">
 <h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline">¶</a></h2>
 <p><strong>01 - Tareas de analítica de imágenes</strong>: <a class="reference external" href="https://youtu.be/OTGJTkcaA6k">Video 17mins</a><br/>Revisamos los tipos de tareas de analítica de imágenes más comunes: clasificación, detección de objetos y segmentación.</p>
 <p><strong>02 - Construcción de datasets anotados de imágenes</strong>: <a class="reference external" href="https://youtu.be/Ym-XirC4QKM">Video 13mins</a><br/>Mostramos algunos datasets anotados de imágenes para aprendizaje supervisado y discutimos los costos de adquisición, pertinencia respecto a la tarea que tenemos como objetivo, planificación de campañas de adquisición de datos, etc.</p>
 <p><strong>03 - Servicios en la nube para analítica de imágenes</strong>: <a class="reference external" href="https://youtu.be/AdI7oTCzNtY">Video 8mins</a><br/> Mostramos algunos servicios en la nube que ofrecen predicciones de modelos ya entrenados.</p>
 <p><strong>04 - Ejemplo de modelo de clasificación de imágenes</strong>: <a class="reference external" href="https://youtu.be/Jougllr6bVo">Video 13mins</a><br/>Demostramos el uso <a href="https://teachablemachine.withgoogle.com/">Teaching Machine</a> como ejemplo de juguete para crear un dataset de imágenes, entrenar un modelo y ponerlo en servicio desde el navegador.</p>
-</section>
-<section id="redes-convolucionales">
+</div>
+<div class="section" id="redes-convolucionales">
 <h2>Redes convolucionales<a class="headerlink" href="#redes-convolucionales" title="Permalink to this headline">¶</a></h2>
 <p><strong>05 - Intuición sobre convolución</strong>: <a class="reference external" href="https://youtu.be/RGxdAmOWHF8">Video 13mins</a><br/>Explicamos la noción básica de convolución como una operación entre dos funciones</p>
 <p><strong>06 - Convolución 1D: Cálculo y operación</strong>: <a class="reference external" href="https://youtu.be/atUV_bvb5-s">Video 9mins</a><br/>Calculamos con <code class="docutils literal notranslate"><span class="pre">numpy</span></code> y a mano la convolución 1D entre vectores.</p>
@@ -550,12 +549,12 @@
 <p><strong>11 - Una red convolucional en <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code></strong>: <a class="reference external" href="https://youtu.be/69NS2FuXbVk">Video 20mins</a> <br/>Finalmente, explicamos cómo construir arquitecturas de redes convolucionales con <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code> y varios ejemplos prácticos.</p>
 <p><strong>12 - Dropout</strong>: <a class="reference external" href="https://youtu.be/4S2Wm90Ac4k">Video 15mins</a> <br/> Detallamos el mecanismo de Dropout como medio de regularización en redes neuronales.</p>
 <p><strong>13 - Pooling</strong>: <a class="reference external" href="https://youtu.be/ygOnNOR1G2M">Video 16mins</a> <br/> Detallamos el mecanismo de Pooling como medio de reducción de la dimensionalidad de la salida de las capas convolucionales de una red.</p>
-</section>
-<section id="laboratorio-1">
+</div>
+<div class="section" id="laboratorio-1">
 <h2>LABORATORIO 1<a class="headerlink" href="#laboratorio-1" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 1 - Convolutions</strong>: <a class="reference external" href="https://youtu.be/Cm2nAnWP5js">Video 15mins</a> <br/> En este laboratorio implementarás las convoluciones y operaciones asociadas para consolidar tu entendimiento de las mismas.</p>
-</section>
-<section id="arquitecturas-de-redes-convolucionales">
+</div>
+<div class="section" id="arquitecturas-de-redes-convolucionales">
 <h2>Arquitecturas de redes convolucionales<a class="headerlink" href="#arquitecturas-de-redes-convolucionales" title="Permalink to this headline">¶</a></h2>
 <p><strong>14 - Competencias sobre Imagenet</strong>: <a class="reference external" href="https://youtu.be/As5uhkT0Hb0">Video 10mins</a> <br/> Describimos el conjunto de competencias asociadas al dataset de Imagenet a través de las cuales
 evolucionó el campo de las redes convolucionales desde 2012.</p>
@@ -565,12 +564,12 @@ evolucionó el campo de las redes convolucionales desde 2012.</p>
 <p><strong>18 - Usando arquitecturas de Redes Convolucionales</strong>: <a class="reference external" href="https://youtu.be/1a5UlX7q_l8">Video 18 mins</a> <br/> Demostramos cómo usar las redes preentrenadas disponibles dentro de <code class="docutils literal notranslate"><span class="pre">tensorflow.keras.applications</span></code> e introducimos el repositorio de modelos de <a class="reference external" href="https://www.tensorflow.org/hub">Tensorflow Hub</a>.</p>
 <p><strong>19 - Transfer learning</strong>: <a class="reference external" href="https://youtu.be/apLFNuWgMcg">Video 15mins</a> <br/> Explicamos cómo usar transfer learning para reutilizar redes preentrenadas en nuestros problemas específicos.</p>
 <p><strong>20 - Ejemplo de transfer learning</strong>: <a class="reference external" href="https://youtu.be/uWBg1Nr71nI">Video 17mins</a> <br/> Implementamos y analizamos un ejemplo de transfer learning desde AlexNet a nuestro problema de clasificación de imágenes con un subconjunto del dataset CIFAR.</p>
-</section>
-<section id="laboratorio-2">
+</div>
+<div class="section" id="laboratorio-2">
 <h2>LABORATORIO 2<a class="headerlink" href="#laboratorio-2" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 2 - Transfer learning</strong>: <a class="reference external" href="https://youtu.be/8STIz10xCYo">Video 20mins</a> <br/> En este laboratorio usarás modelos publicados en <a class="reference external" href="https://www.tensorflow.org/hub"><code class="docutils literal notranslate"><span class="pre">tensorflow</span> <span class="pre">hub</span></code></a> para distintas tareas de transfer learning.</p>
-</section>
-<section id="deteccion-de-objetos">
+</div>
+<div class="section" id="deteccion-de-objetos">
 <h2>Detección de objetos<a class="headerlink" href="#deteccion-de-objetos" title="Permalink to this headline">¶</a></h2>
 <p><strong>21 - Introducción a la detección de objetos</strong>: <a class="reference external" href="https://youtu.be/HnL9DdRvLdE">Video 5mins</a><br/>
 Describimos la tarea de detección de objetos y los retos que se presentan en términos de datasets y arquitecturas de redes.</p>
@@ -581,12 +580,12 @@ Describimos la tarea de detección de objetos y los retos que se presentan en t�
 <p><strong>26 - Definiendo anchor boxes</strong>: <a class="reference external" href="https://youtu.be/l6JVUahbDpA">Video 10mins</a> <br/>Explicamos cómo generar un conjunto de anchor boxes (region priors) para nuestro detector de una etapa, basado en clustering con KMeans.</p>
 <p><strong>27 - Función de pérdida</strong>: <a class="reference external" href="https://youtu.be/s8zU6G9-pvI">Video 15mins</a> <br/> Explicamos cómo se construye la salida de una red de detección de objetos con convoluciones 1x1 y mostramos los componentes de la función de pérdida para entrenamiento.</p>
 <p><strong>28 - Arquitecturas para la detección de objetos</strong>: <a class="reference external" href="https://youtu.be/wSFo4MmuLkU">Video 14mins</a> <br/>Mencionamos algunas de las arquitecturas más utilizadas para la detección de objetos y sus principios generales.</p>
-</section>
-<section id="laboratorio-3">
+</div>
+<div class="section" id="laboratorio-3">
 <h2>LABORATORIO 3<a class="headerlink" href="#laboratorio-3" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 3 - Detección de objetos</strong>: <a class="reference external" href="https://youtu.be/3CXkVJeP1iw">Video 15mins</a> <br/>En este laboratorio te familiarizarás con las estructuras de salida de una red de detección de objetos.</p>
-</section>
-<section id="segmentacion-semantica">
+</div>
+<div class="section" id="segmentacion-semantica">
 <h2>Segmentación semántica<a class="headerlink" href="#segmentacion-semantica" title="Permalink to this headline">¶</a></h2>
 <p><strong>29 - Introducción a la segmentación</strong>: <a class="reference external" href="https://youtu.be/Ow67kIz_Et0">Video 13mins</a> <br/>
 Revisamos los datalles de la segmentación de imágenes y los retos que nos genera.</p>
@@ -608,16 +607,16 @@ de redes convolucionales para la segmentación.</p>
 <p><strong>35 - Arquitecturas de segmentación</strong>: <a class="reference external" href="https://youtu.be/0wu9lobsmpY">Video 15mins</a><br/>
 Describimos brevemente las arquitecturas de Mask R-CNN y DeepLap, así como los conceptos
 de <b>Backbone</b> y <b>Spatial Pyramids</b> que se usan en muchas architecturas.</p>
-</section>
-<section id="laboratorio-4">
+</div>
+<div class="section" id="laboratorio-4">
 <h2>LABORATORIO 4<a class="headerlink" href="#laboratorio-4" title="Permalink to this headline">¶</a></h2>
 <p><strong>LAB 4 - Segmentación de objectos</strong>: <a class="reference external" href="https://youtu.be/802-ncXnHBg">Video 12mins</a><br/>
 En este laboratorio crearás architecturas de segmentación basadas en UNet para poder apreciar
 los efectos de sus distintos componentes.</p>
 <div class="toctree-wrapper compound">
 </div>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

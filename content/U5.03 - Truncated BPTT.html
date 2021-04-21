@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.3 Truncated BPTT &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -551,7 +550,7 @@
         
               <div>
                 
-  <section id="truncated-bptt">
+  <div class="section" id="truncated-bptt">
 <h1>5.3 Truncated BPTT<a class="headerlink" href="#truncated-bptt" title="Permalink to this headline">¶</a></h1>
 <p>When the sequences are very long (thousands of points), the network training can be very slow and the memory requirements increase. The truncated BPTT is an alternative similar to mini-batch training in Dense Networks, even though in RNN the batch parameter can also be used.</p>
 <div class="cell docutils container">
@@ -587,12 +586,12 @@
 </div>
 </div>
 <p>The TBPTT can be implemented by setting up the data appropriately. Let’s remember that for recurrent neural networks, data must have the format <strong>[n_samples,n_times,n_features]</strong>, so if you want to use Truncated BPTT you just have to split the sequences into more <strong>n_samples</strong> of less <strong>n_times</strong>.</p>
-<section id="but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences">
+<div class="section" id="but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences">
 <h2><strong>BUT</strong>, <strong>Is it possible that the LSTM may find dependencies between the sequences?</strong><a class="headerlink" href="#but-is-it-possible-that-the-lstm-may-find-dependencies-between-the-sequences" title="Permalink to this headline">¶</a></h2>
 <p>No it’s not possible unless you go for the stateful LSTM.</p>
 <p>So the use of Truncated BPTT requires to set up the <strong>Stateful</strong> mode.</p>
-</section>
-<section id="example">
+</div>
+<div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Extracted from: http://philipperemy.github.io/keras-stateful-lstm/</p>
 <p>Let’s see a problem of classifying sequences. The data matrix <span class="math notranslate nohighlight">\(X\)</span> is made exclusively of zeros except in the first column where exactly half of the values are 1.</p>
@@ -617,24 +616,24 @@
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0.]
- [1. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]]
 [[1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [1. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0.]
- [1. 0. 0. 0. 0.]]
+ [0. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]]
 </pre></div>
 </div>
 </div>
@@ -755,7 +754,7 @@
 </div>
 </div>
 </div>
-<section id="let-s-train-a-regular-lstm-network">
+<div class="section" id="let-s-train-a-regular-lstm-network">
 <h3>Let’s train a regular LSTM network<a class="headerlink" href="#let-s-train-a-regular-lstm-network" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -765,8 +764,21 @@
 </div>
 </div>
 </div>
-</section>
-<section id="using-the-original-sequences">
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Para resolver problema de compatibilidad tf 2.4 con algunas GPUs</span>
+<span class="kn">from</span> <span class="nn">tensorflow.compat.v1</span> <span class="kn">import</span> <span class="n">ConfigProto</span>
+<span class="kn">from</span> <span class="nn">tensorflow.compat.v1</span> <span class="kn">import</span> <span class="n">InteractiveSession</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">ConfigProto</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">gpu_options</span><span class="o">.</span><span class="n">allow_growth</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">InteractiveSession</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-original-sequences">
 <h3>Using the original sequences:<a class="headerlink" href="#using-the-original-sequences" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -785,17 +797,16 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building STATELESS model...
-Train on 1000 samples, validate on 200 samples
 Epoch 1/5
-1000/1000 [==============================] - 3s 3ms/sample - loss: 0.6455 - accuracy: 0.5920 - val_loss: 0.3801 - val_accuracy: 1.0000
+91/91 [==============================] - 3s 6ms/step - loss: 0.6856 - accuracy: 0.5882 - val_loss: 0.3346 - val_accuracy: 1.0000
 Epoch 2/5
-1000/1000 [==============================] - 0s 439us/sample - loss: 0.2234 - accuracy: 1.0000 - val_loss: 0.1268 - val_accuracy: 1.0000
+91/91 [==============================] - 0s 2ms/step - loss: 0.2117 - accuracy: 1.0000 - val_loss: 0.0778 - val_accuracy: 1.0000
 Epoch 3/5
-1000/1000 [==============================] - 1s 761us/sample - loss: 0.0896 - accuracy: 1.0000 - val_loss: 0.0640 - val_accuracy: 1.0000
+91/91 [==============================] - 0s 2ms/step - loss: 0.0652 - accuracy: 1.0000 - val_loss: 0.0351 - val_accuracy: 1.0000
 Epoch 4/5
-1000/1000 [==============================] - 1s 810us/sample - loss: 0.0504 - accuracy: 1.0000 - val_loss: 0.0396 - val_accuracy: 1.0000
+91/91 [==============================] - 0s 2ms/step - loss: 0.0302 - accuracy: 1.0000 - val_loss: 0.0204 - val_accuracy: 1.0000
 Epoch 5/5
-1000/1000 [==============================] - 1s 544us/sample - loss: 0.0327 - accuracy: 1.0000 - val_loss: 0.0269 - val_accuracy: 1.0000
+91/91 [==============================] - 0s 2ms/step - loss: 0.0185 - accuracy: 1.0000 - val_loss: 0.0141 - val_accuracy: 1.0000
 </pre></div>
 </div>
 </div>
@@ -812,8 +823,8 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</section>
-<section id="using-the-splitted-sequences">
+</div>
+<div class="section" id="using-the-splitted-sequences">
 <h3>Using the splitted sequences:<a class="headerlink" href="#using-the-splitted-sequences" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -832,37 +843,36 @@ Epoch 5/5
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building STATELESS model...
-Train on 2000 samples, validate on 400 samples
 Epoch 1/15
-2000/2000 [==============================] - 4s 2ms/sample - loss: 0.5201 - accuracy: 0.7270 - val_loss: 0.4791 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.5768 - accuracy: 0.7036 - val_loss: 0.4794 - val_accuracy: 0.7500
 Epoch 2/15
-2000/2000 [==============================] - 6s 3ms/sample - loss: 0.4812 - accuracy: 0.7500 - val_loss: 0.4785 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4783 - accuracy: 0.7574 - val_loss: 0.4785 - val_accuracy: 0.7500
 Epoch 3/15
-2000/2000 [==============================] - 4s 2ms/sample - loss: 0.4804 - accuracy: 0.7500 - val_loss: 0.4782 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4774 - accuracy: 0.7574 - val_loss: 0.4782 - val_accuracy: 0.7500
 Epoch 4/15
-2000/2000 [==============================] - 5s 2ms/sample - loss: 0.4800 - accuracy: 0.7500 - val_loss: 0.4781 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4771 - accuracy: 0.7574 - val_loss: 0.4780 - val_accuracy: 0.7500
 Epoch 5/15
-2000/2000 [==============================] - 6s 3ms/sample - loss: 0.4797 - accuracy: 0.7500 - val_loss: 0.4780 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4769 - accuracy: 0.7574 - val_loss: 0.4779 - val_accuracy: 0.7500
 Epoch 6/15
-2000/2000 [==============================] - 7s 4ms/sample - loss: 0.4795 - accuracy: 0.7500 - val_loss: 0.4779 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4767 - accuracy: 0.7574 - val_loss: 0.4779 - val_accuracy: 0.7500
 Epoch 7/15
-2000/2000 [==============================] - 6s 3ms/sample - loss: 0.4794 - accuracy: 0.7500 - val_loss: 0.4778 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4766 - accuracy: 0.7574 - val_loss: 0.4778 - val_accuracy: 0.7500
 Epoch 8/15
-2000/2000 [==============================] - 6s 3ms/sample - loss: 0.4793 - accuracy: 0.7500 - val_loss: 0.4777 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4765 - accuracy: 0.7574 - val_loss: 0.4778 - val_accuracy: 0.7500
 Epoch 9/15
-2000/2000 [==============================] - 6s 3ms/sample - loss: 0.4792 - accuracy: 0.7500 - val_loss: 0.4777 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4765 - accuracy: 0.7574 - val_loss: 0.4777 - val_accuracy: 0.7500
 Epoch 10/15
-2000/2000 [==============================] - 5s 2ms/sample - loss: 0.4791 - accuracy: 0.7500 - val_loss: 0.4777 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4764 - accuracy: 0.7574 - val_loss: 0.4777 - val_accuracy: 0.7500
 Epoch 11/15
-2000/2000 [==============================] - 5s 3ms/sample - loss: 0.4790 - accuracy: 0.7500 - val_loss: 0.4776 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4764 - accuracy: 0.7574 - val_loss: 0.4777 - val_accuracy: 0.7500
 Epoch 12/15
-2000/2000 [==============================] - 4s 2ms/sample - loss: 0.4789 - accuracy: 0.7500 - val_loss: 0.4776 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4763 - accuracy: 0.7574 - val_loss: 0.4777 - val_accuracy: 0.7500
 Epoch 13/15
-2000/2000 [==============================] - 4s 2ms/sample - loss: 0.4788 - accuracy: 0.7500 - val_loss: 0.4776 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4763 - accuracy: 0.7574 - val_loss: 0.4776 - val_accuracy: 0.7500
 Epoch 14/15
-2000/2000 [==============================] - 4s 2ms/sample - loss: 0.4788 - accuracy: 0.7500 - val_loss: 0.4775 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4762 - accuracy: 0.7574 - val_loss: 0.4776 - val_accuracy: 0.7500
 Epoch 15/15
-2000/2000 [==============================] - 3s 2ms/sample - loss: 0.4787 - accuracy: 0.7500 - val_loss: 0.4775 - val_accuracy: 0.7500
+1000/1000 [==============================] - 2s 2ms/step - loss: 0.4762 - accuracy: 0.7574 - val_loss: 0.4776 - val_accuracy: 0.7500
 </pre></div>
 </div>
 </div>
@@ -880,12 +890,12 @@ Epoch 15/15
 </div>
 </div>
 <p>The sequences composed of 0s are correctly classified. The subsequences starting with 1 are correctly classified, but the sebsequences of class 1 starting with 0, are wrong classified. Those are the 25% of the sequences.</p>
-</section>
-<section id="what-happened">
+</div>
+<div class="section" id="what-happened">
 <h3>What happened?<a class="headerlink" href="#what-happened" title="Permalink to this headline">¶</a></h3>
 <p>The long range memory required to classify the sequences correctly has been lost because of the sequences’ partition.</p>
-</section>
-<section id="stateful-model">
+</div>
+<div class="section" id="stateful-model">
 <h3>STATEFUL Model<a class="headerlink" href="#stateful-model" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -942,35 +952,35 @@ Epoch 15/15
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train...
-accuracy training = 0.9605000019073486
-loss training = 0.08138144016265869
+accuracy training = 0.97
+loss training = 0.0724665543687297
 ___________________________________
 accuracy testing = 1.0
-loss testing = 0.0014561639400199056
+loss testing = 0.0010425312793813646
 ___________________________________
 accuracy training = 1.0
-loss training = 0.0006937840953469276
+loss training = 0.0005047061592849786
 ___________________________________
 accuracy testing = 1.0
-loss testing = 0.0003019043360836804
+loss testing = 0.00022369572980096564
 ___________________________________
 accuracy training = 1.0
-loss training = 0.0001738684659358114
+loss training = 0.00012951270282610493
 ___________________________________
 accuracy testing = 1.0
-loss testing = 9.1511283244472e-05
+loss testing = 6.860588746349094e-05
 ___________________________________
 accuracy training = 1.0
-loss training = 5.5697779316687956e-05
+loss training = 4.184540016831306e-05
 ___________________________________
 accuracy testing = 1.0
-loss testing = 3.103803828707896e-05
+loss testing = 2.338519880140666e-05
 ___________________________________
 accuracy training = 1.0
-loss training = 1.9282120774732903e-05
+loss training = 1.4540311468635991e-05
 ___________________________________
 accuracy testing = 1.0
-loss testing = 1.0981940249621402e-05
+loss testing = 8.292114785035665e-06
 ___________________________________
 </pre></div>
 </div>
@@ -989,7 +999,7 @@ ___________________________________
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">%</span> <span class="n">n_partitions</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">max_len</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stateful</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
@@ -1035,6 +1045,7 @@ Epoch 5/5
     <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">n_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">reset_states</span><span class="p">()</span>
 <span class="c1"># re-define the batch size</span>
+
 <span class="n">n_batch</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="c1"># re-define model</span>
 <span class="n">new_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
@@ -1049,9 +1060,9 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="discussion-about-gpu-performance-for-recurrent-networks">
+</div>
+</div>
+<div class="section" id="discussion-about-gpu-performance-for-recurrent-networks">
 <h2>Discussion about GPU performance for Recurrent Networks<a class="headerlink" href="#discussion-about-gpu-performance-for-recurrent-networks" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1061,12 +1072,12 @@ Epoch 5/5
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U5.03 - Truncated BPTT_35_0.png" src="../_images/U5.03 - Truncated BPTT_35_0.png" />
+<img alt="../_images/U5.03 - Truncated BPTT_36_0.png" src="../_images/U5.03 - Truncated BPTT_36_0.png" />
 </div>
 </div>
 <p><a class="reference external" href="https://timdettmers.com/2019/04/03/which-gpu-for-deep-learning/">Image taken from here</a></p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.8 Transformer &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -518,7 +517,7 @@
         
               <div>
                 
-  <section id="transformer">
+  <div class="section" id="transformer">
 <h1>5.8 Transformer<a class="headerlink" href="#transformer" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -557,7 +556,7 @@
 <img alt="../_images/U5.08 - Self-Attention - Transformer - BERT_6_0.png" src="../_images/U5.08 - Self-Attention - Transformer - BERT_6_0.png" />
 </div>
 </div>
-<section id="self-attention">
+<div class="section" id="self-attention">
 <h2>Self-attention<a class="headerlink" href="#self-attention" title="Permalink to this headline">¶</a></h2>
 <p>The first step in calculating self-attention is to create three vectors from each of the encoder’s input vectors (in this case, the embedding of each word). So for each word, we create a <strong>Query vector</strong>, a <strong>Key vector</strong>, and a <strong>Value vector</strong>. These vectors are created by multiplying the embedding by three matrices that we trained during the training process.</p>
 <div class="cell docutils container">
@@ -634,8 +633,8 @@ each attention head. A deep explanation of this component can be found in: <a cl
 </div>
 </div>
 </div>
-</section>
-<section id="example-sentiment-analysis-using-a-transformer-block">
+</div>
+<div class="section" id="example-sentiment-analysis-using-a-transformer-block">
 <h2>Example: Sentiment analysis using a transformer block<a class="headerlink" href="#example-sentiment-analysis-using-a-transformer-block" title="Permalink to this headline">¶</a></h2>
 <p>One transformer block can be used as different type of embedding layer, and other architectures can be implemented on top of it.  In the following example we are going to use an architecture based on a transformer block to solve a moview review sentiment analysis problem. The dataset is included in the keras dataset module: <a class="reference external" href="https://keras.io/api/datasets/imdb/">IMDB movie review sentiment classification dataset</a>. This example is based on the one by <a class="reference external" href="https://keras.io/examples/nlp/text_classification_with_transformer/">Apoorv Nandan</a>.</p>
 <div class="cell docutils container">
@@ -785,8 +784,8 @@ Epoch 3/3
 </div>
 </div>
 </div>
-</section>
-<section id="bert">
+</div>
+<div class="section" id="bert">
 <h2>BERT<a class="headerlink" href="#bert" title="Permalink to this headline">¶</a></h2>
 <p>Bidirectional Encoder Representations from Transformers</p>
 <p>BERT’s key technical innovation is applying the bidirectional training of Transformer <a class="reference external" href="https://arxiv.org/pdf/1810.04805.pdf">BERT</a>. The paper’s results show that a language model which is bidirectionally trained can have a deeper sense of language context and flow than single-direction language models.</p>
@@ -813,8 +812,8 @@ Epoch 3/3
 <li><p><a class="reference external" href="https://towardsdatascience.com/2019-the-year-of-bert-354e8106f7ba">2019: The Year of BERT</a></p></li>
 <li><p><a class="reference external" href="https://towardsdatascience.com/a-review-of-bert-based-models-4ffdc0f15d58">A review of BERT based models</a></p></li>
 </ul>
-</div></section>
-</section>
+</div></div>
+</div>
 
     <script type="text/x-thebe-config">
     {

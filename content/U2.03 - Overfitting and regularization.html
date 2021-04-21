@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2.3 - Overfitting and regularization &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -525,7 +524,7 @@
         
               <div>
                 
-  <section id="overfitting-and-regularization">
+  <div class="section" id="overfitting-and-regularization">
 <h1>2.3 - Overfitting and regularization<a class="headerlink" href="#overfitting-and-regularization" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -542,7 +541,7 @@
 </div>
 </div>
 </div>
-<section id="overfitting">
+<div class="section" id="overfitting">
 <h2>Overfitting<a class="headerlink" href="#overfitting" title="Permalink to this headline">¶</a></h2>
 <p>Overfitting is a phenomenon where a statistical or ML model “memorizes” the data in the training set, but it is not able to capture the underlying structure of the data, so it is unable to <strong>generalize</strong> correctly and performs bad predictions.</p>
 <p>The oposite behavior to overfitting is <strong>underfitting</strong>, in this case the model cannot be adjusted to the training data, and produces bad predictions too. Neither, overfitting or underfitting is a desirable behavior.</p>
@@ -579,7 +578,7 @@
 <li><p>A small data set with a large number of variables (the curse of dimensionality).</p></li>
 </ul>
 <p>In order to avoid overfitting, there are mainly two strategies that can be used, even conjointly. Eitherway, it is always important to perform a correct validation of the models, using three splits of the dataset: <strong>training</strong>, <strong>validation (also called development)</strong>, and <strong>test</strong>. The test set must be used only to estimate the error commited by the system, and never for training, model selection or hyperparameter tunning. In this way, we are going to estimate the real generalization capability of the models.</p>
-<section id="early-stopping">
+<div class="section" id="early-stopping">
 <h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">¶</a></h3>
 <p>This is a strategy to preven overfitting in parametric models, such as ANN, where the validation error is used as a stop criterion. If the validation error starts rising, no matter if the training error continues decreasing, the algorithm stops the training process.</p>
 <p>In keras, early stopping is implemented through a callback function. An instance of the class EarlyStopping must be passed to the fit method.</p>
@@ -604,9 +603,9 @@
 <img alt="../_images/U2.03 - Overfitting and regularization_11_0.png" src="../_images/U2.03 - Overfitting and regularization_11_0.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="regularization">
+</div>
+</div>
+<div class="section" id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h2>
 <p>In machine learning and inverse problems, regularization is the mathematical process of adding information in order to solve an ill-posed problem or to prevent overfitting. Regularization applies to objective functions in ill-posed optimization problems.</p>
 <p>A mathematical problem or series of equations is ill-conditioned if a small change in the independent variable (input) leads to a large change in the dependent variable (output). This can lead to computational problems. For example, if a system of equations is ill-conditioned, the solution exists, but it is very difficult to find.</p>
@@ -753,16 +752,16 @@ $<span class="math notranslate nohighlight">\({\bf{w}} = \left( {\bf{X}}^T {\bf{
 </div>
 </div>
 </div>
-</section>
-<section id="the-curse-of-dimensionality">
+</div>
+<div class="section" id="the-curse-of-dimensionality">
 <h2>The curse of dimensionality<a class="headerlink" href="#the-curse-of-dimensionality" title="Permalink to this headline">¶</a></h2>
 <p>As I pointed out before, the combination of a small dataset and a large number of variables, is one of the potential causes of overfitting. In this case, the better way to address such problem is by using dimensionality reduction techniques. The aim of those methods is to reduce the number of variables (the dimensionality of the feature space) and acordingly the complexity of the model. There are two approaches:</p>
 <ul class="simple">
 <li><p>Feature selection</p></li>
 <li><p>Feature extraction</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

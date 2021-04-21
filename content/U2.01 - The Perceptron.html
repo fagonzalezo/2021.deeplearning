@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2.1 - The Perceptron &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -588,7 +587,7 @@
         
               <div>
                 
-  <section id="the-perceptron">
+  <div class="section" id="the-perceptron">
 <h1>2.1 - The Perceptron<a class="headerlink" href="#the-perceptron" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -598,7 +597,7 @@
 </div>
 </div>
 </div>
-<section id="artificial-neural-networks">
+<div class="section" id="artificial-neural-networks">
 <h2>Artificial Neural Networks<a class="headerlink" href="#artificial-neural-networks" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -620,8 +619,8 @@
 </div>
 </div>
 <p>Similar to the biological neurons, perceptrons are designed to have two different outputs 1 or 0 (exited/no exited).</p>
-</section>
-<section id="id1">
+</div>
+<div class="section" id="id1">
 <h2>The perceptron<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -669,8 +668,8 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)}
 <img alt="../_images/U2.01 - The Perceptron_15_0.png" src="../_images/U2.01 - The Perceptron_15_0.png" />
 </div>
 </div>
-</section>
-<section id="loss-function-and-perceptron-training">
+</div>
+<div class="section" id="loss-function-and-perceptron-training">
 <h2>Loss function and perceptron training<a class="headerlink" href="#loss-function-and-perceptron-training" title="Permalink to this headline">¶</a></h2>
 <p>In a typicall ML problem you are given a dataset <span class="math notranslate nohighlight">\(\mathcal{D}=\{({\bf{x}}_j,t_j)\}_{j=1}^{N_s}\)</span>, where <span class="math notranslate nohighlight">\(N_s\)</span> stands for Number of Samples. <span class="math notranslate nohighlight">\({\bf{x}}_j\)</span> is a vector of inputs and <span class="math notranslate nohighlight">\(t_j\)</span> is its corresponding output target.</p>
 <p>In order to train the perceptron you must define a loss function, typically an error function that can be used to “penalize” the model when it makes wrong predictions. When the target variables <span class="math notranslate nohighlight">\(t_j \in \{0,1\}\)</span> (the prediction corresponds to a classification problem), the most common loss function is the <strong>crossentropy</strong> given by:</p>
@@ -1540,7 +1539,7 @@ if (IPython.notebook.kernel != null) {
 <img alt="../_images/U2.01 - The Perceptron_24_1.png" src="../_images/U2.01 - The Perceptron_24_1.png" />
 </div>
 </div>
-<section id="now-let-s-thing-about-the-following-problem">
+<div class="section" id="now-let-s-thing-about-the-following-problem">
 <h3>Now let’s thing about the following problem:<a class="headerlink" href="#now-let-s-thing-about-the-following-problem" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1552,8 +1551,8 @@ if (IPython.notebook.kernel != null) {
 <img alt="../_images/U2.01 - The Perceptron_26_0.png" src="../_images/U2.01 - The Perceptron_26_0.png" />
 </div>
 </div>
-</section>
-<section id="one-single-perceptron-is-not-able-to-solve-the-problem">
+</div>
+<div class="section" id="one-single-perceptron-is-not-able-to-solve-the-problem">
 <h3>One single perceptron is not able to solve the problem!<a class="headerlink" href="#one-single-perceptron-is-not-able-to-solve-the-problem" title="Permalink to this headline">¶</a></h3>
 <p>But we know that XOR can be reconstructed by using two AND and one OR functions</p>
 <div class="cell docutils container">
@@ -1566,13 +1565,13 @@ if (IPython.notebook.kernel != null) {
 <img alt="../_images/U2.01 - The Perceptron_28_0.png" src="../_images/U2.01 - The Perceptron_28_0.png" />
 </div>
 </div>
-</section>
-<section id="span-style-color-blue-this-is-a-neural-network-span">
+</div>
+<div class="section" id="span-style-color-blue-this-is-a-neural-network-span">
 <h3><span style="color:blue">This is a neural network!</span><a class="headerlink" href="#span-style-color-blue-this-is-a-neural-network-span" title="Permalink to this headline">¶</a></h3>
-</section>
-</section>
+</div>
+</div>
 <hr class="docutils" />
-<section id="multi-layer-perceptron-mlp">
+<div class="section" id="multi-layer-perceptron-mlp">
 <h2>Multi-layer perceptron (MLP)<a class="headerlink" href="#multi-layer-perceptron-mlp" title="Permalink to this headline">¶</a></h2>
 <p>In order to solve more complex problems, several perceptrons can be used together forming what is call a multi-layer perceptron.</p>
 <div class="cell docutils container">
@@ -1593,7 +1592,7 @@ y_k({\bf{x}},{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \su
 <p>where <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(h\)</span> are the activation functions for the output and hidden layers respectively. Taking into acount that the net could have more than one output <span class="math notranslate nohighlight">\(k\)</span>, the cost function in this case must account for the mistakes in each output. For instance, using a least square error function, the cost function can be expressed as:</p>
 <div class="math notranslate nohighlight">
 \[J({\bf{w}}) = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K} (y_{jk} - t_{jk})^2\]</div>
-<section id="backpropagation-algorithm">
+<div class="section" id="backpropagation-algorithm">
 <h3>Backpropagation algorithm<a class="headerlink" href="#backpropagation-algorithm" title="Permalink to this headline">¶</a></h3>
 <p>The Backpropagation algorithm is the application of the Gradient Descent algorithm to the neural network. The main difference with respect to the former case, is the fact that for the training of the most inner weights (all the weights in the hidden layers), the derivatives require the application of the <strong>chain rule</strong>.</p>
 <p>Lets define some intermediate variables during the forward running of the network:</p>
@@ -1634,11 +1633,11 @@ y_k({\bf{x}},{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \su
 ></iframe>
 </div></div>
 </div>
-</section>
-</section>
-<section id="classical-activation-functions">
+</div>
+</div>
+<div class="section" id="classical-activation-functions">
 <h2>Classical activation functions<a class="headerlink" href="#classical-activation-functions" title="Permalink to this headline">¶</a></h2>
-<section id="logistic">
+<div class="section" id="logistic">
 <h3>Logistic<a class="headerlink" href="#logistic" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[
@@ -1660,8 +1659,8 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <p>Derivative: $<span class="math notranslate nohighlight">\(\frac{\partial g(u)}{\partial w_i} = g(u)(1-g(u))\frac{\partial u}{\partial w_i}\)</span>$.</p>
-</section>
-<section id="hyperbolic-tangent">
+</div>
+<div class="section" id="hyperbolic-tangent">
 <h3>Hyperbolic tangent<a class="headerlink" href="#hyperbolic-tangent" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[g(u) = \frac{\exp(u) - \exp(-u)}{\exp(u) + \exp(-u)}\]</div>
@@ -1678,8 +1677,8 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <p>Derivative: $<span class="math notranslate nohighlight">\(\frac{\partial g(u)}{\partial w_i} = (1 - (g(u))^2) \frac{\partial u}{\partial w_i}\)</span>$</p>
-</section>
-<section id="softmax">
+</div>
+<div class="section" id="softmax">
 <h3>Softmax<a class="headerlink" href="#softmax" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[g(u_k) = \frac{\exp(u_k)}{\sum_{l=1}^K \exp(u_l)}\]</div>
@@ -1691,9 +1690,9 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
                   0\;\;\;{\rm{if}}\;\;\;i \neq j
                 \end{array}
               \right. \end{split}\]</div>
-</section>
-</section>
-<section id="batch-minibatch-and-online-learning">
+</div>
+</div>
+<div class="section" id="batch-minibatch-and-online-learning">
 <h2>Batch, Minibatch and online learning<a class="headerlink" href="#batch-minibatch-and-online-learning" title="Permalink to this headline">¶</a></h2>
 <p>In order to trainig the MLP, the following quantities must be estimated in every iteration:</p>
 <div class="cell docutils container">
@@ -1730,7 +1729,7 @@ g(u) = \frac{\exp(u)}{1 + \exp(u)} = \frac{1}{1 + \exp(-u)}
 </div>
 </div>
 <p>One of the problems with the SGD algorithm is that since the updates depend on a single sample, instead of the accumulation of the error for the whole training set, the convergence of the algorithm is slower, requiring more epochs to get the optimum. Therefore, an intermediate solution, called <strong>Mini-batch gradient descent</strong>, split the training samples into mini-batchs, and execute and update of the weigths (forward and backward steps) per mini-batch. The mini-batch gradient descent is a trade-off between memory load and rate of convergence.</p>
-<section id="example-using-a-toy-dataset">
+<div class="section" id="example-using-a-toy-dataset">
 <h3>Example using a toy dataset:<a class="headerlink" href="#example-using-a-toy-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1857,9 +1856,9 @@ The goal of learning is reached
 <img alt="../_images/U2.01 - The Perceptron_69_1.png" src="../_images/U2.01 - The Perceptron_69_1.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="drawbacks-of-the-classical-approaches">
+</div>
+</div>
+<div class="section" id="drawbacks-of-the-classical-approaches">
 <h2>Drawbacks of the classical approaches<a class="headerlink" href="#drawbacks-of-the-classical-approaches" title="Permalink to this headline">¶</a></h2>
 <p><strong>Inflexibility</strong></p>
 <ul class="simple">
@@ -1871,8 +1870,8 @@ The goal of learning is reached
 <li><p>Transfer learning</p></li>
 </ul>
 <p>[1] Simon Haykin, Neural Networks and Learning Machines, 3ra Edición, Prentice Hall, USA, 2009.</p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

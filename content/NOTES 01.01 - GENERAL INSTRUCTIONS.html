@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>01 - General Instructions &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -549,7 +548,7 @@
         
               <div>
                 
-  <section id="general-instructions">
+  <div class="section" id="general-instructions">
 <h1>01 - General Instructions<a class="headerlink" href="#general-instructions" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -559,10 +558,10 @@
 </div>
 </div>
 </div>
-<section id="repository-layout">
+<div class="section" id="repository-layout">
 <h2>1. Repository layout<a class="headerlink" href="#repository-layout" title="Permalink to this headline">¶</a></h2>
 <p>There are two top level folders <b><tt>content</tt></b> and <b><tt>admin</tt></b>.</p>
-<section id="the-b-tt-content-tt-b-folder">
+<div class="section" id="the-b-tt-content-tt-b-folder">
 <h3>The  <b><tt>content</tt></b> folder<a class="headerlink" href="#the-b-tt-content-tt-b-folder" title="Permalink to this headline">¶</a></h3>
 <p>All publishable materials are to placed under content. This includes mostly:</p>
 <ul class="simple">
@@ -674,9 +673,9 @@
 <img alt="../_images/NOTES 01.01 - GENERAL INSTRUCTIONS_5_0.png" src="../_images/NOTES 01.01 - GENERAL INSTRUCTIONS_5_0.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="labs-and-autograders">
+</div>
+</div>
+<div class="section" id="labs-and-autograders">
 <h2>2. LABS and autograders<a class="headerlink" href="#labs-and-autograders" title="Permalink to this headline">¶</a></h2>
 <p>LABS notebooks are special in that:</p>
 <ul class="simple">
@@ -685,15 +684,15 @@
 <li><p><b>ONLY</b> this student version is published.</p></li>
 </ul>
 <p>See <code class="docutils literal notranslate"><span class="pre">LAB</span> <span class="pre">01</span> <span class="pre">-</span> <span class="pre">SUBMISSION</span> <span class="pre">EXAMPLE--XX--TEACHER--XX.ipynb</span></code> for instructions</p>
-</section>
-<section id="publishing">
+</div>
+<div class="section" id="publishing">
 <h2>3. Publishing<a class="headerlink" href="#publishing" title="Permalink to this headline">¶</a></h2>
 <p>This repository is organized to be published in <span class="xref myst"><tt>github</tt></span> with automatic <a class="reference external" href="https://jupyterbook.org/"><tt>Jupyter book</tt></a> rendering, and configured to open notebooks in Google Colab. As an example, see our AI course which is structured this way:</p>
 <ul class="simple">
 <li><p>https://github.com/rramosp/20201.xai4eng the github repository with a structure similar to this one</p></li>
 <li><p>https://rramosp.github.io/20201.xai4eng the Jupyter Book version automatically rendererd by github</p></li>
 </ul>
-<section id="what-you-must-know">
+<div class="section" id="what-you-must-know">
 <h3>What you must know<a class="headerlink" href="#what-you-must-know" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>course contents are published in github. You may choose what level of privacy you want for your repository with the standard github configuration options.</p></li>
@@ -702,8 +701,8 @@
 <li><p>the top level <code class="docutils literal notranslate"><span class="pre">.github\workflows\book.html</span></code> controls de automatic generation of the <code class="docutils literal notranslate"><span class="pre">Jupyter</span> <span class="pre">Book</span></code> version by github. You should not need to touch this fuile.</p></li>
 <li><p>the code at the beginning of each notebook must <strong>ALWAYS</strong> be executed and ensures that libs and local resources are available in whatever execution environment the notebook is running.</p></li>
 </ul>
-</section>
-<section id="what-you-must-do">
+</div>
+<div class="section" id="what-you-must-do">
 <h3>What you must do<a class="headerlink" href="#what-you-must-do" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Create your course materials as notebooks and supporting resources (imgs, libs, etc.)</p></li>
@@ -711,9 +710,9 @@
 <li><p>Organize the way you want to structure and navigate your course in <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>. You can include <code class="docutils literal notranslate"><span class="pre">.md</span></code> files additionally and refer to them in <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code></p></li>
 <li><p><strong>KEEP A COPY</strong> of the labs notebook with your grades (ending in <code class="docutils literal notranslate"><span class="pre">--XX--TEACHER--XX.ipynb</span></code>) and the <code class="docutils literal notranslate"><span class="pre">admin</span></code> folder, as they are the <strong>ONLY ITEMS</strong> which are not persisted in github.</p></li>
 </ul>
-</section>
-</section>
-<section id="general-remarks-for-labs-and-graders">
+</div>
+</div>
+<div class="section" id="general-remarks-for-labs-and-graders">
 <h2>4. General remarks for LABS and graders<a class="headerlink" href="#general-remarks-for-labs-and-graders" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Each LAB notebook may contain several tasks (exercises)</p></li>
@@ -743,16 +742,16 @@
 </ul>
 </li>
 </ul>
-</section>
-<section id="to-create-the-publishable-student-version-of-a-lab-notebook">
+</div>
+<div class="section" id="to-create-the-publishable-student-version-of-a-lab-notebook">
 <h2>5. To create the publishable student version of a LAB notebook<a class="headerlink" href="#to-create-the-publishable-student-version-of-a-lab-notebook" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The cells at the end will create the student version of the notebook when executed.</p></li>
 <li><p>The notebook will have the same name with the <code class="docutils literal notranslate"><span class="pre">--XX--TEACHER--XX</span></code> suffix removed.</p></li>
 <li><p>All teacher cells will be removed as specified above.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

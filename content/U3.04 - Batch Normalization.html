@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3.4 - Batch normalization &#8212; Fundamentos de Deep Learning</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -520,7 +519,7 @@
         
               <div>
                 
-  <section id="batch-normalization">
+  <div class="section" id="batch-normalization">
 <h1>3.4 - Batch normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -555,15 +554,15 @@
 </div>
 </div>
 </div>
-<section id="covariate-shift">
+<div class="section" id="covariate-shift">
 <h2>Covariate shift<a class="headerlink" href="#covariate-shift" title="Permalink to this headline">¶</a></h2>
 <p>Change of distribution of input to a function:</p>
 <ul class="simple">
 <li><p>in input data it happens when using new data</p></li>
 <li><p>in intermediate layers happens <strong>ALSO</strong> when previous layers change weights when training.</p></li>
 </ul>
-</section>
-<section id="covariate-shift-during-training">
+</div>
+<div class="section" id="covariate-shift-during-training">
 <h2>Covariate shift during training<a class="headerlink" href="#covariate-shift-during-training" title="Permalink to this headline">¶</a></h2>
 <p>Observe how we use TF Low Level API and custom optimization to see the covariate shift during training</p>
 <ul class="simple">
@@ -682,7 +681,7 @@ num classes 3
 </div>
 </div>
 </div>
-<section id="set-up-a-model-with-keras-and-train">
+<div class="section" id="set-up-a-model-with-keras-and-train">
 <h3>Set up a model with Keras and train<a class="headerlink" href="#set-up-a-model-with-keras-and-train" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -859,9 +858,9 @@ test  accuracy 0.593
 <li><p><a class="reference external" href="https://towardsdatascience.com/batch-normalization-theory-and-how-to-use-it-with-tensorflow-1892ca0173ad">Batch normalization: theory and how to use it with Tensorflow</a></p></li>
 <li><p><a class="reference external" href="http://cs231n.github.io/neural-networks-2/">CS231n Convolutional Neural Networks</a></p></li>
 </ul>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {

@@ -622,7 +622,7 @@
 </div>
 <p>There exists several applications that require the processing of text, e.g. machine translation, sentiment analysis, semantic word similarity, part of speech tagging, to name just a few. However, in order to solve those problems, the text needs to be transformed into something that can be understood by the models. In the following some of the basic preprocessing steps that must be applied to text are going to be presented.</p>
 <p>Natural Language Toolkit
-https://www.nltk.org/index.html</p>
+<a class="reference external" href="https://www.nltk.org/index.html">https://www.nltk.org/index.html</a></p>
 <p>NLTK is a platform for building Python programs to work with human language data. It provides easy-to-use interfaces to over 50 corpora and lexical resources such as WordNet, along with a suite of text processing libraries for classification, tokenization, stemming, tagging, parsing, and semantic reasoning.</p>
 <div class="section" id="tokenization">
 <h2>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this headline">¶</a></h2>
@@ -944,7 +944,7 @@ Wall time: 15 ms
 <img alt="../_images/U5.04 - Basic concepts of text processing_35_0.png" src="../_images/U5.04 - Basic concepts of text processing_35_0.png" />
 </div>
 </div>
-<p>According to Mikolov (https://arxiv.org/pdf/1310.4546.pdf):</p>
+<p>According to Mikolov (<a class="reference external" href="https://arxiv.org/pdf/1310.4546.pdf">https://arxiv.org/pdf/1310.4546.pdf</a>):</p>
 <p>Skip-gram: works well with small amount of the training data, represents well even rare words or phrases.</p>
 <p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words</p>
 </div>
@@ -954,11 +954,11 @@ Wall time: 15 ms
 <ul class="simple">
 <li><p><strong>Hierarchical softmax</strong>: This use a binary tree to represent the probabilities of the words at the output layer an reduces the computational cost logarithmically. The output layer is replaced by sigmoid functions representing the decision in every node of the tree.</p></li>
 </ul>
-<p>https://www.iro.umontreal.ca/~lisa/pointeurs/hierarchical-nnlm-aistats05.pdf</p>
+<p><a class="reference external" href="https://www.iro.umontreal.ca/~lisa/pointeurs/hierarchical-nnlm-aistats05.pdf">https://www.iro.umontreal.ca/~lisa/pointeurs/hierarchical-nnlm-aistats05.pdf</a></p>
 <ul class="simple">
 <li><p><strong>Negative sampling</strong>: Negative sampling addresses the computational problem by having each training sample only modify a small percentage of the weights, rather than all of them.</p></li>
 </ul>
-<p>https://arxiv.org/pdf/1310.4546.pdf</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1310.4546.pdf">https://arxiv.org/pdf/1310.4546.pdf</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;local/imgs/Softmax.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
@@ -1210,8 +1210,8 @@ Context (X): [&#39;humans&#39;, &#39;animals&#39;, &#39;consciousness&#39;, &#39
 <p>These methods utilize low-rank approximations to decompose large matrices that
 capture statistical information about a corpus. That means that this methods are unsupervised in comparison to skip-gram and CBOW that are supervised.</p>
 <ul class="simple">
-<li><p><strong>Latent Semantic Analysis</strong>: Based on tf-idf representation http://lsa.colorado.edu/papers/dp1.LSAintro.pdf</p></li>
-<li><p><strong>Global vectos (GoVe)</strong>: Based on the co-occurrence matrix https://nlp.stanford.edu/pubs/glove.pdf</p></li>
+<li><p><strong>Latent Semantic Analysis</strong>: Based on tf-idf representation <a class="reference external" href="http://lsa.colorado.edu/papers/dp1.LSAintro.pdf">http://lsa.colorado.edu/papers/dp1.LSAintro.pdf</a></p></li>
+<li><p><strong>Global vectos (GoVe)</strong>: Based on the co-occurrence matrix <a class="reference external" href="https://nlp.stanford.edu/pubs/glove.pdf">https://nlp.stanford.edu/pubs/glove.pdf</a></p></li>
 </ul>
 <div class="alert alert-block alert-warning">
 <p>Different pretrained GloVe embeddings can be download from <a class="reference external" href="https://nlp.stanford.edu/projects/glove/">here</a>. The lightest file is more than 800 Mb, so a tutorial for its use can be found in the following <a class="reference external" href="https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html">link</a></p>

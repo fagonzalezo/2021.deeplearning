@@ -653,7 +653,7 @@
 </div>
 </div>
 </div>
-<p><strong>Assignment</strong>: Take a look to the core layers in keras: https://keras.io/layers/core/ and the set of basic parameters https://keras.io/layers/about-keras-layers/</p>
+<p><strong>Assignment</strong>: Take a look to the core layers in keras: <a class="reference external" href="https://keras.io/layers/core/">https://keras.io/layers/core/</a> and the set of basic parameters <a class="reference external" href="https://keras.io/layers/about-keras-layers/">https://keras.io/layers/about-keras-layers/</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -705,7 +705,7 @@ _________________________________________________________________
 \[\mathcal{L}({\bf{\hat{y}}},{\bf{y}}) = -\frac{1}{N}\sum_{i=1}^N \sum_{j=1}^C {\bf{1}}_{y_i \in C_j} \log p_{model}[y_i \in C_j]\]</div>
 <p>The term <span class="math notranslate nohighlight">\({\bf{1}}_{y_i \in C_j}\)</span> is the indicator function of the <span class="math notranslate nohighlight">\(i\)</span>-th observation belonging to the <span class="math notranslate nohighlight">\(j\)</span>-th category. The <span class="math notranslate nohighlight">\(p_{model}[y_i \in C_j]\)</span> is the probability predicted by the model for the <span class="math notranslate nohighlight">\(i\)</span>-th observation to belong to the <span class="math notranslate nohighlight">\(j\)</span>-th category. When there are more than two categories, the neural network outputs a vector of <span class="math notranslate nohighlight">\(C\)</span> probabilities, each giving the probability that the network input should be classified as belonging to the respective category. When the number of categories is just two, the neural network outputs a single probability <span class="math notranslate nohighlight">\(\hat{y}_i\)</span>, with the other one being <span class="math notranslate nohighlight">\(1\)</span> minus the output. This is why the binary cross entropy looks a bit different from categorical cross entropy, despite being a special case of it.</p>
 <p><strong>Note</strong>. If insteat of a multi-class problem we would be facing a multi-label classification problem, the activation function of the last layer must be a <strong>sigmoid</strong> and the loss function <strong>binary_crossentropy</strong>.</p>
-<p>Take a look to compile and fit parameters https://keras.io/models/model/#compile</p>
+<p>Take a look to compile and fit parameters <a class="reference external" href="https://keras.io/models/model/#compile">https://keras.io/models/model/#compile</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training...&quot;</span><span class="p">)</span>
@@ -955,7 +955,7 @@ Epoch 10/10
 </div>
 </div>
 </div>
-<p><strong>Note</strong>. Take a look to the keras functional API available on https://keras.io/getting-started/functional-api-guide/</p>
+<p><strong>Note</strong>. Take a look to the keras functional API available on <a class="reference external" href="https://keras.io/getting-started/functional-api-guide/">https://keras.io/getting-started/functional-api-guide/</a></p>
 <p>### Defining a model by subclassing the Model class
 In this way we use inherintance from class Model to define the nwe model. It requires two methods the constructor init, where you should define your layers, and the forward pass in call.</p>
 <div class="cell docutils container">

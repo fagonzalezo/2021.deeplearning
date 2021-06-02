@@ -566,7 +566,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">session</span><span class="o">.</span><span class="n">LoginSequence</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.01&quot;</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s2">&quot;student&quot;</span><span class="p">);</span>
+<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.01&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -882,7 +882,7 @@ _________________________________________________________________
 <p>Complete the function below to implement the following loss function:</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L}({\bf{\hat{y}}},{\bf{y}}) = -\frac{1}{N}\sum_{i=1}^N \sum_{j=1}^C {\bf{1}}_{y_i \in C_j} w_{j}\log p_{model}[y_i \in C_j]\]</div>
-<p>which corresponds to a weighted version of the categorical cross entropy loss function.</p>
+<p>which corresponds to a weighted version of the categorical cross entropy loss function (take a look to the <a class="reference external" href="https://rramosp.github.io/2021.deeplearning/content/U2.02%20-%20The%20Multilayer%20Perceptron.html#sequential-models">section 2.2</a> to remember the notation of the categorical cross-entropy loss function).</p>
 <p>Note the following observations:</p>
 <ul class="simple">
 <li><p>the function below <strong>returns a function</strong> tied to a specific set of weights. This way we can create different loss functions tied to different weights.</p></li>

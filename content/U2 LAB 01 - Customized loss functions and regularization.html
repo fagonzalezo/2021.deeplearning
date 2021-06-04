@@ -551,7 +551,7 @@
 <h1>LAB 2.1 - Customized loss function<a class="headerlink" href="#lab-2-1-customized-loss-function" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!wget -nc --no-cache -O init.py -q https://raw.githubusercontent.com/rramosp/2021.deeplearning/main/content/init.py</span>
 <span class="kn">import</span> <span class="nn">init</span><span class="p">;</span> <span class="n">init</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force_download</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="n">init</span><span class="o">.</span><span class="n">get_weblink</span><span class="p">()</span> 
 </pre></div>
 </div>
@@ -561,7 +561,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.01&quot;</span> <span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">LoginSequence</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L02.01&quot;</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s2">&quot;student&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -699,7 +699,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_18_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_18_0.png" />
+<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_17_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_17_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -780,7 +780,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_30_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_30_0.png" />
+<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_29_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_29_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -861,7 +861,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_42_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_42_0.png" />
+<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_41_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_41_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -989,7 +989,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_59_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_59_0.png" />
+<img alt="../_images/U2 LAB 01 - Customized loss functions and regularization_58_0.png" src="../_images/U2 LAB 01 - Customized loss functions and regularization_58_0.png" />
 </div>
 </div>
 <div class="cell docutils container">

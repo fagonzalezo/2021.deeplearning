@@ -548,7 +548,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">local.lib.rlxmoocapi</span> <span class="kn">import</span> <span class="n">submit</span><span class="p">,</span> <span class="n">session</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="n">session</span><span class="o">.</span><span class="n">LoginSequence</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L05.04&quot;</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s2">&quot;student&quot;</span><span class="p">);</span>
+<span class="n">student</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">LoginSequence</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">course_id</span><span class="o">=</span><span class="n">init</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span> <span class="n">lab_id</span><span class="o">=</span><span class="s2">&quot;L05.04&quot;</span><span class="p">,</span> <span class="n">varname</span><span class="o">=</span><span class="s2">&quot;student&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -590,7 +590,7 @@
 <h3>Let’s get the data<a class="headerlink" href="#let-s-get-the-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget --load-cookies /tmp/cookies.txt <span class="s2">&quot;https://drive.google.com/uc?export=download&amp;confirm=</span><span class="k">$(</span>wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate <span class="s1">&#39;https://drive.google.com/uc?export=download&amp;id=10_QpUkpwelD7bHTLUiCBtwutEQuUaLPN&#39;</span> -O- <span class="p">|</span> sed -rn <span class="s1">&#39;s/.*confirm=([0-9A-Za-z_]+).*/\1\n/p&#39;</span><span class="k">)</span><span class="s2">&amp;id=10_QpUkpwelD7bHTLUiCBtwutEQuUaLPN&quot;</span> -O UCF50_subset.tar.gz <span class="o">&amp;&amp;</span> rm -rf /tmp/cookies.txt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget --load-cookies /tmp/cookies.txt <span class="s2">&quot;https://drive.google.com/uc?export=download&amp;confirm=</span><span class="k">$(</span>wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate <span class="s1">&#39;https://drive.google.com/uc?export=download&amp;id=1Os7r-pCz3Px-_IbRPXnFvRmGo3gaccpb&#39;</span> -O- <span class="p">|</span> sed -rn <span class="s1">&#39;s/.*confirm=([0-9A-Za-z_]+).*/\1\n/p&#39;</span><span class="k">)</span><span class="s2">&amp;id=1Os7r-pCz3Px-_IbRPXnFvRmGo3gaccpb&quot;</span> -O UCF50_subset.tar.gz <span class="o">&amp;&amp;</span> rm -rf /tmp/cookies.txt
 </pre></div>
 </div>
 </div>
@@ -695,14 +695,14 @@
 <p><strong>Submit your solution:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span>  <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T1&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">submit_task</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;T1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="let-s-test-the-model">
 <h3>Let’s test the model:<a class="headerlink" href="#let-s-test-the-model" title="Permalink to this headline">¶</a></h3>
-<p><strong>Warning</strong>: Run this part only if you have already passed Task 1.</p>
+<p><strong>Warning</strong>: Run this part only if you have already passed Tasks 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neurons</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>

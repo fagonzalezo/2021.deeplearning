@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -42,15 +42,15 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.3 - Overfitting and regularization" href="U2.03%20-%20Overfitting%20and%20regularization.html" />
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -495,7 +495,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#classifying-fashion-mnist">
@@ -755,30 +755,29 @@ Generating test predictions...
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training...
-Train on 54000 samples, validate on 6000 samples
 Epoch 1/10
-54000/54000 - 3s - loss: 0.4606 - val_loss: 0.3870
+3375/3375 - 3s - loss: 0.4584 - val_loss: 0.3974
 Epoch 2/10
-54000/54000 - 3s - loss: 0.3675 - val_loss: 0.3827
+3375/3375 - 3s - loss: 0.3689 - val_loss: 0.3629
 Epoch 3/10
-54000/54000 - 3s - loss: 0.3385 - val_loss: 0.3534
+3375/3375 - 3s - loss: 0.3356 - val_loss: 0.3612
 Epoch 4/10
-54000/54000 - 3s - loss: 0.3150 - val_loss: 0.3588
+3375/3375 - 3s - loss: 0.3134 - val_loss: 0.3628
 Epoch 5/10
-54000/54000 - 3s - loss: 0.2973 - val_loss: 0.3544
+3375/3375 - 3s - loss: 0.2997 - val_loss: 0.3581
 Epoch 6/10
-54000/54000 - 3s - loss: 0.2849 - val_loss: 0.3563
+3375/3375 - 3s - loss: 0.2891 - val_loss: 0.3596
 Epoch 7/10
-54000/54000 - 3s - loss: 0.2715 - val_loss: 0.3546
+3375/3375 - 3s - loss: 0.2752 - val_loss: 0.3610
 Epoch 8/10
-54000/54000 - 3s - loss: 0.2646 - val_loss: 0.3455
+3375/3375 - 3s - loss: 0.2639 - val_loss: 0.3649
 Epoch 9/10
-54000/54000 - 3s - loss: 0.2541 - val_loss: 0.3542
+3375/3375 - 3s - loss: 0.2530 - val_loss: 0.3540
 Epoch 10/10
-54000/54000 - 3s - loss: 0.2474 - val_loss: 0.3516
+3375/3375 - 3s - loss: 0.2488 - val_loss: 0.3601
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe878c43860&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7f4bc47ac190&gt;
 </pre></div>
 </div>
 </div>
@@ -807,14 +806,14 @@ Epoch 10/10
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_classes</span><span class="p">(</span><span class="n">X_testN</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_testN</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">Accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">preds</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy = &#39;</span><span class="p">,</span> <span class="n">Accuracy</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.87 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  86.28 %
 </pre></div>
 </div>
 </div>
@@ -886,11 +885,11 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 input_1 (InputLayer)         [(None, 784)]             0         
 _________________________________________________________________
-dense_7 (Dense)              (None, 64)                50240     
+dense_5 (Dense)              (None, 64)                50240     
 _________________________________________________________________
-dense_8 (Dense)              (None, 32)                2080      
+dense_6 (Dense)              (None, 32)                2080      
 _________________________________________________________________
-dense_9 (Dense)              (None, 10)                330       
+dense_7 (Dense)              (None, 10)                330       
 =================================================================
 Total params: 52,650
 Trainable params: 52,650
@@ -907,45 +906,43 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train on 54000 samples, validate on 6000 samples
-Epoch 1/10
-54000/54000 - 3s - loss: 0.5541 - accuracy: 0.8147 - val_loss: 0.4216 - val_accuracy: 0.8503
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/10
+3375/3375 - 2s - loss: 0.5539 - accuracy: 0.8146 - val_loss: 0.4231 - val_accuracy: 0.8475
 Epoch 2/10
-54000/54000 - 3s - loss: 0.3911 - accuracy: 0.8619 - val_loss: 0.3844 - val_accuracy: 0.8605
+3375/3375 - 2s - loss: 0.3926 - accuracy: 0.8629 - val_loss: 0.3830 - val_accuracy: 0.8618
 Epoch 3/10
-54000/54000 - 3s - loss: 0.3504 - accuracy: 0.8759 - val_loss: 0.3631 - val_accuracy: 0.8678
+3375/3375 - 2s - loss: 0.3512 - accuracy: 0.8766 - val_loss: 0.3649 - val_accuracy: 0.8645
 Epoch 4/10
-54000/54000 - 3s - loss: 0.3252 - accuracy: 0.8840 - val_loss: 0.3520 - val_accuracy: 0.8730
+3375/3375 - 2s - loss: 0.3252 - accuracy: 0.8855 - val_loss: 0.3528 - val_accuracy: 0.8707
 Epoch 5/10
-54000/54000 - 3s - loss: 0.3058 - accuracy: 0.8913 - val_loss: 0.3410 - val_accuracy: 0.8777
+3375/3375 - 2s - loss: 0.3051 - accuracy: 0.8923 - val_loss: 0.3482 - val_accuracy: 0.8745
 Epoch 6/10
-54000/54000 - 3s - loss: 0.2891 - accuracy: 0.8969 - val_loss: 0.3545 - val_accuracy: 0.8713
+3375/3375 - 2s - loss: 0.2879 - accuracy: 0.8971 - val_loss: 0.3460 - val_accuracy: 0.8720
 Epoch 7/10
-54000/54000 - 3s - loss: 0.2763 - accuracy: 0.9011 - val_loss: 0.3370 - val_accuracy: 0.8770
+3375/3375 - 2s - loss: 0.2745 - accuracy: 0.9026 - val_loss: 0.3456 - val_accuracy: 0.8753
 Epoch 8/10
-54000/54000 - 3s - loss: 0.2636 - accuracy: 0.9058 - val_loss: 0.3344 - val_accuracy: 0.8758
+3375/3375 - 2s - loss: 0.2616 - accuracy: 0.9074 - val_loss: 0.3482 - val_accuracy: 0.8778
 Epoch 9/10
-54000/54000 - 3s - loss: 0.2518 - accuracy: 0.9102 - val_loss: 0.3251 - val_accuracy: 0.8798
+3375/3375 - 2s - loss: 0.2496 - accuracy: 0.9118 - val_loss: 0.3409 - val_accuracy: 0.8765
 Epoch 10/10
-54000/54000 - 3s - loss: 0.2418 - accuracy: 0.9131 - val_loss: 0.3303 - val_accuracy: 0.8780
+3375/3375 - 2s - loss: 0.2393 - accuracy: 0.9157 - val_loss: 0.3454 - val_accuracy: 0.8748
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe8790f6470&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7f4bc457ba50&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_testN</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_testN</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">Accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">preds</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy = &#39;</span><span class="p">,</span> <span class="n">Accuracy</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.27000000000001 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy =  87.41 %
 </pre></div>
 </div>
 </div>
@@ -1068,12 +1065,32 @@ Epoch 10/10
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="U2.01%20-%20The%20Perceptron.html" title="previous page">2.1 - The Perceptron</a>
-    <a class='right-next' id="next-link" href="U2.03%20-%20Overfitting%20and%20regularization.html" title="next page">2.3 - Overfitting and regularization</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="U2.01%20-%20The%20Perceptron.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">2.1 - The Perceptron</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="U2.03%20-%20Overfitting%20and%20regularization.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">2.3 - Overfitting and regularization</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

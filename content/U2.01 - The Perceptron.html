@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -42,15 +42,15 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.2 - The Multilayer Perceptron" href="U2.02%20-%20The%20Multilayer%20Perceptron.html" />
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -495,7 +495,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#artificial-neural-networks">
@@ -1593,7 +1593,7 @@ if (IPython.notebook.kernel != null) {
 <p>The output <span class="math notranslate nohighlight">\(k\)</span> of a MLP with one input layer and one hidden layer can be expressed as:</p>
 <div class="math notranslate nohighlight">
 \[
-y_k({\bf{x}},{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \sum_{i=1}^{d} w_{li}^{(1)} x_i + w_{l0}^{(1)} \right) + w_{k0}^{(2)}\right) 
+y_{jk}({\bf{x}}_j,{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \sum_{i=1}^{d} w_{li}^{(1)} x_{ji} + w_{l0}^{(1)} \right) + w_{k0}^{(2)}\right) 
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\sigma\)</span> and <span class="math notranslate nohighlight">\(h\)</span> are the activation functions for the output and hidden layers respectively. Taking into acount that the net could have more than one output <span class="math notranslate nohighlight">\(k\)</span>, the cost function in this case must account for the mistakes in each output. For instance, using a least square error function, the cost function can be expressed as:</p>
 <div class="math notranslate nohighlight">
@@ -1604,22 +1604,22 @@ y_k({\bf{x}},{\bf{w}}) = \sigma\left( \sum_{l=1}^{M_1} w_{kl}^{(2)} h \left( \su
 <p>Lets define some intermediate variables during the forward running of the network:</p>
 <div class="math notranslate nohighlight">
 \[
- a_l = \sum_{i=0}^{n} w_{li}^{(1)} x_i, \;\; z_l = h(a_l)
+ a_{jl} = \sum_{i=0}^{d} w_{li}^{(1)} x_{ji}, \;\; z_{jl} = h(a_{jl})
 \]</div>
 <div class="math notranslate nohighlight">
 \[
- a_k = \sum_{l=0}^{M_1} w_{kl}^{(2)} z_l, \;\; y_k = \sigma(a_k)
+ a_{jk} = \sum_{l=0}^{M_1} w_{kl}^{(2)} z_{jl}, \;\; y_{jk} = \sigma(a_{jk})
 \]</div>
 <p>The gradients for the gradient descent algorithm in the output layer can be calculated as:</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{\partial J}{\partial y_k}\frac{d \sigma}{d a_k} \frac{\partial a_k}{\partial w_{kl}^{(2)}}\]</div>
+\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{\partial J}{\partial y_k}\frac{d \sigma}{d a_{k}} \frac{\partial a_{k}}{\partial w_{kl}^{(2)}}\]</div>
 <div class="math notranslate nohighlight">
-\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{1}{N_s}\sum_{j=1}^{Ns} (y_{jk}-t_{jk})\dot{\sigma}(a_k) z_l({\bf{x}}_j)\]</div>
+\[\frac{\partial J}{\partial w_{kl}^{(2)}} = \frac{1}{N_s}\sum_{j=1}^{Ns} (y_{jk}-t_{jk})\dot{\sigma}(a_{jk}) z_{jl}\]</div>
 <p>For the hidden layer the gradient can be calculated as:</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_k)\frac{\partial a_k}{z_l}\frac{\partial z_l}{w_{li}^{(1)}}\]</div>
+\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_{jk})\frac{\partial a_{jk}}{z_l}\frac{\partial z_{jl}}{w_{li}^{(1)}}\]</div>
 <div class="math notranslate nohighlight">
-\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_k)w_{kl}^{(2)}\dot{h}(a_l)x_{ji}\]</div>
+\[\frac{\partial J}{\partial w_{li}^{(1)}} = \frac{1}{Ns}\sum_{j=1}^{Ns}\sum_{k=1}^{K}(y_{jk}-t_{jk})\dot{\sigma}(a_{jk})w_{kl}^{(2)}\dot{h}(a_{jl})x_{ji}\]</div>
 <p>The gradients can be easily extended to more layers because they follow the same formulation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1902,12 +1902,32 @@ The goal of learning is reached
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="M02.html" title="previous page">02 - NEURAL NETWORKS</a>
-    <a class='right-next' id="next-link" href="U2.02%20-%20The%20Multilayer%20Perceptron.html" title="next page">2.2 - The Multilayer Perceptron</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="M02.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">02 - NEURAL NETWORKS</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="U2.02%20-%20The%20Multilayer%20Perceptron.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">2.2 - The Multilayer Perceptron</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

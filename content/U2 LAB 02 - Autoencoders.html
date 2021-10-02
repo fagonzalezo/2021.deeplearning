@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -72,6 +72,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/fudea.jpg" class="logo" alt="logo">
       
@@ -591,7 +595,7 @@
 <h2>TASK 01: Handcrafted sparse autoencoder<a class="headerlink" href="#task-01-handcrafted-sparse-autoencoder" title="Permalink to this headline">¶</a></h2>
 <p>Given:</p>
 <ul class="simple">
-<li><p>input <span class="math notranslate nohighlight">\(X_{in} \in \mathbb{R}^{m\times n}\)</span> = <span class="math notranslate nohighlight">\(\{ x^{(0)}, x^{(1)},..., x^{(n-1)}  \}\)</span>, with <span class="math notranslate nohighlight">\(x^{(i)}  \in \mathbb{R}^n\)</span></p></li>
+<li><p>input <span class="math notranslate nohighlight">\(X_{in} \in \mathbb{R}^{m\times n}\)</span> = <span class="math notranslate nohighlight">\(\{ x^{(0)}, x^{(1)},..., x^{(m-1)}  \}\)</span>, with <span class="math notranslate nohighlight">\(x^{(i)}  \in \mathbb{R}^n\)</span></p></li>
 <li><p>encoder weights and bias: <span class="math notranslate nohighlight">\(W_e \in \mathbb{R}^{n \times c}\)</span>, <span class="math notranslate nohighlight">\(b_e \in \mathbb{R}^{c}\)</span></p></li>
 <li><p>decoder weights and bias: <span class="math notranslate nohighlight">\(W_d \in \mathbb{R}^{c \times n}\)</span>, <span class="math notranslate nohighlight">\(b_e \in \mathbb{R}^{n}\)</span></p></li>
 </ul>
@@ -614,8 +618,13 @@
 </ul>
 <p>and we use the following loss function</p>
 <div class="math notranslate nohighlight">
-\[\text{loss}(X_{in}) = \frac{1}{m}\sum_m \big(x^{(i)} - d(e(x^{(i)}))\big)^2 + \beta \frac{1}{c}\sum_{c,i} e(x^{(i)})\]</div>
-<p>observe that we pretend to penalize large values of the encoder activations, with <span class="math notranslate nohighlight">\(\beta\)</span> regulating how much we penalize. As we are using ReLU there is no need to square <span class="math notranslate nohighlight">\(e(x^{(i)})\)</span>.</p>
+\[\text{loss}(X_{in}) = \frac{1}{mn}\sum_{m,n} \big(x^{(i)} - d(e(x^{(i)}))\big)^2 + \beta \frac{1}{mc}\sum_{m,c} e(x^{(i)})\]</div>
+<p>observe that:</p>
+<ul class="simple">
+<li><p>we pretend to penalize large values of the encoder activations, with <span class="math notranslate nohighlight">\(\beta\)</span> regulating how much we penalize</p></li>
+<li><p>as we are using ReLU there is no need to square <span class="math notranslate nohighlight">\(e(x^{(i)})\)</span></p></li>
+<li><p>the summations are over the number of elements (<span class="math notranslate nohighlight">\(m\)</span>, with the running index <span class="math notranslate nohighlight">\(i \in [0,..,m-1]\)</span>) <strong>and</strong> the number of columns (<span class="math notranslate nohighlight">\(n\)</span> for the first term, <span class="math notranslate nohighlight">\(c\)</span> for the second term)</p></li>
+</ul>
 <p><strong>Complete the following function to compute the encoder output and loss</strong>. All arguments are <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays. The <code class="docutils literal notranslate"><span class="pre">Xout</span></code> output must also be a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array and <code class="docutils literal notranslate"><span class="pre">loss</span></code> must be a number. You cannot use Tensorflow to implement your function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -896,7 +905,7 @@
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

@@ -6,3 +6,4 @@ For full interactive content access
 
 https://fagonzalezo.github.io/2021.deeplearning/
 
+

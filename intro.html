@@ -1,614 +1,545 @@
+
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome &#8212; Fundamentos de Deep Learning</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome &#8212; Fundamentos de Deep Learning</title>
-
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
-
-  <link rel="stylesheet" href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
 
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Información 20212 - UdeA" href="content/M00.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
 
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-43235448-3', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
 
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-  <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-  <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-  <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-  <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-  <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+    
 
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-  <script src="_static/jquery.js"></script>
-  <script src="_static/underscore.js"></script>
-  <script src="_static/doctools.js"></script>
-  <script src="_static/togglebutton.js"></script>
-  <script src="_static/clipboard.min.js"></script>
-  <script src="_static/copybutton.js"></script>
-  <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-  <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-  <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-  <script>
-    const thebe_selector = ".thebe"
-    const thebe_selector_input = "pre"
-    const thebe_selector_output = ".output"
-  </script>
-  <script async="async" src="_static/sphinx-thebe.js"></script>
-  <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="Información 20212 - UdeA" href="content/M00.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="docsearch:language" content="en" />
-
-</head>
-
-<body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-
-  <div class="container-fluid" id="banner"></div>
-
-
-
-  <div class="container-xl">
-    <div class="row">
-
-      <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
         <div class="navbar-brand-box">
-          <a class="navbar-brand text-wrap" href="index.html">
-
-            <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-
-
-
-            <img src="_static/fudea.jpg" class="logo" alt="logo">
-
-
-            <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
-
-          </a>
-        </div>
-        <form class="bd-search d-flex align-items-center" action="search.html" method="get">
-          <i class="icon fas fa-search"></i>
-          <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..."
-            aria-label="Search this book..." autocomplete="off">
-        </form>
-        <nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-          <div class="bd-toc-item active">
-            <ul class="nav bd-sidenav">
-              <li class="toctree-l1 current">
-                <a class="reference internal" href="#">
-                  Welcome
-                </a>
-              </li>
-            </ul>
-            <ul class="nav bd-sidenav">
-              <!--<li class="toctree-l1">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/fudea.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Fundamentos de Deep Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1 current">
+  <a class="reference internal" href="#">
+   Welcome
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
   <a class="reference internal" href="content/M00.html">
    Información 20212 - UdeA
   </a>
- </li>-->
-              <li class="toctree-l1 has-children">
-                <a class="reference internal" href="content/M01.html">
-                  01 - INTRODUCTION
-                </a>
-                <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox" />
-                <label for="toctree-checkbox-1">
-                  <i class="fas fa-chevron-down">
-                  </i>
-                </label>
-                <ul>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U1.01%20-%20DL%20Overview.html">
-                      1.1 - DL Overview
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
-                      1.2 - Models derived from data
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
-                      1.3 - ML algorithm design
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U1%20LAB%2001%20-%20WARMUP.html">
-                      LAB 01.01 - WARM UP
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="toctree-l1 has-children">
-                <a class="reference internal" href="content/M02.html">
-                  02 - NEURAL NETWORKS
-                </a>
-                <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox" />
-                <label for="toctree-checkbox-2">
-                  <i class="fas fa-chevron-down">
-                  </i>
-                </label>
-                <ul>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.01%20-%20The%20Perceptron.html">
-                      2.1 - The Perceptron
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.02%20-%20The%20Multilayer%20Perceptron.html">
-                      2.2 - The Multilayer Perceptron
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.03%20-%20Overfitting%20and%20regularization.html">
-                      2.3 - Overfitting and regularization
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.04%20-%20Loss%20functions.html">
-                      2.4 - Loss functions in Tensorflow
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
-                      2.5 - Autoencoders
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
-                      2.6 - Multimodal architectures
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.07%20-%20Vanishing%20gradients.html">
-                      2.7 - Vanishing gradients
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2.08%20-%20Weights%20initialization.html">
-                      2.8 - Weights initialization
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
-                      LAB 2.1 - Customized loss function
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U2%20LAB%2002%20-%20Autoencoders.html">
-                      LAB 2.2 - Sparse Autoencoders
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
-                      LAB 2.3 - Pairwise classification
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
-                      LAB 2.4 - Model instrumentation
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="toctree-l1 has-children">
-                <a class="reference internal" href="content/M03.html">
-                  03 - TENSORFLOW CORE
-                </a>
-                <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox" />
-                <label for="toctree-checkbox-3">
-                  <i class="fas fa-chevron-down">
-                  </i>
-                </label>
-                <ul>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U3.01%20-%20Simbolic%20computing%20for%20ML.html">
-                      3.1 - Symbolic computing for ML
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U3.02%20-%20TF%20for%20symbolic%20computing.html">
-                      3.2 - TF symbolic engine
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U3.03%20-%20Using%20tf.function.html">
-                      3.3 - Using
-                      <code class="docutils literal notranslate">
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content/M01.html">
+   01 - INTRODUCTION
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U1.01%20-%20DL%20Overview.html">
+     1.1 - DL Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U1.02%20-%20Modelos%20derivados%20de%20los%20datos.html">
+     1.2 - Models derived from data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U1.03%20-%20Como%20se%20disena%20un%20algoritmo%20de%20Machine%20Learning.html">
+     1.3 - ML algorithm design
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U1%20LAB%2001%20-%20WARMUP.html">
+     LAB 01.01 - WARM UP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content/M02.html">
+   02 - NEURAL NETWORKS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.01%20-%20The%20Perceptron.html">
+     2.1 - The Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.02%20-%20The%20Multilayer%20Perceptron.html">
+     2.2 - The Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.03%20-%20Overfitting%20and%20regularization.html">
+     2.3 - Overfitting and regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.04%20-%20Loss%20functions.html">
+     2.4 - Loss functions in Tensorflow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.05%20-%20Network%20Architectures%20-%20Autoencoders.html">
+     2.5 - Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.06%20-%20Network%20Architectures%20-%20Multimodal%20information.html">
+     2.6 - Multimodal architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.07%20-%20Vanishing%20gradients.html">
+     2.7 - Vanishing gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2.08%20-%20Weights%20initialization.html">
+     2.8 - Weights initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2%20LAB%2001%20-%20Customized%20loss%20functions%20and%20regularization.html">
+     LAB 2.1 - Customized loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2%20LAB%2002%20-%20Autoencoders.html">
+     LAB 2.2 - Sparse Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2%20LAB%2003%20-%20Pairwise%20image%20classification.html">
+     LAB 2.3 - Pairwise classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U2%20LAB%2004%20-%20Model%20instrumentation%20and%20monitoring.html">
+     LAB 2.4 - Model instrumentation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content/M03.html">
+   03 - TENSORFLOW CORE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3.01%20-%20Simbolic%20computing%20for%20ML.html">
+     3.1 - Symbolic computing for ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3.02%20-%20TF%20for%20symbolic%20computing.html">
+     3.2 - TF symbolic engine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3.03%20-%20Using%20tf.function.html">
+     3.3 - Using
+     <code class="docutils literal notranslate">
       <span class="pre">
        tf.function
       </span>
      </code>
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U3.04%20-%20Batch%20Normalization.html">
-                      3.4 - Batch normalization
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
-                      LAB 3.1 - TF model subclassing
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
-                      LAB 3.2 - Low level
-                      <code class="docutils literal notranslate">
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3.04%20-%20Batch%20Normalization.html">
+     3.4 - Batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3%20LAB%2001%20-%20Tensorflow%20model%20subclassing.html">
+     LAB 3.1 - TF model subclassing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U3%20LAB%2002%20-%20Low%20level%20Tensorflow.html">
+     LAB 3.2 - Low level
+     <code class="docutils literal notranslate">
       <span class="pre">
        tensorflow
       </span>
      </code>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="toctree-l1 has-children">
-                <a class="reference internal" href="content/M04.html">
-                  04 - CONVOLUTIONAL NETWORKS
-                </a>
-                <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox" />
-                <label for="toctree-checkbox-4">
-                  <i class="fas fa-chevron-down">
-                  </i>
-                </label>
-                <ul>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.01%20-%20Convolutions.html">
-                      4.1 - Convolutions
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.02%20-%20Convolutional%20Neural%20Networks.html">
-                      4.2 - CNNs
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.03%20-%20Dropout%2C%20pooling.html">
-                      4.3 - Dropout, pooling
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.04%20-%20CNN%20Architectures.html">
-                      4.4 - CNN Architectures
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.05%20-%20Transfer%20learning.html">
-                      4.5 - Transfer learning
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.06%20-%20Object%20Detection.html">
-                      4.6 - Object detection
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.07%20-%20Transposed%20convolutions.html">
-                      4.7 - Transposed convolutions
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.08%20-%20UNet%20image%20segmentation.html">
-                      <strong>
-                        4.8
-                      </strong>
-                      - UNet Image segmentation
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4.09%20-%20Atrous%20convolutions.html">
-                      4.9 - Atrous convolutions
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4%20LAB%2001%20-%20Convolutions.html">
-                      LAB 4.1 - Convolutions
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4%20LAB%2002%20-%20Transfer%20Learning.html">
-                      LAB 4.2 - Transfer learning
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4%20LAB%2003%20-%20Object%20Detection.html">
-                      LAB 4.3 - Object detection
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U4%20LAB%2004%20-%20Semantic%20segmentation.html">
-                      LAB 4.4 - Semantic segmentation
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="toctree-l1 has-children">
-                <a class="reference internal" href="content/M05.html">
-                  05 - SEQUENCE MODELS
-                </a>
-                <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox" />
-                <label for="toctree-checkbox-5">
-                  <i class="fas fa-chevron-down">
-                  </i>
-                </label>
-                <ul>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.00%20-%20Intro%20time%20series.html">
-                      5.0 Crossvalidation in time series
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.01%20-%20Recurrent%20Neural%20Networks.html">
-                      5.1 Recurrent Neural Networks
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html">
-                      5.2 LSTM and GRU
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.03%20-%20Truncated%20BPTT.html">
-                      5.3 Truncated BPTT
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5.04%20-%20Basic%20concepts%20of%20text%20processing.html">
-                      5.4 Text processing
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.05%20-%20Sequences%20generation%20using%20LSTM.html">
-                      5.5 Sequences generation
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5.06%20-%20Bidirectional%20RNNs%20-%20Attention%20Model.html">
-                      5.6 Bidirectional RNNs
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.07%20-%20ELMo%20-%20NER.html">
-                      5.7 ELMo
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5.08%20-%20Self-Attention%20-%20Transformer%20-%20BERT.html">
-                      5.8 Transformer
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal" href="content/U5.09%20-%20CNN-LSTM%20architectures.html">
-                      5.9 CNN-LSTM architectures
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html">
-                      LAB 5.1 - Time series prediction
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5%20LAB%2002%20-%20Padding%2C%20Masking%20-%20Sentiment%20Analysis.html">
-                      LAB 5.2 - Padding - Masking
-                    </a>
-                  </li>
-                  <li class="toctree-l2">
-                    <a class="reference internal"
-                      href="content/U5%20LAB%2003%20-%20Sentiment%20Analysis%20using%20BERT.html">
-                      LAB 5.3 - Transformer - BERT
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content/M04.html">
+   04 - CONVOLUTIONAL NETWORKS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.01%20-%20Convolutions.html">
+     4.1 - Convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.02%20-%20Convolutional%20Neural%20Networks.html">
+     4.2 - CNNs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.03%20-%20Dropout%2C%20pooling.html">
+     4.3 - Dropout, pooling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.04%20-%20CNN%20Architectures.html">
+     4.4 - CNN Architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.05%20-%20Transfer%20learning.html">
+     4.5 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.06%20-%20Object%20Detection.html">
+     4.6 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.07%20-%20Transposed%20convolutions.html">
+     4.7 - Transposed convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.08%20-%20UNet%20image%20segmentation.html">
+     <strong>
+      4.8
+     </strong>
+     - UNet Image segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4.09%20-%20Atrous%20convolutions.html">
+     4.9 - Atrous convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4%20LAB%2001%20-%20Convolutions.html">
+     LAB 4.1 - Convolutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4%20LAB%2002%20-%20Transfer%20Learning.html">
+     LAB 4.2 - Transfer learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4%20LAB%2003%20-%20Object%20Detection.html">
+     LAB 4.3 - Object detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U4%20LAB%2004%20-%20Semantic%20segmentation.html">
+     LAB 4.4 - Semantic segmentation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="content/M05.html">
+   05 - SEQUENCE MODELS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.00%20-%20Intro%20time%20series.html">
+     5.0 Crossvalidation in time series
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.01%20-%20Recurrent%20Neural%20Networks.html">
+     5.1 Recurrent Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.02%20-%20Long%20Short%20Term%20Memory%20RNN.html">
+     5.2 LSTM and GRU
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.03%20-%20Truncated%20BPTT.html">
+     5.3 Truncated BPTT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.04%20-%20Basic%20concepts%20of%20text%20processing.html">
+     5.4 Text processing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.05%20-%20Sequences%20generation%20using%20LSTM.html">
+     5.5 Sequences generation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.06%20-%20Bidirectional%20RNNs%20-%20Attention%20Model.html">
+     5.6 Bidirectional RNNs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.07%20-%20ELMo%20-%20NER.html">
+     5.7 ELMo
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.08%20-%20Self-Attention%20-%20Transformer%20-%20BERT.html">
+     5.8 Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5.09%20-%20CNN-LSTM%20architectures.html">
+     5.9  CNN-LSTM architectures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5%20LAB%2001%20-%20Multivariate%20time%20series%20prediction.html">
+     LAB 5.1 - Time series prediction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5%20LAB%2002%20-%20Padding%2C%20Masking%20-%20Sentiment%20Analysis.html">
+     LAB 5.2 - Padding - Masking
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="content/U5%20LAB%2003%20-%20Sentiment%20Analysis%20using%20BERT.html">
+     LAB 5.3 - Transformer - BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
 
-          </div>
-        </nav> <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-        <div class="navbar_extra_footer">
-          Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-        </div>
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
 
-      </div>
+</div>
 
 
+          
 
 
-
-
-      <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-
-        <div class="topbar container-xl fixed-top">
-          <div class="topbar-contents row">
-            <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-            <div class="col pl-md-4 topbar-main">
-
-              <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
                 data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
                 aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
                 title="Toggle navigation" data-toggle="tooltip" data-placement="left">
                 <i class="fas fa-bars"></i>
                 <i class="fas fa-arrow-left"></i>
                 <i class="fas fa-arrow-up"></i>
-              </button>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
 
-              <div class="dropdown-buttons-trigger">
-                <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-                  aria-label="Download this page"><i class="fas fa-download"></i></button>
+            <!-- Source interaction buttons -->
 
-                <div class="dropdown-buttons">
-                  <!-- ipynb file if we had a myst markdown file -->
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-                  <!-- Download raw file -->
-                  <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
-                      class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                      data-placement="left">.md</button></a>
-                  <!-- Download PDF via print -->
-                  <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                    onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-                </div>
-              </div>
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
 
-              <!-- Source interaction buttons -->
+            <!-- Launch buttons -->
 
-              <!-- Full screen (wrap in <a> to have style consistency -->
-
-              <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn"
-                  data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()"
-                  aria-label="Fullscreen mode" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
-
-              <!-- Launch buttons -->
-
-            </div>
-
-            <!-- Table of contents -->
-            <div class="d-none d-md-block col-md-2 bd-toc show">
-
-              <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-              </div>
-              <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-                  <li class="toc-h2 nav-item toc-entry">
-                    <a class="reference internal nav-link" href="#trabajando-con-los-materiales-del-curso">
-                      Trabajando con los materiales del curso
-                    </a>
-                  </li>
-                  <li class="toc-h2 nav-item toc-entry">
-                    <a class="reference internal nav-link" href="#intr-sistemas-inteligentes">
-                      Intr. a los Sistemas Inteligentes 2021-II
-                    </a>
-                  </li>
-                </ul>
-
-              </nav>
-            </div>
-          </div>
         </div>
-        <div id="main-content" class="row">
-          <div class="col-12 col-md-9 pl-md-3 pr-md-0">
 
-            <div>
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trabajando-con-los-materiales-del-curso">
+   Trabajando con los materiales del curso
+  </a>
+ </li>
+</ul>
 
-              <div class="section" id="welcome">
-                <h1>Welcome<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
-                <p>Bienvenidos al curso de <strong>Fundamentos de Deep Learning</strong></p>
-                <center>
-                  <iframe width="560" height="315" src="https://www.youtube.com/embed/cx9K-70SbmE" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-                </center>
-                <p />
-                <p />
-                <hr />
-                <!-- 
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="welcome">
+<h1>Welcome<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
+<p>Bienvenidos al curso de <strong>Fundamentos de Deep Learning</strong></p>
+<center>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/cx9K-70SbmE"
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</center>
+<p/><p/><hr/>
 Puedes registrarte en la <font color="red"><b>versión abierta</b></font> (todavía en <b>beta<sup>[1]</sup></b>) de este curso rellenando 
 <a href='https://m5knaekxo6.execute-api.us-west-2.amazonaws.com/dev-v0001/rlxmooc/web/request_invitation/deeplearning.v1/open'>ESTE FORMULARIO</a>. 
 <div class="section" id="trabajando-con-los-materiales-del-curso">
--->
+<h2>Trabajando con los materiales del curso<a class="headerlink" href="#trabajando-con-los-materiales-del-curso" title="Permalink to this headline">¶</a></h2>
+<p>Asegúrate de revisar los siguientes dos videos para familiarizarte con los materiales del curso y poder interaccionar con ellos.</p>
+<p><strong>01 - Jupyter notebooks y Google colab</strong>: <a class="reference external" href="https://youtu.be/KajSbrEBZ5k">video 13mins</a> Explicamos brevemente cómo es el entorno de ejecución de código Python en la nube de Google que vamos a usar durante el curso</p>
+<p><strong>02 - Laboratorios y envío de soluciones</strong>: <a class="reference external" href="https://youtu.be/D6MuCnXc5LM">video 12mins</a> Describimos cómo es el mecanismo de envío de soluciones y la plataforma de autocorrección de talleres.</p>
+<hr class="docutils" />
+<p><sup><b>[1]</b></sup> La versión abierta del curso está en estado <b>beta</b> y todavía estamos mejorando algunos aspectos menores del mismo. Si tienes algún inconveniente, comentario o sugerencia escríbenos a <a href="mailto:raul.ramos@udea.edu.co">raul.ramos&#64;udea.edu.co</a>.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="https://github.com/rramosp/2021.deeplearning/archive/main.zip">Descarga un ZIP con los notebooks del curso</a></p>
+<hr class="docutils" />
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
 
-                <h2>Trabajando con los materiales del curso<a class="headerlink" name="trabajando-con-los-materiales-del-curso"
-                    href="#trabajando-con-los-materiales-del-curso" title="Permalink to this headline">¶</a></h2>
-                <p>Asegúrate de revisar los siguientes dos videos para familiarizarte con los materiales del curso y
-                  poder interaccionar con ellos.</p>
-                <p><strong>01 - Jupyter notebooks y Google colab</strong>: <a class="reference external"
-                    href="https://youtu.be/KajSbrEBZ5k">video 13mins</a> Explicamos brevemente cómo es el entorno de
-                  ejecución de código Python en la nube de Google que vamos a usar durante el curso</p>
-                <p><strong>02 - Laboratorios y envío de soluciones</strong>: <a class="reference external"
-                    href="https://youtu.be/D6MuCnXc5LM">video 12mins</a> Describimos cómo es el mecanismo de envío de
-                  soluciones y la plataforma de autocorrección de talleres.</p>
-                <hr class="docutils" />
-                <!--<p><sup><b>[1]</b></sup> La versión abierta del curso está en estado <b>beta</b> y todavía estamos mejorando algunos aspectos menores del mismo. Si tienes algún inconveniente, comentario o sugerencia escríbenos a <a href="mailto:raul.ramos@udea.edu.co">raul.ramos&#64;udea.edu.co</a>.</p>-->
-                <h2>Intr. a los Sistemas Inteligentes 2021-II<a class="headerlink" name="intr-sistemas-inteligentes"
-                    href="#intr-sistemas-inteligentes" title="Permalink to this headline">¶</a></h2>
-
-                <ul>
-                  <li><strong>Entrega 1</strong> (Dic 12): <ul>
-                      <li>Fundamentos de Deep Learning<ul>
-                          <li>LAB 01.01 - WARM UP</li>
-                          <li>LAB 2.1 - Customized loss function</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><strong>Entrega 2</strong> (Dic 19): <ul>
-                      <li>Fundamentos de Deep Learning <ul>
-                          <li>LAB 2.2 - Sparse Autoencoders</li>
-                          <li>LAB 2.4 - Model instrumentation</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><strong>Entrega 3</strong> (Ene 10): <ul>
-                      <li>Fundamentos de Deep Learning <ul>
-                          <li>LAB 3.1 - TF model subclassing
-                          <li>LAB 3.2 - Low level Tensorflow</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><strong>Entrega 4</strong> (Ene 17): <ul>
-                      <li>Fundamentos de Deep Learning <ul>
-                          <li>4.1 - Convolutions</li>
-                          <li>4.2 - Transfer learning</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><strong>Entrega 5</strong> (Ene 24): <ul>
-                      <li>Fundamentos de Deep Learning <ul>
-                          <li>4.3 - Object detection</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <p>Los laboratorios <i>2.3 - Pairwise classification</i> y <i>4.4 - Semantic classification</i>, junto
-                  con la sección <i>05 - SEQUENCE MODELS</i> son <strong>opcionales</strong> para el curso. Si el
-                  estudiante lo desea, cuenta hasta el <strong>28 de febrero</strong> para realizarlos y obtener el
-                  certificado ofertado por la Universidad de Antioquia.</p>
-                <p>Cualquier duda con el curso porfavor por <a class="reference external"
-                    href="https://campuswire.com">Campuswire</a>.</p>
-                <hr class="docutils" />
-                <p><a class="reference external"
-                    href="https://github.com/rramosp/2021.deeplearning/archive/main.zip">Descarga un ZIP con los
-                    notebooks del curso</a></p>
-                <hr class="docutils" />
-                <div class="toctree-wrapper compound">
-                </div>
-              </div>
-            </div>
-
-            <script type="text/x-thebe-config">
+    <script type="text/x-thebe-config">
     {
         requestKernel: true,
         binderOptions: {
@@ -626,65 +557,41 @@ Puedes registrarte en la <font color="red"><b>versión abierta</b></font> (todav
         predefinedOutput: true
     }
     </script>
-            <script>kernelName = 'python3'</script>
+    <script>kernelName = 'python3'</script>
 
-          </div>
-
-
-
-
-
-          <!-- next page 
-<div class='prev-next-bottom'>
-    
-     <div id="next">
-        <a class="right-next" href="content/M00.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                
-                   <p class="prevnext-title">Información 20212 - UdeA</p>  
-                
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
-</div> -->
-
-        </div>
-
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="content/M00.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Información 20212 - UdeA</p>
     </div>
-  </div>
-  <footer class="footer">
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
     <div class="container">
       <p>
-
-        By Raúl Ramos, Julián Arias / Universidad de Antioquia<br />
-
-        &copy; Copyright 2020.<br />
+        
+          By Raúl Ramos, Julián Arias / Universidad de Antioquia<br/>
+        
+            &copy; Copyright 2020.<br/>
       </p>
     </div>
   </footer>
-  </main>
+</main>
 
 
-  </div>
-  </div>
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
-
-  <script async="" src="https://www.google-analytics.com/analytics.js"></script>
-  <script>
-    window.ga = window.ga || function () {
-      (ga.q = ga.q || []).push(arguments)
-    };
-    ga.l = +new Date;
-    ga('create', 'UA-43235448-3', 'auto');
-    ga('set', 'anonymizeIp', true);
-    ga('send', 'pageview');
-  </script>
-
-</body>
-
+  </body>
 </html>

@@ -9,7 +9,9 @@ frameborder="0"
 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
 </center>
+
 ----
+
 # Intr. a los Sistemas Inteligentes 2021-II
 
 * **Entrega 1** (Dic 12):
@@ -26,7 +28,8 @@ allowfullscreen></iframe>
   * 4.2 - Transfer learning
 * **Entrega 5** (Ene 24):
   * 4.3 - Object detection
-
+  
+----
 
 Los laboratorios *2.3 - Pairwise classification* y *4.4 - Semantic classification*, junto con la sección *05 - SEQUENCE MODELS* son <b>opcionales</b> para el curso. Si el estudiante lo desea, cuenta hasta el <b>28 de febrero</b> para realizarlos y obtener el certificado ofertado por la Universidad de Antioquia.
 

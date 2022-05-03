@@ -12,7 +12,7 @@ allowfullscreen></iframe>
 
 <hr>
 
-<h1>Intr. a los Sistemas Inteligentes 2021-II</h1>
+<h1>Intr. a los Sistemas Inteligentes 2022-I</h1>
 
 * **Entrega 1** (May 23):
   * LAB 01.01 - WARM UP

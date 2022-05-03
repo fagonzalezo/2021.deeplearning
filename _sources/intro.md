@@ -14,26 +14,24 @@ allowfullscreen></iframe>
 
 <h1>Intr. a los Sistemas Inteligentes 2021-II</h1>
 
-* **Entrega 1** (Dic 12):
+* **Entrega 1** (May 23):
   * LAB 01.01 - WARM UP
   * LAB 2.1 - Customized loss function
-* **Entrega 2** (Dic 19):
+* **Entrega 2** (May 30):
   * LAB 2.2 - Sparse Autoencoders
   * LAB 2.4 - Model instrumentation
-* **Entrega 3** (Ene 10):
+* **Entrega 3** (Jun 6):
   * LAB 3.1 - TF model subclassing
   * LAB 3.2 - Low level Tensorflow
-* **Entrega 4** (Ene 17):
+* **Entrega 4** (Jun 13):
   * 4.1 - Convolutions
   * 4.2 - Transfer learning
-* **Entrega 5** (Ene 24):
-  * 4.3 - Object detection
 
 ----
 
-Los laboratorios *2.3 - Pairwise classification* y *4.4 - Semantic classification*, junto con la sección *05 - SEQUENCE MODELS* son <b>opcionales</b> para el curso. Si el estudiante lo desea, cuenta hasta el <b>28 de febrero</b> para realizarlos y obtener el certificado ofertado por la Universidad de Antioquia.
+Los laboratorios que no aparecen listados en las entregas son <b>opcionales</b> para el curso. Si el estudiante lo desea, cuenta con tiempo adicional para realizarlos y obtener el certificado ofertado por la Universidad de Antioquia.
 
-Cualquier duda con el curso porfavor por [Campuswire](https://campuswire.com/).
+Cualquier duda con el curso por favor con el profesor del curso (grupo 1 a través de [Campuswire](https://campuswire.com/)).
 
 
 ----

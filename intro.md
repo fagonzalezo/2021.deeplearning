@@ -33,6 +33,12 @@ Los laboratorios que no aparecen listados en las entregas son <b>opcionales</b> 
 
 Cualquier duda con el curso por favor con el profesor del curso (grupo 1 a través de [Campuswire](https://campuswire.com/)).
 
+## Trabajando con los materiales del curso
+
+**01 - Jupyter notebooks y Google colab**: [video 13mins](https://youtu.be/KajSbrEBZ5k) Explicamos brevemente cómo es el entorno de ejecución de código Python en la nube de Google que vamos a usar durante el curso
+
+**02 - Laboratorios y envío de soluciones**: [video 12mins](https://youtu.be/D6MuCnXc5LM) Describimos cómo es el mecanismo de envío de soluciones y la plataforma de autocorrección de talleres.
+
 
 ----
 

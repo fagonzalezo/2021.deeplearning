@@ -12,18 +12,18 @@ allowfullscreen></iframe>
 
 <hr>
 
-<h1>Intr. a los Sistemas Inteligentes 2022-I</h1>
+<h1>Intr. a los Sistemas Inteligentes 2022-2</h1>
 
-* **Entrega 1** (May 23):
+* **Entrega 1** (Nov 6):
   * LAB 01.01 - WARM UP
   * LAB 2.1 - Customized loss function
-* **Entrega 2** (May 30):
+* **Entrega 2** (Nov 13):
   * LAB 2.2 - Sparse Autoencoders
   * LAB 2.4 - Model instrumentation
-* **Entrega 3** (Jun 6):
+* **Entrega 3** (Nov 20):
   * LAB 3.1 - TF model subclassing
   * LAB 3.2 - Low level Tensorflow
-* **Entrega 4** (Jun 13):
+* **Entrega 4** (Nov 27):
   * 4.1 - Convolutions
   * 4.2 - Transfer learning
 
@@ -31,7 +31,7 @@ allowfullscreen></iframe>
 
 Los laboratorios que no aparecen listados en las entregas son <b>opcionales</b> para el curso. Si el estudiante lo desea, cuenta con tiempo adicional para realizarlos y obtener el certificado ofertado por la Universidad de Antioquia.
 
-Cualquier duda con el curso por favor con el profesor del curso (grupo 1 a través de [Campuswire](https://campuswire.com/)).
+Si tiene alguna duda sobre sobre el curso planteéla a través de [Campuswire](https://campuswire.com/)).
 
 ## Trabajando con los materiales del curso
 

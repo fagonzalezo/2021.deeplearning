@@ -12,18 +12,20 @@ allowfullscreen></iframe>
 
 <hr>
 
-<h1>Intr. a los Sistemas Inteligentes 2022-2</h1>
+<h1>Intr. a los Sistemas Inteligentes </h1>
 
-* **Entrega 1** (Nov 6):
+Verifique las fechas de entrega en la plataforma del curso: [RLXMOOC](https://m5knaekxo6.execute-api.us-west-2.amazonaws.com/dev-v0001/rlxmooc/web/login)
+
+* **Entrega 1** :
   * LAB 01.01 - WARM UP
   * LAB 2.1 - Customized loss function
-* **Entrega 2** (Nov 13):
+* **Entrega 2** :
   * LAB 2.2 - Sparse Autoencoders
   * LAB 2.4 - Model instrumentation
-* **Entrega 3** (Nov 20):
+* **Entrega 3** :
   * LAB 3.1 - TF model subclassing
   * LAB 3.2 - Low level Tensorflow
-* **Entrega 4** (Nov 27):
+* **Entrega 4** :
   * 4.1 - Convolutions
   * 4.2 - Transfer learning
 
